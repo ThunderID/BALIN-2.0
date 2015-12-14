@@ -329,7 +329,7 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
@@ -3986,7 +3986,7 @@ tbody.collapse.in {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 25px;
 }
 
 .nav > li > a:hover,
@@ -4325,7 +4325,7 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  padding: 4px 10px;
   font-size: 18px;
   line-height: 20px;
   height: 50px;
@@ -4389,6 +4389,7 @@ tbody.collapse.in {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
+  text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
@@ -6388,7 +6389,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -6522,7 +6523,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
