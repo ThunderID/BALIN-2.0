@@ -1,0 +1,8 @@
+.search-product{
+	background: transparent;
+	transition: background 0.4s ease-in;
+	&.focus {
+		background-color: $white;
+		border-left: 2px solid $grey-light;
+	}
+}
