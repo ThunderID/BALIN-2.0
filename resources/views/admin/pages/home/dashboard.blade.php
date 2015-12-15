@@ -1,3 +1,12 @@
+<!-- Readme -->
+<!-- 1. plugin -->
+<!-- a. modal -->
+<!-- trigger: copas this -->class="modal-trigger" 
+<!-- <a data-toggle="modal" href='#modal-id' data-backdrop="static" data-source="" data-id="" data-keyboard="false">Kerjakan</a> -->
+<!-- b. body -->
+<!-- ajax query get from trigger data attribute [data-source] -->
+
+
 @extends('admin.page_templates.layout') 
 
 @section('content')
@@ -58,7 +67,9 @@
 		                                        <td>
 		                                            HEM BATIK SEMI SUTERA (SKU : FG7128H)
 		                                        </td>
-		                                        <td class="col-xs-1"><a href="#">Kerjakan</a></td>
+		                                        <td class="col-xs-1">
+													<a data-toggle="modal"  href='#modal-id' class="modal-trigger" data-source="stok" data-id="{{ $i }}" data-backdrop="static" data-source="" data-keyboard="false">Kerjakan</a>
+		                                        </td>
 		                                    </tr>
 		                                    @endfor                                    
 		                                </tbody>
@@ -84,7 +95,9 @@
 		                                        <td>
 		                                            HEM BATIK SEMI SUTERA (SKU : FG7128H)
 		                                        </td>
-		                                        <td class="col-xs-1"><a href="#">Kerjakan</a></td>
+		                                        <td class="col-xs-1">
+													<a data-toggle="modal" class="modal-trigger" href='#modal-id' data-source="Harga" data-id="1" data-backdrop="static" data-source="" data-keyboard="false">Kerjakan</a>
+		                                        </td>
 		                                    </tr>
 		                                </tbody>
 	                                </table>
@@ -109,7 +122,9 @@
 		                                        <td>
 		                                            HEM BATIK SEMI SUTERA (SKU : FG7128H)
 		                                        </td>
-		                                        <td class="col-xs-1"><a href="#">Kerjakan</a></td>
+		                                        <td class="col-xs-1">
+													<a data-toggle="modal" class="modal-trigger" href='#modal-id' data-source="Entri" data-id="1" data-backdrop="static" data-source="" data-keyboard="false">Kerjakan</a>
+		                                        </td>
 		                                    </tr>
 		                                </tbody>
 	                                </table>
@@ -147,4 +162,32 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modal-id">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					data source :
+					<p id="data-source"></p>
+					data id :
+					<p id="data-id"></p>					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+@stop
+
+@section('script')
+	$('.modal-trigger').on('click', function (e) {
+	$("#data-source").text($(this).attr("data-source"));
+	$("#data-id").text($(this).attr("data-id"));
+	})
 @stop
