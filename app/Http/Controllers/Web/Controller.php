@@ -1,31 +1,26 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Web;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Models\StoreSetting;
+use App\Http\Controllers\Controller as Controllers;
+// use App\Models\StoreSetting;
 
-abstract class Controller extends Controller 
+abstract class Controller extends Controllers
 {
 	protected $layout;
 	protected $stores;
 
-    use DispatchesJobs, ValidatesRequests, AuthorizesRequests;
-
-	function __construct() 
+	public function __construct() 
 	{
-		$store 								= StoreSetting::storeinfo(true)->get();
+		// $store 								= StoreSetting::storeinfo(true)->get();
 
-		$stores 							= null;
-		foreach ($store as $key => $value) 
-		{
-			$stores[$value->type] 			= $value->value;
-		}
+		// $stores 							= null;
+		// foreach ($store as $key => $value) 
+		// {
+		// 	$stores[$value->type] 			= $value->value;
+		// }
 
-		view()->share('storeinfo', $stores);
+		// view()->share('storeinfo', $stores);
 
-		$this->layout = view('template.layout');
+		$this->layout = view('web.page_templates.layout');
 	}
 
 }

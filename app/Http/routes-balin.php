@@ -1,23 +1,23 @@
 <?php 
 
-Route::get('coba', function()
-{
-	echo phpinfo();
-});
-// Route::group(['namespace' => 'Web\\', env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], function() 
+// Route::get('coba', function()
 // {
+// 	echo phpinfo();
+// });
+Route::group(['namespace' => 'Web\\', env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], function() 
+{
 	// ------------------------------------------------------------------------------------
 	// SIGNUP & SIGNIN PAGE
 	// ------------------------------------------------------------------------------------
-	// Route::get('join', 													['uses' => 'JoinController@index', 'as' => 'frontend.join.index']);
+	Route::get('login', 													['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
 
-	// Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'frontend.dologin']);
+	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'balin.dologin']);
 
 	// Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
 	
 	// Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'frontend.getsso']);
 
-	// Route::post('do/signup',											['uses' => 'UserController@store', 'as' => 'frontend.user.store']);
+	// Route::post('do/signup',											['usesP' => 'UserController@store', 'as' => 'frontend.user.store']);
 	
 	// ------------------------------------------------------------------------------------
 	// FORGOT PASSWORD
@@ -149,4 +149,4 @@ Route::get('coba', function()
 	// Route::get('/about/use', 											['uses' => 'AboutUsController@index', 		'as' => 'balin.about.us']);
 	
 	// Route::get('/404', 													['uses' => 'ErrorController@er404', 		'as' => 'frontend.error.404']);
-// });
+});
