@@ -17,17 +17,29 @@
 		
 		{!! HTML::style('https://fonts.googleapis.com/css?family=Roboto:400,300,500,700') !!}
 
+		@if(isset($page_subtitle))
+			<title>{{$page_subtitle}} - {{$page_title}}</title>
+		@else
+			<title>BALIN.ID</title>
+		@endif
+
+		@if(isset($metas))
+			@foreach ($metas as $k => $v)
+				<meta name="{{$k}}" content="{{strip_tags($v)}}">
+			@endforeach
+		@endif
+		
 		@yield('css')
 	</head>
 	<body class="@yield('body_class')">
-		<header class="page-header" style="">
-			@include('web.components.nav')
-		</header>
-		<section class="container">
-			@yield('content')
-		</section>
-
-		<div class="container"></div>
+		<div class="wrapper @yield('wrapper_class')">
+			<header class="page-header" style="">
+				@include('web.components.nav')
+			</header>
+			<section class="container">
+				@yield('content')
+			</section>
+		</div>
 		@include('web.components.footer')
 			
 		<!-- CSS -->
@@ -36,6 +48,9 @@
 		{{-- JS --}}
 		{!! HTML::script(elixir('js/balin.js')) !!}
 
-		@yield('js')
+		@yield('js_plugin')
+		<script type="text/javascript">
+			@yield('js')
+		</script>
 	</body>
 </html>

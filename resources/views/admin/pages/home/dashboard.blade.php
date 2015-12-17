@@ -1,8 +1,8 @@
 <!-- Readme -->
 <!-- 1. plugin -->
 <!-- a. modal -->
-<!-- trigger: copas this -->class="modal-trigger" 
-<!-- <a data-toggle="modal" href='#modal-id' data-backdrop="static" data-source="" data-id="" data-keyboard="false">Kerjakan</a> -->
+<!-- trigger: copas this -->
+<!-- <a class="modal-trigger" data-toggle="modal" href='#modal-id' data-backdrop="static" data-source="" data-id="" data-keyboard="false">Kerjakan</a> -->
 <!-- b. body -->
 <!-- ajax query get from trigger data attribute [data-source] -->
 

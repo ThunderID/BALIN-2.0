@@ -38,7 +38,7 @@ $space-xl:				30px;
 $space-xxl:				35px;
 $space-xxxl:			40px;
 
-$bg-balin: 				"../../../images/cover/balin-bg.jpg";
+$bg-balin: 				"../../../images/balin-bg.jpg";
 
 
 // --------------------
@@ -148,11 +148,11 @@ $space-xxxl:			40px;
 
 // LINK
 a:hover {				text-decoration: none;}
-.hover-grey{			color: $grey;}
-.hover-black{			color: $black;}
-.hover-white{			color: $white;}
-.hover-gold{			color: $gold-light;}
-.hover-red{				color: $red;}
+.hover-grey:hover{		color: $grey;}
+.hover-black:hover{		color: $black;}
+.hover-white:hover{		color: $white;}
+.hover-gold:hover{		color: $gold-light;}
+.hover-red:hover{		color: $red;}
 
 // TEXT
 p{						line-height: 2em;}
@@ -329,7 +329,7 @@ p{						line-height: 2em;}
 	color: $white;
 	&:hover {
 		border: $space-1 solid $black;
-		background-color: $white;
+		background-color: rgba(255, 255, 255, 0.8);
 		color: $black !important;
 		-webkit-transition: 0.4s ease;
 		-moz-transition: 0.4s ease;
