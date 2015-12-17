@@ -3,6 +3,8 @@
 use App\Http\Controllers\Controller as Controllers;
 // use App\Models\StoreSetting;
 
+use Route;
+
 abstract class Controller extends Controllers
 {
 	protected $layout;
@@ -20,7 +22,14 @@ abstract class Controller extends Controllers
 
 		// view()->share('storeinfo', $stores);
 
-		$this->layout = view('web.page_templates.layout');
+		if (Route::is('balin.campaign.join.get'))
+		{
+			$this->layout = view('web.page_templates.layout_campaign');
+		}
+		else
+		{
+			$this->layout = view('web.page_templates.layout');
+		}
 	}
 
 }

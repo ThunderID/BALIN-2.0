@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,18 +30,37 @@
 		@endif
 		
 		@yield('css')
+	   <style type="text/css">
+	   		body {
+				background: url('../../../../Balin/web/image/bg.jpg') no-repeat;
+				background-position: 80% 50%;
+				-moz-background-size: cover;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+	   		}
+
+	   		@media (min-width: 768px) and (max-width: 992px) {
+	   			body {
+					background-position: 30% 50%;
+	   			}
+	   		}
+
+	   		@media (max-width: 767px) {
+	   			body {
+					background-position: 15% 50%;
+					min-height: 100%;
+	   			}
+	   		}
+	   </style>
 	</head>
-	<body class="@yield('body_class')" style="background-color: #f8f8f8;">
+	<body class="@yield('body_class')">
 		<div class="wrapper @yield('wrapper_class')">
-			<header class="page-header" style="">
-				@include('web.components.nav')
-			</header>
 			<section class="container">
 				@yield('content')
 			</section>
 		</div>
-		@include('web.components.footer')
-			
+
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 
