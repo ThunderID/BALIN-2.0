@@ -5,13 +5,13 @@
 				{!! HTML::image('Balin/admin/image/logo.png') !!}
 			</li>
 			<li class="{{ ($nav_active=='dashboard')?"active":"" }}">
-				<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+				<a href="{{ route('admin.home.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
 			</li>
-			<li class="{{ ($nav_active=='data')?"active":"" }}">
+			<li class="{{ ($nav_active=='barang')?"active":"" }}">
 				<a href="#"><i class="fa fa-archive"></i> <span class="nav-label">Barang</span></a>
 				<ul class="nav nav-second-level">
-					<li class="{{ ($subnav_active=='products')?"active":"" }}">
-						<a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Produk</span></a>
+					<li class="{{ ($subnav_active=='produk')?"active":"" }}">
+						<a href="{{ route('admin.data.product.index') }}"><i class="fa fa-cubes"></i> <span class="nav-label">Produk</span></a>
 					</li>
 					<li class="{{ ($subnav_active=='products')?"active":"" }}">
 						<a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Stok</span></a>
@@ -27,7 +27,10 @@
 					</li>
 					<li class="{{ ($subnav_active=='products')?"active":"" }}">
 						<a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Label</span></a>
-					</li>					
+					</li>	
+					<li class="{{ ($subnav_active=='products')?"active":"" }}">
+						<a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Supplier</span></a>
+					</li>										
 				</ul>
 			</li>
 			<li class="{{ ($nav_active=='data')?"active":"" }}">
