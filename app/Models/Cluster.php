@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasTypeTrait;
-use App\Models\Observers\ClusterObserver;
+// use App\Models\Observers\ClusterObserver;
 
 class Cluster extends BaseModel
 {

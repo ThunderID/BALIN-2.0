@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Observers\PriceObserver;
+// use App\Models\Observers\PriceObserver;
 
 class Price extends BaseModel
 {

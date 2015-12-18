@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-// use App\Models\Observers\ProductObserver;
+// use App\Models\Observers\TransactionDetailObserver;
 
-class Product extends BaseModel
+class TransactionDetail extends BaseModel
 {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'transaction_details';
 
 	// protected $timestamps			= true;
 
@@ -43,21 +43,22 @@ class Product extends BaseModel
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'upc'							,
-											'slug'							,
-											'description'					,
+											'transaction_id'				,
+											'varian_id'						,
+											'quantity'						,
+											'price'							,
+											'discount'						,
 										];
-										
+
 	/**
 	 * Basic rule of database
 	 *
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:50',
-											'upc'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'quantity'						=> 'required|numeric',
+											'price'							=> 'required|numeric',
+											'discount'						=> 'required|numeric',
 										];
 	
 	/* ---------------------------------------------------------------------------- RELATIONSHIP ----------------------------------------------------------------------------*/
@@ -74,7 +75,7 @@ class Product extends BaseModel
 	{
         parent::boot();
  
-        // Product::observe(new ProductObserver());
+        // TransactionDetail::observe(new TransactionDetailObserver());
     }
 
 	/* ---------------------------------------------------------------------------- SCOPES ----------------------------------------------------------------------------*/

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Observers\VarianObserver;
+// use App\Models\Observers\VarianObserver;
 
 class Varian extends BaseModel
 {

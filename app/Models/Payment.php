@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Observers\PaymentObserver;
+// use App\Models\Observers\PaymentObserver;
 
 class Payment extends BaseModel
 {

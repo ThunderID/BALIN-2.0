@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-// use App\Models\Observers\ProductObserver;
+// use App\Models\Observers\TransactionLogObserver;
 
-class Product extends BaseModel
+class TransactionLog extends BaseModel
 {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'transaction_logs';
 
 	// protected $timestamps			= true;
 
@@ -20,7 +20,7 @@ class Product extends BaseModel
 	 *
 	 * @var array
 	 */
-	protected $dates				=	['created_at', 'updated_at', 'deleted_at'];
+	protected $dates				=	['created_at', 'updated_at', 'deleted_at', 'changed_at'];
 
 	/**
 	 * The appends attributes from mutator and accessor
@@ -43,21 +43,21 @@ class Product extends BaseModel
 	 */
 
 	protected $fillable				=	[
-											'name'							,
-											'upc'							,
-											'slug'							,
-											'description'					,
+											'transaction_id'				,
+											'status'						,
+											'changed_at'					,
+											'notes'							,
 										];
-										
+
 	/**
 	 * Basic rule of database
 	 *
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:50',
-											'upc'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'status'						=> 'required|in:cart,wait,paid,packed,shipping,delivered,canceled,abandoned',
+											'changed_at'					=> 'required|date_format:"Y-m-d H:i:s"',
+											'notes'							=> 'required_if:status,delivered',
 										];
 	
 	/* ---------------------------------------------------------------------------- RELATIONSHIP ----------------------------------------------------------------------------*/
@@ -74,7 +74,7 @@ class Product extends BaseModel
 	{
         parent::boot();
  
-        // Product::observe(new ProductObserver());
+        // TransactionLog::observe(new TransactionLogObserver());
     }
 
 	/* ---------------------------------------------------------------------------- SCOPES ----------------------------------------------------------------------------*/

@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-// use App\Models\Observers\ProductObserver;
+// use App\Models\Observers\SupplierObserver;
 
-class Product extends BaseModel
+class Supplier extends BaseModel
 {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table				= 'products';
+	protected $table				= 'suppliers';
 
 	// protected $timestamps			= true;
 
@@ -44,20 +44,15 @@ class Product extends BaseModel
 
 	protected $fillable				=	[
 											'name'							,
-											'upc'							,
-											'slug'							,
-											'description'					,
 										];
-										
+
 	/**
 	 * Basic rule of database
 	 *
 	 * @var array
 	 */
 	protected $rules				=	[
-											'name'							=> 'required|max:50',
-											'upc'							=> 'required|max:255',
-											'slug'							=> 'required|max:255',
+											'name'							=> 'required|max:255',
 										];
 	
 	/* ---------------------------------------------------------------------------- RELATIONSHIP ----------------------------------------------------------------------------*/
@@ -74,7 +69,7 @@ class Product extends BaseModel
 	{
         parent::boot();
  
-        // Product::observe(new ProductObserver());
+        // Supplier::observe(new SupplierObserver());
     }
 
 	/* ---------------------------------------------------------------------------- SCOPES ----------------------------------------------------------------------------*/

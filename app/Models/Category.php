@@ -7,7 +7,7 @@
 
 namespace App\Models;
 
-use App\Models\Observers\CategoryObserver;
+// use App\Models\Observers\CategoryObserver;
 
 class Category extends Cluster
 {
