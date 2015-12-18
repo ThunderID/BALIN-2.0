@@ -1,7 +1,7 @@
 @extends('web.page_templates.layout')
 
 @section('content')
-<!-- section header user login -->
+<!-- SECTION HEADER USER LOGIN -->
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 			<p class="m-t-md user-hello">
@@ -26,10 +26,10 @@
 		</div>
 	</div>
 	<div class="clearfix">&nbsp;</div>
-<!-- end section user login -->
-<!-- section point info & referral code -->
+<!-- END SECTION USER LOGIN -->
+<!-- SECTION POINT INFO & REFERRAL CODE -->
 	<div class="row point-info bg-grey-light ml-0 mr-0">
-<!-- section referral code -->
+		<!-- SECTION REFERRAL CODE -->
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row ">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
@@ -42,59 +42,74 @@
 					</h4>   
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-uppercase text-right hidden-xs"><strong>98BIOLK</strong></p>
-					<div class="clearfix hidden-xs">&nbsp;</div>
+					<!-- SECTION REFERRAL CODE DESKTOP -->
+					<p class="text-uppercase text-right hidden-xs hidden-sm"><strong>98BIOLK</strong></p>
+					<div class="clearfix hidden-xs hidden-sm">&nbsp;</div>
+					<!-- END SECTION REFERRAL CODE DESKTOP -->
+					<!-- SECTION REFERRAL CODE DESKTOP -->
+					<p class="text-uppercase m-xs hidden-md hidden-lg"><strong>98BIOLK</strong></p>
+					<!-- END SECTION REFERRAL CODE DESKTOP -->
 				</div>
 			</div>
 		</div>
-<!-- end section referral code -->
-<!-- section point -->
+<!-- END SECTION REFERRAL CODE -->
+<!-- SECTION POINT -->
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
 					<h4 class="text-uppercase">Balin Point Anda 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information"><i class="fa fa-question-circle fa-1x"></i></a>
+							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information">
+								<i class="fa fa-question-circle fa-1x"></i>
+							</a>
 						</small>
 					</h4>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-right"><strong>IDR 80.000</strong></p>
+					<!-- SECTION POINT DESKTOP -->
+					<p class="text-right hidden-xs hidden-sm"><strong>IDR 80.000</strong></p>
+					<!-- END SECTION POINT DESKTOP -->
+					<!-- SECTION POINT MOBILE, TABLET -->
+					<p class="ml-xs hidden-md hidden-lg"><strong>IDR 80.000</strong></p>
+					<!-- END SECTION POINT MOBILE, TABLET -->
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
 					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" 
 						data-toggle="modal" 
 						data-target=".modal-user-information" 
-						data-action="#" 
+						data-action="{{ route('balin.profile.point.index') }}" 
 						data-modal-title="History Balin Point Anda" 
 						data-view="modal-lg">[ History ]</a>
 					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" 
 						data-toggle="modal" 
 						data-target=".modal-user-information" 
-						data-action="#" 
+						data-action="{{ route('balin.profile.point.index') }}" 
 						data-modal-title="History Balin Point Anda" 
 						data-view="modal-lg">[ History ]</a>
-						<div class="clearfix">&nbsp;</div>
 				</div>
 			</div>
 		</div>
-<!-- end section point -->
+<!-- END SECTION POINT -->
 	</div>
-<!-- end section point & referral code -->
+<!-- END SECTION POINT & REFERRAL CODE -->
 	<div class="clearfix">&nbsp;</div>
-<!-- section information akun -->
+<!-- SECTION INFORMATION AKUN -->
 	<div class="row bg-grey-dark ml-0 mr-0 text-white">
 		<div class="col-sm-12">
 			<h4 class="text-uppercase">Informasi Akun</h4>
 		</div>
 	</div>
 	<div class="row bg-white ml-0 mr-0">
-<!-- section informtion general -->
+<!-- SECTION INFORMTION GENERAL -->
 		<div class="col-sm-6">
 			<h5 class="text-grey text-uppercase mt-sm mb-md">
 				Informasi Umum 
 				<small>
-					<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="#" data-modal-title="Ubah Informasi User" data-view="modal-lg" class="balin-link">
+					<a class="link-gold unstyle balin-link" href="#"
+						data-action="{{ route('balin.profile.user.edit') }}"
+						data-toggle="modal" 
+						data-target=".modal-user-information"
+						data-modal-title="Ubah Informasi Umum" >
 						<i class="fa fa-pencil"></i> Ubah
 					</a>
 				</small>
@@ -104,9 +119,16 @@
 					Username
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION USERNAME DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>Mr. Balin</strong>
 					</p>
+					<!-- END SECTION USERNAME DESKTOP -->
+					<!-- SECTION USERNAME MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>Mr. Balin</strong>
+					</p>
+					<!-- SECTION END USERNAME MOBILE, TABLET -->
 				</div>
 			</div>
 			<div class="row">
@@ -114,9 +136,16 @@
 					Email
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION EMAIL DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>cs@balin.id</strong>
 					</p>
+					<!-- END SECTION EMAIL DESKTOP -->
+					<!-- SECTION EMAIL MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>cs@balin.id</strong>
+					</p>
+					<!-- SECTION END EMAIL MOBILE, TABLET -->
 				</div>
 			</div>
 			<div class="row">
@@ -124,14 +153,21 @@
 					Tanggal lahir
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION DATE OF BIRTH DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>18-10-1970</strong>
 					</p>
+					<!-- END SECTION DATE OF BIRTH DESKTOP -->
+					<!-- SECTION DATE OF BIRTH MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>18-10-1970</strong>
+					</p>
+					<!-- END SECTION DATE OF BIRTH MOBILE, TABLET -->
 				</div>
 			</div>
 		</div>
-<!-- end section information general -->
-<!-- section information anggota balin -->
+<!-- END SECTION INFORMATION GENERAL -->
+<!-- SECTION INFORMATION ANGGOTA BALIN -->
 		<div class="col-sm-6">
 			<h5 class="text-grey text-uppercase mt-sm mb-md">Keanggotaan</h5>
 			<div class="row">
@@ -139,43 +175,79 @@
 					Kuota Invite Referal
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION KUOTA INVITE DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>10</strong>
 					</p>
+					<!-- END SECTION KUOTA INVITE DESKTOP -->
+					<!-- SECTION KUOTA INVITE MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>10</strong>
+					</p>
+					<!-- END SECTION KUOTA INVITE MOBILE, TABLET -->
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 					<h4>Pemberi Referal Anda
 						<small>
-							<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="#" data-modal-title="Pemberi Referal Anda" data-view="modal-md">[ Tambahkan ]</a>
+							<a class="link-gold unstyle" href="#" 
+								data-toggle="modal" 
+								data-target=".modal-user-information" 
+								data-action="{{ route('balin.profile.reference.create') }}" 
+								data-modal-title="Pemberi Referal Anda" 
+								data-view="modal-md">[ Tambahkan ]</a>
 						</small>
 					</h4>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION PEMBERI REFERRAL DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>Tidak ada</strong>
 					</p>
+					<!-- END SECTION PEMBERI REFERRAL DESKTOP -->
+					<!-- SECTION PEMBERI REFERRAL MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>Tidak ada</strong>
+					</p>
+					<!-- END SECTION PEMBERI REFERRAL MOBILE, TABLET -->
 				</div>
 			</div>
 			<div class="row p-b-xs">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 					Referal Anda 
 					<small>
-						<a class="link-gold unstyle" href="#" data-toggle="modal" data-target=".modal-user-information" data-action="#" data-modal-title="Lihat Referal Anda" data-view="modal-md">
+						<a class="link-gold unstyle" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('balin.profile.referral.index') }}" 
+							data-modal-title="Lihat Referal Anda" 
+							data-view="modal-md">
 							[ Lihat Daftar ]
 						</a>
 					</small>
 				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+					<!-- SECTION REFERRAL ANDA DESKTOP -->
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>Tidak ada</strong>
+					</p>
+					<!-- END SECTION REFERRAL ANDA DESKTOP -->
+					<!-- SECTION REFERRAL ANDA MOBILE, TABLET -->
+					<p class="hidden-md hidden-lg">
+						<strong>Tidak ada</strong>
+					</p>
+					<!-- END SECTION REFERRAL ANDA MOBILE, TABLET -->
+				</div>
 			</div>
 		</div>
-<!-- end section information anggota balin -->
+<!-- END SECTION INFORMATION ANGGOTA BALIN -->
 	</div>
-<!-- end section information akun -->
+<!-- END SECTION INFORMATION AKUN -->
 
 	<div class="clearfix">&nbsp;</div>
 
-<!-- section information tracking order -->
+<!-- SECTION INFORMATION TRACKING ORDER -->
 	<div class="row bg-grey-dark ml-0 mr-0 text-white">
 		<div class="col-sm-12">
 			<h4 class="text-uppercase">Informasi Pengiriman & Tracking Order</h4>
@@ -186,28 +258,28 @@
 			<p class="text-center">tidak ada order</p>
 		</div>
 	</div>
-<!-- end section information tracking order -->
+<!-- END SECTION INFORMATION TRACKING ORDER -->
 
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 
-<!-- section modal user information -->
+<!-- SECTION MODAL USER INFORMATION -->
 	<div class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 					<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 				</div>
-				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+				<div class="modal-body m-md">
 					
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- end section modal user information -->
+<!-- END SECTION MODAL USER INFORMATION -->
 
-<!-- section sub modal  user information -->
+<!-- SECTION SUB MODAL  USER INFORMATION -->
 	<div id="submodal-balance" class="modal submodal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -221,9 +293,9 @@
 			</div>
 		</div>
 	</div>
-<!-- end section sub modal user information -->
+<!-- END SECTION SUB MODAL USER INFORMATION -->
 
-<!-- section modal information & function balin point -->
+<!-- SECTION MODAL INFORMATION & FUNCTION BALIN POINT -->
 	<div id="" class="modal point-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -242,9 +314,9 @@
 			</div>
 		</div>
 	</div>
-<!-- end section modal information & function balin point -->
+<!-- END SECTION MODAL INFORMATION & FUNCTION BALIN POINT -->
 
-<!-- section modal information & function referral code -->
+<!-- SECTION MODAL INFORMATION & FUNCTION REFERRAL CODE -->
 	<div id="" class="modal referral-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -262,44 +334,23 @@
 			</div>
 		</div>
 	</div>
-<!-- end section modal information & function referaal code -->
+<!-- END SECTION MODAL INFORMATION & FUNCTION REFERAAL CODE -->
 @stop
 
-@section('script')
-	@if(Input::has('ref'))
-		var event = new Event('build');
-		var actions     = "{!! route('frontend.any.checked.out', ['ref' => Input::get('ref')]) !!}";
-		console.log(actions);
-		// Listen for the event.
-		document.addEventListener('build', function (e) 
-		{
-			var action = actions;
-			var title = "Pesanan Disimpan";
-			var view_mode = '';
-			parsing = '';
+@section('js')
+	$('.modal-user-information').on('show.bs.modal', function(e) {
+		var action = $(e.relatedTarget).attr('data-action');
+		var title = $(e.relatedTarget).attr('data-modal-title');
+		var view_mode = $(e.relatedTarget).attr('data-view');
+		parsing = $(e.relatedTarget).attr('data-action-parsing');
 
-			$('#modal-balance').find('.modal-body').html('loading...');
-			$('#modal-balance').find('.modal-title').html(title);
-			$('#modal-balance').find('.modal-dialog').addClass(view_mode);
-			$('#modal-balance').find('.modal-body').load(action, function() {
-				if (parsing !== null && parsing !== undefined) {
-					change_action($(this), parsing);
-				}
-			});
-
-			$('#modal-balance').modal('show');
-		}, false);
-
-		// Dispatch the event.
-		document.dispatchEvent(event);
-
-		$('#modal-balance').on('hidden.bs.modal', function () {
-			window.history.pushState('obj', 'newtitle', '/profile');
-			return false;
+		$(this).find('.modal-body').html('loading...');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
 		});
-	@endif
-@stop
-
-@section('script_plugin')
-
+	});	
 @stop

@@ -18,118 +18,29 @@ class UserController extends Controller
 	{		
 		$breadcrumb								= ['Profile' => route('balin.profile.user.index')];
 
-		$this->layout->page 					= view('web.page.profile.user.index')
-													->with('controller_name', $this->controller_name)
-													->with('breadcrumb', $breadcrumb);
-
+		$this->layout->page 					= view('web.page.profile.user.index');
+		$this->layout->breadcrumb 				= $breadcrumb;
 		$this->layout->controller_name			= $this->controller_name;
-
 		$this->layout->page->page_title 		= 'BALIN.ID';
 		$this->layout->page->page_subtitle 		= 'Profile';
 
 		return $this->layout;
 	}
 
-	// public function store($id = null)
-	// {
-	// 	$inputs 								= Input::only('name', 'email', 'date_of_birth', 'gender', 'address');
-		
-	// 	if (!is_null($id))
-	// 	{
-	// 		$data								= User::find($id);
-	// 	}
-	// 	else
-	// 	{
-	// 		$data								= new User;
-	// 	}
-		
-	// 	if(preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
-	// 	{
-	// 		$dob								= Carbon::createFromFormat('Y-m-d', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-	// 	}
-	// 	else
-	// 	{
-	// 		$dob								= Carbon::createFromFormat('d-m-Y', $inputs['date_of_birth'])->format('Y-m-d H:i:s');
-	// 	}
-		
-	// 	if (Input::has('password') || is_null($id))
-	// 	{
-	// 		$validator 							= Validator::make(Input::only('password', 'password_confirmation'), ['password' => 'required|min:8|confirmed']);
+	public function edit()
+	{		
+		$breadcrumb									= ['Ubah Profile' => route('balin.profile.user.edit')];
 
-	// 		if (!$validator->passes())
-	// 		{
-	// 			return Redirect::back()
-	// 				->withInput()
-	// 				->withErrors($validator->errors())
-	// 				->with('msg-type', 'danger')
-	// 				->with('msg-from', 'sign-up');
-	// 		}
-	// 	}
+		$this->layout->page 						= view('web.page.profile.user.edit');
+		$this->layout->page->page_subtitle 			= 'Ubah Pengaturan Akun';
 
-	// 	DB::beginTransaction();
-		
-	// 	$errors 								= new MessageBag();
-		
-	// 	$data->fill([
-	// 		'name' 								=> $inputs['name'],
-	// 		'email'								=> $inputs['email'],
-	// 		'date_of_birth'						=> $dob,
-	// 		'role'								=> 'customer',
-	// 		'gender'							=> $inputs['gender'],
-	// 		'password'							=> Input::get('password'), 
-	// 		'is_active'							=> false
-	// 	]);
+		return  $this->layout->page;
+	}
 
-	// 	if (!$data->save())
-	// 	{
-	// 		$errors->add('Customer', $data->getError());
-	// 	}
-
-	// 	// if(!$errors->count())
-	// 	// {
-	// 	// 	$address							= new Address;
-	// 	// 	$address->fill([
-	// 	// 		'address' 						=> $inputs['address'],
-	// 	// 	]);
-
-	// 	// 	$address->owner()->associate($data);
-			
-	// 	// 	if (!$address->save())
-	// 	// 	{
-	// 	// 		$errors->add('Address', $address->getError());
-	// 	// 	}
-	// 	// }
-	// 	if ($errors->count())
-	// 	{
-	// 		DB::rollback();
-
-	// 		return Redirect::back()
-	// 			->withInput()
-	// 			->withErrors($errors)
-	// 			->with('msg-type', 'danger')
-	// 			->with('msg-from', 'sign-up');
-	// 	}
-	// 	else
-	// 	{
-	// 		DB::commit();
-	// 		return Redirect::route('frontend.join.index')
-	// 			->with('msg', 'Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda')
-	// 			->with('msg-type', 'success')
-	// 			->with('msg-from', 'login');
-	// 	}
-	// }
-
-	// public function edit()
-	// {		
-	// 	$breadcrumb								= ['Ubah Profile' => route('frontend.user.edit')];
-
-	// 	return  view('pages.frontend.user.edit')
-	// 												->with('controller_name', $this->controller_name)
-	// 												->with('subnav_active', 'account_setting')
-	// 												->with('title', 'Ubah Pengaturan Akun')
-	// 												->with('breadcrumb', $breadcrumb);
-
-	// }
+	public function update()
+	{
+		dd(Input::all());
+	}
 
 	// public function update()
 	// {		

@@ -2,21 +2,41 @@
 
 Route::group(['namespace' => 'Web\\', env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], function() 
 {
-	// ------------------------------------------------------------------------------------
-	// SIGNUP & SIGNIN PAGE
-	// ------------------------------------------------------------------------------------
+	/* 	------------------------------------------------------------------------------------
+	 	|  SIGNUP & SIGNIN PAGE
+		------------------------------------------------------------------------------------ */
 	Route::get('login', 												['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
 
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'balin.dologin']);
 
-	// ------------------------------------------------------------------------------------
-	// USER PROFILE
-	// ------------------------------------------------------------------------------------
+	/* 	------------------------------------------------------------------------------------
+		|  USER PROFILE
+		------------------------------------------------------------------------------------ */
 	Route::group(['prefix' => 'profile', 'namespace' => 'Profile\\'], function()
 	{
 		Route::get('/',													['uses' => 'UserController@index', 'as' => 'balin.profile.user.index']);
 
+		// EDIT PROFILE USER [ VIEW TO MODAL ]
+		Route::get('edit', 												['uses' => 'UserController@edit', 'as' => 'balin.profile.user.edit']);
+		Route::post('edit', 											['uses' => 'UserController@update', 'as' => 'balin.profile.user.update']);
+
+		// BALIN POINT
+		Route::get('point', 											['uses' => 'PointController@index', 'as' => 'balin.profile.point.index']);
+
+		// REFERENCE
+		Route::get('reference', 										['uses' => 'ReferenceController@create', 'as' => 'balin.profile.reference.create']);
+		Route::post('reference',										['uses' => 'ReferenceController@store', 'as' => 'balin.profile.reference.store']);
+
+		// REFERRAL
+		Route::get('referral',											['uses' => 'ReferralController@index', 'as' => 'balin.profile.referral.index']);
 	});
+
+	/* 	------------------------------------------------------------------------------------
+		|  REFERRAL CODE & BALIN POINT
+		------------------------------------------------------------------------------------ */
+	// REFERRAL CODE
+	Route::get('redeem/code',											['uses' => 'RedeemController@index', 'as' => 'balin.redeem.index']);
+	Route::post('redeem/code', 											['uses' => 'RedeemController@store', 'as' => 'balin.redeem.store']);
 
 	// Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
 	
