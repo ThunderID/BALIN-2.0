@@ -18,7 +18,14 @@ class TypeScope implements ScopeInterface
 	{
 		if(isset($model->type))
 		{
-	    	$builder->where('type', $model->type);
+			if(!is_array($model->type))
+			{
+		    	$builder->where('type', $model->type);
+			}
+			else
+			{
+		    	$builder->whereIn('type', $model->type);
+			}
 		}
 	}
 
