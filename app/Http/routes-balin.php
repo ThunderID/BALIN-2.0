@@ -1,17 +1,22 @@
 <?php 
 
-// Route::get('coba', function()
-// {
-// 	echo phpinfo();
-// });
 Route::group(['namespace' => 'Web\\', env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], function() 
 {
 	// ------------------------------------------------------------------------------------
 	// SIGNUP & SIGNIN PAGE
 	// ------------------------------------------------------------------------------------
-	Route::get('login', 													['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
+	Route::get('login', 												['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
 
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'balin.dologin']);
+
+	// ------------------------------------------------------------------------------------
+	// USER PROFILE
+	// ------------------------------------------------------------------------------------
+	Route::group(['prefix' => 'profile', 'namespace' => 'Profile\\'], function()
+	{
+		Route::get('/',													['uses' => 'UserController@index', 'as' => 'balin.profile.user.index']);
+
+	});
 
 	// Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'frontend.dosso']);
 	

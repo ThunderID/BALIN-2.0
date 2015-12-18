@@ -137,13 +137,16 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         'Illuminate\Html\HtmlServiceProvider',
-
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        'Maatwebsite\Excel\ExcelServiceProvider',
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -194,6 +197,12 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Carbon'    => 'Carbon\Carbon',
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Gate'      => Illuminate\Support\Facades\Gate::class,
+        'PrettyPaginate'=> App\Classes\PrettyPaginator::class,
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 
     ],
 
