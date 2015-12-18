@@ -17,11 +17,12 @@ class CreateStatCategoryViewTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('category_id')->unsigned()->index();
             $table->integer('view');
+            $table->datetime('ondate');
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'category_id', 'user_id']);
-            $table->index(['deleted_at', 'user_id', 'category_id']);
+            $table->index(['deleted_at', 'ondate', 'category_id']);
+            $table->index(['deleted_at', 'ondate', 'user_id']);
         });
     }
 
