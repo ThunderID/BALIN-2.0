@@ -16,9 +16,27 @@ class TypeScope implements ScopeInterface
 	 */
 	public function apply(Builder $builder, Model $model)
 	{
-		if(isset($model->type))
+		if(isset($model->type_field) && isset($model->type))
 		{
-	    	$builder->where('type', $model->type);
+			if(!is_array($model->type))
+			{
+		    	$builder->where($model->type_field, $model->type);
+			}
+			else
+			{
+		    	$builder->whereIn($model->type_field, $model->type);
+			}
+		}
+		elseif(isset($model->type))
+		{
+			if(!is_array($model->type))
+			{
+		    	$builder->where('type', $model->type);
+			}
+			else
+			{
+		    	$builder->whereIn('type', $model->type);
+			}
 		}
 	}
 

@@ -1,3 +1,5 @@
 /vendor
 /node_modules
 .env
+
+public/build/css/balin-155ed95e8a.css

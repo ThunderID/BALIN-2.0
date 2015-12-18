@@ -17,11 +17,12 @@ class CreateStatProductViewTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('product_id')->unsigned()->index();
             $table->integer('view');
+            $table->datetime('ondate');
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index(['deleted_at', 'product_id', 'user_id']);
-            $table->index(['deleted_at', 'user_id', 'product_id']);
+            $table->index(['deleted_at', 'ondate', 'product_id']);
+            $table->index(['deleted_at', 'ondate', 'user_id']);
         });
     }
 

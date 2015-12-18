@@ -8,7 +8,6 @@ class PurchaseObserver
 {
 	public function saving($model)
 	{
-		dd('true');
-		return false;
+		return true;
 	}
 }

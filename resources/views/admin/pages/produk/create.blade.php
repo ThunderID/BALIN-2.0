@@ -164,6 +164,83 @@
 	<div class="clearfix">&nbsp;</div>
 <!-- end of price section -->
 
+<!-- micro template section	 -->
+	<div class="hidden">
+		<div id="tmplt">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="thumbnail" class="text-capitalize">URL Image (320 X 463 px)</label>
+						{!! Form::text('thumbnail[]', null, [
+									'class'         => 'form-control input-image-thumbnail', 
+									'tabindex'      => '11',
+									'placeholder'   => 'Masukkan url image thumbnail',
+						]) !!}
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
+						{!! Form::text('image_xs[]', null, [
+									'class'         => 'form-control input-image-xs', 
+									'tabindex'      => '11',
+									'placeholder'   => 'Masukkan url image xs',
+						]) !!}
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="logo" class="text-capitalize">URL Image (320 X 463 px)</label>
+						{!! Form::text('image_sm[]', null, [
+									'class'         => 'form-control input-image-sm', 
+									'tabindex'      => '11',
+									'placeholder'   => 'Masukkan url image sm',
+						]) !!}
+					</div>
+				</div>											
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="logo" class="text-capitalize">URL Image (772 X 1043 px)</label>
+						{!! Form::text('image_md[]', null, [
+									'class'         => 'form-control input-image-md', 
+									'tabindex'      => '11',
+									'placeholder'   => 'Masukkan url image md',
+						]) !!}
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="logo" class="text-capitalize">URL Image (992 X 1434 px)</label>
+						{!! Form::text('image_lg[]', null, [
+									'class'         => 'form-control input-image-lg', 
+									'tabindex'      => '11',
+									'placeholder'   => 'Masukkan url image lg',
+						]) !!}							
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">					
+						<label for="default" class="text-capitalize">Default</label>
+						<select name="default[]" class="form-control default" tabindex="11">
+					        <option value="0" selected="selected">False</option>
+					        <option value="1" >True</option>
+						</select>							
+					</div>						
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<a href="javascript:;" class="btn btn-sm btn-default m-t-mds btn-add-image pull-left">
+							<i class="fa fa-plus"></i>
+						</a>
+					</div>
+				</div>					
+			</div>
+			<div class="clearfix">&nbsp;</div>
+		</div>
+	</div>
+<!-- end of micro template section		 -->
+
+
 <!-- image section -->
 	<div class="clearfix">&nbsp;</div>
 	<div class="row">
@@ -174,7 +251,7 @@
 		</div>
 	</div>
 	<div id="template-image">
-	</div>
+	</div>	
 <!-- end of image section -->
 
 <!-- submit section-->		
@@ -183,7 +260,7 @@
 		<div class="col-md-12">
 			<div class="form-group text-right">
 				<a href="{{ URL::route('admin.data.product.index') }}" class="btn btn-md btn-default" tabindex="20">Batal</a>
-				<button type="submit" class="btn btn-md btn-primary" tabindex="21">Simpan</button>
+				<button type="submit" class="btn btn-md btn-primary" tabindex="18">Simpan</button>
 			</div>        
 		</div>        
 	</div> 
@@ -191,6 +268,12 @@
 
 <!-- end of body section -->
 {!! Form::close() !!}   
+@stop
+
+@section('script')
+	$( document ).ready(function() {
+		template_add_image($('.base'));
+	});
 @stop
 
 @section('script_plugin')

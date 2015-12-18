@@ -1,12 +1,18 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\MessageBag;
+use Redirect, URL;
+
 abstract class AdminController extends Controller 
 {
 	protected $page_attributes;
+	protected $errors;
 
 	function __construct() 
 	{
-		$this->page_attributes = new \Stdclass;
+		$this->errors 				= new MessageBag();
+
+		$this->page_attributes 	= new \Stdclass;
 
 		//nanti kalu butuh template lebih dari satu, switch case aja disini.
 		$this->layout = view('admin.page_templates.layout');
@@ -40,5 +46,23 @@ abstract class AdminController extends Controller
 
   		// return view
 		return $this->layout;		
+	}
+
+
+	public function generateRedirectRoute($to = null)
+	{
+		if(!$this->errors->count())
+		{
+			return Redirect::route($to)
+					->with('msg',$this->page_attributes->success)
+					->with('msg-type', 'success');
+		}
+		else
+		{
+			return Redirect::back()
+					->withErrors($this->errors)
+					->with('msg-type', 'danger');
+
+		}
 	}
 }

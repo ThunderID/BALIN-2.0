@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\AdminController;
-use Input, Session, DB;
+use Input, Session, DB, Redirect;
 
 class ProductController extends AdminController 
 {      
@@ -12,7 +12,6 @@ class ProductController extends AdminController
 		parent::__construct();
 		$this->page_attributes->title = 'Produk';
 	}
-    
 
 	public function index()
 	{
@@ -95,19 +94,12 @@ class ProductController extends AdminController
 		//get data
 		$inputs 									= Input::all();
 
-		dd($inputs);
-
 		//save data
-		$error 										= [];
-		$success 									= true;
-
+		$this->errors->add('a', 'aaaa');
 		//return
-		if($success	= true)
-		{
-		}
-		else
-		{
-		}
+		$this->page_attributes->success			= 'halo';
+		
+		return  $this->generateRedirectRoute('admin.data.product.index');
 	}
 
 	public function Update($id)
