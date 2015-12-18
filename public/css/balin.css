@@ -5430,6 +5430,14 @@ p {
     color: #000 !important;
     transition: 0.4s ease; }
 
+.btn-transaparent-border-black-hover-black {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000; }
+  .btn-transaparent-border-black-hover-black:hover {
+    background-color: #000;
+    color: #000 !important;
+    transition: 0.4s ease; }
+
 .btn-search {
   background-color: transparent;
   color: #000;

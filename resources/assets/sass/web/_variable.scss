@@ -350,6 +350,19 @@ p{						line-height: 2em;}
 		-o-transition: 0.4s ease;
 		transition: 0.4s ease;
 	}
+}	
+.btn-transaparent-border-black-hover-black{
+	border: $space-1 solid $black;
+	background-color: rgba(255, 255, 255, 0.8);
+	color: $black;
+	&:hover {
+		background-color: $black;
+		color: $black !important;
+		-webkit-transition: 0.4s ease;
+		-moz-transition: 0.4s ease;
+		-o-transition: 0.4s ease;
+		transition: 0.4s ease;
+	}
 }
 .btn-search {
 	background-color: transparent;
