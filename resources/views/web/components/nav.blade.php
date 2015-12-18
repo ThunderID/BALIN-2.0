@@ -33,9 +33,9 @@
 				{{-- <li>
 					<a href="" data-scroll>Why Join</a>
 				</li> --}}
-				@if (Auth::user())
+				@if (!Auth::user())
 					<li >
-						<a href="#">Referal &amp; Point
+						<a href="{{ route('balin.redeem.index') }}">Referal &amp; Point
 							<span class="badge badge-hollow"><i class="fa fa-exclamation"></i></span>
 						</a>
 					</li>
