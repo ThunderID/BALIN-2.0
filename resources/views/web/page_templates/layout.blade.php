@@ -37,6 +37,9 @@
 				@include('web.components.nav')
 			</header>
 			<section class="container">
+				@if(isset($breadcrumb))
+					@include('web.components.breadcrumb')
+				@endif
 				@yield('content')
 			</section>
 		</div>
@@ -45,7 +48,7 @@
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 
-		{{-- JS --}}
+		<!-- JS -->
 		{!! HTML::script(elixir('js/balin.js')) !!}
 
 		@yield('js_plugin')

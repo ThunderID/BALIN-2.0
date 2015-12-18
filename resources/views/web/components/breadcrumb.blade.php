@@ -1,0 +1,57 @@
+<!-- SECTION BREADCRUMB FOR DESKTOP -->
+<div class="hidden-xs">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
+			<ol class="breadcrumb" style="background:none">
+				<li>
+					<a class="hover-black" href="#">Home</a>
+				</li>
+				@foreach($breadcrumb as $b_title => $b_url)
+					@if($b_url == end($breadcrumb))
+						<li class="active">
+							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title }}</strong></a>
+						</li>
+					@else
+						<li>
+							<a class="hover-black" href="{{ $b_url }}"> {{$b_title}} </a>
+						</li>
+					@endif
+				@endforeach
+			</ol>
+		</div>
+	</div>
+</div>
+<!-- END SECTION BREADCRUMB FOR DESKTOP -->
+
+<!-- SECTION BREADCRUMB FOR MOBILE, TABLET -->
+<div class="hidden-lg hidden-md hidden-sm">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
+			<ol class="breadcrumb hollow m-t-md p-l-none" style="background:none">
+				<li>
+					<a class="hover-black" href="#">Home</a>
+				</li>
+				<?php $ctr = 0;?>
+				@foreach($breadcrumb as $b_title => $b_url)
+					@if($b_url == end($breadcrumb))
+						@if($ctr > 0)
+							</br>
+						@endif
+						<li class="active">
+							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title }}</strong></a>
+						</li>
+					@else
+						<?php $ctr++ ?>
+						<li>
+							<a class="hover-black" href="{{ $b_url }}">{{$b_title}} </a>
+						</li>
+						@if($ctr == count($breadcrumb)-1 && $ctr > 0)
+							<li></li>
+						@endif
+					@endif
+				@endforeach
+			</ol>
+		</div>
+	</div>
+</div>
+<!-- END SECTION BREADCRUMB FOR MOBILE, TABLET -->
