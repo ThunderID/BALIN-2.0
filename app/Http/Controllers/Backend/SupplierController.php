@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\AdminController;
 use Input, Session, DB, Redirect;
 
-class StockController extends AdminController 
+class SupplierController extends AdminController 
 {      
 	public function __construct()
 	{
 		parent::__construct();
-		$this->page_attributes->title = 'Stok';
+		$this->page_attributes->title = 'Supplier';
 	}
 
 	public function index()
@@ -35,11 +35,11 @@ class StockController extends AdminController
 
 		//generate View
 		$this->page_attributes->breadcrumb			=	[	
-															'Data Stok' 	=> route('admin.stock.index'),
+															'Data Supplier' 	=> route('admin.supplier.index'),
 														];		
-		$this->page_attributes->source 				= 'admin.pages.stok.index';
+		$this->page_attributes->source 				= 'admin.pages.supplier.index';
 		$this->page_attributes->nav 				= 'barang';
-		$this->page_attributes->subnav 				= 'stok';
+		$this->page_attributes->subnav 				= 'supplier';
 
 		return $this->generateView();
 	}

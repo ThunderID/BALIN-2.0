@@ -4,13 +4,13 @@
 <!-- top section -->
 	<div class="row">
 		<div class="col-md-8 col-sm-4 hidden-xs">
-			<a class="btn btn-default" href="{{ URL::route('admin.data.product.create') }}"> Data Baru </a>
+			<a class="btn btn-default" href="{{ URL::route('admin.product.create') }}"> Data Baru </a>
 		</div>
 		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-			<a class="btn btn-default btn-block" href="{{ URL::route('admin.data.product.create') }}"> Data Baru </a>
+			<a class="btn btn-default btn-block" href="{{ URL::route('admin.product.create') }}"> Data Baru </a>
 		</div>
 		<div class="col-md-4 col-sm-8 col-xs-12">
-			{!! Form::open(array('route' => 'admin.data.product.index', 'method' => 'get' )) !!}
+			{!! Form::open(array('route' => 'admin.product.index', 'method' => 'get' )) !!}
 			<div class="row">
 				<div class="col-md-2 col-sm-3 hidden-xs">
 				</div>
@@ -28,7 +28,7 @@
 			{!! Form::close() !!}
 		</div>            
 	</div>
-	@include('admin.widgets.pageelements.searchResult', ['closeSearchLink' => route('admin.data.product.index') ])
+	@include('admin.widgets.pageelements.searchResult', ['closeSearchLink' => route('admin.product.index') ])
 	</br> 	
 <!-- end of top section -->
 
@@ -94,30 +94,30 @@
 									<td class="text-right">
 										@money_indo($dt['price'])
 										</br>
-										<a href="{{ route('admin.data.product.price.create', ['pid' => $dt['id']]) }}">Edit</a>
+										<a href="{{ route('admin.product.price.create', ['pid' => $dt['id']]) }}">Edit</a>
 									</td>
 									<td class="text-center">
 										@foreach($dt['varians'] as $varian)
 											{{ $varian['size'] }} &nbsp;
 										@endforeach
 										 <br/>
-										<a href="{{ URL::route('admin.data.product.varian.create', ['uid' => $dt['id'] ]) }}">Tambah</a>
+										<a href="{{ URL::route('admin.product.varian.create', ['uid' => $dt['id'] ]) }}">Tambah</a>
 									</td>
 									<td class="text-right">
 										{{$dt['current_stock']}}
 										 <br/>
 										@if($dt['current_stock'] < $stock->value && count($dt->varians))
-										<a href="{{ route('admin.data.transaction.create', ['type' => 'buy']) }}">Tambah</a>
+										<a href="{{ route('admin.transaction.create', ['type' => 'buy']) }}">Tambah</a>
 										@endif
 									</td>
 									<td class="text-center">
-										<a href="{{ route('admin.data.product.show', $dt['id']) }}"> Detail</a>,
-										<a href="{{ url::route('admin.data.product.edit', $dt['id']) }}"> Edit</a>, 
+										<a href="{{ route('admin.product.show', $dt['id']) }}"> Detail</a>,
+										<a href="{{ url::route('admin.product.edit', $dt['id']) }}"> Edit</a>, 
 										<a href="javascript:void(0);" data-backdrop="static" data-keyboard="false" data-toggle="modal" 
 											data-target="#product_del"
 											data-id="{{$dt['id']}}"
 											data-title="Hapus Data Produk {{$dt['name']}}"
-											data-action="{{ route('admin.data.product.destroy', $dt['id']) }}">
+											data-action="{{ route('admin.product.destroy', $dt['id']) }}">
 											Hapus
 										</a>                                                                                      
 									</td>    
@@ -127,7 +127,7 @@
 							
 							@include('admin.widgets.pageElements.modalDelete', [
 									'modal_id'      => 'product_del', 
-									'modal_route'   => route('admin.data.product.destroy')
+									'modal_route'   => route('admin.product.destroy')
 							])						
 
 						@endif

@@ -35,7 +35,7 @@ class ProductController extends AdminController
 
 		//generate View
 		$this->page_attributes->breadcrumb			=	[	
-															'Data Produk' 	=> route('admin.data.product.index'),
+															'Data Produk' 	=> route('admin.product.index'),
 														];		
 		$this->page_attributes->source 				= 'admin.pages.produk.index';
 		$this->page_attributes->nav 				= 'barang';
@@ -60,8 +60,8 @@ class ProductController extends AdminController
 
 
 			$this->page_attributes->breadcrumb		= 	[	
-															'Data Produk' 			=> route('admin.data.product.index'),
-															'Edit '	.$product->name	=> route('admin.data.product.create', ['id' => $id] ),
+															'Data Produk' 			=> route('admin.product.index'),
+															'Edit '	.$product->name	=> route('admin.product.create', ['id' => $id] ),
 														];															
 
 			$this->page_attributes->subtitle		= 'Edit '.$product->name;
@@ -69,8 +69,8 @@ class ProductController extends AdminController
 		else
 		{
 			$this->page_attributes->breadcrumb		= 	[	
-															'Data Produk' 			=> route('admin.data.product.index'),
-															'Data Baru' 			=> route('admin.data.product.create'),
+															'Data Produk' 			=> route('admin.product.index'),
+															'Data Baru' 			=> route('admin.product.create'),
 														];
 
 			$this->page_attributes->subtitle 		= 'Baru';
@@ -99,7 +99,7 @@ class ProductController extends AdminController
 		//return
 		$this->page_attributes->success			= 'halo';
 		
-		return  $this->generateRedirectRoute('admin.data.product.index');
+		return  $this->generateRedirectRoute('admin.product.index');
 	}
 
 	public function Update($id)
