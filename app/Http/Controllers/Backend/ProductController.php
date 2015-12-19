@@ -95,7 +95,7 @@ class ProductController extends AdminController
 		$inputs 									= Input::all();
 
 		//save data
-		$this->errors->add('a', 'aaaa');
+		// $this->errors->add('a', 'aaaa');
 		//return
 		$this->page_attributes->success			= 'halo';
 		

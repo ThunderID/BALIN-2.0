@@ -1,4 +1,4 @@
-{!! HTML::script('plugins/admin/inputmask/inputmask.js') !!}
+{!! HTML::script('plugins/admin/input-mask/inputmask.js') !!}
 
 <script>
 	$(".money").inputmask({ rightAlign: false, alias: "numeric", prefix: 'IDR ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
