@@ -5431,6 +5431,7 @@ p {
     transition: 0.4s ease; }
 
 .btn-transaparent-border-black-hover-black {
+  border: 1px solid #000;
   background-color: rgba(255, 255, 255, 0.8);
   color: #000; }
   .btn-transaparent-border-black-hover-black:hover {

@@ -35,9 +35,6 @@
 		$('#default select').val($('.fieldsetwrapper select').val());
 		$('.btn-add-image').click(function() {template_add_image($(this));});
 		$('.wizard .content').animate({ height: $('.body.current').outerHeight() }, "slow");
-
-		console.log(e);
-
 	}
 // end of section product create
 </script>
