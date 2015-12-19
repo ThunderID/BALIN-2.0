@@ -26,8 +26,8 @@ elixir(function(mix) {
 		.version(['public/css/dashboard.css', 
 				'public/css/balin.css',
 				'public/js/dashboard.js',
-				'public/js/balin.js']);
-		//.copy('resources/assets/fonts', 'public/build/fonts/')
-		//.copy('resources/assets/plugins/', 'public/plugins/')
-		//.copy('resources/assets/images/', 'public/images/');
+				'public/js/balin.js'])
+		.copy('resources/assets/fonts', 'public/build/fonts/')
+		.copy('resources/assets/plugins/', 'public/plugins/')
+		.copy('resources/assets/images/', 'public/images/');
 });

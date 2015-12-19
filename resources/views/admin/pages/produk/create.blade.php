@@ -6,7 +6,7 @@
 @extends('admin.page_templates.layout') 
 
 @section('content')
-{!! Form::open(['url' => route('admin.data.product.store'), 'method' => 'POST']) !!}
+{!! Form::open(['url' => route('admin.product.store'), 'method' => 'POST']) !!}
 <!-- top section -->
 	<div class="row">
 		<div class="col-md-12">
@@ -259,7 +259,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group text-right">
-				<a href="{{ URL::route('admin.data.product.index') }}" class="btn btn-md btn-default" tabindex="20">Batal</a>
+				<a href="{{ URL::route('admin.product.index') }}" class="btn btn-md btn-default" tabindex="20">Batal</a>
 				<button type="submit" class="btn btn-md btn-primary" tabindex="18">Simpan</button>
 			</div>        
 		</div>        
