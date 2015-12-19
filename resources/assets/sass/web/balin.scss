@@ -8,7 +8,18 @@
 @import "quantity_control";
 @import "footer";
 
+html, body {
+	height: 100%;
+}
 body {
 	font-weight: 400;
 	letter-spacing: 0.02em;
+}
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -120px; 
+	&:after {
+		content: "";
+		display: block;
+	}
 }

@@ -1,10 +1,10 @@
-<footer class="container-fluid footer" style="padding-bottom:20px;">
+<footer class="container-fluid footer pb-sm">
 	<div class="row">
 		<div class="col-md-12 hidden-xs">
 			<div class="container">
 				<div class="row p-t-xs p-b-md">
 					<div class="col-md-4 col-sm-4 text-left">
-						<a href="#">{!! HTML::image('Balin/web/image/logo.png','', ['class' => 'img-responsive']) !!}</a>
+						<a href="#">{!! HTML::image('images/logo-transparent-small.png','', ['class' => 'img-responsive']) !!}</a>
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-4 text-center m-t-sm">
 						<ul class="list-inline menu-footer">
@@ -32,9 +32,9 @@
 		</div>
 		<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 			<div class="container">
-				<div class="row p-b-sm">
+				<div class="row pb-sm">
 					<div class="col-xs-5">
-						<a href="#">{!! HTML::image('Balin/web/image/logo.png','', ['class' => 'img-responsive']) !!}</a>
+						<a href="#">{!! HTML::image('images/logo-transparent-small.png','', ['class' => 'img-responsive']) !!}</a>
 					</div>
 					<div class="col-xs-7 text-right">
 						
@@ -62,10 +62,7 @@
 				</div>	
 				<div class="row">
 					<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-						</br>
-						</br>
-						</br>
-						</br>
+						<div class="clearfix">&nbsp;</div>
 					</div>
 				</div>					
 			</div>	

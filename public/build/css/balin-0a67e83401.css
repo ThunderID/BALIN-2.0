@@ -5431,6 +5431,7 @@ p {
     transition: 0.4s ease; }
 
 .btn-transaparent-border-black-hover-black {
+  border: 1px solid #000;
   background-color: rgba(255, 255, 255, 0.8);
   color: #000; }
   .btn-transaparent-border-black-hover-black:hover {
@@ -5865,6 +5866,16 @@ footer {
       footer .title {
         letter-spacing: 0.082em !important; } }
 
+html, body {
+  height: 100%; }
+
 body {
   font-weight: 400;
   letter-spacing: 0.02em; }
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -120px; }
+  .wrapper:after {
+    content: "";
+    display: block; }

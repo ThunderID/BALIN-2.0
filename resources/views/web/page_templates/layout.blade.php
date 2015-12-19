@@ -32,18 +32,21 @@
 		@yield('css')
 	</head>
 	<body class="@yield('body_class')" style="background-color: #f8f8f8;">
-		<div class="wrapper @yield('wrapper_class')">
-			<header class="page-header" style="">
-				@include('web.components.nav')
-			</header>
-			<section class="container">
+		@include('web.components.nav')
+
+		<div class="wrapper @yield('wrapper_class')" style="{{ (Route::currentRouteName()!='balin.home.index') ? 'margin-top:51px' : 'margin-top:0px' }}">
+			<section class="{{ (Route::currentRouteName()!='balin.home.index') ? 'container' : '' }}">
 				@if(isset($breadcrumb))
 					@include('web.components.breadcrumb')
 				@endif
 				@yield('content')
 			</section>
+
 		</div>
-		@include('web.components.footer')
+
+		@if (Route::currentRouteName()!='balin.home.index')
+			@include('web.components.footer')
+		@endif
 			
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}

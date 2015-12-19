@@ -25,10 +25,10 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="#" data-scroll>Home</a>
+					<a href="{{ route('balin.home.index') }}">Home</a>
 				</li>
 				<li>
-					<a href="#">Produk</a>
+					<a href="{{ route('balin.product.index') }}">Produk</a>
 				</li>
 				{{-- <li>
 					<a href="" data-scroll>Why Join</a>
