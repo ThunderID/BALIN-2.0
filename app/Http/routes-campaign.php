@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------------------
 // CAMPAIGN
 // ------------------------------------------------------------------------------------
-Route::group(['namespace' => 'Web\\Campaign\\', env('ROUTE_CAMPAIGN_ATTRIBUTE') => env('ROUTE_CAMPAIGN_VALUE')], function() 
+Route::group(['namespace' => 'Campaign\\', env('ROUTE_CAMPAIGN_ATTRIBUTE') => env('ROUTE_CAMPAIGN_VALUE')], function() 
 {
 	// ------------------------------------------------------------------------------------
 	// INVITATION
