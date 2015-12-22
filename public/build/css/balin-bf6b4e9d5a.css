@@ -5482,6 +5482,9 @@ p {
 .bg-transparent {
   background-color: transparent !important; }
 
+.bg-color2 {
+  background-color: #dedede !important; }
+
 .absolute {
   position: absolute !important; }
 
