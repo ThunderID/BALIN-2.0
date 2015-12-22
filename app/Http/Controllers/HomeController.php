@@ -8,11 +8,11 @@ class HomeController extends BaseController
 
 	public function index()
 	{
-		$this->layout->page 					= view('web_v2.pages.home.index');
 		$this->layout->controller_name			= $this->controller_name;
+
+		$this->layout->page 					= view('web_v2.pages.home.index');
 		$this->layout->page->page_title 		= 'BALIN.ID';
 		$this->layout->page->page_subtitle 		= 'Fashionable and Modern Batik';
-
 		$this->layout->page->metas 				= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 

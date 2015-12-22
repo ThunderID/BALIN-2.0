@@ -1,15 +1,7 @@
 <?php namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
-// use App\Models\User;
-// use App\Models\Transaction;
-// use App\Jobs\CheckValidationLink;
-// use App\Jobs\SaveCampaign;
-// use App\Jobs\SaveToCookie;
-// use App\Jobs\SaveToTransactionDetail;
-// use App\Jobs\SendResetPasswordEmail;
 use Input, Session, DB, Redirect, Response, Auth, Socialite, App, Validator, Carbon, Cookie;
-// use App\Libraries\JSend;
 
 class AuthController extends BaseController 
 {
@@ -83,18 +75,9 @@ class AuthController extends BaseController
 
 		if($registered)
 		{
-			// $registered->fill([
-			// 	'sso_id' 				=> $user->id,
-			// 	'sso_media' 			=> 'facebook',
-			// 	'sso_data' 				=> json_encode($user->user),
-			// 	]);
-
-			// if(!$registered->save())
-			// {
-				return Redirect::back()->withErrors($registered->getError())
-									->with('msg', 'Email sudah terdaftar')
-									->with('msg-type', 'danger');
-			// }
+			return Redirect::back()->withErrors($registered->getError())
+								->with('msg', 'Email sudah terdaftar')
+								->with('msg-type', 'danger');
 		}
 		else
 		{

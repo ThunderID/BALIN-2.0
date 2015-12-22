@@ -41,7 +41,6 @@
 				@endif
 				@yield('content')
 			</section>
-
 		</div>
 
 		@if (Route::currentRouteName()!='balin.home.index')
@@ -50,7 +49,6 @@
 			
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
-
 		<!-- JS -->
 		{!! HTML::script(elixir('js/balin.js')) !!}
 

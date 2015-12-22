@@ -1,10 +1,10 @@
-@extends('web.page_templates.layout')
+@extends('web_v2.page_templates.layout')
 
 @section('content')
 <!-- SECTION MENU CATEGORIES, FILTERS, SORT BY, & SEARCH DESKTOP -->
 	<div class="row hidden-xs hidden-sm">
 		<div class="col-md-12 col-lg-12">
-			<div class="row bg-grey-light ml-0 mr-0">
+			<div class="row bg-color2 ml-0 mr-0">
 				<!-- SECTION MENU CATEGORIES, FILTER & SORT BY -->
 				<div class="col-md-9 col-lg-9">
 					<ul class="list-inline p-sm mb-0">
@@ -49,9 +49,9 @@
 			</div>
 			<!-- SECTION SUBMENU IN CATEGORIES -->
 			<div class="row collapse collapse-category ml-0 mr-0" id="collapseOne" data-collapse="collapse1" aria-expanded="true">
-				<div class="col-md-12 col-lg-12 bg-grey-dark">
+				<div class="col-md-12 col-lg-12 bg-color2">
 					<!-- SECTION LIST CATEGORIES DESKTOP -->
-					<ul class="list-inline p-sm mb-0 text-white">
+					<ul class="list-inline p-sm mb-0">
 						<li>Batik Aqni</li>
 					</ul>
 					<!-- END SECTION LIST CATEGORIES DESKTOP -->
@@ -61,10 +61,10 @@
 
 			<!-- SECTION SUBMENU IN FILTERS -->
 			<div class="row collapse collapse-category ml-0 mr-0" id="collapseTwo" data-collapse="collapse2" aria-expanded="true">
-				<div class="col-md-12 col-lg-12 bg-grey-dark">
+				<div class="col-md-12 col-lg-12 bg-color2">
 					<div class="row p-sm">
 						<!-- SECTION LIST FILTERS DESKTOP -->
-						<ul class="list-inline p-sm mb-0 text-white">
+						<ul class="list-inline p-sm mb-0">
 							<li>Lengan Panjang</li>									
 						</ul>					
 						<!-- END SECTION LIST FILTERS DESKTOP -->

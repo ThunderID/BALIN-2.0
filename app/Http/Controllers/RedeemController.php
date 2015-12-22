@@ -1,11 +1,9 @@
-<?php namespace App\Http\Controllers\Web;
-
-use App\Http\Controllers\Web\Controller;
+<?php namespace App\Http\Controllers;
 
 use Input, Redirect, Auth, Carbon, Validator, DB, App;
 use Illuminate\Support\MessageBag;
 
-class RedeemController extends Controller 
+class RedeemController extends BaseController 
 {
 	protected $controller_name 					= 'redeem';
 
@@ -13,7 +11,7 @@ class RedeemController extends Controller
 	{		
 		$breadcrumb								= ['Redeem' => route('balin.redeem.index')];
 
-		$this->layout->page 					= view('web.page.redeem_code.index');
+		$this->layout->page 					= view('web_v2.pages.redeem_code.index');
 		$this->layout->breadcrumb				= $breadcrumb;
 		$this->layout->controller_name			= $this->controller_name;
 		$this->layout->page_title 				= 'BALIN.ID';

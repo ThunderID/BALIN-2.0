@@ -64,11 +64,8 @@
 					</li>
 				@endif
 				<li class="dropdown dropdown-cart">
-					<a href="javascript:void(0);" class="dropdown-toggle ico-cart">
-						<i class="fa fa-shopping-cart fa-lg"></i>
-						<span class="m-l-xs">
-							{{ count(Session::get('baskets')) }}
-						</span>
+					<a href="javascript:void(0);" class="dropdown-toggle ico-cart text-white text-regular" style="background: url('images/cart.png') 51% 28% no-repeat; background-size: 28px">
+						<strong>{{ count(Session::get('baskets')) }}</strong>
 					</a>
 					{{-- @include('widgets.frontend.top_menu.cart_dropdown') --}}
 				</li>

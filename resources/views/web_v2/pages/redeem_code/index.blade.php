@@ -1,4 +1,4 @@
-@extends('web.page_templates.layout')
+@extends('web_v2.page_templates.layout')
 
 @section('content')
 	<div class="clearfix">&nbsp;</div>
