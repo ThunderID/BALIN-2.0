@@ -14,13 +14,9 @@
 						</ul>
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-4 text-right">
-
-							<a href="#" target="blank" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-instagram fa-2x"></i></a>
-						
-							<a href="#" target="blank" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-twitter fa-2x"></i></a>
-						
-							<a href="#" target="blank" class="btn-hollow hollow-social hollow-white btn-hollow-xs"><i class="fa fa-facebook fa-2x"></i></a>
-						
+						<a href="#" target="blank" class="btn btn-socmed"><i class="fa fa-instagram"></i></a>
+						<a href="#" target="blank" class="btn btn-socmed"><i class="fa fa-twitter"></i></a>
+						<a href="#" target="blank" class="btn btn-socmed"><i class="fa fa-facebook"></i></a>
 					</div>
 				</div>
 				<div class="row">

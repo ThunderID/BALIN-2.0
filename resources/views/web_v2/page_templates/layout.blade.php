@@ -32,23 +32,33 @@
 		@yield('css')
 	</head>
 	<body class="@yield('body_class')" style="background-color: #f8f8f8;">
+		<!-- SECTION NAVBAR -->
 		@include('web_v2.components.nav')
+		<!-- END SECTION NAVBAR -->
 
-		<div class="wrapper @yield('wrapper_class')" style="{{ (Route::currentRouteName()!='balin.home.index') ? 'margin-top:51px' : 'margin-top:0px' }}">
+		<!--SECTION WRAPPER -->
+		<div class="wrapper @yield('wrapper_class')" style=" margin-bottom: 0px;
+			{{ (Route::currentRouteName()!='balin.home.index') ? 'margin-top:51px;' : 'margin-top:0px;' }}  ">
 			<section class="{{ (Route::currentRouteName()!='balin.home.index') ? 'container' : '' }}">
+				<!-- SECTION BREADCRUMB -->
 				@if(isset($breadcrumb))
 					@include('web_v2.components.breadcrumb')
 				@endif
+				<!-- END SECTION BREADCRUMB -->
+
+				<!-- SECTION CONTENT -->
 				@yield('content')
+				<!-- END SECTION CONTENT -->
 			</section>
 		</div>
+		<!-- END SECTION WRAPPER -->
 
-		@if (Route::currentRouteName()!='balin.home.index')
-			@include('web_v2.components.footer')
-		@endif
+		<!-- SECTION FOOTER  -->
+		@include('web_v2.components.footer')
+		<!-- END SECTION FOOTER -->
 			
 		<!-- CSS -->
-		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css') !!}
+		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') !!}
 		<!-- JS -->
 		{!! HTML::script(elixir('js/balin.js')) !!}
 

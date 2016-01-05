@@ -1,49 +1,19 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
-<!-- SECTION MENU CATEGORIES, FILTERS, SORT BY, & SEARCH DESKTOP -->
+	<!-- SECTION MENU CATEGORIES, FILTERS, SORT BY, & SEARCH DESKTOP -->
 	<div class="row hidden-xs hidden-sm">
 		<div class="col-md-12 col-lg-12">
-			<div class="row bg-color2 ml-0 mr-0">
+			<div class="row ml-0 mr-0 border-2 border-solid">
 				<!-- SECTION MENU CATEGORIES, FILTER & SORT BY -->
 				<div class="col-md-9 col-lg-9">
-					<ul class="list-inline p-sm mb-0">
-						<li>
-							<a role="button" id="collapse1" class="menu-accordion" href="#collapseOne"
-								data-toggle="collapse"  aria-expanded="false" aria-controls="collapseOne">
-								KATEGORI <i class="fa fa-chevron-circle-down pull-right"></i>
-							</a>									
-						</li>						
-						<li>
-							<a role="button" id="collapse2" class="menu-accordion" href="#collapseTwo"
-							data-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo">
-								FILTER <i class="fa fa-chevron-circle-down pull-right"></i>
-							</a>
-						</li>
-						<li>
-							<a role="button" id="collapse4" class="menu-accordion" href="#collapseFour"
-								data-toggle="collapse" aria-expanded="false" aria-controls="collapseFour">
-								URUTKAN <i class="fa fa-chevron-circle-down pull-right"></i>
-							</a>
-						</li>
-					</ul>
+					@include('web_v2.components.product.menu_product.filter_desktop')
 				</div>
 				<!-- END SECTION MENU CATEGORIES, FILTER & SORT BY -->
 
 				<!-- SECTION FORM SEARCHING -->
 				<div class="col-md-3 col-lg-3">
-					<div class="row mt-xs">
-						{!! Form::open(array('url' => route('balin.product.index', Input::all()), 'method' => 'get', 'id' => 'form1', 'class' => 'form-group' )) !!}
-							<div class="col-md-9 col-lg-9 pr-0">
-								{!! Form::text('name', null, ['class' => 'form-control hollow search inp-search', 'id' => 'input-search','placeholder' => 'Cari nama produk', 'required' => 'required'] ) !!}
-							</div>
-							<div class="col-md-2 col-lg-2 pl-0">
-								<button type="submit"  class="btn btn-black-hover-white-border-black" tabindex="21">
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
-						{!! Form::close() !!}
-					</div>
+					@include('web_v2.components.product.menu_product.searching_desktop')
 				</div>																								
 				<!-- END SECTION FORM SEARCHING -->
 			</div>
@@ -105,33 +75,12 @@
 			<!-- END SECTION SUBMENU IN SORT BY -->					
 		</div>
 	</div>
-<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH DESKTOP -->
+	<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH DESKTOP -->
 
-<!-- SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
+	<!-- SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
 	<div class="row hidden-md hidden-lg">
 		<div class="col-xs-12 col-sm-12">
-			<ul class="list-unstyled bg-grey-light">
-				<li class="p-sm">
-					<a href="#" class="" data-toggle="modal" data-target="#modalCategory" style="display:block">									
-						KATEGORI <i class="fa fa-chevron-circle-right pull-right"></i>
-					</a>						    
-				</li>
-				<li class="p-sm">
-					<a href="#" class="" data-toggle="modal" data-target="#modalTag" style="display:block">									
-						FILTER <i class="fa fa-chevron-circle-right pull-right"></i>
-					</a>
-				</li>
-				<li class="p-sm">
-					<a href="#" class="" data-toggle="modal" data-target="#modalSort" style="display:block">
-						URUTKAN <i class="fa fa-chevron-circle-right pull-right"></i>
-					</a>
-				</li>
-				<li class="p-sm">
-					<a href="#" class="" data-toggle="modal" data-target="#modalSearch" style="display:block">
-						CARI <i class="fa fa-search pull-right"></i>
-					</a>
-				</li>
-			</ul>
+			@include('web_v2.components.product.menu_product.filter_searching_mobile_tablet')
 		</div>
 	</div>
 
@@ -269,25 +218,21 @@
 		</div>
 	</div>	
 	<!-- END SECTION MODAL SEARCH MOBILE & TABLET -->
+	<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
 
-<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
 	<div class="clearfix">&nbsp;</div>
+
+	<!-- SECTION PRODUCT CARD -->
 	<div class="row">
-		@forelse($data as $value)
-			<div class="col-sm-4 col-md-3">
-				ada
-			</div>
-		@empty
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-md text-center">
-				<h3 class="m-b-none">Coming Soon</h3><br><h4>Please stay tuned to be the first to know when our product is ready</h4>
-			</div>
-		@endforelse
+		@include('web_v2.components.product.card_product', [
+			'datas' => $datas
+		])
 	</div>
+	<!-- END SECTION PRODUCT CART -->
 
 	<div class="row">
-		<div class="col-md-12 hollow-pagination" style="text-align:right;">
+		<div class="col-md-12 hollow-pagination text-right">
 			<div class="mt-5">
-				
 			</div>						
 		</div>
 	</div>
