@@ -11,6 +11,7 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
  	|  PRODUCT
 	------------------------------------------------------------------------------------ */
 	Route::get('product/{page?}', 										['uses' => 'ProductController@index', 'as' => 'balin.product.index']);
+	Route::get('product/detail/{slug?}',								['uses' => 'ProductController@show', 'as' => 'balin.product.show']);
 
 /* 	------------------------------------------------------------------------------------
  	|  SIGNUP & SIGNIN PAGE
