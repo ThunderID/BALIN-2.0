@@ -168,11 +168,11 @@ p{						line-height: 2em;}
 // -----------------
 // 2. BORDER
 // -----------------
-.border-0{				border: $space-0;}
-.border-1{				border: $space-1;}
-.border-2{				border: $space-2;}
-.border-3{				border: $space-3;}
-.border-4{				border: $space-4;}
+.border-0{				border-width: $space-0;}
+.border-1{				border-width: $space-1;}
+.border-2{				border-width: $space-2;}
+.border-3{				border-width: $space-3;}
+.border-4{				border-width: $space-4;}
 
 .border-right-0{		border-right-width: $space-0 !important;}
 .border-right-1{		border-right-width: $space-1 !important;}
@@ -385,7 +385,26 @@ p{						line-height: 2em;}
 	padding: $space-1 6px !important;
 	line-height: 17px;
 }
-
+.btn-socmed {
+	// background-color: $white;
+	border: 3px solid;
+	border-radius: 300px;
+	color: $white;
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+	font-size: 24px;
+	text-align: center;
+	&:hover {
+		 background-color: $white;
+		 border: 3px solid $white;
+		 color: $black;
+		-webkit-transition: 0.4s ease;
+		-moz-transition: 0.4s ease;
+		-o-transition: 0.4s ease;
+		transition: 0.4s ease;
+	}
+}
 // -----------------
 // 5. BACKGROUND
 // -----------------
@@ -422,3 +441,4 @@ p{						line-height: 2em;}
 .right{					right: $space-0 !important;}
 
 .overflowellipsis{		overflow: ellipsis;} 
+.vertical-baseline{ 	vertical-align: baseline !important;}

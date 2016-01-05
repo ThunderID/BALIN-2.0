@@ -2,17 +2,15 @@
 .qty{
 	width: 61px;
 	position: relative;
-	.p{
+	p{
 		background-color: $black;
 		border: 1px solid $black;
 		border-bottom: none;
 		color: $grey-light;
 		display: block;
 		top: -28px;
-		width: 64px;
+		width: 61px;
 		height: 28px;
-		margin-bottom: -6px;
-		padding: 4px;
 		position: absolute;
 	}
 	.qty-size{
