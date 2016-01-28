@@ -10,21 +10,21 @@ class APIProduct extends APIData
 		parent::__construct();
 	}
 
-	public function getIndex($filter = null)
+	public function getIndex ($parameter = null)
 	{
-		if(!is_null($filter))
+		if (!is_null($parameter))
 		{
-			$this->apiUrl 				= '/products';
-			$this->apiData 				= array_merge($this->apiData, ["search" => $filter]);
+			$this->api_url 				= '/balin/public/products';
+			$this->api_data				= array_merge($this->api_data, $parameter);
 		}
 
 		return $this->get();
 	}
 
-	public function getShow($id)
+	public function getShow ($id)
 	{
-		$this->apiUrl 					= '/product/'. $id;
+		$this->api_url 					= '/product/' . $id;
 
 		return $this->get();
-	}
+	}	
 }
