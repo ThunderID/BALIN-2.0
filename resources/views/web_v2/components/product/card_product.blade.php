@@ -1,13 +1,14 @@
-@if (count($datas['data']) > 0)
-	@forelse($datas['data'] as $value)
+<!-- SECTION CARD PRODUCT -->
+@if (count($datas['data']['count']) > 0)
+	@forelse($datas['data']['data'] as $value)
 		<div class="{{ isset($col) ? $col : 'col-xs-12 col-sm-4 col-md-3 col-lg-3' }}">
 			<div class="thumbnail">
-				<img src="{{ (!empty($value['thumbnail']) ? $value['thumbnail'] : '') }}" class="img-responsive" alt="">
-				<div class="caption">
-					<h4 class="text-uppercase">{{ (!empty($value['name']) ? $value['name'] : '') }}</h4>
-					<p>@money_indo((!empty($value['prices']) ? $value['prices'] : '0'))</p>
+				<img src="{{ (!empty($value['thumbnail']) ? $value['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg') }}" class="img-responsive" style="{{ isset($style_thumbnail) ? $style_thumbnail : '' }}">
+				<div class="caption text-center">
+					<h4 class="{{ isset($text) ? $text : '' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</h4>
+					<p>@money_indo((!empty($value['price']) ? $value['price'] : '0'))</p>
 				</div>
-				<a href="{{ route('balin.product.show', (!empty($value['slug']) ? $value['id'] : $value['id'])) }}" class="btn btn-primary btn-block text-uppercase">Detail</a>
+				<a href="{{ route('balin.product.show', (!empty($value['slug']) ? $value['slug'] : $value['id'])) }}" class="btn btn-primary btn-block text-uppercase">Detail</a>
 			</div>
 		</div>
 	@empty
@@ -20,3 +21,4 @@
 		<h3 class="m-b-none">Coming Soon</h3><br><h4>Please stay tuned to be the first to know when our product is ready</h4>
 	</div>
 @endif
+<!-- END SECTION CARD PRODUCT -->
