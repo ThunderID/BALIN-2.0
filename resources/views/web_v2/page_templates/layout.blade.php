@@ -31,7 +31,7 @@
 		
 		@yield('css')
 	</head>
-	<body class="@yield('body_class')" style="background-color: #f8f8f8;">
+	<body class="@yield('body_class')" style="background-color: #f5f5f5;">
 		<!-- SECTION NAVBAR -->
 		@include('web_v2.components.nav')
 		<!-- END SECTION NAVBAR -->

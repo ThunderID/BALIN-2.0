@@ -1,3 +1,6 @@
+<?php
+// dd($data);
+?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
@@ -8,7 +11,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="text-uppercase">Referal Code 
+					<h4 class="">Referal Code 
 						<small>
 							<a href="#" class="hover-gold unstyle help" 
 								data-toggle="modal" 
@@ -19,7 +22,7 @@
 					</h4>	
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-uppercase text-right"><strong>98BIOLK</strong></p>
+					<p class="text-right"><strong>{{ $data['me']['data']['code_referral'] }}</strong></p>
 				</div>
 			</div>
 		</div>
@@ -28,7 +31,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="text-uppercase">Balin Point Anda 
+					<h4 class="">Balin Point Anda 
 						<small>
 							<a href="#" class="link-white hover-gold unstyle help" 
 								data-toggle="modal" 
@@ -39,7 +42,7 @@
 					</h4>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-right"><strong>IDR 80.000</strong></p>
+					<p class="text-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
 					<a class="hover-gold hidden-xs" href="#" 
@@ -72,7 +75,7 @@
 									<div class="loading-voucher text-center hide">
 										{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
 									</div>
-									{!! Form::hidden('from', 'frontend.redeem.index') !!}
+									{!! Form::hidden('from', 'balin.redeem.index') !!}
 									{!! Form::input('text', 'referral_code', null, [
 											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
 											'placeholder' => 'Masukkan referral code anda',
