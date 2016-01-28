@@ -1,24 +1,34 @@
-<?php namespace App\Http\Controllers\Web\Profile;
+<?php namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Web\Controller;
+use App\Http\Controllers\BaseController;
+use App\API\Connectors\APIUser;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App;
+use Input, Redirect, Auth, Carbon, Validator, DB, App, Session;
 use Illuminate\Support\MessageBag;
 
-class ReferralController extends Controller 
+class ReferralController extends BaseController 
 {
-	protected $controller_name 					= 'referral';
+	protected $controller_name 				= 'referral';
 
-	public function index()
+	public function index($id = null)
 	{		
-		$breadcrumb								= ['Balin Point' => route('balin.profile.referral.index')];
+		Session::set('API_token', Session::get('API_token_private'));
 
-		$this->layout->page 					= view('web.page.profile.referral.index');
-		$this->layout->breadcrumb				= $breadcrumb;
-		$this->layout->controller_name			= $this->controller_name;
-		$this->layout->page_title 				= 'BALIN.ID';
-		$this->layout->page_subtitle 			= 'Daftar Referral Anda';
+		$API_me 							= new APIUser;
+		$me_detail 							= $API_me->getMeDetail([
+													'user_id' 	=> $id,
+												]);
+		$data 								= $me_detail['data'];
+		$page 								= view('web_v2.pages.profile.referral.index')
+												->with('data', $data);
+		return $page;
 
-		return $this->layout->page;
+		// $this->layout->page 				= view('web.page.profile.referral.index');
+		// $this->layout->breadcrumb				= $breadcrumb;
+		// $this->layout->controller_name			= $this->controller_name;
+		// $this->layout->page_title 				= 'BALIN.ID';
+		// $this->layout->page_subtitle 			= 'Daftar Referral Anda';
+
+		// return $this->layout->page;
 	}
 }

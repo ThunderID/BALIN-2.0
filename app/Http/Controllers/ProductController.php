@@ -1,20 +1,31 @@
 <?php namespace App\Http\Controllers;
 
 use App\API\connectors\APIProduct;
-use Cookie, Response, Input, Auth, App, Config, \Illuminate\Support\Collection;
+use App\API\connectors\APITag;
+use App\API\connectors\APIUser;
+use App\API\connectors\APICategory;
+use Cookie, Response, Input, Auth, App, Config, Collection, Session;
 
 class ProductController extends BaseController 
 {	
-	protected $controller_name 					= 'product';
+	protected $controller_name 						= 'product';
 
 	function __construct()
 	{
 		parent::__construct();
+		Session::set('API_token', Session::get('API_token_public'));
+
+		$this->page_attributes->title 				= 'BALIN.ID';
+		$this->page_attributes->source 				= 'web_v2.pages.product.';
+		$this->page_attributes->breadcrumb			=	[
+															'Produk' 	=> route('balin.product.index'),
+														];
+		$this->take 								= 20;
 	}
 
-	public function index($page = 1)
+	public function index()
 	{
-		$breadcrumb									= ['Produk' => route('balin.product.index')];
+		//initialize 
 		$filters 									= null;
 
 		if (Input::has('q'))
@@ -27,73 +38,124 @@ class ProductController extends BaseController
 			$searchResult							= null;
 		}
 
+		if (Input::has('category'))
+		{
+			$categories 						= ['categories' => Input::get('category')];
+		}
+		else
+		{
+			$categories							= [];
+		}
+
+		//get curent page
+		if (is_null(Input::get('page')))
+		{
+			$page 									= 1;
+		}
+		else
+		{
+			$page 									= Input::get('page');
+		}
+
 		// data here
 		$APIProduct 								= new APIProduct;
+
 		$product 									= $APIProduct->getIndex([
-															'name' 	=> Input::get('q')
+															'search' 	=> 	[
+																				'name' 	=> Input::get('q'),
+																			],
+															'sort' 		=> 	[
+																				'name'	=> 'asc',
+																			],																		
+															'take'		=> $this->take,
+															'skip'		=> ($page - 1) * $this->take,
 														]);
 
-		// dd($product);
+		$API_category 								= new APICategory;
+		$get_api_category							= $API_category->getIndex([
+															'search' 	=> 	[
+																				'name' 	=> Input::get('q'),
+																			],
+															'sort' 		=> 	[
+																				'name'	=> 'asc',
+																			],
+														]);
+		$API_tag 									= new APITag;
+		$get_api_tag								= $API_tag->getIndex([
+															'search' 	=> 	[
+																				'name' 	=> Input::get('q'),
+																			],
+															'sort' 		=> 	[
+																				'name'	=> 'asc',
+																			],
+														]);
 
-		$this->layout->page 					= view('web_v2.pages.product.index');
-		$this->layout->page->category 			= [];
-		$this->layout->page->tag_types 			= [];
-		$this->layout->page->datas 				= $product;
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= 'Produk Batik Modern - ' . $page;
+		$collection_category						= new Collection;
+		$collection_category->add($get_api_category['data']['data']);
 
-		$this->layout->breadcrumb				= $breadcrumb;
-		$this->layout->controller_name			= $this->controller_name;
+		$collection_tag 							= new Collection;
+		$collection_tag->add($get_api_tag['data']['data']);
 
-		return $this->layout;
+		$category 									= $collection_category->sortBy('name')->all();
+		$tag 										= $collection_tag->sortBy('name')->all();
+
+		//paginate
+		$this->paginate(route('balin.product.index'), $product['data']['count'], $page);
+
+		//breadcrumb
+		$breadcrumb									= 	[
+															'Produk' => route('balin.product.index')
+														];
+
+		//generate View
+		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
+		$this->page_attributes->data				= 	[
+															'product' 	=> $product,
+															'tag'		=> $tag,
+															'category'	=> $category
+														];
+
+		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
+		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
+
+		return $this->generateView();
 	}
 
 	public function show($slug = null)
 	{
-		// $image 									= ['http://drive.thunder.id/file/public/4/1/2015/12/06/05/paniya-long-front.jpg', 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg', 'http://drive.thunder.id/file/public/4/1/2015/12/06/04/pavana-short-front.jpg'];
-		// $name 									= ['Batik Pavana Short Sleeve', 'Batik Paniya Long Sleeve', 'Batik Avani Long Sleeve'];
-		// $price 									= ['350000', '300000', '390000'];
-		// $data['thumbnail'] 						= $image[array_rand($image)];
-		// $data['name']							= $name[array_rand($name)];
-		// $data['price']							= $price[array_rand($price)];
-		// $data['slug']							= str_slug($data['name'], '-');
-		// $data['gallery']						= $image;
-		// $data['description']					= 'Sparkle up your charm with a dress like this. Embellished Shift Dress dari ZALORA tampil chic dengan rhinestone. Sempurna untuk tampilan evening date. <br><br>- Stretchable poliester kombinasi<br>- Blush<br>- Kerah bulat<br>- Lengan pendek<br>- Resleting belakang<br>- Aksen bordir, mesh<br>- Regular fit<br>- Unlined';
-
-		// $size_fit 								= strpos($data['name'], 'long');
-		// $data['size_fit']						= ($size_fit !== false) ? 'size-long' : 'size-short'; 
-
-		// for ($x=0; $x<4; $x++) 
-		// {
-		// 	$datas[$x]['thumbnail'] 			= $image[array_rand($image)];
-		// 	$datas[$x]['name']					= $name[array_rand($name)];
-		// 	$datas[$x]['prices']				= $price[array_rand($price)];
-		// 	$datas[$x]['slug']					= str_slug($datas[$x]['name'], '-');
-		// }
-
 		// PRODUCT DETAIL
-		$APIProduct 							= new APIProduct;
-		$product 								= $APIProduct->getShow($slug);
-
-		// PRODUCT RELATED
-		$APIProduct 							= new APIProduct;
-		$related 								= $APIProduct->getIndex([
-														'name' 	=> Input::get('q')
+		$API_product 							= new APIProduct;
+		$product 								= $API_product->getIndex([
+														'search' 	=> 	[
+																			'slug' 	=> $slug,
+																		],
+													]);
+		// //PRODUCT RELATED
+		$related 								= $API_product->getIndex([
+														'search' 	=> 	[
+																			'name' 	=> Input::get('q'),
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],																		
+														'take'		=> 2,
 													]);	
 
-		$breadcrumb								= ['Produk' => route('balin.product.index'),
-													$product['data']['name'] => route('balin.product.show', $product['data']['slug'])
-												];
+		//breadcrumb
+		$breadcrumb								= 	[	
+														'Produk' 							=> route('balin.product.index'),
+														$product['data']['data'][0]['name'] => route('balin.product.show', $product['data']['data'][0]['slug'])
+													];
+		//generate View
+		$this->page_attributes->subtitle 		= $product['data']['data'][0]['name'];
+		$this->page_attributes->data			= 	[
+														'product' 	=> $product,
+														'related'	=> $related,
+													];
 
-		$this->layout->page 					= view('web_v2.pages.product.show');
-		$this->layout->page->data				= $product;
-		$this->layout->page->related			= $related;
-		$this->layout->page->page_title 		= 'BALIN.ID';
-		$this->layout->page->page_subtitle 		= $product['data']['name'];
+		$this->page_attributes->breadcrumb		= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
+		$this->page_attributes->source 			=  $this->page_attributes->source . 'show';
 
-		$this->layout->breadcrumb 				= $breadcrumb;
-		$this->layout->controller_name 			= $this->controller_name;
-
-		return $this->layout;
+		return $this->generateView();
 	}
 }

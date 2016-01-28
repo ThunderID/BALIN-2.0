@@ -1,10 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App;
+use Input, Redirect, Auth, Carbon, Validator, DB, App, Session;
 use Illuminate\Support\MessageBag;
-
-// use App\Models\User;
-// use App\Models\PointLog;
 
 class LoginController extends BaseController 
 {
@@ -17,13 +14,13 @@ class LoginController extends BaseController
 
 	public function index()
 	{	
-		if (Auth::check())
+		if (Session::has('user_me'))
 		{
-			// return Redirect::route('frontend.user.index');
+			return Redirect::route('balin.redeem.index');
 		}
 
 		$breadcrumb										= ['Sign In' => route('balin.login.index')];
-		$this->layout->page 							= view('web_v2.page.login.index')
+		$this->layout->page 							= view('web_v2.pages.login.index')
 															->with('controller_name', $this->controller_name)
 															->with('breadcrumb', $breadcrumb);
 
