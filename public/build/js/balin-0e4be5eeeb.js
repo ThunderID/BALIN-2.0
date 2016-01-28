@@ -9,3 +9,1127 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  */
 if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires jQuery");+function(a){"use strict";var b=a.fn.jquery.split(" ")[0].split(".");if(b[0]<2&&b[1]<9||1==b[0]&&9==b[1]&&b[2]<1)throw new Error("Bootstrap's JavaScript requires jQuery version 1.9.1 or higher")}(jQuery),+function(a){"use strict";function b(){var a=document.createElement("bootstrap"),b={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var c in b)if(void 0!==a.style[c])return{end:b[c]};return!1}a.fn.emulateTransitionEnd=function(b){var c=!1,d=this;a(this).one("bsTransitionEnd",function(){c=!0});var e=function(){c||a(d).trigger(a.support.transition.end)};return setTimeout(e,b),this},a(function(){a.support.transition=b(),a.support.transition&&(a.event.special.bsTransitionEnd={bindType:a.support.transition.end,delegateType:a.support.transition.end,handle:function(b){return a(b.target).is(this)?b.handleObj.handler.apply(this,arguments):void 0}})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var c=a(this),e=c.data("bs.alert");e||c.data("bs.alert",e=new d(this)),"string"==typeof b&&e[b].call(c)})}var c='[data-dismiss="alert"]',d=function(b){a(b).on("click",c,this.close)};d.VERSION="3.3.4",d.TRANSITION_DURATION=150,d.prototype.close=function(b){function c(){g.detach().trigger("closed.bs.alert").remove()}var e=a(this),f=e.attr("data-target");f||(f=e.attr("href"),f=f&&f.replace(/.*(?=#[^\s]*$)/,""));var g=a(f);b&&b.preventDefault(),g.length||(g=e.closest(".alert")),g.trigger(b=a.Event("close.bs.alert")),b.isDefaultPrevented()||(g.removeClass("in"),a.support.transition&&g.hasClass("fade")?g.one("bsTransitionEnd",c).emulateTransitionEnd(d.TRANSITION_DURATION):c())};var e=a.fn.alert;a.fn.alert=b,a.fn.alert.Constructor=d,a.fn.alert.noConflict=function(){return a.fn.alert=e,this},a(document).on("click.bs.alert.data-api",c,d.prototype.close)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.button"),f="object"==typeof b&&b;e||d.data("bs.button",e=new c(this,f)),"toggle"==b?e.toggle():b&&e.setState(b)})}var c=function(b,d){this.$element=a(b),this.options=a.extend({},c.DEFAULTS,d),this.isLoading=!1};c.VERSION="3.3.4",c.DEFAULTS={loadingText:"loading..."},c.prototype.setState=function(b){var c="disabled",d=this.$element,e=d.is("input")?"val":"html",f=d.data();b+="Text",null==f.resetText&&d.data("resetText",d[e]()),setTimeout(a.proxy(function(){d[e](null==f[b]?this.options[b]:f[b]),"loadingText"==b?(this.isLoading=!0,d.addClass(c).attr(c,c)):this.isLoading&&(this.isLoading=!1,d.removeClass(c).removeAttr(c))},this),0)},c.prototype.toggle=function(){var a=!0,b=this.$element.closest('[data-toggle="buttons"]');if(b.length){var c=this.$element.find("input");"radio"==c.prop("type")&&(c.prop("checked")&&this.$element.hasClass("active")?a=!1:b.find(".active").removeClass("active")),a&&c.prop("checked",!this.$element.hasClass("active")).trigger("change")}else this.$element.attr("aria-pressed",!this.$element.hasClass("active"));a&&this.$element.toggleClass("active")};var d=a.fn.button;a.fn.button=b,a.fn.button.Constructor=c,a.fn.button.noConflict=function(){return a.fn.button=d,this},a(document).on("click.bs.button.data-api",'[data-toggle^="button"]',function(c){var d=a(c.target);d.hasClass("btn")||(d=d.closest(".btn")),b.call(d,"toggle"),c.preventDefault()}).on("focus.bs.button.data-api blur.bs.button.data-api",'[data-toggle^="button"]',function(b){a(b.target).closest(".btn").toggleClass("focus",/^focus(in)?$/.test(b.type))})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.carousel"),f=a.extend({},c.DEFAULTS,d.data(),"object"==typeof b&&b),g="string"==typeof b?b:f.slide;e||d.data("bs.carousel",e=new c(this,f)),"number"==typeof b?e.to(b):g?e[g]():f.interval&&e.pause().cycle()})}var c=function(b,c){this.$element=a(b),this.$indicators=this.$element.find(".carousel-indicators"),this.options=c,this.paused=null,this.sliding=null,this.interval=null,this.$active=null,this.$items=null,this.options.keyboard&&this.$element.on("keydown.bs.carousel",a.proxy(this.keydown,this)),"hover"==this.options.pause&&!("ontouchstart"in document.documentElement)&&this.$element.on("mouseenter.bs.carousel",a.proxy(this.pause,this)).on("mouseleave.bs.carousel",a.proxy(this.cycle,this))};c.VERSION="3.3.4",c.TRANSITION_DURATION=600,c.DEFAULTS={interval:5e3,pause:"hover",wrap:!0,keyboard:!0},c.prototype.keydown=function(a){if(!/input|textarea/i.test(a.target.tagName)){switch(a.which){case 37:this.prev();break;case 39:this.next();break;default:return}a.preventDefault()}},c.prototype.cycle=function(b){return b||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(a.proxy(this.next,this),this.options.interval)),this},c.prototype.getItemIndex=function(a){return this.$items=a.parent().children(".item"),this.$items.index(a||this.$active)},c.prototype.getItemForDirection=function(a,b){var c=this.getItemIndex(b),d="prev"==a&&0===c||"next"==a&&c==this.$items.length-1;if(d&&!this.options.wrap)return b;var e="prev"==a?-1:1,f=(c+e)%this.$items.length;return this.$items.eq(f)},c.prototype.to=function(a){var b=this,c=this.getItemIndex(this.$active=this.$element.find(".item.active"));return a>this.$items.length-1||0>a?void 0:this.sliding?this.$element.one("slid.bs.carousel",function(){b.to(a)}):c==a?this.pause().cycle():this.slide(a>c?"next":"prev",this.$items.eq(a))},c.prototype.pause=function(b){return b||(this.paused=!0),this.$element.find(".next, .prev").length&&a.support.transition&&(this.$element.trigger(a.support.transition.end),this.cycle(!0)),this.interval=clearInterval(this.interval),this},c.prototype.next=function(){return this.sliding?void 0:this.slide("next")},c.prototype.prev=function(){return this.sliding?void 0:this.slide("prev")},c.prototype.slide=function(b,d){var e=this.$element.find(".item.active"),f=d||this.getItemForDirection(b,e),g=this.interval,h="next"==b?"left":"right",i=this;if(f.hasClass("active"))return this.sliding=!1;var j=f[0],k=a.Event("slide.bs.carousel",{relatedTarget:j,direction:h});if(this.$element.trigger(k),!k.isDefaultPrevented()){if(this.sliding=!0,g&&this.pause(),this.$indicators.length){this.$indicators.find(".active").removeClass("active");var l=a(this.$indicators.children()[this.getItemIndex(f)]);l&&l.addClass("active")}var m=a.Event("slid.bs.carousel",{relatedTarget:j,direction:h});return a.support.transition&&this.$element.hasClass("slide")?(f.addClass(b),f[0].offsetWidth,e.addClass(h),f.addClass(h),e.one("bsTransitionEnd",function(){f.removeClass([b,h].join(" ")).addClass("active"),e.removeClass(["active",h].join(" ")),i.sliding=!1,setTimeout(function(){i.$element.trigger(m)},0)}).emulateTransitionEnd(c.TRANSITION_DURATION)):(e.removeClass("active"),f.addClass("active"),this.sliding=!1,this.$element.trigger(m)),g&&this.cycle(),this}};var d=a.fn.carousel;a.fn.carousel=b,a.fn.carousel.Constructor=c,a.fn.carousel.noConflict=function(){return a.fn.carousel=d,this};var e=function(c){var d,e=a(this),f=a(e.attr("data-target")||(d=e.attr("href"))&&d.replace(/.*(?=#[^\s]+$)/,""));if(f.hasClass("carousel")){var g=a.extend({},f.data(),e.data()),h=e.attr("data-slide-to");h&&(g.interval=!1),b.call(f,g),h&&f.data("bs.carousel").to(h),c.preventDefault()}};a(document).on("click.bs.carousel.data-api","[data-slide]",e).on("click.bs.carousel.data-api","[data-slide-to]",e),a(window).on("load",function(){a('[data-ride="carousel"]').each(function(){var c=a(this);b.call(c,c.data())})})}(jQuery),+function(a){"use strict";function b(b){var c,d=b.attr("data-target")||(c=b.attr("href"))&&c.replace(/.*(?=#[^\s]+$)/,"");return a(d)}function c(b){return this.each(function(){var c=a(this),e=c.data("bs.collapse"),f=a.extend({},d.DEFAULTS,c.data(),"object"==typeof b&&b);!e&&f.toggle&&/show|hide/.test(b)&&(f.toggle=!1),e||c.data("bs.collapse",e=new d(this,f)),"string"==typeof b&&e[b]()})}var d=function(b,c){this.$element=a(b),this.options=a.extend({},d.DEFAULTS,c),this.$trigger=a('[data-toggle="collapse"][href="#'+b.id+'"],[data-toggle="collapse"][data-target="#'+b.id+'"]'),this.transitioning=null,this.options.parent?this.$parent=this.getParent():this.addAriaAndCollapsedClass(this.$element,this.$trigger),this.options.toggle&&this.toggle()};d.VERSION="3.3.4",d.TRANSITION_DURATION=350,d.DEFAULTS={toggle:!0},d.prototype.dimension=function(){var a=this.$element.hasClass("width");return a?"width":"height"},d.prototype.show=function(){if(!this.transitioning&&!this.$element.hasClass("in")){var b,e=this.$parent&&this.$parent.children(".panel").children(".in, .collapsing");if(!(e&&e.length&&(b=e.data("bs.collapse"),b&&b.transitioning))){var f=a.Event("show.bs.collapse");if(this.$element.trigger(f),!f.isDefaultPrevented()){e&&e.length&&(c.call(e,"hide"),b||e.data("bs.collapse",null));var g=this.dimension();this.$element.removeClass("collapse").addClass("collapsing")[g](0).attr("aria-expanded",!0),this.$trigger.removeClass("collapsed").attr("aria-expanded",!0),this.transitioning=1;var h=function(){this.$element.removeClass("collapsing").addClass("collapse in")[g](""),this.transitioning=0,this.$element.trigger("shown.bs.collapse")};if(!a.support.transition)return h.call(this);var i=a.camelCase(["scroll",g].join("-"));this.$element.one("bsTransitionEnd",a.proxy(h,this)).emulateTransitionEnd(d.TRANSITION_DURATION)[g](this.$element[0][i])}}}},d.prototype.hide=function(){if(!this.transitioning&&this.$element.hasClass("in")){var b=a.Event("hide.bs.collapse");if(this.$element.trigger(b),!b.isDefaultPrevented()){var c=this.dimension();this.$element[c](this.$element[c]())[0].offsetHeight,this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded",!1),this.$trigger.addClass("collapsed").attr("aria-expanded",!1),this.transitioning=1;var e=function(){this.transitioning=0,this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse")};return a.support.transition?void this.$element[c](0).one("bsTransitionEnd",a.proxy(e,this)).emulateTransitionEnd(d.TRANSITION_DURATION):e.call(this)}}},d.prototype.toggle=function(){this[this.$element.hasClass("in")?"hide":"show"]()},d.prototype.getParent=function(){return a(this.options.parent).find('[data-toggle="collapse"][data-parent="'+this.options.parent+'"]').each(a.proxy(function(c,d){var e=a(d);this.addAriaAndCollapsedClass(b(e),e)},this)).end()},d.prototype.addAriaAndCollapsedClass=function(a,b){var c=a.hasClass("in");a.attr("aria-expanded",c),b.toggleClass("collapsed",!c).attr("aria-expanded",c)};var e=a.fn.collapse;a.fn.collapse=c,a.fn.collapse.Constructor=d,a.fn.collapse.noConflict=function(){return a.fn.collapse=e,this},a(document).on("click.bs.collapse.data-api",'[data-toggle="collapse"]',function(d){var e=a(this);e.attr("data-target")||d.preventDefault();var f=b(e),g=f.data("bs.collapse"),h=g?"toggle":e.data();c.call(f,h)})}(jQuery),+function(a){"use strict";function b(b){b&&3===b.which||(a(e).remove(),a(f).each(function(){var d=a(this),e=c(d),f={relatedTarget:this};e.hasClass("open")&&(e.trigger(b=a.Event("hide.bs.dropdown",f)),b.isDefaultPrevented()||(d.attr("aria-expanded","false"),e.removeClass("open").trigger("hidden.bs.dropdown",f)))}))}function c(b){var c=b.attr("data-target");c||(c=b.attr("href"),c=c&&/#[A-Za-z]/.test(c)&&c.replace(/.*(?=#[^\s]*$)/,""));var d=c&&a(c);return d&&d.length?d:b.parent()}function d(b){return this.each(function(){var c=a(this),d=c.data("bs.dropdown");d||c.data("bs.dropdown",d=new g(this)),"string"==typeof b&&d[b].call(c)})}var e=".dropdown-backdrop",f='[data-toggle="dropdown"]',g=function(b){a(b).on("click.bs.dropdown",this.toggle)};g.VERSION="3.3.4",g.prototype.toggle=function(d){var e=a(this);if(!e.is(".disabled, :disabled")){var f=c(e),g=f.hasClass("open");if(b(),!g){"ontouchstart"in document.documentElement&&!f.closest(".navbar-nav").length&&a('<div class="dropdown-backdrop"/>').insertAfter(a(this)).on("click",b);var h={relatedTarget:this};if(f.trigger(d=a.Event("show.bs.dropdown",h)),d.isDefaultPrevented())return;e.trigger("focus").attr("aria-expanded","true"),f.toggleClass("open").trigger("shown.bs.dropdown",h)}return!1}},g.prototype.keydown=function(b){if(/(38|40|27|32)/.test(b.which)&&!/input|textarea/i.test(b.target.tagName)){var d=a(this);if(b.preventDefault(),b.stopPropagation(),!d.is(".disabled, :disabled")){var e=c(d),g=e.hasClass("open");if(!g&&27!=b.which||g&&27==b.which)return 27==b.which&&e.find(f).trigger("focus"),d.trigger("click");var h=" li:not(.disabled):visible a",i=e.find('[role="menu"]'+h+', [role="listbox"]'+h);if(i.length){var j=i.index(b.target);38==b.which&&j>0&&j--,40==b.which&&j<i.length-1&&j++,~j||(j=0),i.eq(j).trigger("focus")}}}};var h=a.fn.dropdown;a.fn.dropdown=d,a.fn.dropdown.Constructor=g,a.fn.dropdown.noConflict=function(){return a.fn.dropdown=h,this},a(document).on("click.bs.dropdown.data-api",b).on("click.bs.dropdown.data-api",".dropdown form",function(a){a.stopPropagation()}).on("click.bs.dropdown.data-api",f,g.prototype.toggle).on("keydown.bs.dropdown.data-api",f,g.prototype.keydown).on("keydown.bs.dropdown.data-api",'[role="menu"]',g.prototype.keydown).on("keydown.bs.dropdown.data-api",'[role="listbox"]',g.prototype.keydown)}(jQuery),+function(a){"use strict";function b(b,d){return this.each(function(){var e=a(this),f=e.data("bs.modal"),g=a.extend({},c.DEFAULTS,e.data(),"object"==typeof b&&b);f||e.data("bs.modal",f=new c(this,g)),"string"==typeof b?f[b](d):g.show&&f.show(d)})}var c=function(b,c){this.options=c,this.$body=a(document.body),this.$element=a(b),this.$dialog=this.$element.find(".modal-dialog"),this.$backdrop=null,this.isShown=null,this.originalBodyPad=null,this.scrollbarWidth=0,this.ignoreBackdropClick=!1,this.options.remote&&this.$element.find(".modal-content").load(this.options.remote,a.proxy(function(){this.$element.trigger("loaded.bs.modal")},this))};c.VERSION="3.3.4",c.TRANSITION_DURATION=300,c.BACKDROP_TRANSITION_DURATION=150,c.DEFAULTS={backdrop:!0,keyboard:!0,show:!0},c.prototype.toggle=function(a){return this.isShown?this.hide():this.show(a)},c.prototype.show=function(b){var d=this,e=a.Event("show.bs.modal",{relatedTarget:b});this.$element.trigger(e),this.isShown||e.isDefaultPrevented()||(this.isShown=!0,this.checkScrollbar(),this.setScrollbar(),this.$body.addClass("modal-open"),this.escape(),this.resize(),this.$element.on("click.dismiss.bs.modal",'[data-dismiss="modal"]',a.proxy(this.hide,this)),this.$dialog.on("mousedown.dismiss.bs.modal",function(){d.$element.one("mouseup.dismiss.bs.modal",function(b){a(b.target).is(d.$element)&&(d.ignoreBackdropClick=!0)})}),this.backdrop(function(){var e=a.support.transition&&d.$element.hasClass("fade");d.$element.parent().length||d.$element.appendTo(d.$body),d.$element.show().scrollTop(0),d.adjustDialog(),e&&d.$element[0].offsetWidth,d.$element.addClass("in").attr("aria-hidden",!1),d.enforceFocus();var f=a.Event("shown.bs.modal",{relatedTarget:b});e?d.$dialog.one("bsTransitionEnd",function(){d.$element.trigger("focus").trigger(f)}).emulateTransitionEnd(c.TRANSITION_DURATION):d.$element.trigger("focus").trigger(f)}))},c.prototype.hide=function(b){b&&b.preventDefault(),b=a.Event("hide.bs.modal"),this.$element.trigger(b),this.isShown&&!b.isDefaultPrevented()&&(this.isShown=!1,this.escape(),this.resize(),a(document).off("focusin.bs.modal"),this.$element.removeClass("in").attr("aria-hidden",!0).off("click.dismiss.bs.modal").off("mouseup.dismiss.bs.modal"),this.$dialog.off("mousedown.dismiss.bs.modal"),a.support.transition&&this.$element.hasClass("fade")?this.$element.one("bsTransitionEnd",a.proxy(this.hideModal,this)).emulateTransitionEnd(c.TRANSITION_DURATION):this.hideModal())},c.prototype.enforceFocus=function(){a(document).off("focusin.bs.modal").on("focusin.bs.modal",a.proxy(function(a){this.$element[0]===a.target||this.$element.has(a.target).length||this.$element.trigger("focus")},this))},c.prototype.escape=function(){this.isShown&&this.options.keyboard?this.$element.on("keydown.dismiss.bs.modal",a.proxy(function(a){27==a.which&&this.hide()},this)):this.isShown||this.$element.off("keydown.dismiss.bs.modal")},c.prototype.resize=function(){this.isShown?a(window).on("resize.bs.modal",a.proxy(this.handleUpdate,this)):a(window).off("resize.bs.modal")},c.prototype.hideModal=function(){var a=this;this.$element.hide(),this.backdrop(function(){a.$body.removeClass("modal-open"),a.resetAdjustments(),a.resetScrollbar(),a.$element.trigger("hidden.bs.modal")})},c.prototype.removeBackdrop=function(){this.$backdrop&&this.$backdrop.remove(),this.$backdrop=null},c.prototype.backdrop=function(b){var d=this,e=this.$element.hasClass("fade")?"fade":"";if(this.isShown&&this.options.backdrop){var f=a.support.transition&&e;if(this.$backdrop=a('<div class="modal-backdrop '+e+'" />').appendTo(this.$body),this.$element.on("click.dismiss.bs.modal",a.proxy(function(a){return this.ignoreBackdropClick?void(this.ignoreBackdropClick=!1):void(a.target===a.currentTarget&&("static"==this.options.backdrop?this.$element[0].focus():this.hide()))},this)),f&&this.$backdrop[0].offsetWidth,this.$backdrop.addClass("in"),!b)return;f?this.$backdrop.one("bsTransitionEnd",b).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):b()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass("in");var g=function(){d.removeBackdrop(),b&&b()};a.support.transition&&this.$element.hasClass("fade")?this.$backdrop.one("bsTransitionEnd",g).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):g()}else b&&b()},c.prototype.handleUpdate=function(){this.adjustDialog()},c.prototype.adjustDialog=function(){var a=this.$element[0].scrollHeight>document.documentElement.clientHeight;this.$element.css({paddingLeft:!this.bodyIsOverflowing&&a?this.scrollbarWidth:"",paddingRight:this.bodyIsOverflowing&&!a?this.scrollbarWidth:""})},c.prototype.resetAdjustments=function(){this.$element.css({paddingLeft:"",paddingRight:""})},c.prototype.checkScrollbar=function(){var a=window.innerWidth;if(!a){var b=document.documentElement.getBoundingClientRect();a=b.right-Math.abs(b.left)}this.bodyIsOverflowing=document.body.clientWidth<a,this.scrollbarWidth=this.measureScrollbar()},c.prototype.setScrollbar=function(){var a=parseInt(this.$body.css("padding-right")||0,10);this.originalBodyPad=document.body.style.paddingRight||"",this.bodyIsOverflowing&&this.$body.css("padding-right",a+this.scrollbarWidth)},c.prototype.resetScrollbar=function(){this.$body.css("padding-right",this.originalBodyPad)},c.prototype.measureScrollbar=function(){var a=document.createElement("div");a.className="modal-scrollbar-measure",this.$body.append(a);var b=a.offsetWidth-a.clientWidth;return this.$body[0].removeChild(a),b};var d=a.fn.modal;a.fn.modal=b,a.fn.modal.Constructor=c,a.fn.modal.noConflict=function(){return a.fn.modal=d,this},a(document).on("click.bs.modal.data-api",'[data-toggle="modal"]',function(c){var d=a(this),e=d.attr("href"),f=a(d.attr("data-target")||e&&e.replace(/.*(?=#[^\s]+$)/,"")),g=f.data("bs.modal")?"toggle":a.extend({remote:!/#/.test(e)&&e},f.data(),d.data());d.is("a")&&c.preventDefault(),f.one("show.bs.modal",function(a){a.isDefaultPrevented()||f.one("hidden.bs.modal",function(){d.is(":visible")&&d.trigger("focus")})}),b.call(f,g,this)})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tooltip"),f="object"==typeof b&&b;(e||!/destroy|hide/.test(b))&&(e||d.data("bs.tooltip",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.type=null,this.options=null,this.enabled=null,this.timeout=null,this.hoverState=null,this.$element=null,this.init("tooltip",a,b)};c.VERSION="3.3.4",c.TRANSITION_DURATION=150,c.DEFAULTS={animation:!0,placement:"top",selector:!1,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:"hover focus",title:"",delay:0,html:!1,container:!1,viewport:{selector:"body",padding:0}},c.prototype.init=function(b,c,d){if(this.enabled=!0,this.type=b,this.$element=a(c),this.options=this.getOptions(d),this.$viewport=this.options.viewport&&a(this.options.viewport.selector||this.options.viewport),this.$element[0]instanceof document.constructor&&!this.options.selector)throw new Error("`selector` option must be specified when initializing "+this.type+" on the window.document object!");for(var e=this.options.trigger.split(" "),f=e.length;f--;){var g=e[f];if("click"==g)this.$element.on("click."+this.type,this.options.selector,a.proxy(this.toggle,this));else if("manual"!=g){var h="hover"==g?"mouseenter":"focusin",i="hover"==g?"mouseleave":"focusout";this.$element.on(h+"."+this.type,this.options.selector,a.proxy(this.enter,this)),this.$element.on(i+"."+this.type,this.options.selector,a.proxy(this.leave,this))}}this.options.selector?this._options=a.extend({},this.options,{trigger:"manual",selector:""}):this.fixTitle()},c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.getOptions=function(b){return b=a.extend({},this.getDefaults(),this.$element.data(),b),b.delay&&"number"==typeof b.delay&&(b.delay={show:b.delay,hide:b.delay}),b},c.prototype.getDelegateOptions=function(){var b={},c=this.getDefaults();return this._options&&a.each(this._options,function(a,d){c[a]!=d&&(b[a]=d)}),b},c.prototype.enter=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c&&c.$tip&&c.$tip.is(":visible")?void(c.hoverState="in"):(c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),clearTimeout(c.timeout),c.hoverState="in",c.options.delay&&c.options.delay.show?void(c.timeout=setTimeout(function(){"in"==c.hoverState&&c.show()},c.options.delay.show)):c.show())},c.prototype.leave=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),clearTimeout(c.timeout),c.hoverState="out",c.options.delay&&c.options.delay.hide?void(c.timeout=setTimeout(function(){"out"==c.hoverState&&c.hide()},c.options.delay.hide)):c.hide()},c.prototype.show=function(){var b=a.Event("show.bs."+this.type);if(this.hasContent()&&this.enabled){this.$element.trigger(b);var d=a.contains(this.$element[0].ownerDocument.documentElement,this.$element[0]);if(b.isDefaultPrevented()||!d)return;var e=this,f=this.tip(),g=this.getUID(this.type);this.setContent(),f.attr("id",g),this.$element.attr("aria-describedby",g),this.options.animation&&f.addClass("fade");var h="function"==typeof this.options.placement?this.options.placement.call(this,f[0],this.$element[0]):this.options.placement,i=/\s?auto?\s?/i,j=i.test(h);j&&(h=h.replace(i,"")||"top"),f.detach().css({top:0,left:0,display:"block"}).addClass(h).data("bs."+this.type,this),this.options.container?f.appendTo(this.options.container):f.insertAfter(this.$element);var k=this.getPosition(),l=f[0].offsetWidth,m=f[0].offsetHeight;if(j){var n=h,o=this.options.container?a(this.options.container):this.$element.parent(),p=this.getPosition(o);h="bottom"==h&&k.bottom+m>p.bottom?"top":"top"==h&&k.top-m<p.top?"bottom":"right"==h&&k.right+l>p.width?"left":"left"==h&&k.left-l<p.left?"right":h,f.removeClass(n).addClass(h)}var q=this.getCalculatedOffset(h,k,l,m);this.applyPlacement(q,h);var r=function(){var a=e.hoverState;e.$element.trigger("shown.bs."+e.type),e.hoverState=null,"out"==a&&e.leave(e)};a.support.transition&&this.$tip.hasClass("fade")?f.one("bsTransitionEnd",r).emulateTransitionEnd(c.TRANSITION_DURATION):r()}},c.prototype.applyPlacement=function(b,c){var d=this.tip(),e=d[0].offsetWidth,f=d[0].offsetHeight,g=parseInt(d.css("margin-top"),10),h=parseInt(d.css("margin-left"),10);isNaN(g)&&(g=0),isNaN(h)&&(h=0),b.top=b.top+g,b.left=b.left+h,a.offset.setOffset(d[0],a.extend({using:function(a){d.css({top:Math.round(a.top),left:Math.round(a.left)})}},b),0),d.addClass("in");var i=d[0].offsetWidth,j=d[0].offsetHeight;"top"==c&&j!=f&&(b.top=b.top+f-j);var k=this.getViewportAdjustedDelta(c,b,i,j);k.left?b.left+=k.left:b.top+=k.top;var l=/top|bottom/.test(c),m=l?2*k.left-e+i:2*k.top-f+j,n=l?"offsetWidth":"offsetHeight";d.offset(b),this.replaceArrow(m,d[0][n],l)},c.prototype.replaceArrow=function(a,b,c){this.arrow().css(c?"left":"top",50*(1-a/b)+"%").css(c?"top":"left","")},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle();a.find(".tooltip-inner")[this.options.html?"html":"text"](b),a.removeClass("fade in top bottom left right")},c.prototype.hide=function(b){function d(){"in"!=e.hoverState&&f.detach(),e.$element.removeAttr("aria-describedby").trigger("hidden.bs."+e.type),b&&b()}var e=this,f=a(this.$tip),g=a.Event("hide.bs."+this.type);return this.$element.trigger(g),g.isDefaultPrevented()?void 0:(f.removeClass("in"),a.support.transition&&f.hasClass("fade")?f.one("bsTransitionEnd",d).emulateTransitionEnd(c.TRANSITION_DURATION):d(),this.hoverState=null,this)},c.prototype.fixTitle=function(){var a=this.$element;(a.attr("title")||"string"!=typeof a.attr("data-original-title"))&&a.attr("data-original-title",a.attr("title")||"").attr("title","")},c.prototype.hasContent=function(){return this.getTitle()},c.prototype.getPosition=function(b){b=b||this.$element;var c=b[0],d="BODY"==c.tagName,e=c.getBoundingClientRect();null==e.width&&(e=a.extend({},e,{width:e.right-e.left,height:e.bottom-e.top}));var f=d?{top:0,left:0}:b.offset(),g={scroll:d?document.documentElement.scrollTop||document.body.scrollTop:b.scrollTop()},h=d?{width:a(window).width(),height:a(window).height()}:null;return a.extend({},e,g,h,f)},c.prototype.getCalculatedOffset=function(a,b,c,d){return"bottom"==a?{top:b.top+b.height,left:b.left+b.width/2-c/2}:"top"==a?{top:b.top-d,left:b.left+b.width/2-c/2}:"left"==a?{top:b.top+b.height/2-d/2,left:b.left-c}:{top:b.top+b.height/2-d/2,left:b.left+b.width}},c.prototype.getViewportAdjustedDelta=function(a,b,c,d){var e={top:0,left:0};if(!this.$viewport)return e;var f=this.options.viewport&&this.options.viewport.padding||0,g=this.getPosition(this.$viewport);if(/right|left/.test(a)){var h=b.top-f-g.scroll,i=b.top+f-g.scroll+d;h<g.top?e.top=g.top-h:i>g.top+g.height&&(e.top=g.top+g.height-i)}else{var j=b.left-f,k=b.left+f+c;j<g.left?e.left=g.left-j:k>g.width&&(e.left=g.left+g.width-k)}return e},c.prototype.getTitle=function(){var a,b=this.$element,c=this.options;return a=b.attr("data-original-title")||("function"==typeof c.title?c.title.call(b[0]):c.title)},c.prototype.getUID=function(a){do a+=~~(1e6*Math.random());while(document.getElementById(a));return a},c.prototype.tip=function(){return this.$tip=this.$tip||a(this.options.template)},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".tooltip-arrow")},c.prototype.enable=function(){this.enabled=!0},c.prototype.disable=function(){this.enabled=!1},c.prototype.toggleEnabled=function(){this.enabled=!this.enabled},c.prototype.toggle=function(b){var c=this;b&&(c=a(b.currentTarget).data("bs."+this.type),c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c))),c.tip().hasClass("in")?c.leave(c):c.enter(c)},c.prototype.destroy=function(){var a=this;clearTimeout(this.timeout),this.hide(function(){a.$element.off("."+a.type).removeData("bs."+a.type)})};var d=a.fn.tooltip;a.fn.tooltip=b,a.fn.tooltip.Constructor=c,a.fn.tooltip.noConflict=function(){return a.fn.tooltip=d,this}}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.popover"),f="object"==typeof b&&b;(e||!/destroy|hide/.test(b))&&(e||d.data("bs.popover",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.init("popover",a,b)};if(!a.fn.tooltip)throw new Error("Popover requires tooltip.js");c.VERSION="3.3.4",c.DEFAULTS=a.extend({},a.fn.tooltip.Constructor.DEFAULTS,{placement:"right",trigger:"click",content:"",template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'}),c.prototype=a.extend({},a.fn.tooltip.Constructor.prototype),c.prototype.constructor=c,c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle(),c=this.getContent();a.find(".popover-title")[this.options.html?"html":"text"](b),a.find(".popover-content").children().detach().end()[this.options.html?"string"==typeof c?"html":"append":"text"](c),a.removeClass("fade top bottom left right in"),a.find(".popover-title").html()||a.find(".popover-title").hide()},c.prototype.hasContent=function(){return this.getTitle()||this.getContent()},c.prototype.getContent=function(){var a=this.$element,b=this.options;return a.attr("data-content")||("function"==typeof b.content?b.content.call(a[0]):b.content)},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".arrow")};var d=a.fn.popover;a.fn.popover=b,a.fn.popover.Constructor=c,a.fn.popover.noConflict=function(){return a.fn.popover=d,this}}(jQuery),+function(a){"use strict";function b(c,d){this.$body=a(document.body),this.$scrollElement=a(a(c).is(document.body)?window:c),this.options=a.extend({},b.DEFAULTS,d),this.selector=(this.options.target||"")+" .nav li > a",this.offsets=[],this.targets=[],this.activeTarget=null,this.scrollHeight=0,this.$scrollElement.on("scroll.bs.scrollspy",a.proxy(this.process,this)),this.refresh(),this.process()}function c(c){return this.each(function(){var d=a(this),e=d.data("bs.scrollspy"),f="object"==typeof c&&c;e||d.data("bs.scrollspy",e=new b(this,f)),"string"==typeof c&&e[c]()})}b.VERSION="3.3.4",b.DEFAULTS={offset:10},b.prototype.getScrollHeight=function(){return this.$scrollElement[0].scrollHeight||Math.max(this.$body[0].scrollHeight,document.documentElement.scrollHeight)},b.prototype.refresh=function(){var b=this,c="offset",d=0;this.offsets=[],this.targets=[],this.scrollHeight=this.getScrollHeight(),a.isWindow(this.$scrollElement[0])||(c="position",d=this.$scrollElement.scrollTop()),this.$body.find(this.selector).map(function(){var b=a(this),e=b.data("target")||b.attr("href"),f=/^#./.test(e)&&a(e);return f&&f.length&&f.is(":visible")&&[[f[c]().top+d,e]]||null}).sort(function(a,b){return a[0]-b[0]}).each(function(){b.offsets.push(this[0]),b.targets.push(this[1])})},b.prototype.process=function(){var a,b=this.$scrollElement.scrollTop()+this.options.offset,c=this.getScrollHeight(),d=this.options.offset+c-this.$scrollElement.height(),e=this.offsets,f=this.targets,g=this.activeTarget;if(this.scrollHeight!=c&&this.refresh(),b>=d)return g!=(a=f[f.length-1])&&this.activate(a);if(g&&b<e[0])return this.activeTarget=null,this.clear();for(a=e.length;a--;)g!=f[a]&&b>=e[a]&&(void 0===e[a+1]||b<e[a+1])&&this.activate(f[a])},b.prototype.activate=function(b){this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+this.selector+'[href="'+b+'"]',d=a(c).parents("li").addClass("active");d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active")),d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector).parentsUntil(this.options.target,".active").removeClass("active")};var d=a.fn.scrollspy;a.fn.scrollspy=c,a.fn.scrollspy.Constructor=b,a.fn.scrollspy.noConflict=function(){return a.fn.scrollspy=d,this},a(window).on("load.bs.scrollspy.data-api",function(){a('[data-spy="scroll"]').each(function(){var b=a(this);c.call(b,b.data())})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tab");e||d.data("bs.tab",e=new c(this)),"string"==typeof b&&e[b]()})}var c=function(b){this.element=a(b)};c.VERSION="3.3.4",c.TRANSITION_DURATION=150,c.prototype.show=function(){var b=this.element,c=b.closest("ul:not(.dropdown-menu)"),d=b.data("target");if(d||(d=b.attr("href"),d=d&&d.replace(/.*(?=#[^\s]*$)/,"")),!b.parent("li").hasClass("active")){
 var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a.Event("show.bs.tab",{relatedTarget:e[0]});if(e.trigger(f),b.trigger(g),!g.isDefaultPrevented()&&!f.isDefaultPrevented()){var h=a(d);this.activate(b.closest("li"),c),this.activate(h,h.parent(),function(){e.trigger({type:"hidden.bs.tab",relatedTarget:b[0]}),b.trigger({type:"shown.bs.tab",relatedTarget:e[0]})})}}},c.prototype.activate=function(b,d,e){function f(){g.removeClass("active").find("> .dropdown-menu > .active").removeClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!1),b.addClass("active").find('[data-toggle="tab"]').attr("aria-expanded",!0),h?(b[0].offsetWidth,b.addClass("in")):b.removeClass("fade"),b.parent(".dropdown-menu").length&&b.closest("li.dropdown").addClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!0),e&&e()}var g=d.find("> .active"),h=e&&a.support.transition&&(g.length&&g.hasClass("fade")||!!d.find("> .fade").length);g.length&&h?g.one("bsTransitionEnd",f).emulateTransitionEnd(c.TRANSITION_DURATION):f(),g.removeClass("in")};var d=a.fn.tab;a.fn.tab=b,a.fn.tab.Constructor=c,a.fn.tab.noConflict=function(){return a.fn.tab=d,this};var e=function(c){c.preventDefault(),b.call(a(this),"show")};a(document).on("click.bs.tab.data-api",'[data-toggle="tab"]',e).on("click.bs.tab.data-api",'[data-toggle="pill"]',e)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.affix"),f="object"==typeof b&&b;e||d.data("bs.affix",e=new c(this,f)),"string"==typeof b&&e[b]()})}var c=function(b,d){this.options=a.extend({},c.DEFAULTS,d),this.$target=a(this.options.target).on("scroll.bs.affix.data-api",a.proxy(this.checkPosition,this)).on("click.bs.affix.data-api",a.proxy(this.checkPositionWithEventLoop,this)),this.$element=a(b),this.affixed=null,this.unpin=null,this.pinnedOffset=null,this.checkPosition()};c.VERSION="3.3.4",c.RESET="affix affix-top affix-bottom",c.DEFAULTS={offset:0,target:window},c.prototype.getState=function(a,b,c,d){var e=this.$target.scrollTop(),f=this.$element.offset(),g=this.$target.height();if(null!=c&&"top"==this.affixed)return c>e?"top":!1;if("bottom"==this.affixed)return null!=c?e+this.unpin<=f.top?!1:"bottom":a-d>=e+g?!1:"bottom";var h=null==this.affixed,i=h?e:f.top,j=h?g:b;return null!=c&&c>=e?"top":null!=d&&i+j>=a-d?"bottom":!1},c.prototype.getPinnedOffset=function(){if(this.pinnedOffset)return this.pinnedOffset;this.$element.removeClass(c.RESET).addClass("affix");var a=this.$target.scrollTop(),b=this.$element.offset();return this.pinnedOffset=b.top-a},c.prototype.checkPositionWithEventLoop=function(){setTimeout(a.proxy(this.checkPosition,this),1)},c.prototype.checkPosition=function(){if(this.$element.is(":visible")){var b=this.$element.height(),d=this.options.offset,e=d.top,f=d.bottom,g=a(document.body).height();"object"!=typeof d&&(f=e=d),"function"==typeof e&&(e=d.top(this.$element)),"function"==typeof f&&(f=d.bottom(this.$element));var h=this.getState(g,b,e,f);if(this.affixed!=h){null!=this.unpin&&this.$element.css("top","");var i="affix"+(h?"-"+h:""),j=a.Event(i+".bs.affix");if(this.$element.trigger(j),j.isDefaultPrevented())return;this.affixed=h,this.unpin="bottom"==h?this.getPinnedOffset():null,this.$element.removeClass(c.RESET).addClass(i).trigger(i.replace("affix","affixed")+".bs.affix")}"bottom"==h&&this.$element.offset({top:g-b-f})}};var d=a.fn.affix;a.fn.affix=b,a.fn.affix.Constructor=c,a.fn.affix.noConflict=function(){return a.fn.affix=d,this},a(window).on("load",function(){a('[data-spy="affix"]').each(function(){var c=a(this),d=c.data();d.offset=d.offset||{},null!=d.offsetBottom&&(d.offset.bottom=d.offsetBottom),null!=d.offsetTop&&(d.offset.top=d.offsetTop),b.call(c,d)})})}(jQuery);
+/*! iCheck v1.0.2 by Damir Sultanov, http://git.io/arlzeA, MIT Licensed */
+(function(f){function A(a,b,d){var c=a[0],g=/er/.test(d)?_indeterminate:/bl/.test(d)?n:k,e=d==_update?{checked:c[k],disabled:c[n],indeterminate:"true"==a.attr(_indeterminate)||"false"==a.attr(_determinate)}:c[g];if(/^(ch|di|in)/.test(d)&&!e)x(a,g);else if(/^(un|en|de)/.test(d)&&e)q(a,g);else if(d==_update)for(var f in e)e[f]?x(a,f,!0):q(a,f,!0);else if(!b||"toggle"==d){if(!b)a[_callback]("ifClicked");e?c[_type]!==r&&q(a,g):x(a,g)}}function x(a,b,d){var c=a[0],g=a.parent(),e=b==k,u=b==_indeterminate,
+v=b==n,s=u?_determinate:e?y:"enabled",F=l(a,s+t(c[_type])),B=l(a,b+t(c[_type]));if(!0!==c[b]){if(!d&&b==k&&c[_type]==r&&c.name){var w=a.closest("form"),p='input[name="'+c.name+'"]',p=w.length?w.find(p):f(p);p.each(function(){this!==c&&f(this).data(m)&&q(f(this),b)})}u?(c[b]=!0,c[k]&&q(a,k,"force")):(d||(c[b]=!0),e&&c[_indeterminate]&&q(a,_indeterminate,!1));D(a,e,b,d)}c[n]&&l(a,_cursor,!0)&&g.find("."+C).css(_cursor,"default");g[_add](B||l(a,b)||"");g.attr("role")&&!u&&g.attr("aria-"+(v?n:k),"true");
+g[_remove](F||l(a,s)||"")}function q(a,b,d){var c=a[0],g=a.parent(),e=b==k,f=b==_indeterminate,m=b==n,s=f?_determinate:e?y:"enabled",q=l(a,s+t(c[_type])),r=l(a,b+t(c[_type]));if(!1!==c[b]){if(f||!d||"force"==d)c[b]=!1;D(a,e,s,d)}!c[n]&&l(a,_cursor,!0)&&g.find("."+C).css(_cursor,"pointer");g[_remove](r||l(a,b)||"");g.attr("role")&&!f&&g.attr("aria-"+(m?n:k),"false");g[_add](q||l(a,s)||"")}function E(a,b){if(a.data(m)){a.parent().html(a.attr("style",a.data(m).s||""));if(b)a[_callback](b);a.off(".i").unwrap();
+f(_label+'[for="'+a[0].id+'"]').add(a.closest(_label)).off(".i")}}function l(a,b,f){if(a.data(m))return a.data(m).o[b+(f?"":"Class")]}function t(a){return a.charAt(0).toUpperCase()+a.slice(1)}function D(a,b,f,c){if(!c){if(b)a[_callback]("ifToggled");a[_callback]("ifChanged")[_callback]("if"+t(f))}}var m="iCheck",C=m+"-helper",r="radio",k="checked",y="un"+k,n="disabled";_determinate="determinate";_indeterminate="in"+_determinate;_update="update";_type="type";_click="click";_touch="touchbegin.i touchend.i";
+_add="addClass";_remove="removeClass";_callback="trigger";_label="label";_cursor="cursor";_mobile=/ipad|iphone|ipod|android|blackberry|windows phone|opera mini|silk/i.test(navigator.userAgent);f.fn[m]=function(a,b){var d='input[type="checkbox"], input[type="'+r+'"]',c=f(),g=function(a){a.each(function(){var a=f(this);c=a.is(d)?c.add(a):c.add(a.find(d))})};if(/^(check|uncheck|toggle|indeterminate|determinate|disable|enable|update|destroy)$/i.test(a))return a=a.toLowerCase(),g(this),c.each(function(){var c=
+f(this);"destroy"==a?E(c,"ifDestroyed"):A(c,!0,a);f.isFunction(b)&&b()});if("object"!=typeof a&&a)return this;var e=f.extend({checkedClass:k,disabledClass:n,indeterminateClass:_indeterminate,labelHover:!0},a),l=e.handle,v=e.hoverClass||"hover",s=e.focusClass||"focus",t=e.activeClass||"active",B=!!e.labelHover,w=e.labelHoverClass||"hover",p=(""+e.increaseArea).replace("%","")|0;if("checkbox"==l||l==r)d='input[type="'+l+'"]';-50>p&&(p=-50);g(this);return c.each(function(){var a=f(this);E(a);var c=this,
+b=c.id,g=-p+"%",d=100+2*p+"%",d={position:"absolute",top:g,left:g,display:"block",width:d,height:d,margin:0,padding:0,background:"#fff",border:0,opacity:0},g=_mobile?{position:"absolute",visibility:"hidden"}:p?d:{position:"absolute",opacity:0},l="checkbox"==c[_type]?e.checkboxClass||"icheckbox":e.radioClass||"i"+r,z=f(_label+'[for="'+b+'"]').add(a.closest(_label)),u=!!e.aria,y=m+"-"+Math.random().toString(36).substr(2,6),h='<div class="'+l+'" '+(u?'role="'+c[_type]+'" ':"");u&&z.each(function(){h+=
+'aria-labelledby="';this.id?h+=this.id:(this.id=y,h+=y);h+='"'});h=a.wrap(h+"/>")[_callback]("ifCreated").parent().append(e.insert);d=f('<ins class="'+C+'"/>').css(d).appendTo(h);a.data(m,{o:e,s:a.attr("style")}).css(g);e.inheritClass&&h[_add](c.className||"");e.inheritID&&b&&h.attr("id",m+"-"+b);"static"==h.css("position")&&h.css("position","relative");A(a,!0,_update);if(z.length)z.on(_click+".i mouseover.i mouseout.i "+_touch,function(b){var d=b[_type],e=f(this);if(!c[n]){if(d==_click){if(f(b.target).is("a"))return;
+A(a,!1,!0)}else B&&(/ut|nd/.test(d)?(h[_remove](v),e[_remove](w)):(h[_add](v),e[_add](w)));if(_mobile)b.stopPropagation();else return!1}});a.on(_click+".i focus.i blur.i keyup.i keydown.i keypress.i",function(b){var d=b[_type];b=b.keyCode;if(d==_click)return!1;if("keydown"==d&&32==b)return c[_type]==r&&c[k]||(c[k]?q(a,k):x(a,k)),!1;if("keyup"==d&&c[_type]==r)!c[k]&&x(a,k);else if(/us|ur/.test(d))h["blur"==d?_remove:_add](s)});d.on(_click+" mousedown mouseup mouseover mouseout "+_touch,function(b){var d=
+b[_type],e=/wn|up/.test(d)?t:v;if(!c[n]){if(d==_click)A(a,!1,!0);else{if(/wn|er|in/.test(d))h[_add](e);else h[_remove](e+" "+t);if(z.length&&B&&e==v)z[/ut|nd/.test(d)?_remove:_add](w)}if(_mobile)b.stopPropagation();else return!1}})})}})(window.jQuery||window.Zepto);
+	var tot_qty 	= 0;
+	var gtotal 		= 0;
+	var item_qty 	= 0;
+	var pqty 		= [];
+	var flg 		= 0;
+	input_flag 		= 0;
+
+	var tot_qty_mobile = 0;
+
+	$(function() {
+		btn_number = $('.btn-number:disabled');
+		btn_number_mobile = $('.btn-number-mobile');
+
+		$('.input_number:disabled').each(function(e) {
+			cid = $(this).data('cid');
+			vid = $(this).data('id');
+			fieldName = $(this).attr('data-name');
+
+			list_cart = $('.list-vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+			list_cart_mobile = $('.list-vid-mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			input_number_mobile = list_cart_mobile.find('.input_number-mobile[data-name="'+fieldName+'"]');
+
+			flg = 2;
+			show_tooltip($(this), flg);
+			show_tooltip(input_number_mobile, flg);
+		});
+	});
+
+/*=============================================
+===============================================
+EVENT BTN_NUMBER CLICK FOR DESKTOP
+===============================================
+=============================================*/
+	$('.btn_number').on('click',function(e){
+		e.preventDefault();
+		$(this).parent().parent().parent().attr('action', 'javascript:void(0);');
+
+		fieldName 				= $(this).attr('data-field');
+		type      				= $(this).attr('data-type');
+		page 					= $(this).attr('data-page');
+
+		/* --== in PAGE CART ==-- */
+		if (page=='cart') {
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-vid');
+			list_cart_mobile 	= $('.list_vid_mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			input 				= $(this).parent().parent().find('.input_number').attr('data-name', fieldName);
+			lab_total  			= input.parent().parent().parent().parent().parent().parent().find('.label_total');
+
+			input_mobile 		= list_cart_mobile.find('.input_number_mobile[data-name="'+fieldName+'"]');
+			lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label_total_mobile');
+
+			action_update 		= $(this).attr('data-action-update');
+			varian_qty 			= 0;
+
+		/* --== in PAGE PRODUCT SHOW ==-- */
+		} else {
+			input 				= $(this).parent().find('.input_number').attr('data-name', fieldName);
+		}
+
+		currentVal 				= parseInt(input.val());
+
+		if (!isNaN(currentVal)) {
+			if (type == 'minus') {
+				// lebih besar dari total minus stock
+				if (currentVal > input.attr('min')) {
+					if (page == 'cart') {
+						qty_minus(input, currentVal, lab_total, type);
+						qty_minus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+						disable_btn($(this), input, vid, cid);
+
+						varian_qty = currentVal-1;
+					} else {
+						qty_minus_product(input, currentVal, type);
+						disable_btn_product($(this), input);
+					}
+				} 
+				if (parseInt(input.val()) == input.attr('min')) {
+					$(this).attr('disabled', true);
+				}
+			} else if (type == 'plus') {
+				// lebih kecil dari total maximum stock
+				if (currentVal < input.attr('max')) {
+					if (page == 'cart') {
+						qty_plus(input, currentVal, lab_total, type);
+						qty_plus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+						disable_btn($(this), input, vid, cid);
+
+						varian_qty = currentVal+1;
+					} else {
+						qty_plus_product(input, currentVal, type);
+						disable_btn_product($(this), input);
+					}
+				}
+				if (parseInt(input.val()) == input.attr('max')) {
+					$(this).attr('disabled', true);
+				}
+			}
+
+			if (page == 'cart') {
+				send_ajax_update(varian_qty, action_update);
+			}
+			
+		} else {
+			input.val(0);
+		}
+	});
+
+	$('.btn_number').mouseleave(function(e){
+		e.preventDefault();
+		fieldName 				= $(this).attr('data-field');
+		var input 				= $(this).parent().find('.input_number').attr('data-name', fieldName);
+	});
+
+	$('.input_number').focusin(function(){
+		$(this).attr('data-input-flag', 1);
+		old_value 				= $(this).attr('data-oldValue', $(this).val());
+		fieldName 				= $(this).attr('data-name');
+	});
+
+	$('.input_number').focusout(function() {
+		$(this).attr('data-input-flag', 0);
+		fieldName 				= $(this).attr('data-name');
+	});
+
+	$('.input_number').change(function(){
+		check_flag = $(this).attr('data-input-flag');
+		if (check_flag==1)
+		{
+			minValue 			= parseInt($(this).attr('min'));
+			maxValue 			= parseInt($(this).attr('max'));
+			valueCurrent 		= parseInt($(this).val());
+			name 				= $(this).attr('data-name');
+			page 				= $(this).attr('data-page');
+
+			btn_minus 			= $(".btn_number[data-type='minus'][data-field='"+name+"']");
+			btn_plus 			= $(".btn_number[data-type='plus'][data-field='"+name+"']");
+
+			if (page === 'cart') {
+				cid 				= $(this).attr('data-cid');
+				vid 				= $(this).attr('data-id');
+
+				list_cart 			= $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+				list_cart_mobile 	= $('.list_vid_mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+				lab_total  			= $(this).parent().parent().parent().parent().parent().parent().find('.label_total');
+
+				input_mobile 		= list_cart_mobile.find('.input_number_mobile[data-name="'+name+'"]');
+				lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label_total_mobile');
+
+				action_update 		= $(this).attr('data-action-update');
+				varian_qty 			= 0;
+
+				btn_minus 			= list_cart.find(".btn_number[data-type='minus'][data-field='"+name+"']");
+				btn_plus 			= list_cart.find(".btn_number[data-type='plus'][data-field='"+name+"']");	
+			} else {
+				btn_minus 			= $(".btn_number[data-type='minus'][data-field='"+name+"']");
+				btn_plus 			= $(".btn_number[data-type='plus'][data-field='"+name+"']");
+			}
+
+			// value sekarang lebih besar dari min stock
+			if (valueCurrent > minValue) {
+				type = 'minus';
+				if (page === 'cart') {
+					qty_change_input_cart($(this), valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_minus, $(this), vid, cid);
+				} else {
+					btn_minus.removeAttr('disabled');
+					// qty_change_input_product($(this));
+				}
+			} else {
+				if (page === 'cart') {
+					disable_btn(btn_minus, $(this), vid, cid);
+				} else {
+					btn_minus.attr('disabled', true);
+				}
+			}
+
+			// value sekarang lebih kecil dari maximun stock
+			if (valueCurrent < maxValue) {
+				type = 'plus';
+				if (page === 'cart') {
+					qty_change_input_cart($(this), valueCurrent, lab_total, type);
+					qty_change_input_cart_mobile(input_mobile, valueCurrent, lab_total_mobile, type);
+					disable_btn(btn_plus, $(this), vid, cid);
+				} else {
+					btn_plus.removeAttr('disabled');
+					// qty_change_input_product($(this));
+				}
+				// flg = 0;
+				// show_tooltip($(this), flg);
+			} else {
+				// flg = 2;
+				// show_tooltip($(this), flg);
+
+				if (page === 'cart') {
+					disable_btn(btn_plus, $(this), vid, cid);
+				} else {
+					btn_plus.attr('disabled', true);
+				}
+			}
+
+			if (page == 'cart') {
+				send_ajax_update(parseInt($(this).val()), action_update);
+			}
+		}
+	});
+
+	$(".input_number").keydown(function (e) {
+		// Allow: backspace, delete, tab, escape, enter and .
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			 // Allow: Ctrl+A
+			(e.keyCode == 65 && e.ctrlKey === true) || 
+			 // Allow: home, end, left, right
+			(e.keyCode >= 35 && e.keyCode <= 39)) {
+				 // let it happen, don't do anything
+				 return;
+		}
+		// Ensure that it is a number and stop the keypress
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+	});
+
+/*=============================================
+===============================================
+EVENT BTN_NUMBER CLICK FOR MOBILE & TABLET
+===============================================
+=============================================*/
+	$('.btn_number_mobile').click(function(e){
+		e.preventDefault();
+		fieldName 			= $(this).attr('data-field');
+		type      			= $(this).attr('data-type');
+		cid 				= $(this).attr('data-cid');
+		vid 				= $(this).attr('data-vid');
+		list_cart 			= $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+		page 				= $(this).attr('data-page');
+
+		input_mobile 		= $(this).parent().siblings().find('.input_number_mobile').attr('data-name', fieldName);
+		input 				= list_cart.find('.input_number[data-name="'+fieldName+'"]');
+		lab_total_mobile 	= input_mobile.parent().parent().parent().parent().parent().find('.label_total_mobile');
+		lab_total  			= input.parent().parent().parent().parent().parent().parent().find('.label_total');
+
+		action_update 		= $(this).attr('data-action-update');
+		varian_qty 			= 0;
+
+		currentVal = parseInt(input_mobile.val());
+
+		if (!isNaN(currentVal)) {
+			if (type == 'minus') {
+				if (currentVal > input_mobile.attr('min')) {
+					qty_minus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+					qty_minus(input, currentVal, lab_total, type);
+					disable_btn($(this), input_mobile, vid, cid);
+
+					varian_qty = currentVal-1;
+				} 
+				if (parseInt(input_mobile.val()) == input_mobile.attr('min')) {
+					$(this).attr('disabled', true);
+				}
+
+			} else if (type == 'plus') {
+
+				if (currentVal < input_mobile.attr('max')) {
+					qty_plus_mobile(input_mobile, currentVal, lab_total_mobile, type);
+					qty_plus(input, currentVal, lab_total, type);
+					disable_btn($(this), input_mobile, vid, cid);	
+
+					varian_qty = currentVal+1;
+				}
+				if (parseInt(input_mobile.val()) == input_mobile.attr('max')) {
+					$(this).attr('disabled', true);
+					// flg = 1;
+					// show_tooltip(input_mobile, flg);
+				}
+			}
+			send_ajax_update(varian_qty, action_update);
+		} else {
+			input_mobile.val(0);
+		}
+	});
+
+	$('.input_number_mobile').focusin(function(){
+		$(this).attr('data-input-flag', 1);
+		old_value 		= $(this).attr('data-oldValue', $(this).val());
+		fieldName 		= $(this).attr('data-name');
+		cid 			= $(this).attr('data-cid');
+		vid 			= $(this).attr('data-id');
+		list_cart 		= $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+		list_cart.find('.input_number[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
+	   
+	});
+	$('.input_number_mobile').focusout(function() {
+		$(this).attr('data-input-flag', 0);
+		fieldName 		= $(this).attr('data-name');
+		cid 			= $(this).attr('data-cid');
+		vid 			= $(this).attr('data-id');
+		list_cart 	 	= $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+		list_cart.find('.input_number[data-name="'+fieldName+'"]').attr('data-input-flag', 1); 
+
+	});
+
+	$('.input_number_mobile').change( function() {
+		check_flag = $(this).attr('data-input-flag');
+		if (check_flag==1)
+		{
+			minValue 			=  parseInt($(this).attr('min'));
+			maxValue 			=  parseInt($(this).attr('max'));
+			valueCurrent 		= parseInt($(this).val());
+			name 				= $(this).attr('data-name');
+
+			cid 				= $(this).attr('data-cid');
+			vid 				= $(this).attr('data-id');
+
+			list_cart 			= $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+			list_cart_mobile 	= $('.list_vid_mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+
+			lab_total_mobile 	= $(this).parent().parent().parent().parent().parent().parent().find('.label_total_mobile');
+
+			input 				= list_cart.find('.input_number[data-name="'+name+'"]');
+			lab_total			= input.parent().parent().parent().parent().parent().parent().find('.label_total');
+
+			action_update 		= $(this).attr('data-action-update');
+
+			btn_minus 			= list_cart_mobile.find(".btn_number_mobile[data-type='minus'][data-field='"+name+"']");
+			btn_plus 			= list_cart_mobile.find(".btn_number_mobile[data-type='plus'][data-field='"+name+"']");	
+
+			if (valueCurrent > minValue) {
+				type = 'minus';
+				qty_change_input_cart(input, valueCurrent, lab_total, type);
+				qty_change_input_cart_mobile($(this), valueCurrent, lab_total_mobile, type);
+				disable_btn(btn_minus, $(this), vid, cid);
+			} else {
+				disable_btn(btn_minus, $(this), vid, cid);
+			}
+
+			if (valueCurrent < maxValue) {
+				type = 'plus';
+				qty_change_input_cart(input, valueCurrent, lab_total, type);
+				qty_change_input_cart_mobile($(this), valueCurrent, lab_total_mobile, type);
+				disable_btn(btn_plus, $(this), vid, cid);
+				// flg = 0;
+				// show_tooltip($(this), flg);
+			} else {
+				// flg = 2;
+				// show_tooltip($(this), flg);
+
+				disable_btn(btn_plus, $(this), vid, cid);
+			}
+
+			send_ajax_update(parseInt($(this).val()), action_update);
+		}
+	});
+	
+	$(".input_number_mobile").keydown(function (e) {
+		// Allow: backspace, delete, tab, escape, enter and .
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			 // Allow: Ctrl+A
+			(e.keyCode == 65 && e.ctrlKey === true) || 
+			 // Allow: home, end, left, right
+			(e.keyCode >= 35 && e.keyCode <= 39)) {
+				 // let it happen, don't do anything
+				 return;
+		}
+		// Ensure that it is a number and stop the keypress
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+	});
+
+/*=============================================
+===============================================
+FUNCTION IN PAGE PRODUCT SHOW
+===============================================
+=============================================*/
+	function disable_btn_product(e, t) {
+		minValue =  parseInt($(t).attr('min'));
+		maxValue =  parseInt($(t).attr('max'));
+		valueCurrent = parseInt($(t).val());
+			
+		name = $(e).attr('data-field');
+
+		if(valueCurrent > minValue) {
+			$(".btn_number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			$(".btn_number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			// $(e).val($(this).attr('data-oldValue'));
+		}
+
+		if(valueCurrent < maxValue) {
+			flg = 0;
+			show_tooltip(t, flg);
+
+			$(".btn_number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			flg = 2;
+			show_tooltip(t, flg);
+
+			$(".btn_number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
+			// $(this).val($(this).attr('data-oldValue'));
+		}
+	}
+
+	/*=============================================
+		[ FUNCTION QTY CHANGE INPUT CART in PAGE PRODUCT ]
+		fungsi : menghitung total 1 varian saat input number diubah
+		param : object class input_number, value input_number, label total product, dan data-attribute type pada input_number
+		=============================================*/
+	function qty_change_input_product(e) {
+		sumtotal = 0;
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+		$('.price_all_product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', e.val());
+	}
+
+	/*=============================================
+	[ FUNCTION QTY PLUS PRODUCT in PAGE PRODUCT ]
+	fungsi : untuk merubah value input_number tipe plus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+	param : object class input_number, value input_number, dan data-attribute type pada input_number
+	=============================================*/
+	function qty_plus_product(e, current_val, type) {
+		var old_value = 0;
+		var sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val + 1).change();
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+
+		$('.price_all_product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', old_value);
+	}
+
+	/*=============================================
+	[ FUNCTION QTY MINUS PRODUCT in PAGE PRODUCT  ]
+	fungsi : untuk merubah value input_number tipe minus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+	param : object class input_number, value input_number, dan data-attribute type pada input_number
+	=============================================*/
+	function qty_minus_product(e, current_val, type) {
+		old_value = 0;
+		sumtotal = 0;
+
+		old_value = current_val;
+		e.val(current_val - 1).change();
+		total_product(e, type);
+		sumtotal += sumtotal_product(e);
+
+		$('.price_all_product').text('IDR '+number_format(sumtotal))
+		e.attr('data-oldValue', old_value);
+	}
+
+	/*=============================================
+	[ FUNCTION TOTAL PRODUCT in PAGE PRODUCT  ]
+	fungsi : untuk mentotal input_number per varians
+	param : object class input_number
+	=============================================*/
+	function total_product(e, flag) {
+		qty = parseInt(e.val());
+		price = parseInt(e.attr('data-price'));
+		discount = parseInt(e.attr('data-discount'));
+		total_price_qty = 0;
+		
+		total_price_qty = (price-discount)*qty;
+		e.attr('data-total', total_price_qty);
+	}
+
+	/*=============================================
+	[ FUNCTION SUM TOTAL PRODUCT in PAGE PRODUCT ]
+	fungsi : untuk mentotal semua input_number varians
+	return : jumlah total
+	=============================================*/
+	function sumtotal_product() {
+		total_all = 0;
+
+		$('.input_number').each( function() {
+			temp = parseInt($(this).attr('data-total'));
+			total_all += temp;
+		});
+		return total_all;
+	}
+
+	/*=============================================
+	[ FUNCTION RETURN VALUE TO NULL ]
+	fungsi		: untuk return 0 setelah add to cart
+	parameter	: object class input_number
+	=============================================*/
+	function return_value_to_null()
+	{
+		e = $(".input_number");
+		e.val(0);
+		e.attr("data-total", "0");
+		e.attr("data-oldValue", "0");
+		$(".price_all_product").text("IDR "+number_format(0));
+		$(".btn_number[data-type='minus']").attr('disabled', true);
+	}
+
+/*=============================================
+===============================================
+FUNCTION IN PAGE CART
+===============================================
+=============================================*/
+	function disable_btn(e, t, vid, cid) {
+		minValue =  parseInt($(t).attr('min'));
+		maxValue =  parseInt($(t).attr('max'));
+		valueCurrent = parseInt($(t).val());
+		var list_cart = $('.list_vid[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+		var list_cart_mobile = $('.list_vid_mobile[data-vid="'+vid+'"][data-cid="'+cid+'"]');
+			
+		name = $(e).attr('data-field');
+
+		if (valueCurrent > minValue) {
+			list_cart_mobile.find(".btn_number_mobile[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
+			list_cart.find(".btn_number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			list_cart_mobile.find(".btn_number_mobile[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			list_cart.find(".btn_number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			$(t).val(minValue);
+		}
+		if(valueCurrent < maxValue) {
+			flg = 0;
+			show_tooltip(t, flg);
+
+			list_cart_mobile.find(".btn_number_mobile[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
+			list_cart.find(".btn_number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
+		} else {
+			flg = 1;
+			show_tooltip(t, flg);
+
+			list_cart_mobile.find(".btn_number_mobile[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
+			list_cart.find(".btn_number[data-type='plus'][data-field='"+name+"']").attr('disabled', true);
+			$(t).val(maxValue);
+		}	
+	}
+
+	/*========== SECTION QUANTITY PLUS ==============*/
+		/*=============================================
+		[ FUNCTION QTY PLUS in PAGE CART for DESKTOP ]
+		fungsi : untuk merubah value input_number tipe plus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+		param : object class input_number, value input_number, label total product, dan data-attribute type pada input_number
+		=============================================*/
+		function qty_plus(e, current_val, lab_total, type) {
+			var old_value = 0;
+			var total_item = 0;
+
+			old_value = current_val;
+			e.val(current_val + 1).change();
+			total_item = total(e, type);
+			lab_total.attr('data-total', total_item);
+			lab_total.find('span').text('IDR '+number_format(total_item));
+			e.attr('data-oldValue', old_value);
+			grand_total();
+		}
+
+		/*=============================================
+		[ FUNCTION QTY PLUS MOBILE in PAGE CART for MOBILE ]
+		fungsi : untuk merubah value input_number tipe plus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+		param : object class input_number, value input_number, label total product mobile, dan data-attribute type pada input_number_mobile
+		=============================================*/
+		function qty_plus_mobile(e, current_val, lab_total_mobile, type)
+		{
+			var old_value = 0;
+			var sumtotal_mobile = 0;
+
+			old_value = current_val;
+			e.val(current_val + 1).change();
+			total_mobile(e, type);
+			sumtotal_mobile += sum_total_mobile(e);
+			lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+			lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+			e.attr('data-oldValue', old_value);
+			grand_total_mobile();
+		}
+
+	/*========== SECTION QUANTITY MINUS ==============*/
+		/*=============================================
+		[ FUNCTION QTY MINUS in PAGE CART for DESKTOP ]
+		fungsi : untuk merubah value input_number tipe minus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+		param : object class input_number, value input_number, label total product, dan data-attribute type pada input_number
+		=============================================*/
+		function qty_minus(e, current_val, lab_total, type)
+		{
+			var old_value = 0;
+			var total_item = 0;
+
+			old_value = current_val;
+			e.val(current_val - 1).change();
+			total_item = total(e, type);
+			lab_total.attr('data-total', total_item);
+			lab_total.find('span').text('IDR '+number_format(total_item));
+			e.attr('data-oldValue', old_value);
+			grand_total();
+		}
+
+		/*=============================================
+		[ FUNCTION QTY MINUS MOBILE in PAGE CART for MOBILE ]
+		fungsi : untuk merubah value input_number_mobile tipe minus dan memanggil fungsi untuk mentotal varian dan sumtotal varians
+		param : object class input_number_mobile, value input_number_mobile, label total product mobile, dan data-attribute type pada input_number_mobile
+		=============================================*/
+		function qty_minus_mobile(e, current_val, lab_total_mobile, type) {
+			var old_value = 0;
+			var sumtotal_mobile = 0;
+
+			old_value = current_val;
+			e.val(current_val - 1).change();
+			total_mobile(e, type);
+			sumtotal_mobile += sum_total_mobile(e);
+			lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+			lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+			e.attr('data-oldValue', old_value);
+			grand_total_mobile();
+		}
+
+	/*========== SECTION CHANGE INPUT NUMBER ==============*/
+		/*=============================================
+		[ FUNCTION QTY CHANGE INPUT CART in PAGE CART for DESKTOP ]
+		fungsi : menghitung total 1 varian saat input number diubah
+		param : object class input_number, value input_number, label total product, dan data-attribute type pada input_number
+		=============================================*/
+		function qty_change_input_cart(e, current_val, lab_total, type) {
+			total_item = 0;
+			e.val(current_val);
+			total_item = total(e, type);
+			lab_total.attr('data-total', total_item);
+			lab_total.find('span').text('IDR '+number_format(total_item));
+			e.attr('data-oldValue', e.val());
+			// e.attr('value', e.val());
+			grand_total();
+		}
+
+		/*=============================================
+		[ FUNCTION QTY CHANGE INPUT CART MOBILE in PAGE CART for MOBILE ]
+		fungsi : menghitung total 1 varian saat input number diubah
+		param : object class input_number_mobile, value input_number_mobile, label total product mobile, dan data-attribute type pada input_number_mobile
+		=============================================*/
+		function qty_change_input_cart_mobile(e, current_val, lab_total_mobile, type) {
+			sumtotal_mobile = 0;
+			e.val(current_val);
+			total_mobile(e, type);
+			sumtotal_mobile += sum_total_mobile(e);
+			lab_total_mobile.attr('data-subtotal', sumtotal_mobile);
+			lab_total_mobile.text('IDR '+number_format(sumtotal_mobile));
+			grand_total_mobile();
+		}
+
+	/*========== SECTION TOTAL ==============*/
+		/*=============================================
+		[ FUNCTION TOTAL in PAGE CART for DESKTOP ]
+		fungsi : untuk menghitung harga 1 varian
+		param : object class input_number
+		return : harga 1 varian
+		=============================================*/
+		function total(e, flag)
+		{
+			var qty = parseInt(e.val());
+			var price = parseInt(e.attr('data-price'));
+			var discount = parseInt(e.attr('data-discount'));
+			var total_price_qty = 0;
+			
+			total_price_qty = (price-discount)*qty;
+			e.attr('data-total', total_price_qty);
+
+			return total_price_qty;
+		}
+
+		/*=============================================
+		[ FUNCTION TOTAL MOBILE in PAGE CART for MOBILE ]
+		fungsi : untuk menghitung harga 1 varian
+		param : object class input_number_mobile
+		return : harga 1 varian
+		=============================================*/
+		function total_mobile(e, flag)
+		{
+			var qty = parseInt(e.val());
+			var price = parseInt(e.attr('data-price'));
+			var discount = parseInt(e.attr('data-discount'));
+			var total_price_qty = 0;
+			
+			total_price_qty = (price-discount)*qty;
+			e.attr('data-total', total_price_qty);
+		}
+
+	/*========== SECTION SUM TOTAL ==============*/
+		/*=============================================
+		[ FUNCTION SUM TOTAL in PAGE CART for DESKTOP ]
+		fungsi : untuk menghitung harga total semua varian
+		param : object class input_number
+		return : harga semua varian
+		=============================================*/
+		function sum_total(e)
+		{
+			var cid = e.attr('data-cid');
+			var total_all = 0;
+
+			$('.input_number[data-cid="'+cid+'"]').each( function() {
+				var temp = parseInt($(this).attr('data-total'));
+				total_all += temp;
+			});
+			return total_all;
+		}
+
+		/*=============================================
+		[ FUNCTION SUM TOTAL MOBILE in PAGE CART for MOBILE ]
+		fungsi : untuk menghitung harga total semua varian
+		param : object class input_number_mobile
+		return : harga semua varian
+		=============================================*/
+		function sum_total_mobile(e)
+		{
+			var cid = e.attr('data-cid');
+			var total_all = 0;
+
+			$('.input_number_mobile[data-cid="'+cid+'"]').each( function() {
+				var temp = parseInt($(this).attr('data-total'));
+				total_all += temp;
+			});
+			return total_all;
+		}
+
+	/*========== SECTION GRAND TOTAL ==============*/	
+		/*=============================================
+		[ FUNCTION GRAND TOTAL in PAGE CART for DESKTOP ]
+		fungsi : untuk menghitung harga total semua product
+		=============================================*/
+		function grand_total()
+		{
+			var grandtotal = 0;
+			$('.label_total').each( function() {
+				var temp = parseInt($(this).attr('data-total'));
+				grandtotal += temp;
+			});
+			$('.grand_total').html('<strong>IDR ' +number_format(grandtotal)+'</strong>');	
+		}
+
+		/*=============================================
+		[ FUNCTION GRAND TOTAL MOBILE in PAGE CART for MOBILE ]
+		fungsi : untuk menghitung harga total semua product
+		=============================================*/
+		function grand_total_mobile() 
+		{
+			var grandtotal = 0;
+			$('.label_total_mobile').each( function() {
+				var temp = parseInt($(this).attr('data-subtotal'));
+				grandtotal += temp;
+			});
+			$('.grand_total_mobile').text('IDR ' +number_format(grandtotal));
+		}
+
+/*=============================================
+===============================================
+EVENT & FUNCTION OTHER
+===============================================
+=============================================*/
+	// ======= STOP IN CART =======
+	function show_tooltip(input, flg)
+	{
+		if (flg == 1) {
+			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
+			$('.tooltip').css('z-index', '99');
+			$('.tooltip').css('top', -65 + 'px');
+			$('.tooltip-arrow').css('top', 59 + 'px');
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 2000);
+		}
+		else if (flg == 2) {
+			$(input).tooltip({delay: { "show": 1800, "hide": 800 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
+			$('.tooltip').css('top', -5 + 'px');
+			$('.tooltip').css('z-index', '99');
+			$('.tooltip-arrow').css('top', 25 + 'px');
+			setTimeout( function() {
+				$(input).tooltip('hide');
+			}, 3000);
+		} else {
+			
+			$(input).tooltip('destroy');
+		}
+	}
+
+	/* ===FUNCTION ADD TO CART=== */
+	$('.addto_cart').on('click', function(e) {
+		var pvarians 		= [];
+		var pqty 			= [];
+		var form_quantity 	= $('.form_addtocart');
+		var pslug			= $('.slug_form').val();
+		var pname 			= $('.name_form').val();
+		var count_cart 		= 0;
+		var check 			= 0;
+
+		form_quantity.attr('action', 'javascript:void(0);');
+		$('.pqty').each( function() {
+			var value = parseInt($(this).val());
+			pqty.push($(this).val());
+			check += value;
+		});
+		
+		$('.pvarians').each( function() {
+			pvarians.push($(this).val());
+		});
+
+		$.ajax({
+			url: data_action1,
+			type: 'POST',
+			dataType:"json",
+			data: {slug: pslug, product_name: pname, qty: pqty, varianids: pvarians},
+			beforeSend: function() {
+				$('.addto_cart').text('ADDING...');
+			},
+			success: function(result) {
+				count_cart 	= Object.keys(result.carts).length; 
+				$('.addto_cart').text('ADD TO CART');
+				$('.ico_cart').find('span').text(count_cart);
+
+				// Get ajax refresh list cart
+				$.ajax({
+					url: data_action2,
+					success: function(msg) {
+						$('.cart_dropdown').html(msg);
+						$('#notif_window').modal('show');
+						return_value_to_null('.input_number');
+					}
+				});
+
+			}
+		});
+	});
+
+	function send_ajax_update(item_qty, action) {
+		$.ajax({
+			url: action,
+			type: 'POST',
+			dataType:"json",
+			async: true,
+			data: {qty: item_qty},
+			success: function(result) {
+				count_cart 	= Object.keys(result.carts).length; 
+				$('.ico_cart').find('span').html(count_cart);
+
+				$.each(result.carts, function(k, v) {
+					$.each(v.varians, function(k2, v2) {
+						if (v2.message!=='') {
+							flg = 1;
+							show_tooltip($('.input_number').find('[data-id="'+v2.varian_id+'"]'), flg);
+						}
+					});
+				});
+				
+				$.ajax({
+					url: data_action2,
+					beforeSend: function() {
+						// $('chart-dropdown').html("<img src='/Balin/web/image/loading.gif'/>");
+					},
+					success: function(msg) {
+						$('.cart_dropdown').html(msg);
+					}
+				});
+			}
+		});
+	}
+
+	/*============================================= 
+	[ FUNCTION NUMBER FORMAT ]
+	=============================================*/
+	function number_format(number, decimals, dec_point, thousands_sep) {
+	  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+
+	  var n = !isFinite(+number) ? 0 : +number,
+			prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+			sep = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep,
+			dec = (typeof dec_point === 'undefined') ? ',' : dec_point,
+			s = '',
+			toFixedFix = function (n, prec) {
+				var k = Math.pow(10, prec);
+				return '' + (Math.round(n * k) / k).toFixed(prec);
+			};
+
+	  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		if (s[0].length > 3) {
+			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		}
+
+		if ((s[1] || '').length < prec) {
+			s[1] = s[1] || '';
+			s[1] += new Array(prec - s[1].length + 1).join('0');
+		}
+		return s.join(dec);
+	}
+	$('.choice_address').on('change', function() {
+		var val = $(this).val();
+		action = $(this).find(':selected').attr('data-action');
+		if (val == 0) {
+			jQuery('#zipcode').on('input propertychange paste', function() {
+				get_shipping_cost( {'zipcode' : $( "#zipcode" ).val()}, action );
+			});	
+			ga = get_address($(this));
+			parsing_address(ga);
+		}
+		else {
+			get_shipping_cost( {'address' : $( "#address_id" ).val()}, action );
+			ga = get_address($(this));
+			parsing_address(ga);
+		}
+	});
+
+	$('button.voucher_desktop').click( function() {
+		inp = $('input.voucher_desktop');
+		voucher = get_voucher(inp);
+		show_voucher(voucher, inp);
+		count_sub_total();
+	});
+
+	$('.ch_zipcode').focusout( function() {
+		val = $(this).val();
+		action = $(this).attr('data-action');
+		get_shipping_cost( {'zipcode' : $( "#zipcode" ).val()}, action);
+	});
+
+	function get_shipping_cost (e, action) {
+		cv = parseInt($('.shipping_cost').attr('data-v'));
+		$.post( action, e).done(function( data ) {
+		console.log(action);
+		console.log(cv);
+			if (cv==0) {
+				$(".shipping_cost").text(data.address.cost);
+			}
+			$(".shipping_cost").attr('data-s', (data.address.cost.replace(/\./g, '')).substring(4));
+			count_sub_total();
+		});
+	}
+
+	function get_voucher (e) {
+		value = e.val();
+		action = e.attr('data-action');
+		gv;
+		$.ajax({
+			url: action,
+			type: 'post',
+			dataType: 'json', 
+			async: false,
+			data: {voucher: value},
+			beforeSend: function() {
+				$('.loading_voucher').removeClass('hide');
+			},
+			success: function(data) {
+				// $('.loading_voucher').addClass('hide');
+				gv = data;
+			}
+		});
+
+		return gv;
+	}
+
+	function show_voucher (e, p) {
+		if (e.type=='success')
+		{
+			panel_voucher = $('.panel_form_voucher');
+			//panel_voucher_device = $('.panel-form-voucher-device');
+
+			modal_notif = $('.modal_notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+
+			set_voucher_id(p);
+
+			if (e.discount==true) {
+				$('.shipping_cost').text('IDR 0');
+				$('.shipping_cost').attr('data-s', 0);
+				$('.shipping_cost').attr('data-v', 1);
+			}
+
+			setTimeout( function() {
+				$('.loading_voucher').addClass('hide');
+				panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
+				panel_voucher_device.html('<p class="m-b-none text-center">'+e.msg+'</p>');
+			}, 2000);
+
+			$('#notif_window').modal('show');
+		}
+		else if (e.type=='error')
+		{
+			setTimeout( function() {
+				$('.loading_voucher').addClass('hide');
+			}, 1000);
+			
+			modal_notif = $('.modal-notif');
+			modal_notif.find('.title').children().html('');
+			modal_notif.find('.content').html(e.msg);
+
+			p.addClass('error');
+
+			$('#notif_window').modal('show');
+		}
+	}
+
+	function set_voucher_id (e) {
+		val = e.val();
+		$('.voucher_code').val(val);
+	}
+
+	function get_address (e) {
+		val = e.find(':selected').attr('value');
+		ga = null;
+
+		if (val!==0) {
+			act = e.find(':selected').data('action');
+			$.ajax({
+				url: act,
+				type: 'post',
+				async: false,
+				dataType: 'json',
+				data: {id: val},
+				success: function(data) {
+					ga = data.address;
+				}
+			});
+		}
+		return ga;
+	}
+
+	function parsing_address (e) {
+		ch_name = $('.ch_name');
+		ch_address = $('.ch_address');
+		ch_zipcode = $('.ch_zipcode');
+		ch_phone = $('.ch_phone');
+
+		if (typeof e !== 'undefined' && e != null) {
+			ch_name.val(e.receiver_name);
+			ch_address.val(e.address);
+			ch_zipcode.val(e.zipcode);
+			ch_phone.val(e.phone);
+		} else {
+			ch_name.val('');
+			ch_address.val('');
+			ch_zipcode.val('');
+			ch_phone.val('');
+		}
+		count_sub_total();
+	}
+
+	function count_sub_total() {
+		var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
+		var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
+		var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+		st = 0;
+		uqnum = parseInt($('.uniquenumber').attr('data-unique'));
+		to = parseInt(to);
+		sc = parseInt(sc);
+		yp = parseInt(yp);
+
+		if(isNaN(sc)) {
+			sc = 0;
+		}
+		st = ((to + sc - yp)-uqnum);
+		if (st && st < 0) {
+			st = 'IDR ' + 0;
+		} else {	
+			st = 'IDR ' + st;
+		}
+		// console.log(st);
+		$(".subtotal").text(addCommas(st));
+
+		function addCommas(nStr)
+		{
+			nStr += '';
+			x = nStr.split('.');
+			x1 = x[0];
+			x2 = x.length > 1 ? '.' + x[1] : '';
+			var rgx = /(\d+)(\d{3})/;
+			while (rgx.test(x1)) {
+				x1 = x1.replace(rgx, '$1' + '.' + '$2');
+			}
+			return x1 + x2;
+		};
+	}
+	$('ul.nav li.dropdown').hover(function() {        
+		$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(300);
+	}, function() {
+		$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(300);
+	});
+
+/* SECTION PLUGIN I-CHECK */
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square',
+		radioClass: 'iradio_square',
+		increaseArea: '20%' 
+	});
+/* END SECTION PLUGIN I-CHECK */
+
+/* SECTION COLLAPSE PRODUCT CATEGORY, FILTER */
+	$('.menu_accordion').click(function(){
+		$('.collapse_category').collapse("hide");
+	});
+
+	$('.form_input_search').click(function(){
+		$('.collapse_category').collapse("hide");
+		$('.menu_accordion').removeClass('active');
+	});
+
+	$('.collapse_category').on('show.bs.collapse', function(e){
+		$('.menu_accordion').removeClass('active');
+		$('#' + $(this).data('collapse')).addClass('active');
+	});
+
+	$('.collapse_category').on('hide.bs.collapse', function(e){
+		$('.menu_accordion').removeClass('active');
+	});
+/* END SECTION COLLAPSE PRODUCT CATEGORY, FILTER */
