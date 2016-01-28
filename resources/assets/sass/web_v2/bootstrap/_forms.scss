@@ -76,7 +76,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  @include tab-focus;
+  // @include tab-focus;
 }
 
 // Adjust output element
@@ -230,7 +230,7 @@ input[type="search"] {
 
   label {
     min-height: $line-height-computed; // Ensure the input doesn't jump when there is no text
-    padding-left: 20px;
+    padding-left: 30px;
     margin-bottom: 0;
     font-weight: normal;
     cursor: pointer;

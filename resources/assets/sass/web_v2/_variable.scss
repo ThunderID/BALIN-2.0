@@ -4,10 +4,10 @@
 
 // font
 $text-xxxl:				30px;
-$text-xxl:				28px;
-$text-xl:				24px;
-$text-lg:				20px;
-$text-md:				16px;
+$text-xxl:				24px;
+$text-xl:				20px;
+$text-lg:				16px;
+$text-md:				14px;
 $text-regular:			12px;
 $text-sm:				11px;
 $text-xs:				9px;
@@ -17,8 +17,9 @@ $text-xs:				9px;
 $red:					#d91e18;
 $grey: 					#999;
 $grey-dark:				#888;
-$grey-light: 			#ddd;
+$grey-light: 			#e5e5e5;
 $black:					#000;
+$charcoal: 				#333;
 $gold:					#c38322;
 $gold-light:			#e18a07;
 $white:					#fff;
@@ -39,57 +40,6 @@ $space-xxl:				35px;
 $space-xxxl:			40px;
 
 $bg-balin: 				"../../../images/balin-bg.jpg";
-
-
-// --------------------
-// 1. FONT
-// 2. BORDER
-// 3. SPACING
-// 4. BACKGROUND
-// 5. POSITION
-// --------------------
-
-
-// --------------
-// VARIABLE
-// --------------
-
-// font
-$text-xxxl:				30px;
-$text-xxl:				28px;
-$text-xl:				24px;
-$text-lg:				20px;
-$text-md:				16px;
-$text-regular:			12px;
-$text-sm:				11px;
-$text-xs:				9px;
-
-
-// color
-$red:					#d91e18;
-$grey: 					#999;
-$grey-dark:				#888;
-$grey-light: 			#ccc;
-$black:					#000;
-$gold:					#c38322;
-$gold-light:			#e18a07;
-$white:					#fff;
-
-// space
-$space-0:				0px;
-$space-1:				1px;
-$space-2:				2px;
-$space-3:				3px;
-$space-4:				4px;
-$space-5:				5px;
-$space-xs:				10px;
-$space-sm:				15px;
-$space-md:				20px;
-$space-lg:				25px;
-$space-xl:				30px;
-$space-xxl:				35px;
-$space-xxxl:			40px;
-
 
 // --------------------
 // 1. FONT
@@ -174,29 +124,29 @@ p{						line-height: 2em;}
 .border-3{				border-width: $space-3;}
 .border-4{				border-width: $space-4;}
 
-.border-right-0{		border-right-width: $space-0 !important;}
-.border-right-1{		border-right-width: $space-1 !important;}
-.border-right-2{		border-right-width: $space-2 !important;}
-.border-right-3{		border-right-width: $space-3 !important;}
-.border-right-4{		border-right-width: $space-4 !important;}
+.border-right-0{		border-right: $space-0 solid !important;}
+.border-right-1{		border-right: $space-1 solid !important;}
+.border-right-2{		border-right: $space-2 solid !important;}
+.border-right-3{		border-right: $space-3 solid !important;}
+.border-right-4{		border-right: $space-4 solid !important;}
 
-.border-left-0{			border-left-width: $space-0 !important;}
-.border-left-1{			border-left-width: $space-1 !important;}
-.border-left-2{			border-left-width: $space-2 !important;}
-.border-left-3{			border-left-width: $space-3 !important;}
-.border-left-4{			border-left-width: $space-4 !important;}
+.border-left-0{			border-left: $space-0 solid !important;}
+.border-left-1{			border-left: $space-1 solid !important;}
+.border-left-2{			border-left: $space-2 solid !important;}
+.border-left-3{			border-left: $space-3 solid !important;}
+.border-left-4{			border-left: $space-4 solid !important;}
 
-.border-top-0{			border-top-width: $space-0 !important;}
-.border-top-1{			border-top-width: $space-1 !important;}
-.border-top-2{			border-top-width: $space-2 !important;}
-.border-top-3{			border-top-width: $space-3 !important;}
-.border-top-4{			border-top-width: $space-4 !important;}
+.border-top-0{			border-top: $space-0 solid !important;}
+.border-top-1{			border-top: $space-1 solid !important;}
+.border-top-2{			border-top: $space-2 solid !important;}
+.border-top-3{			border-top: $space-3 solid !important;}
+.border-top-4{			border-top: $space-4 solid !important;}
 
-.border-bottom-0{		border-bottom-width: $space-0 !important;}
-.border-bottom-1{		border-bottom-width: $space-1 !important;}
-.border-bottom-2{		border-bottom-width: $space-2 !important;}
-.border-bottom-3{		border-bottom-width: $space-3 !important;}
-.border-bottom-4{		border-bottom-width: $space-4 !important;}
+.border-bottom-0{		border-bottom: $space-0 solid !important;}
+.border-bottom-1{		border-bottom: $space-1 solid !important;}
+.border-bottom-2{		border-bottom: $space-2 solid !important;}
+.border-bottom-3{		border-bottom: $space-3 solid !important;}
+.border-bottom-4{		border-bottom: $space-4 solid !important;}
 
 .border-black{			border-color: $black !important;}
 .border-white{			border-color: $white !important;}
@@ -327,7 +277,7 @@ p{						line-height: 2em;}
 .btn-black-hover-white-border-black{					
 	background-color: $black;
 	color: $white;
-	&:hover {
+	&:hover, &:focus, &:active {
 		border: $space-1 solid $black;
 		background-color: rgba(255, 255, 255, 0.8);
 		color: $black !important;
@@ -353,11 +303,11 @@ p{						line-height: 2em;}
 }	
 .btn-transaparent-border-black-hover-black{
 	border: $space-1 solid $black;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: transparent;
 	color: $black;
 	&:hover {
 		background-color: $black;
-		color: $black !important;
+		color: $white !important;
 		-webkit-transition: 0.4s ease;
 		-moz-transition: 0.4s ease;
 		-o-transition: 0.4s ease;
@@ -428,6 +378,7 @@ p{						line-height: 2em;}
 .bg-grey-dark{			background-color: $grey-dark !important;}
 .bg-transparent{		background-color: transparent !important;}
 .bg-color2{				background-color: $color2 !important;}
+.bg-red{				background-color: $red !important;}
 
 
 // -----------------

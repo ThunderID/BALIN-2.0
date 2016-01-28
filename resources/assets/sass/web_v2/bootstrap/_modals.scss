@@ -47,6 +47,29 @@
   margin: 10px;
 }
 
+// Modal position vertical align
+.modal-center {
+  text-align: center !important;
+  padding: 0!important;
+}
+
+.modal-center:before {
+  content: '' !important;
+  display: inline-block !important;
+  height: 100% !important;
+  margin-right: -4px !important;
+  vertical-align: middle !important;
+}
+
+.modal-center .modal-dialog {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.modal-center .modal-content {
+  border-radius: 0px !important;
+}
+
 // Actual modal
 .modal-content {
   position: relative;
@@ -129,6 +152,17 @@
   height: 50px;
   overflow: scroll;
 }
+
+// Modal theme notification
+.modal-notif .modal-dialog{
+  background-color: white;
+}
+
+.modal-notif .modal-header{
+  background-color: black;
+  border-bottom: none;
+  color:white;
+}   
 
 // Scale up the modal
 @media (min-width: $screen-sm-min) {

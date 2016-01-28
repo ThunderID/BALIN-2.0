@@ -1,27 +1,18 @@
 .filter-product{
 	.filter-desktop{
-		height: 42px;
 		li{
 			padding: $space-0 !important;
 			a{
-				display: block; 
-				background-color: $grey-light;
+				background-color: transparent;
 				color: $black;
+				display: block; 
 				width: 100%; 
 				height: 100%;
-				margin-bottom: 2px;
-				margin-top: 8px;
-				padding-top: 13px;
-				padding-bottom: 12px;
+				padding-top: 12px !important;
+				padding-bottom: 12px !important;
 				padding-right: 20px !important;
 				padding-left: 20px !important;
-				&.active{
-					border: 1px solid $black;
-					color: $black;
-					font-weight: 600;
-					padding-top: 12px;
-					padding-bottom: 11px;
-				}
+				text-transform: none;
 			}
 			i{
 				margin-top: 2px;
@@ -33,7 +24,6 @@
 				a{
 					color: $grey-light;
 					background-color: $black;
-					font-weight: 500;
 				}
 			}
 		}
@@ -97,6 +87,23 @@
 			padding-top: 5px;
 			text-align: center; 
 			width: 100%; 
+		}
+	}
+}
+
+.subtags, .category, .sort {
+	li {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 25px;
+		a {
+			padding-left: 30px;
+		}
+		&:hover{
+			background-color: $color1;
+			a {
+				color: $white;
+			}
 		}
 	}
 }
