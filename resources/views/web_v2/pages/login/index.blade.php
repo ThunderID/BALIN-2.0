@@ -1,22 +1,25 @@
-@extends('web.page_templates.layout')
+@extends('web_v2.page_templates.layout')
 
 @section('content')
 	<div class="container-fluid">
 		<div class="row">
 			<div class="hidden-xs hidden-sm col-md-7 col-lg-7">&nbsp;</div>
 			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-				<div class="row panel panel-default p-xs m-t-n-xs">
+				<div class="row panel panel-default p-xs mt-md">
 					<div class="col-md-12">
 						<div class="signin" style="@if (Session::has('msg-from')) @if (Session::get('msg-from')=='login') display:block; @else display:none; @endif @else display:block; @endif">
 							<h3>Sign In</h3>
-							@include('web.components.login.form')
+							@if (Session::has('msg-from') && Session::get('msg-from')=='login')
+								@include('web_v2.components.alert')
+							@endif
+							@include('web_v2.components.login.form')
 						</div>
 						<div class="signup" style="@if (Session::has('msg-from') && Session::get('msg-from')=='signup') display:block; @else display:none; @endif">
 							<h3>Sign Up</h3>
-							@if (Session::has('msg-from') && Session::get('msg-from')=='sign-up')
-								@include('widgets.alerts')
+							@if (Session::has('msg-from') && Session::get('msg-from')=='signup')
+								@include('web_v2.components.alert')
 							@endif
-							@include('web.components.signup.form')
+							@include('web_v2.components.signup.form')
 						</div>
 						<div class="forgot" style="display:none">
 							<h3>Reset Password</h3>

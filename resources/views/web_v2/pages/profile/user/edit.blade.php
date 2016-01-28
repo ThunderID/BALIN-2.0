@@ -6,18 +6,18 @@ function isMobile() {
 <!-- SECTION FORM EDIT PROFILE -->
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-xl">
-		{!! Form::open(['url' => route('balin.profile.user.update'), 'method' => 'POST', 'class' => 'form']) !!}
+		{!! Form::open(['url' => route('balin.profile.user.update', $data['id']), 'method' => 'POST', 'class' => 'form']) !!}
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="hollow-label">Nama Lengkap</label>
-						{!! Form::text('name', '', ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap'] ) !!}
+						{!! Form::text('name', $data['name'], ['class' => 'form-control hollow mod_name', 'required' => 'required', 'tabindex' => '1', 'placeholder' => 'Masukkan nama lengkap'] ) !!}
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="hollow-label">Email</label>
-						{!! Form::email('email', '', ['class' => 'form-control hollow mod_email', 'tabindex' => '2', 'placeholder' => 'Masukkan email', 'disable']) !!}
+						{!! Form::email('email', $data['email'], ['class' => 'form-control hollow mod_email', 'tabindex' => '2', 'placeholder' => 'Masukkan email', 'disable']) !!}
 					</div>
 				</div>
 			</div>
@@ -26,16 +26,16 @@ function isMobile() {
 					<div class="form-group">
 						<label class="hollow-label">Tanggal Lahir</label>
 						@if(isMobile())
-							{!! Form::input('date','date_of_birth', '', ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							{!! Form::input('date','date_of_birth', Carbon::createFromFormat('Y-m-d H:i:s', $data['date_of_birth'])->format('d-m-Y'), ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 						@else
-							{!! Form::text('date_of_birth', '', ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
+							{!! Form::text('date_of_birth', Carbon::createFromFormat('Y-m-d H:i:s', $data['date_of_birth'])->format('d-m-Y'), ['class' => 'form-control hollow mod_dob date-format', 'id' => 'coba', 'tabindex' => '3', 'placeholder' => 'Masukkan tanggal lahir', 'data-date' => '01-01-1950'] ) !!}
 						@endif
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="hollow-label">Jenis Kelamin</label>
-						{!! Form::select('gender', ['male' => 'Pria', 'female' => 'Wanita'], '', ['class' => 'form-control hollow', 'required' => 'required', 'tabindex' => '4']) !!}
+						{!! Form::select('gender', ['male' => 'Pria', 'female' => 'Wanita'], $data['gender'], ['class' => 'form-control hollow', 'required' => 'required', 'tabindex' => '4']) !!}
 					</div>  
 				</div>
 			</div>
