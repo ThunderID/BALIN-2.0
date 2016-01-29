@@ -19,15 +19,15 @@ class InfoController extends BaseController
 
 	public function aboutus()
 	{
-		$this->page_attributes->metas 			= 	[
-														'og:type' 			=> 'website', 
-														'og:title' 			=> 'BALIN.ID', 
-														'og:description' 	=> 'Fashionable and Modern Batik',
-														// 'og:url' 			=> $this->stores['url'],
-														// 'og:image' 			=> $this->stores['logo'],
-														'og:site_name' 		=> 'balin.id',
-														'fb:app_id' 		=> Config::get('fb_app.id'),
-													];
+		$this->page_attributes->metas 				= 	[
+															'og:type' 			=> 'website', 
+															'og:title' 			=> 'BALIN.ID', 
+															'og:description' 	=> 'Fashionable and Modern Batik',
+															// 'og:url' 			=> $this->stores['url'],
+															// 'og:image' 			=> $this->stores['logo'],
+															'og:site_name' 		=> 'balin.id',
+															'fb:app_id' 		=> Config::get('fb_app.id'),
+														];
 		//breadcrumb
 		$breadcrumb									= 	[
 															'About Us' 	=> route('balin.about.us'),

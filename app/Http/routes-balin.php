@@ -55,7 +55,14 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 	Route::get('dologout',												['uses' => 'AuthController@doLogout', 'as' => 'balin.dologout']);
 
 	/* AKTIVASI LINK */
-	Route::get('activation/link/{activation_link?}',						['uses' => 'AuthController@activation', 'as' => 'balin.activation']);
+	Route::get('activation/link/{activation_link?}',					['uses' => 'AuthController@activation', 'as' => 'balin.activation']);
+	
+	/* Reset Password */
+	Route::post('forgot/password',										['uses' => 'AuthController@forgot', 'as' => 'balin.forgot.password']);
+	
+	Route::get('reset/password/{link}',									['uses' => 'AuthController@reset', 'as' => 'balin.reset.password']);
+	
+	Route::post('change/password',										['uses' => 'AuthController@change', 'as' => 'balin.change.password']);
 
 /* 	------------------------------------------------------------------------------------
 	|  USER PROFILE

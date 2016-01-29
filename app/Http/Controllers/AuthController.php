@@ -271,103 +271,117 @@ class AuthController extends BaseController
 		}
 	}
 
-	public function doForgot()
+	public function forgot()
 	{
-		$email 							= Input::Get('email');
-		$user 							= User::email($email)->first();
+		$breadcrumb										= 	[
+																'Lupa Password' => ''
+															];
 
-		if (!$user)
-		{
-			return Redirect::back()->withErrors('Email tidak terdaftar')->with('msg-type', 'danger');
-		}
+		$email 											= Input::Get('email');
 		
-		$result							= $this->dispatch(new SendResetPasswordEmail($user));
+		/* set api token use token public */
+		Session::set('API_token', Session::get('API_token_public'));
 
-		if ($result->getStatus()=='success')
+		$API_me 										= new APIUser;
+		$result 										= $API_me->postForgot([
+																'email'	=> $email,
+															]);
+		if ($result['status'] != 'success')
 		{
-			return Redirect::route('balin.home.index')
-				->with('msg','Permintaan reset password sudah dikirim')
-				->with('msg-type', 'success');
-		}
-
-		return Redirect::route('balin.home.index')->withErrors($result->getErrorMessage())->with('msg-type', 'danger');
-	}
-
-	public function getForgot($link = null)
-	{
-		$user 								= User::resetpasswordlink($link)->first();
-
-		if (!$user)
-		{
-			App::abort(404);
-		}
-
-		$dateexpired						= Carbon::now();
-
-		if ($user->expired_at->lt($dateexpired))
-		{
-			return Redirect::route('balin.home.index')->withErrors('Link Expired')->with('msg-type', 'danger');
-		}
-
-		$this->layout->page					= view('web_v2.page.login.index')
-												->with('controller_name', $this->controller_name)
-												->with('email', $user->email);
-
-		$this->layout->controller_name		= $this->controller_name;
-
-		return $this->layout;
-	}
-
-	public function postForgot()
-	{
-		$email 								= Input::get('email');
-
-		$user 								= User::email($email)->first();
-
-		if (!$user)
-		{
-			App::abort(404);
-		}
-
-		if (Input::has('password'))
-		{
-			$validator 						= Validator::make(Input::only('password', 'password_confirmation'), ['password' => 'required|min:8|confirmed']);
-
-			if (!$validator->passes())
-			{
-				return Redirect::back()
-					->withInput()
-					->withErrors($validator->errors())
-					->with('msg-type', 'danger');
-			}
-
-		}
-
-		DB::beginTransaction();
-
-		$user->fill([
-				'password'					=> Input::get('password'),
-				'reset_password_link'		=> '',
-				'expired_at' 				=> NULL,
-		]);
-
-
-		if (!$user->save())
-		{
-			DB::rollback();
-
-			return Redirect::back()
-					->withInput()
-					->withErrors($user->getError())
-					->with('msg-type', 'danger');
+			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
 		}
 		else
 		{
-			DB::commit();
+			$this->page_attributes->data 				= 	[
+																'me'	=> $result['data'],
+															];
 
-			return Redirect::route('frontend.home.index')
-				->with('msg','Password sudah berhasil diubah silahkan login dengan menggunakan password yang baru.')
-				->with('msg-type', 'success');
+			$this->page_attributes->subtitle 			= 'Lupa Password';
+			$this->page_attributes->breadcrumb			= array_merge($breadcrumb);
+			$this->page_attributes->source 				= 'web_v2.pages.profile.password.forgot';
+
+			return $this->generateView();
+		}
+	}
+
+	public function reset($link = null)
+	{
+		/* set api token use token public */
+		Session::set('API_token', Session::get('API_token_public'));
+
+		$API_me 										= new APIUser;
+		$result 										= $API_me->getReset([
+																'link'	=> $link,
+															]);
+		if ($result['status'] != 'success')
+		{
+			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
+		}
+		else
+		{
+			Session::put('reset_password_mail', $result['data']['email']);
+
+			$this->page_attributes->data 				= 	[
+																'me'	=> $result['data'],
+															];
+
+			$this->page_attributes->subtitle 			= 'Lupa Password';
+			$this->page_attributes->breadcrumb			= [];
+			$this->page_attributes->source 				= 'web_v2.pages.profile.password.reset';
+
+			return $this->generateView();
+		}
+	}
+
+	public function change()
+	{
+		$breadcrumb									= 	[
+															'Reset Password' => ''
+														];
+		if(Input::has('password'))
+		{
+			$rules 									= ['password' => 'min:8|confirmed'];
+
+			$validator 								= Validator::make(Input::only('password', 'password_confirmation'), $rules);
+
+			if(!$validator->passes())
+			{
+				return Redirect::route('balin.home.index')->withErrors($validator->errors())->with('msg-type', 'danger');
+			}
+
+			$password 								= Input::get('password');
+		}
+		else
+		{
+			\App::abort(404);
+		}
+
+		/* set api token use token public */
+		Session::set('API_token', Session::get('API_token_public'));
+
+		$email 										= Session::get('reset_password_mail');
+
+		$API_me 									= new APIUser;
+		$result 									= $API_me->postChangePassword([
+																'email'	=> $email,
+																'password' => $password,
+															]);
+
+		if ($result['status'] != 'success')
+		{
+			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
+		}
+		else
+		{
+			$this->page_attributes->data 				= 	[
+																'me'	=> $result['data'],
+															];
+
+			$this->page_attributes->subtitle 			= 'Reset Password';
+			$this->page_attributes->breadcrumb			= array_merge($breadcrumb);
+			$this->page_attributes->source 				= 'web_v2.pages.profile.password.changed';
+
+			return $this->generateView();
 		}
 	}
 }

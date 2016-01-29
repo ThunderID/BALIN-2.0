@@ -23,7 +23,7 @@
 						</div>
 						<div class="forgot" style="display:none">
 							<h3>Reset Password</h3>
-							<div class="clearfix">&nbsp;</div>
+							@include('web_v2.components.forgot.form')
 						</div>
 					</div>	
 					<div class="clearfix">&nbsp;</div>

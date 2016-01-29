@@ -30,6 +30,36 @@ class APIUser extends APIData
 	}
 	/*--- end use token public ---*/
 
+	/* post user forgot password */
+	public function postForgot($data)
+	{
+		$this->api_url						= '/customer/forgot/password';
+		$this->api_data 					= array_merge($this->api_data, $data);
+
+		return $this->post();
+	}
+	/*--- end post user forgot password ---*/
+
+	/* get user reset password */
+	public function getReset($parameter = null)
+	{
+		$this->api_url						= '/customer/reset/'.$parameter['link'];
+		$this->api_data 					= array_merge($this->api_data, $parameter);
+
+		return $this->get();
+	}
+	/*--- end get user reset password ---*/
+
+	/* post user change password */
+	public function postChangePassword($data)
+	{
+		$this->api_url						= '/customer/change/password';
+		$this->api_data 					= array_merge($this->api_data, $data);
+
+		return $this->post();
+	}
+	/*--- end post user change password ---*/
+
 	/*---- use token private ----*/
 	/* post user update profile */
 	public function postDataUpdate ($data) 
