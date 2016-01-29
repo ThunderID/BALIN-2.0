@@ -182,7 +182,7 @@ class CartController extends BaseController
 			$post_order 			= 	[
 											'id'					=> isset($order_in_cart['data']['id']) ? $order_in_cart['data']['id'] : '',
 											'user_id'				=> Session::get('user_me')['id'],
-											'transact_at'			=> isset($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : date('Y-m-d H:i:s'),
+											'transact_at'			=> empty($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
 											'transactiondetails'	=> isset($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
 											'transactionlogs'		=> 	[
 																			'id'		=> '',
@@ -225,7 +225,7 @@ class CartController extends BaseController
 			$collection_varians				= collect($product['varians']);
 
 			/* SEARCH VARIAN ID YANG DIDALAM COLLECTION */
-			$varianp 						= $collection_varians->where('id', (int) $value)->all();
+			$varianp 						= $collection_varians->where('id', $value)->all();
 			$varian_temp					= [];
 
 			/* REMOVE INDEX 0 */
@@ -353,6 +353,7 @@ class CartController extends BaseController
 
 			$API_order 							= new APIUser;
 			$result 							= $API_order->postMeOrder($post_order);
+
 			// result
 			if ($result['status'] != 'success')
 			{
