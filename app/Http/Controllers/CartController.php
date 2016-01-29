@@ -183,7 +183,7 @@ class CartController extends BaseController
 											'id'					=> isset($order_in_cart['data']['id']) ? $order_in_cart['data']['id'] : '',
 											'user_id'				=> Session::get('user_me')['id'],
 											'transact_at'			=> empty($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
-											'transactiondetails'	=> isset($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
+											'transactiondetails'	=> strtotime($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
 											'transactionlogs'		=> 	[
 																			'id'		=> '',
 																			'status'	=> 'cart',
