@@ -25,7 +25,7 @@
 						<ul class="list-inline">
 							@foreach ($data['category'][0] as $k => $v)
 								<div class="col-md-3 col-sm-4 pl-0">
-									<li class="mr-lg p-sm ml-5">
+									<li class="mr-lg p-sm ml-5 @if(Input::get('category')==$v['slug']) active @endif">
 										<a href="{{ route('balin.product.index', array_merge(Input::all(), ['category' => $v['slug']])) }}">{{ $v['name'] }}</a>
 									</li>
 								</div>
@@ -53,8 +53,8 @@
 								@foreach ($data['tag'][0] as $k2 => $v2)
 									@if ($v['category_id'] == $v2['id'])
 										<div class="col-md-3 col-sm-4 pl-0">
-											<li class="mr-lg p-sm ml-5">
-												<a href="#">{{ $v['name'] }}</a>
+											<li class="mr-lg p-sm ml-5 @if(Input::get('tag')==$v['slug']) active @endif">
+												<a href="{{ route('balin.product.index', array_merge(Input::all(), ['tag' => $v['slug']])) }}">{{ $v['name'] }}</a>
 											</li>
 										</div>
 									@endif
@@ -74,33 +74,33 @@
 					<div class="row sort">
 						<ul class="list-inline">
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='name-asc') class="active" @endif href="#" class="hover-black">Nama Produk A-Z</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='name-asc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-asc'])) }}" class="hover-black">Nama Produk A-Z</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='name-desc') class="active" @endif href="#" class="hover-black">Nama Produk Z-A</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='name-desc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-desc'])) }}" class="hover-black">Nama Produk Z-A</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='price-asc') class="active" @endif href="#" class="hover-black">Harga Produk Termurah</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='price-asc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-asc'])) }}" class="hover-black">Harga Produk Termurah</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='price-desc') class="active" @endif href="#" class="hover-black">Harga Produk Termahal</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='price-desc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-desc'])) }}" class="hover-black">Harga Produk Termahal</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='date-desc') class="active" @endif href="#" class="hover-black">Produk Terbaru</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='newest-desc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-desc'])) }}" class="hover-black">Produk Terbaru</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5">
-									<a @if(Input::get('sort')=='date-asc') class="active" @endif href="#" class="hover-black">Produk Terlama</a>
+								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='newest-asc') active @endif">
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-asc'])) }}" class="hover-black">Produk Terlama</a>
 								</li>
 							</div>																			
 							
@@ -221,6 +221,16 @@
 	</div>	
 	<!-- END SECTION MODAL SEARCH MOBILE & TABLET -->
 	<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
+
+	<div class="clearfix">&nbsp;</div>
+
+	<!-- SECTION DISPLAY FILTER -->
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12 m-b-md">
+			@include('web_v2.components.search_result', ['searchresult' => $searchResult])
+		</div>
+	</div>
+	<!-- END SECTION DISPLAY FILTER -->
 
 	<div class="clearfix">&nbsp;</div>
 

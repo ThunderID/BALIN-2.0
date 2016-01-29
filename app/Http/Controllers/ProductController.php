@@ -27,24 +27,52 @@ class ProductController extends BaseController
 	{
 		//initialize 
 		$filters 									= null;
+		$search 									= [];
 
-		if (Input::has('q'))
+		if(Input::has('q'))
 		{
-			$filters 								= ['name' => Input::get('q')];
-			$this->page_attributes->search 			= Input::get('q');
+			$search 								= ['name' 			=> Input::get('q')];
+			$filters 								= 	[
+															'name' 	=> 	Input::get('q')
+														];
+		}
+		
+		if(Input::has('category'))
+		{
+			$search['categories']					= Input::get('category');
+		}
+
+		if(Input::has('tag'))
+		{
+			$search['tags']							= Input::get('tag');
+		}
+
+		if(Input::has('label'))
+		{
+			$search['labelname']					= Input::get('label');
+		}
+
+		if (Input::has('sort'))
+		{
+			$sort_item 							= explode('-', Input::get('sort'));
+			$sort 								= [$sort_item[0] => $sort_item[1]];
 		}
 		else
 		{
-			$searchResult							= null;
+			$sort								= ['name' => 'asc'];
 		}
 
-		if (Input::has('category'))
+		//get filter removal
+		$searchresult 							= [];
+		foreach (Input::all() as $key => $value) 
 		{
-			$categories 						= ['categories' => Input::get('category')];
-		}
-		else
-		{
-			$categories							= [];
+			if(in_array($key, ['tag', 'label', 'category']))
+			{
+				$query_string 					= Input::all();
+				unset($query_string['page']);
+				unset($query_string[$key]);
+				$searchresult[$value]			= route('balin.product.index', $query_string);
+			}
 		}
 
 		//get curent page
@@ -61,12 +89,8 @@ class ProductController extends BaseController
 		$APIProduct 								= new APIProduct;
 
 		$product 									= $APIProduct->getIndex([
-															'search' 	=> 	[
-																				'name' 	=> Input::get('q'),
-																			],
-															'sort' 		=> 	[
-																				'name'	=> 'asc',
-																			],																		
+															'search' 	=> 	$search,
+															'sort' 		=> 	$sort,																		
 															'take'		=> $this->take,
 															'skip'		=> ($page - 1) * $this->take,
 														]);
@@ -108,6 +132,7 @@ class ProductController extends BaseController
 														];
 
 		//generate View
+		$this->page_attributes->search 				= $searchresult;
 		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
 		$this->page_attributes->data				= 	[
 															'product' 	=> $product,
