@@ -10,8 +10,9 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 /* 	------------------------------------------------------------------------------------
  	|  INFO
 	------------------------------------------------------------------------------------ */
-	Route::get('/about-us', 											['uses' => 'HomeController@index', 'as' => 'balin.about.us']);
-	Route::get('/contact-us', 											['uses' => 'HomeController@index', 'as' => 'balin.contact.us']);
+	Route::get('/about-us', 											['uses' => 'InfoController@aboutus', 'as' => 'balin.about.us']);
+	Route::get('/contact-us', 											['uses' => 'InfoController@contactus', 'as' => 'balin.contact.us']);
+	Route::post('/contact-us', 											['uses' => 'InfoController@emailus', 'as' => 'balin.email.us']);
 
 /* 	------------------------------------------------------------------------------------
  	|  PRODUCT
