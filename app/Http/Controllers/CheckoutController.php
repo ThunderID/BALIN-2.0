@@ -38,9 +38,18 @@ class CheckoutController extends BaseController
 														'user_id'	=> Session::get('user_me')['id'],
 													]);
 
+		if($me_order_in_cart['status']!='success')
+		{
+			$order 								= null;
+		}
+		else
+		{
+			$order 								= $me_order_in_cart;
+		}
+
 		$this->page_attributes->data			= 	[
 														'carts'			=> $carts,
-														'order' 		=> $me_order_in_cart,
+														'order' 		=> $order,
 														'my_point'		=> $my_point,
 													];
 
@@ -74,6 +83,7 @@ class CheckoutController extends BaseController
 																						'id'				=> '',
 																						'receiver_name'		=> Input::get('receiver_name'),
 																					],
+														'status'				=> 'wait',
 														'courier'				=> [],
 													];
 
@@ -125,14 +135,21 @@ class CheckoutController extends BaseController
 
 		$API_order 									= new APIUser;
 		$result 									= $API_order->postMeOrder($temp_transaction);
-dd($result);
-
 
 		// result
 		if ($result['status'] != 'success')
 		{
-			$error 				= $result['message'];
+			$this->errors 							= $result['message'];
 		}
+		else
+		{
+			Session::forget('carts');
+		}
+
+		//return view
+		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
+
+		return $this->generateRedirectRoute('balin.profile.user.index');
 	}
 
 

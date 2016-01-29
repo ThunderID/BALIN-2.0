@@ -1,6 +1,5 @@
 <?php	
 	$carts = Session::get('baskets');
-	// dd($data['order']);
 ?>
 @extends('web_v2.page_templates.layout')
 

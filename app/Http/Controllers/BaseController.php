@@ -7,7 +7,7 @@ use App\API\API;
 use App\API\Connectors\APIProduct;
 use App\API\Connectors\APIUser;
 use App\API\Connectors\APIConfig;
-use Route, Session, Cache, Input;
+use Route, Session, Cache, Input, Redirect;
 
 abstract class BaseController extends Controller
 {
