@@ -47,11 +47,15 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 	------------------------------------------------------------------------------------ */
 	Route::post('do/signup',											['uses' => 'Profile\\UserController@store', 'as' => 'balin.dosignup']);
 
+	/* SSO */
+	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'balin.dosso']);
+	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'balin.getsso']);
+
 	/* LOGIN */
 	Route::get('login', 												['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
 	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'balin.dologin']);
 
-	// LOGOUT
+	/* LOGOUT */
 	Route::get('dologout',												['uses' => 'AuthController@doLogout', 'as' => 'balin.dologout']);
 
 	/* AKTIVASI LINK */
