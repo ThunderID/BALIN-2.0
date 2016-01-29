@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -201,6 +201,7 @@ return [
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PrettyPaginate'=> App\Classes\PrettyPaginator::class,
+        'Collection'    => Illuminate\Database\Eloquent\Collection::class,
     ],
 
 ];
