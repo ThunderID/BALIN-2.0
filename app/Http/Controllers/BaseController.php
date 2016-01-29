@@ -55,7 +55,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->title)){ $this->page_attributes->title = null; }
   		if (!isset($this->page_attributes->subtitle)){ $this->page_attributes->subtitle = null; }
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
-  		// if (!isset($this->page_attributes->paginator)){ $this->page_attributes->paginator = null; }
+  		if(!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!Session::has('carts')) 
   		{
   			if (!Session::has('user_me'))
@@ -116,9 +116,8 @@ abstract class BaseController extends Controller
 			$balin['info'][$value['type']]			= $value;
 		}
 
-		// $this->page_attributes->balin				= $balin;
-
-  		// $paging				= $this->page_attributes->paginator;
+		//paginator
+  		$paging				= $this->page_attributes->paginator;
 
 		//initialize view
   		$this->layout 			= view($this->page_attributes->source, compact('paging'))
