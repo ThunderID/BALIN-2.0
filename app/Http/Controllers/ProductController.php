@@ -90,7 +90,7 @@ class ProductController extends BaseController
 
 		$product 									= $APIProduct->getIndex([
 															'search' 	=> 	$search,
-															'sort' 		=> 	$sort,																		
+															'sort' 		=> 	$sort,
 															'take'		=> $this->take,
 															'skip'		=> ($page - 1) * $this->take,
 														]);

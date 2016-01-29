@@ -6,6 +6,7 @@ use Illuminate\Support\MessageBag;
 use App\API\API;
 use App\API\Connectors\APIProduct;
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APIConfig;
 use Route, Session, Cache, Input;
 
 abstract class BaseController extends Controller
@@ -95,6 +96,28 @@ abstract class BaseController extends Controller
   			}
   		}
 
+  		//generate balin information
+  		$APIConfig 									= new APIConfig;
+		
+		$config 									= $APIConfig->getIndex([
+														'search' 	=> 	[
+																			'default'	=> 'true',
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														]);
+
+		$balin 										= $config['data'];
+
+		unset($balin['info']);
+		foreach ($config['data']['info'] as $key => $value) 
+		{
+			$balin['info'][$value['type']]			= $value;
+		}
+
+		// $this->page_attributes->balin				= $balin;
+
   		// $paging				= $this->page_attributes->paginator;
 
 		//initialize view
@@ -103,6 +126,7 @@ abstract class BaseController extends Controller
 									->with('page_title', $this->page_attributes->title)
 									->with('page_subtitle', $this->page_attributes->subtitle)
 									->with('data', $this->page_attributes->data)
+									->with('balin', $balin)
 									;
 
   		//optional data

@@ -16,7 +16,7 @@
 					{{ count(Session::get('carts')) }}
 				</span>
 			</a>
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="{{route('balin.home.index')}}">
 				{!! HTML::image('images/logo-transparent-small.png', null, ['class' => 'img-responsive']) !!}
 			</a>
 		</div>
