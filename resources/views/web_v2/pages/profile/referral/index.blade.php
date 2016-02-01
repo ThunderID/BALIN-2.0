@@ -1,6 +1,6 @@
 <!-- SECTION REFERRAL DESKTOP -->
-<div class="row hidden-xs hidden-sm">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
+<div class="row hidden-xs">
+	<div class="col-md-12 col-lg-12 pl-0 pr-0">
 		<h4 class="mt-0 mb-sm"><strong>Sisa Kuota Referal Anda : {{ $data['quota_referral'] }}</strong></h4>
 	</div>
 	<div class="col-md-12 col-sm-12">
@@ -18,44 +18,53 @@
 		<!-- SECTION DATA REFERRAL DESKTOP -->
 		@forelse($data['myreferrals'] as $k => $v)
 			<div class="row mt-xs mb-xs">
-				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+				<div class="col-md-1 col-lg-1">
 					{{ $k+1 }}
 				</div>
-				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-					{{ Carbon::parse($v['created_at'])->format('d-m-Y | H:i:s') }}	
+				<div class="col-md-3 col-lg-3">
+					@datetime_indo($v['created_at'])	
 				</div>
-				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+				<div class="col-md-8 col-lg-8">
 					{{ $v['user']['name'] }}
 				</div>
 			</div>
-			@empty
-			@endforelse
-		</div>
+		@empty
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					tidak ada referral
+				</div>
+			</div>
+		@endforelse
 		<!-- END SECTION DATA REFERRAL DESKTOP -->
 	</div>
 </div>
 <!-- END SECTION REFERRAL DESKTOP -->
 
 <!-- SECTION REFERRAL MOBILE, TABLET -->
-<div class="row hidden-md hidden-lg">
+<div class="row hidden-sm hidden-md hidden-lg">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<h4 class="m-t-sm m-b-md"><strong>Sisa Kuota Referal Anda : 10</strong></h4>
 	</div>
 </div>
-<div class="hidden-lg hidden-md hidden-sm col-xs-12">
-	<div class="row m-t-n" style="letter-spacing: 0.1em;">
-		<div class="row m-t-lg">
-			<div class="col-xs-12">
-				<p class="text-center"> Tidak ada data </p>
-			</div>
-		</div>
+<div class="row hidden-sm hidden-md hidden-lg col-xs-12">
+	<div class="col-xs-12">
+		<!-- SECTION DATA REFERRAL MOBILE, TABLET -->
+			@forelse($data['myreferrals'] as $k => $v)
+				<p class="text-center"> 
+					{!! (($k)+1) !!} . {{ $v['user']['name'] }} </br>
+					<span class="text-regular">(@date_indo($v['created_at']))</span>
+				</p>
+			@empty
+				<p>tidak ada referral</p>
+			@endforelse
+		<!-- END SECTION DATA REFERRAL MOBILE, TABLET -->
 	</div>
 </div>
 <!-- END SECTION REFERRAL MOBILE, TABLET -->
 
 <!-- SECTION REFERRAL PAGINATION -->
-<div class="col-md-12" style="text-align:center;">
-	<div class="row">
+<div class="row">
+	<div class="col-md-12">
         
     </div>
 </div>

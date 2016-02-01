@@ -12,7 +12,7 @@
 			</p>
 		</div>
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
-			<p class="user-hello" style="margin-top:-10px;">
+			<p class="user-hello mtm-xs">
 				<span class="">
 					<a href="#" class="link-black hover-gray unstyle">
 						<strong><i class="fa fa-sign-out"></i> Logout</strong>
@@ -32,14 +32,14 @@
 	<!-- END SECTION USER LOGIN -->
 
 	<!-- SECTION POINT INFO & REFERRAL CODE -->
-	<div class="row point-info bg-grey-light ml-0 mr-0">
+	<div class="row point-info bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE -->
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row ">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="text-uppercase">Referal Code 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
+					<h4 class="">Referal Code 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".referral-user-information">
+							<a href="#" class="text-grey" data-toggle="modal" data-target=".referral-user-information">
 								<i class="fa fa-question-circle"></i>
 							</a>
 						</small>
@@ -47,12 +47,16 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<!-- SECTION REFERRAL CODE DESKTOP -->
-					<p class="text-uppercase text-right hidden-xs hidden-sm"><strong>{{ $data['me']['data']['code_referral'] }}</strong></p>
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>{{ $data['me']['data']['code_referral'] }}</strong>
+					</p>
 					<div class="clearfix hidden-xs hidden-sm">&nbsp;</div>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
 					<!-- SECTION REFERRAL CODE DESKTOP -->
-					<p class="text-uppercase m-xs hidden-md hidden-lg"><strong>{{ $data['me']['data']['code_referral'] }}</strong></p>
+					<p class="m-xs hidden-md hidden-lg">
+						<strong>{{ $data['me']['data']['code_referral'] }}</strong>
+					</p>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 				</div>
 			</div>
@@ -60,12 +64,12 @@
 		<!-- END SECTION REFERRAL CODE -->
 
 		<!-- SECTION POINT -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-left-1 border-grey-light">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="text-uppercase">Point Anda 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
+					<h4 class="">Point Anda 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" data-toggle="modal" data-target=".point-user-information">
+							<a href="#" class="text-grey" data-toggle="modal" data-target=".point-user-information">
 								<i class="fa fa-question-circle fa-1x"></i>
 							</a>
 						</small>
@@ -73,24 +77,28 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<!-- SECTION POINT DESKTOP -->
-					<p class="text-right hidden-xs hidden-sm"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
+					<p class="text-right hidden-xs hidden-sm">
+						<strong>@money_indo($data['me']['data']['total_point'])</strong>
+					</p>
 					<!-- END SECTION POINT DESKTOP -->
 
 					<!-- SECTION POINT MOBILE, TABLET -->
-					<p class="ml-xs hidden-md hidden-lg"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
+					<p class="ml-xs hidden-md hidden-lg pb-xs">
+						<strong>@money_indo($data['me']['data']['total_point'])</strong>
+					</p>
 					<!-- END SECTION POINT MOBILE, TABLET -->
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pt-5">
 					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" 
 						data-toggle="modal" 
 						data-target=".modal-user-information" 
-						data-action="{{ route('balin.profile.point.index') }}" 
+						data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
 						data-modal-title="History Balin Point Anda" 
 						data-view="modal-lg">[ History ]</a>
 					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" 
 						data-toggle="modal" 
 						data-target=".modal-user-information" 
-						data-action="{{ route('balin.profile.point.index') }}" 
+						data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
 						data-modal-title="History Balin Point Anda" 
 						data-view="modal-lg">[ History ]</a>
 				</div>
@@ -113,7 +121,7 @@
 				Informasi Umum 
 				<small>
 					<a class="pull-right mt-5" href="#"
-						data-action="{{ route('balin.profile.user.edit') }}"
+						data-action="{{ route('balin.profile.user.edit', $data['me']['data']['id']) }}"
 						data-toggle="modal" 
 						data-target=".modal-user-information"
 						data-modal-title="Ubah Informasi Umum" >
@@ -123,7 +131,7 @@
 			</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Username
+					<p>Username</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION USERNAME DESKTOP -->
@@ -141,7 +149,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Email
+					<p>Email</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION EMAIL DESKTOP -->
@@ -159,19 +167,26 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Tanggal lahir
+					<p>Tanggal lahir</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION DATE OF BIRTH DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
-
-						<strong>@date_indo($data['me']['data']['date_of_birth'])</strong>
+						<strong>
+							@if (is_null($data['me']['data']['date_of_birth']))
+								@date_indo($data['me']['data']['date_of_birth'])
+							@endif
+						</strong>
 					</p>
 					<!-- END SECTION DATE OF BIRTH DESKTOP -->
 
 					<!-- SECTION DATE OF BIRTH MOBILE, TABLET -->
 					<p class="hidden-md hidden-lg">
-						<strong>@date_indo($data['me']['data']['date_of_birth'])</strong>
+						<strong>
+							@if (is_null($data['me']['data']['date_of_birth']))
+								@date_indo($data['me']['data']['date_of_birth'])
+							@endif
+						</strong>
 					</p>
 					<!-- END SECTION DATE OF BIRTH MOBILE, TABLET -->
 				</div>
@@ -180,11 +195,11 @@
 		<!-- END SECTION INFORMATION GENERAL -->
 
 		<!-- SECTION INFORMATION ANGGOTA BALIN -->
-		<div class="col-sm-6">
+		<div class="col-sm-6 border-left-1 border-grey-light">
 			<h5 class="text-grey text-uppercase mt-sm mb-md">Keanggotaan</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					Kuota Invite Referal
+					<p>Kuota Invite Referal</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION KUOTA INVITE DESKTOP -->
@@ -287,7 +302,7 @@
 	<div class="row bg-white ml-0 mr-0">
 		<div class="col-sm-12">
 			@forelse($data['me_orders']['data']['data'] as $k => $v)
-				<div class="row mt-xs mb-xs">
+				<div class="row mt-xs pb-xs {{ ($v != end($data['me_orders']['data']['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						<span class="label 
 							@if ($v['status']=='wait') label-default 
@@ -298,7 +313,7 @@
 							{{ $v['status'] }}
 						</span>
 						<p class="mt-xs mb-0 text-regular">
-							@datetime_indo_with_name_month($v['transact_at'])
+							Tgl order : @datetime_indo_with_name_month($v['transact_at'])
 						</p>	
 						<p class="mt-0 mb-xxs">
 							<strong>{{ $v['ref_number'] }}</strong>
@@ -306,7 +321,7 @@
 						<a class="link-gold unstyle mt-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="" 
+							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
 							<strong>[ Detail ]</strong>
 						</a>
@@ -325,11 +340,10 @@
 							</p>
 						@endif
 
-						<p class="mt-0 mb-0"> 
-							Dikirim ke 
-						</p>
-
 						@if (!empty($v['shipment']))
+							<p class="mt-0 mb-0"> 
+								Dikirim ke 
+							</p>
 							<p class="m-b-xxs">
 								{{ $v['shipment']['address']['address'] }}, {{ $v['shipment']['address']['zipcode'] }}
 							</p>
@@ -340,8 +354,9 @@
 
 						@if ($v['status']=='wait')
 							<?php $due_date = Carbon::parse($v['transact_at'])->addDay(); ?>
-							<p class="mt-5" style="">
-								<small>
+							<span class="text-regular mt-5">Info :</span>
+							<p class="" style="">
+								<small class="mt-0">
 									Pembayaran harus dilakukan sebelum @datetime_indo_with_name_month($due_date)
 								</small>
 							</p>

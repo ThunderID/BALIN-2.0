@@ -5,33 +5,35 @@
 
 @section('content')
 	<div class="clearfix">&nbsp;</div>
-<!-- SECTION REFERRAL CODE & BALIN POINT -->
-	<div class="row bg-grey-light ml-0 mr-0">
-<!-- SECTION REFERAAL CODE -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	@include('web_v2.components.alert')
+	<div class="row bg-white ml-0 mr-0">
+		<!-- SECTION REFERRAL CODE & BALIN POINT -->
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6  border-right-1 border-grey-light">
 			<div class="row">
+				<!-- SECTION REFERAAL CODE -->
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="">Referal Code 
+					<h4 class="pull-left">Referal Code 
 						<small>
-							<a href="#" class="hover-gold unstyle help" 
+							<a href="#" class="hover-gold mtm-5" 
 								data-toggle="modal" 
 								data-target=".modal-referral-code">
 								<i class="fa fa-question-circle"></i>
 							</a>
 						</small>
 					</h4>	
+					<p class="pull-right mt-xs">
+						<strong>{{ isset($data['me']['data']['code_referral']) ? $data['me']['data']['code_referral'] : '' }}</strong>
+					</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-right"><strong>{{ $data['me']['data']['code_referral'] }}</strong></p>
 				</div>
 			</div>
-		</div>
-<!-- END SECTION REFERRAL CODE -->
-<!-- SECTION BALIN POINT -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<!-- END SECTION REFERRAL CODE -->
+
+			<!-- SECTION BALIN POINT -->
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<h4 class="">Balin Point Anda 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-0 pb-0 p-md">
+					<h4 class="pull-left">Balin Point Anda 
 						<small>
 							<a href="#" class="link-white hover-gold unstyle help" 
 								data-toggle="modal" 
@@ -40,64 +42,55 @@
 							</a>
 						</small>
 					</h4>
+					<p class="pull-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
-					<a class="hover-gold hidden-xs" href="#" 
-						data-toggle="modal" 
-						data-target=".modal-user-information" 
-						data-modal-title="History Balin Point Anda">[ History ]</a>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-lg pr-md">
+					<p class="mtm-xs pull-right">
+						<a class="text-sm" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-modal-title="History Balin Point Anda">
+							[ History ]
+						</a>
+					</p>
 				</div>
 			</div>
+			<!-- END SECTION BALIN POINT -->
 		</div>
-<!-- END SECTION BALIN POINT -->
-	</div>
-<!-- END SECTION REFERRAL CODE & BALIN POINT -->
+		<!-- END SECTION REFERRAL CODE & BALIN POINT -->
 
-	<div class="clearfix">&nbsp;</div>
-
-<!-- SECTION FORM INPUT REFERRAL CODE -->
-	<div class="row bg-grey-light ml-0 mr-0">
-		<div class="col-sm-12 header-info p-lg" id="panel-voucher-normal">
+		<!-- SECTION FORM INPUT REFERRAL CODE -->
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-					<div class="row m-md">
-						<div class="col-md-12">
-							<h4 class="m-t-sm">Punya Referal Code ?</h4>
-						</div>	
-					</div>
-					{!! Form::open(['url' => route('balin.redeem.store')]) !!}
-						<div class="row m-md">
-							<div class="col-md-12">
-								<div class="input-group" style="position:relative">
-									<div class="loading-voucher text-center hide">
-										{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
-									</div>
-									{!! Form::hidden('from', 'balin.redeem.index') !!}
-									{!! Form::input('text', 'referral_code', null, [
-											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-											'placeholder' => 'Masukkan referral code anda',
-											'data-action' => ''
-									]) !!}
-									<span class="input-group-btn">
-										<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>
-									</span>
-								</div>
-							</div>
-						</div>
-					{!! Form::close() !!}
-				</div>
+				<div class="col-md-12 p-md">
+					<h4 class="m-t-sm">Punya Referal Code ?</h4>
+				</div>	
 			</div>
+			{!! Form::open(['url' => route('balin.redeem.store')]) !!}
+				<div class="row">
+					<div class="col-md-12 pl-md pr-md">
+						<div class="input-group" style="position:relative">
+							<div class="loading-voucher text-center hide">
+								{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
+							</div>
+							{!! Form::hidden('from', 'balin.redeem.index') !!}
+							{!! Form::input('text', 'referral_code', null, [
+									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
+									'placeholder' => 'Masukkan referral code anda',
+									'data-action' => ''
+							]) !!}
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			{!! Form::close() !!}
 		</div>
+		<!-- END SECTION FORM INPUT REFERRAL CODE -->
 	</div>
-<!-- END SECTION FORM INPUT REFERRAL CODE -->
 
-	<div class="clearfix mb-xxl">&nbsp;</div>
-	<div class="clearfix mb-xxl">&nbsp;</div>
-
-<!-- SECTION MODAL FULLSCREEN -->
+	<!-- SECTION MODAL FULLSCREEN -->
 	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -111,9 +104,9 @@
 	   		</div>
 	  	</div>
 	</div>
-<!-- END SECTION MODAL FULLSCREEN -->
+	<!-- END SECTION MODAL FULLSCREEN -->
 
-<!-- SECTION SUBMODAL FULLSCREEN -->
+	<!-- SECTION SUBMODAL FULLSCREEN -->
 	<div id="submodal-balance" class="modal submodal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -127,9 +120,9 @@
 	   		</div>
 	  	</div>
 	</div>
-<!-- END SECTION SUBMODAL FULLSCREEN -->
+	<!-- END SECTION SUBMODAL FULLSCREEN -->
 
-<!-- SECTION MODAL BALIN POINT -->
+	<!-- SECTION MODAL BALIN POINT -->
 	<div id="" class="modal modal-balin-point modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -147,9 +140,9 @@
 	   		</div>
 	  	</div>
 	</div>
-<!-- END SECTION MODAL BALIN POINT -->
+	<!-- END SECTION MODAL BALIN POINT -->
 
-<!-- SECTION MODAL REFERRAL CODE -->
+	<!-- SECTION MODAL REFERRAL CODE -->
 	<div id="" class="modal modal-referral-code modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -166,7 +159,7 @@
 	   		</div>
 	  	</div>
 	</div>
-<!-- END SECTION MODAL REFERRAL CODE -->
+	<!-- END SECTION MODAL REFERRAL CODE -->
 @stop
 
 @section('script')
