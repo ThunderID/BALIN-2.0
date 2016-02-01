@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-sm-12">
 		{!! Form::open(['url' => route('balin.redeem.store'), 'method' => 'POST']) !!}
-			{!! Form::hidden('to', route('balin.profile.user.index')) !!}
+			{!! Form::hidden('to', Route::currentRouteName()) !!}
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">

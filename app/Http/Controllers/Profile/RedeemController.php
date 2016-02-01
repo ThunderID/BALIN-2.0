@@ -83,7 +83,7 @@ class RedeemController extends BaseController
 														];
 
 		$API_me 									= new APIUser;
-		$result										= $API_me->postMeReferrence($data);
+		$result										= $API_me->postMeRedeemCode($data);
 
 		if ($result['status'] != 'success')
 		{
