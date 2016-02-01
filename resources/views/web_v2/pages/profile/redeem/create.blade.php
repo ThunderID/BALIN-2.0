@@ -1,7 +1,8 @@
 <!-- SECTION REFERENCE -->
 <div class="row">
 	<div class="col-sm-12">
-		{!! Form::open(['url' => route('balin.profile.reference.store'), 'method' => 'POST']) !!}
+		{!! Form::open(['url' => route('balin.redeem.store'), 'method' => 'POST']) !!}
+			{!! Form::hidden('to', route('balin.profile.user.index')) !!}
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
@@ -12,9 +13,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					</br>
 					<div class="form-group text-right">
-						<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="2">Simpan</button>
+						<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="2">Gunakan</button>
 					</div>
 				</div>
 			</div>

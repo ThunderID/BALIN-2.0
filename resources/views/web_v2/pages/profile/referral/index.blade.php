@@ -1,10 +1,10 @@
 <!-- SECTION REFERRAL DESKTOP -->
 <div class="row hidden-xs">
 	<div class="col-md-12 col-lg-12 pl-0 pr-0">
-		<h4 class="mt-0 mb-sm"><strong>Sisa Kuota Referal Anda : {{ $data['quota_referral'] }}</strong></h4>
+		<h4 class="mt-0 mb-sm text-light">Sisa Kuota Referal Anda : <strong>{{ $data['quota_referral'] }}</strong></h4>
 	</div>
 	<div class="col-md-12 col-sm-12">
-		<div class="row mt-5 bg-black text-white">
+		<div class="row mt-5 border-1 border-solid border-grey-dark">
 			<div class="col-sm-1">
 				<h5>No</h5>
 			</div>
@@ -17,7 +17,7 @@
 		</div>
 		<!-- SECTION DATA REFERRAL DESKTOP -->
 		@forelse($data['myreferrals'] as $k => $v)
-			<div class="row mt-xs mb-xs">
+			<div class="row mt-xs mb-xs {{ ($data['myreferrals'][$k] != $v) ?  'border-bottom-1 border-left-1 border-right-1 border-grey-dark ' : '' }} ">
 				<div class="col-md-1 col-lg-1">
 					{{ $k+1 }}
 				</div>
@@ -29,9 +29,9 @@
 				</div>
 			</div>
 		@empty
-			<div class="row">
-				<div class="col-md-12 col-lg-12">
-					tidak ada referral
+			<div class="row border-bottom-1 border-left-1 border-right-1 border-grey-dark">
+				<div class="col-md-12 col-lg-12 text-center">
+					<p class="mt-5 mb-5">tidak ada referral</p>
 				</div>
 			</div>
 		@endforelse
@@ -43,7 +43,7 @@
 <!-- SECTION REFERRAL MOBILE, TABLET -->
 <div class="row hidden-sm hidden-md hidden-lg">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<h4 class="m-t-sm m-b-md"><strong>Sisa Kuota Referal Anda : 10</strong></h4>
+		<h4 class="text-light">Sisa Kuota Referal Anda : <strong>{{ $data['quota_referral'] }}</strong></h4>
 	</div>
 </div>
 <div class="row hidden-sm hidden-md hidden-lg col-xs-12">

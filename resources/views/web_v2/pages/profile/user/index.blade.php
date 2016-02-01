@@ -4,6 +4,7 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
+	@include('web_v2.components.alert')
 	<!-- SECTION HEADER USER LOGIN -->
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -34,10 +35,10 @@
 	<!-- SECTION POINT INFO & REFERRAL CODE -->
 	<div class="row point-info bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-sm">
 			<div class="row ">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
-					<h4 class="">Referal Code 
+					<h4 class="mb-xs">Referal Code 
 						<small>
 							<a href="#" class="text-grey" data-toggle="modal" data-target=".referral-user-information">
 								<i class="fa fa-question-circle"></i>
@@ -54,7 +55,7 @@
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
 					<!-- SECTION REFERRAL CODE DESKTOP -->
-					<p class="m-xs hidden-md hidden-lg">
+					<p class="ml-5 hidden-md hidden-lg">
 						<strong>{{ $data['me']['data']['code_referral'] }}</strong>
 					</p>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
@@ -63,8 +64,8 @@
 		</div>
 		<!-- END SECTION REFERRAL CODE -->
 
-		<!-- SECTION POINT -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-left-1 border-grey-light">
+		<!-- SECTION POINT INFO -->
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-left-divider-to-top pb-xs">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
 					<h4 class="">Point Anda 
@@ -77,36 +78,38 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<!-- SECTION POINT DESKTOP -->
-					<p class="text-right hidden-xs hidden-sm">
+					<p class="mb-0 text-right hidden-xs hidden-sm">
 						<strong>@money_indo($data['me']['data']['total_point'])</strong>
+					</p>
+					<p class="mtm-xs mb-md text-right hidden-xs hidden-sm">
+						<a class="hover-gold text-sm text-right" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-modal-title="History Balin Point Anda" 
+							data-view="modal-lg">[ History ]</a>
 					</p>
 					<!-- END SECTION POINT DESKTOP -->
 
 					<!-- SECTION POINT MOBILE, TABLET -->
-					<p class="ml-xs hidden-md hidden-lg pb-xs">
+					<p class="ml-5 mb-0 hidden-md hidden-lg">
 						<strong>@money_indo($data['me']['data']['total_point'])</strong>
+					</p>
+					<p class="ml-5 mtm-xs mb-md hidden-md hidden-lg">
+						<a class="hover-gold text-sm" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-modal-title="History Balin Point Anda" 
+							data-view="modal-lg">[ History ]</a>
 					</p>
 					<!-- END SECTION POINT MOBILE, TABLET -->
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pt-5">
-					<a class="link-white hover-gold unstyle text-right hidden-xs" href="#" 
-						data-toggle="modal" 
-						data-target=".modal-user-information" 
-						data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
-						data-modal-title="History Balin Point Anda" 
-						data-view="modal-lg">[ History ]</a>
-					<a class="link-white hover-gold unstyle text-left hidden-sm hidden-md hidden-lg" href="#" 
-						data-toggle="modal" 
-						data-target=".modal-user-information" 
-						data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
-						data-modal-title="History Balin Point Anda" 
-						data-view="modal-lg">[ History ]</a>
-				</div>
 			</div>
 		</div>
-		<!-- END SECTION POINT -->
+		<!-- END SECTION POINT INFO -->
 	</div>
-	<!-- END SECTION POINT & REFERRAL CODE -->
+	<!-- END SECTION POINT INFO & REFERRAL CODE -->
 	<div class="clearfix">&nbsp;</div>
 	<!-- SECTION INFORMATION AKUN -->
 	<div class="row bg-grey-dark ml-0 mr-0 text-white">
@@ -115,8 +118,8 @@
 		</div>
 	</div>
 	<div class="row bg-white ml-0 mr-0">
-		<!-- SECTION INFORMTION GENERAL -->
-		<div class="col-sm-6">
+		<!-- SECTION INFORMATION GENERAL -->
+		<div class="col-sm-6 border-right-divider-to-bottom">
 			<h5 class="text-grey text-uppercase mt-sm mb-md">
 				Informasi Umum 
 				<small>
@@ -131,7 +134,7 @@
 			</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<p>Username</p>
+					<p class="mb-0">Nama</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION USERNAME DESKTOP -->
@@ -141,7 +144,7 @@
 					<!-- END SECTION USERNAME DESKTOP -->
 
 					<!-- SECTION USERNAME MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
+					<p class="mtm-5 hidden-md hidden-lg">
 						<strong>{{ $data['me']['data']['name'] }}</strong>
 					</p>
 					<!-- SECTION END USERNAME MOBILE, TABLET -->
@@ -149,7 +152,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<p>Email</p>
+					<p class="mb-0">Email</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION EMAIL DESKTOP -->
@@ -159,7 +162,7 @@
 					<!-- END SECTION EMAIL DESKTOP -->
 
 					<!-- SECTION EMAIL MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
+					<p class="mtm-5 hidden-md hidden-lg">
 						<strong>{{ $data['me']['data']['email'] }}</strong>
 					</p>
 					<!-- SECTION END EMAIL MOBILE, TABLET -->
@@ -167,13 +170,13 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<p>Tanggal lahir</p>
+					<p class="mb-0">Tanggal lahir</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION DATE OF BIRTH DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
 						<strong>
-							@if (is_null($data['me']['data']['date_of_birth']))
+							@if ($data['me']['data']['date_of_birth'] != '')
 								@date_indo($data['me']['data']['date_of_birth'])
 							@endif
 						</strong>
@@ -181,9 +184,9 @@
 					<!-- END SECTION DATE OF BIRTH DESKTOP -->
 
 					<!-- SECTION DATE OF BIRTH MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
+					<p class="mtm-5 hidden-md hidden-lg">
 						<strong>
-							@if (is_null($data['me']['data']['date_of_birth']))
+							@if ($data['me']['data']['date_of_birth'] != '')
 								@date_indo($data['me']['data']['date_of_birth'])
 							@endif
 						</strong>
@@ -195,11 +198,11 @@
 		<!-- END SECTION INFORMATION GENERAL -->
 
 		<!-- SECTION INFORMATION ANGGOTA BALIN -->
-		<div class="col-sm-6 border-left-1 border-grey-light">
+		<div class="col-sm-6">
 			<h5 class="text-grey text-uppercase mt-sm mb-md">Keanggotaan</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<p>Kuota Invite Referal</p>
+					<p class="mb-0">Kuota Invite Referal</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION KUOTA INVITE DESKTOP -->
@@ -209,7 +212,7 @@
 					<!-- END SECTION KUOTA INVITE DESKTOP -->
 
 					<!-- SECTION KUOTA INVITE MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
+					<p class="mtm-5 hidden-md hidden-lg">
 						<strong>{{ $data['me']['data']['quota_referral'] }}</strong>
 					</p>
 					<!-- END SECTION KUOTA INVITE MOBILE, TABLET -->
@@ -217,14 +220,14 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<h4 class="mt-5">Pemberi Referal Anda
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == null)
+					<h4 class="mt-5 mb-5">Pemberi Referal Anda
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
 							<small>
-								<a class="link-gold unstyle" href="#" 
+								<a class="link-gold text-regular" href="#" 
 									data-toggle="modal" 
 									data-target=".modal-user-information" 
-									data-action="{{ route('balin.profile.reference.create') }}" 
-									data-modal-title="Pemberi Referal Anda" 
+									data-action="{{ route('balin.redeem.create') }}" 
+									data-modal-title="Pemberi Referal Referensi Anda" 
 									data-view="modal-md">[ Tambahkan ]</a>
 							</small>
 						@endif
@@ -233,7 +236,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION PEMBERI REFERRAL DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == null)
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
 							<strong>Tidak ada</strong>
 						@else
 							<strong>{{ $data['me']['data']['reference_name'] }}</strong>
@@ -241,8 +244,8 @@
 					</p>
 					<!-- END SECTION PEMBERI REFERRAL DESKTOP -->
 					<!-- SECTION PEMBERI REFERRAL MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == null)
+					<p class="mtm-5 hidden-md hidden-lg">
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
 							<strong>Tidak ada</strong>
 						@else
 							<strong>{{ $data['me']['data']['reference_name'] }}</strong>
@@ -252,22 +255,24 @@
 				</div>
 			</div>
 			<div class="row p-b-xs">
-				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mt-5">
-					Referal Anda 
-					<small>
-						<a class="link-gold unstyle" href="#" 
-							data-toggle="modal" 
-							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.referral.index', $data['me']['data']['id']) }}" 
-							data-modal-title="Lihat Referal Anda" 
-							data-view="modal-md">
-							[ Lihat Daftar ]
-						</a>
-					</small>
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+					<p class="mb-0">
+						Referal Anda 
+						<small>
+							<a class="link-gold unstyle" href="#" 
+								data-toggle="modal" 
+								data-target=".modal-user-information" 
+								data-action="{{ route('balin.profile.referral.index', $data['me']['data']['id']) }}" 
+								data-modal-title="Lihat Referal Anda" 
+								data-view="modal-md">
+								[ Lihat Daftar ]
+							</a>
+						</small>
+					</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION REFERRAL ANDA DESKTOP -->
-					<p class="text-right hidden-xs hidden-sm mt-0">
+					<p class="text-right hidden-xs hidden-sm">
 						@if ($data['me']['data']['total_reference'] != 0)
 							<strong>{{ $data['me']['data']['total_reference'] }}</strong>
 						@else
@@ -276,7 +281,7 @@
 					</p>
 					<!-- END SECTION REFERRAL ANDA DESKTOP -->
 					<!-- SECTION REFERRAL ANDA MOBILE, TABLET -->
-					<p class="hidden-md hidden-lg">
+					<p class="mtm-5 hidden-md hidden-lg">
 						@if ($data['me']['data']['total_reference'] != 0)
 							<strong>{{ $data['me']['data']['total_reference'] }}</strong>
 						@else
@@ -300,7 +305,7 @@
 		</div>
 	</div>
 	<div class="row bg-white ml-0 mr-0">
-		<div class="col-sm-12">
+		<div class="col-sm-12 mt-5 mb-5">
 			@forelse($data['me_orders']['data']['data'] as $k => $v)
 				<div class="row mt-xs pb-xs {{ ($v != end($data['me_orders']['data']['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -312,22 +317,9 @@
 							@else label-warning @endif ">
 							{{ $v['status'] }}
 						</span>
-						<p class="mt-xs mb-0 text-regular">
-							Tgl order : @datetime_indo_with_name_month($v['transact_at'])
-						</p>	
-						<p class="mt-0 mb-xxs">
-							<strong>{{ $v['ref_number'] }}</strong>
-						</p>
-						<a class="link-gold unstyle mt-sm" href="#" 
-							data-toggle="modal" 
-							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
-							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
-							<strong>[ Detail ]</strong>
-						</a>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-						@if ($v['status']=='wait')
+						@if ($v['status'] == 'wait')
 							<p class="text-right mb-0">
 								<a class="text-regular text-right" href="#" 
 									data-toggle="modal" 
@@ -335,11 +327,29 @@
 									data-action="" 
 									data-action-parsing="" 
 									data-modal-title="Pembatalan Pesanan">
-									[ Batal ]
+									[ Batalkan Orderan ]
 								</a>
 							</p>
+						@else
+							&nbsp;
 						@endif
-
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 {{ ($v['status'] != 'canceled') ? 'border-right-divider-to-bottom' : '' }}">
+						<p class="mt-xs mb-0 text-regular">
+							Tgl order : @datetime_indo_with_name_month($v['transact_at'])
+						</p>	
+						<p class="mt-0 mb-xxs">
+							<strong>{{ $v['ref_number'] }}</strong>
+						</p>
+						<a class="link-gold text-regular mt-sm hidden-xs" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
+							[ Lihat Detail Orderan ]
+						</a>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mt-5">
 						@if (!empty($v['shipment']))
 							<p class="mt-0 mb-0"> 
 								Dikirim ke 
@@ -354,13 +364,22 @@
 
 						@if ($v['status']=='wait')
 							<?php $due_date = Carbon::parse($v['transact_at'])->addDay(); ?>
-							<span class="text-regular mt-5">Info :</span>
-							<p class="" style="">
+							<span class="text-regular">Info :</span>
+							<p>
 								<small class="mt-0">
 									Pembayaran harus dilakukan sebelum @datetime_indo_with_name_month($due_date)
 								</small>
 							</p>
 						@endif
+					</div>
+					<div class="hidden-sm hidden-md hidden-lg">
+						<a class="link-gold text-regular mt-sm ml-sm" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
+							[ Lihat Detail Orderan ]
+						</a>
 					</div>
 				</div>
 			@empty

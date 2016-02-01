@@ -8,7 +8,7 @@
 			<h4 class="text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 		</div>
 	</div>
-	<div class="row bg-black text-white mr-0 ml-0">
+	<div class="row mr-0 ml-0 border-1 border-solid border-grey-dark">
 		<div class="col-md-12 col-sm-12">
 			<div class="row m-t-n">
 				<div class="col-sm-3">
@@ -27,9 +27,9 @@
 		</div>
 	</div>
 	<div class="row mr-0 ml-0">
-		<div class="col-md-12 col-lg-12 border-1 border-black">
+		<div class="col-md-12 col-lg-12 ">
 			@forelse($data['point']['data'] as $k => $v)
-				<div class="row">
+				<div class="row {{ (end($data['point']['data']) != $v) ?  'border-bottom-1 border-left-1 border-right-1 border-grey-dark ' : '' }}">
 					<div class="col-md-3 col-lg-3">
 						<p>@datetime_indo($v['created_at'])</p>
 					</div>
@@ -44,9 +44,9 @@
 					</div>
 				</div>
 			@empty
-				<div class="row">
+				<div class="row border-bottom-1 border-left-1 border-right-1 border-grey-dark">
 					<div class="col-md-12 col-lg-12">
-						<p class="text-center"> Tidak ada data </p>
+						<p class="mt-5 mb-5 text-center"> Tidak ada data </p>
 					</div>
 				</div>
 			@endforelse

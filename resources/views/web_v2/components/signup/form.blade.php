@@ -1,7 +1,7 @@
 <?php
-function isMobile() {
-	return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
-}
+	function isMobile() {
+		return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
 ?>	
 
 {!! Form::open(['url' => route('balin.dosignup'), 'class' => 'form']) !!}
@@ -24,9 +24,9 @@ function isMobile() {
 	<div class="form-group">
 		<label for="" style="font-weight:400">Tanggal Lahir</label>
 		@if (isMobile())
-			{!! Form::input('date', 'date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
+			{!! Form::input('date', 'date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
 		@else
-			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date-format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
+			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
 		@endif		
 	</div>
 	<div class="form-group">

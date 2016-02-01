@@ -2,21 +2,18 @@
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed link-grey hover-white" aria-expanded="false" 
+			<button type="button" class="navbar-toggle collapsed link-grey hover-white text-white" aria-expanded="false" 
 					data-toggle="collapse" aria-controls="#bs-example-navbar-collapse-1" data-target="#bs-example-navbar-collapse-1">
 				<i class="fa fa-bars fa-lg"></i>
 			</button>
-			<a href="#" class="hidden-sm hidden-md hidden-lg link-grey hover-white ico_cart" style="color: #fff;
-			    position: absolute;
-			    right: 60px;
-			    top: 16px;
-			    text-decoration:none;">
+			<a href="#" class="navbar-toggle border-0 ico_cart" style="color: #fff;
+			    ">
 				<i class="fa fa-shopping-bag fa-lg vertical-baseline"></i>
 				<span class="ml-xs">
 					{{ count(Session::get('carts')) }}
 				</span>
 			</a>
-			<a class="navbar-brand" href="{{route('balin.home.index')}}">
+			<a class="navbar-brand" href="{{ route('balin.home.index') }}">
 				{!! HTML::image('images/logo-transparent-small.png', null, ['class' => 'img-responsive']) !!}
 			</a>
 		</div>
@@ -51,7 +48,7 @@
 					<a href="" data-scroll>Contact Us</a>
 				</li> -->
 				@if (Session::has('user_me'))
-					<li class="dropdown hidden-xs">
+					<li class="dropdown hidden-xs hidden-sm">
 						<a href="javascript:void(0);" class="dropdown-toggle">Akun Anda <span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-right dropdown-user user_dropdown">
 							<li class="p-xs">
@@ -62,19 +59,18 @@
 							</li>
 						</ul>
 					</li> 
-					<li class="dropdown hidden-sm hidden-md hidden-lg">
-						<a href="" class="dropdown-toggle">Akun Anda</a>
+					<li class="dropdown hidden-md hidden-lg">
+						<a href="{{ route('balin.profile.user.index') }}" class="dropdown-toggle">Profile</a>
 					</li> 
-					<li class="hidden-sm hidden-md hidden-lg">
-						<a href="">Log out</a>
+					<li class="hidden-md hidden-lg">
+						<a href="{{ route('balin.dologout') }}">Log out</a>
 					</li>
 				@endif
-				<li class="dropdown dropdown-cart">
+				<li class="dropdown dropdown-cart hidden-xs hidden-sm">
 					<a href="javascript:void(0);" class="dropdown-toggle text-white pt-xs mt-5 ico_cart">
 						<i class="fa fa-shopping-bag fa-lg vertical-baseline"></i>
 						<span class="text-regular"><strong>{{ count(Session::get('carts')) }}</strong></span>
 					</a>
-					<?php //dd(Session::get('carts')); ?>
 					@include('web_v2.components.cart.cart_dropdown', ['carts' => Session::get('carts')]) 
 				</li>
 			</ul>

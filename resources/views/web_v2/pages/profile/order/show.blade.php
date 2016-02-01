@@ -78,14 +78,14 @@
 				<?php $numItems = count($data['order']['transactiondetails']); $i = 0; ?>
 				@forelse($data['order']['transactiondetails'] as $k => $v)
 					<div class="col-md-12 ">
-						<div class="row border-right-1 border-left-1 ($k != end($data['order']['transactiondetails']) ? 'border-bottom-1' : '') border-grey-light mr-0 ml-0">
+						<div class="row border-right-1 border-left-1 {{ ($v != end($data['order']['transactiondetails']) ? 'border-bottom-1' : '') }} border-grey-light mr-0 ml-0">
 							<div class="col-md-1 col-sm-1">
 								<p class="mt-xs">{!! ($k+1) !!}</p>
 							</div>
 							<div class="col-md-1 col-sm-2 clearfix">
 								<img class="img-responsive m-t-sm" src="{{ $v['varian']['product']['thumbnail'] }}" >
 							</div>
-							<div class="col-md-10 col-sm-9 ">
+							<div class="col-md-10 col-sm-9">
 								<div class="row">
 									<div class="col-md-12 col-sm-12">
 										<p class="mt-5 mb-5 m-b-xs">{{ $v['varian']['product']['name'] }}</p>
@@ -117,9 +117,6 @@
 								</div>							
 							</div>
 						</div>
-						@if(++$i !== $numItems)
-							<div class="col-md-12 clearfix border-bottom">&nbsp;</div>
-						@endif
 					</div>
 				@empty
 					<div class="col-md-12 text-center">

@@ -8,20 +8,20 @@
 	@include('web_v2.components.alert')
 	<div class="row bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE & BALIN POINT -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6  border-right-1 border-grey-light">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-right-divider-to-bottom">
 			<div class="row">
 				<!-- SECTION REFERAAL CODE -->
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
 					<h4 class="pull-left">Referal Code 
 						<small>
-							<a href="#" class="hover-gold mtm-5" 
+							<a href="#" class="hover-gold mtm-5 text-grey-dark" 
 								data-toggle="modal" 
 								data-target=".modal-referral-code">
 								<i class="fa fa-question-circle"></i>
 							</a>
 						</small>
 					</h4>	
-					<p class="pull-right mt-xs">
+					<p class="pull-right mt-5">
 						<strong>{{ isset($data['me']['data']['code_referral']) ? $data['me']['data']['code_referral'] : '' }}</strong>
 					</p>
 				</div>
@@ -35,16 +35,16 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-0 pb-0 p-md">
 					<h4 class="pull-left">Balin Point Anda 
 						<small>
-							<a href="#" class="link-white hover-gold unstyle help" 
+							<a href="#" class="hover-gold help text-grey-dark" 
 								data-toggle="modal" 
 								data-target=".modal-balin-point">
 								<i class="fa fa-question-circle fa-1x"></i>
 							</a>
 						</small>
 					</h4>
-					<p class="pull-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
+					<p class="mt-5 pull-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-lg pr-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
 					<p class="mtm-xs pull-right">
 						<a class="text-sm" href="#" 
 							data-toggle="modal" 
@@ -60,15 +60,16 @@
 		<!-- END SECTION REFERRAL CODE & BALIN POINT -->
 
 		<!-- SECTION FORM INPUT REFERRAL CODE -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-sm">
 			<div class="row">
 				<div class="col-md-12 p-md">
 					<h4 class="m-t-sm">Punya Referal Code ?</h4>
 				</div>	
 			</div>
 			{!! Form::open(['url' => route('balin.redeem.store')]) !!}
+				{!! Form::hidden('to', route('balin.redeem.index')) !!}
 				<div class="row">
-					<div class="col-md-12 pl-md pr-md">
+					<div class="col-md-11 pl-md pr-md mb-md">
 						<div class="input-group" style="position:relative">
 							<div class="loading-voucher text-center hide">
 								{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
@@ -76,8 +77,7 @@
 							{!! Form::hidden('from', 'balin.redeem.index') !!}
 							{!! Form::input('text', 'referral_code', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-									'placeholder' => 'Masukkan referral code anda',
-									'data-action' => ''
+									'placeholder' => 'Masukkan nama referral code referensi',
 							]) !!}
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>
