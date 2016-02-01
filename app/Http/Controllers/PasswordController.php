@@ -3,8 +3,9 @@
 use App\API\API;
 
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APIConfig;
 
-use Input, Session, Redirect, Auth, Socialite, Validator, App;
+use Input, Session, Redirect, Auth, Socialite, Validator, App, BalinMail;
 
 /**
  * Used for Password Controller
@@ -31,25 +32,45 @@ class PasswordController extends BaseController
 	 */
 	public function forgot()
 	{
+		/* set api token use token public */
+		Session::set('API_token', Session::get('API_token_public'));
+	
 		$breadcrumb										= 	[
 																'Lupa Password' => ''
 															];
 
 		$email 											= Input::Get('email');
-		
-		/* set api token use token public */
-		Session::set('API_token', Session::get('API_token_public'));
 
 		$API_me 										= new APIUser;
 		$result 										= $API_me->postForgot([
 																'email'	=> $email,
 															]);
+		//check if reset password fail
 		if ($result['status'] != 'success')
 		{
 			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
 		}
 		else
 		{
+			//send reset password mail
+			$APIConfig 					= new APIConfig;
+			
+			$config 					= $APIConfig->getIndex([
+											'search' 	=> 	[
+																'default'	=> 'true',
+															],
+											'sort' 		=> 	[
+																'name'	=> 'asc',
+															],
+											]);
+
+			$balin 						= $config['data'];
+
+			$mail 						= new BalinMail;
+			
+			$mail->resetpassword($result['data'], $balin['info']);
+
+			//generate view
 			$this->page_attributes->data 				= 	[
 																'me'	=> $result['data'],
 															];
@@ -103,6 +124,9 @@ class PasswordController extends BaseController
 	 */
 	public function change()
 	{
+		/* set api token use token public */
+		Session::set('API_token', Session::get('API_token_public'));
+	
 		$breadcrumb									= 	[
 															'Reset Password' => ''
 														];
@@ -123,9 +147,6 @@ class PasswordController extends BaseController
 		{
 			\App::abort(404);
 		}
-
-		/* set api token use token public */
-		Session::set('API_token', Session::get('API_token_public'));
 
 		$email 										= Session::get('reset_password_mail');
 
