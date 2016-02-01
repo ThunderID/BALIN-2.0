@@ -705,7 +705,7 @@ pre {
       width: 970px; } }
   @media (min-width: 1200px) {
     .container {
-      width: 1132px; } }
+      width: 1032px; } }
 
 .container-fluid {
   margin-right: auto;
@@ -5180,6 +5180,66 @@ p {
 .m-xxxl {
   margin: 40px !important; }
 
+.mtm-lg {
+  margin-top: -25px !important; }
+
+.mbm-lg {
+  margin-bottom: -25px !important; }
+
+.mlm-lg {
+  margin-left: -25px !important; }
+
+.mrm-lg {
+  margin-right: -25px !important; }
+
+.mtm-md {
+  margin-top: -20px !important; }
+
+.mbm-md {
+  margin-bottom: -20px !important; }
+
+.mlm-md {
+  margin-left: -20px !important; }
+
+.mrm-md {
+  margin-right: -20px !important; }
+
+.mtm-sm {
+  margin-top: -15px !important; }
+
+.mbm-sm {
+  margin-bottom: -15px !important; }
+
+.mlm-sm {
+  margin-left: -15px !important; }
+
+.mrm-sm {
+  margin-right: -15px !important; }
+
+.mtm-xs {
+  margin-top: -10px !important; }
+
+.mbm-xs {
+  margin-bottom: -10px !important; }
+
+.mlm-xs {
+  margin-left: -10px !important; }
+
+.mrm-xs {
+  margin-right: -10px !important; }
+
+.mtm-5 {
+  margin-top: -5px !important; }
+
+.mbm-5 {
+  margin-bottom: -5px !important; }
+
+.mlm-5 {
+  margin-left: -5px !important; }
+
+.mrm-5 {
+  margin-right: -5px !important; }
+
 .mt-0 {
   margin-top: 0px !important; }
 
@@ -5934,11 +5994,11 @@ footer {
         letter-spacing: 0.082em !important; } }
 
 html, body {
-  height: 100%; }
+  height: 90%; }
 
 body {
   font-weight: 400;
-  letter-spacing: 0.02em; }
+  letter-spacing: 0.01em; }
 
 .wrapper {
   min-height: 100%; }
