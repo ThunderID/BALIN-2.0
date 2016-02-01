@@ -1,11 +1,18 @@
 <?php namespace App\Http\Controllers\Profile;
 
 use App\API\Connectors\APIUser;
+
 use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App, Session;
+use Input, Redirect, Session;
+
 use Illuminate\Support\MessageBag;
 
+/**
+ * Used for Redeem Controller
+ * 
+ * @author agil
+ */
 class RedeemController extends BaseController 
 {
 	protected $controller_name 						= 'redeem';
@@ -13,22 +20,25 @@ class RedeemController extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
+
 		Session::set('API_token', Session::get('API_token_private'));
 
 		$this->page_attributes->title 				= 'Redeem Code';
 		$this->page_attributes->source 				= 'web_v2.pages.redeem_code.';
 		$this->page_attributes->breadcrumb			=	[
-															'Redeem Code' 	=> route('balin.redeem.index'),
+															'Redeem Code' 	=> route('my.balin.redeem.index'),
 														];
 	}
 
+	/**
+	 * function to generate view redeem point for balin
+	 *
+	 * @return view
+	 */
 	public function index()
 	{		
-		// $breadcrumb									= 	[
-		// 													'Redeem Code' => route('balin.profile.user.index')
-		// 												];
-
 		$API_me 									= new APIUser;
+
 		$me_detail 									= $API_me->getMeDetail([
 															'user_id' 	=> Session::get('user_me')['id'],
 														]);
@@ -44,6 +54,11 @@ class RedeemController extends BaseController
 		return $this->generateView();
 	}
 
+	/**
+	 * function to store redeem point for user
+	 *
+	 * @param referral_code
+	 */
 	public function store()
 	{
 		$data										= 	[
@@ -53,22 +68,16 @@ class RedeemController extends BaseController
 
 		$API_me 									= new APIUser;
 		$result										= $API_me->postMeReferrence($data);
-		// dd($result);
 
-		if ($result['status'] != "success")
+		if($result['status'] != 'success')
 		{
 			$this->errors							= $result['message'];
-			
-			return Redirect::route('balin.redeem.index')
-							->withErrors(['Maaf referral code anda sudah terpakai atau tidak terdaftar.'])
-							->with('msg-type', 'danger');
+		}
+		else
+		{
+			$this->page_attributes->success 		= 'Selamat anda poin Anda menjadi '.$result['data']['total_point'];
 		}
 
-		//return view
-		$this->page_attributes->success 		= "Selamat anda mendapatkan point sebesar ";
-
-		return Redirect::route('balin.redeem.index')
-							->withErrors(['Suksess.'])
-							->with('msg-type', 'success');
+		return $this->generateRedirectRoute('my.balin.redeem.index');
 	}
 }

@@ -267,7 +267,7 @@ class AuthController extends BaseController
 				}
 			}
 
-			return Redirect::route('balin.redeem.index');
+			return Redirect::route('my.balin.redeem.index');
 		}
 		else
 		{
@@ -287,7 +287,7 @@ class AuthController extends BaseController
 	{	
 		if (Session::has('user_me'))
 		{
-			return Redirect::route('balin.redeem.index');
+			return Redirect::route('my.balin.redeem.index');
 		}
 
 		$breadcrumb										= ['Sign In' => route('balin.get.login')];
@@ -388,6 +388,7 @@ class AuthController extends BaseController
 										];
 
 				$session_cart 			= Session::get('carts');
+				$temp_varian 			= [];
 
 				foreach($session_cart as $k => $v)
 				{
@@ -422,7 +423,7 @@ class AuthController extends BaseController
 				}
 			}
 
-			return Redirect::route('balin.redeem.index');
+			return Redirect::route('my.balin.redeem.index');
 		}
 		
 		return Redirect::route('balin.get.login')

@@ -34,7 +34,7 @@
 				</li> --}}
 				@if (Session::has('user_me'))
 					<li >
-						<a href="{{ route('balin.redeem.index') }}">Referal &amp; Point
+						<a href="{{ route('my.balin.redeem.index') }}">Referal &amp; Point
 							<span class="badge badge-hollow bg-red text-white"><i class="fa fa-exclamation"></i></span>
 						</a>
 					</li>
