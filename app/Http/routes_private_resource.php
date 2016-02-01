@@ -32,9 +32,17 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 		/* Display user referral [VIEW TO MODAL] */
 		Route::get('referral/{id?}',									['uses' => 'ReferralController@index', 'as' => 'balin.profile.referral.index']);
 
+		/* Display user referral [VIEW TO MODAL] */
+		Route::get('order/detail/{id?}',								['uses' => 'OrderController@show', 'as' => 'balin.profile.order.show']);
+
 	});
 
-	/* Update user redeem code [VIEW TO MODAL] */
+	/* page user redeem code */
 	Route::get('redeem/code',											['uses' => 'Profile\\RedeemController@index', 'as' => 'balin.redeem.index']);
+
+	/* Update user redeem code [VIEW TO MODAL] */
+	Route::get('redeem/code/check',										['uses' => 'Profile\\RedeemController@create', 'as' => 'balin.redeem.create']);
+
+	/* Post redeem code */
 	Route::post('redeem/code', 											['uses' => 'Profile\\RedeemController@store', 'as' => 'balin.redeem.store']);
 });

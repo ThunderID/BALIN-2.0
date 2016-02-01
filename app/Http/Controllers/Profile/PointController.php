@@ -15,13 +15,18 @@ class PointController extends BaseController
 		Session::set('API_token', Session::get('API_token_private'));
 
 		$API_me 							= new APIUser;
+
+		/* get point user logged */
 		$me_point 							= $API_me->getMePoint([
-													'user_id' 	=> $id,
-												]);
-		$me_detail 							= $API_me->getMeDetail([
-													'user_id'	=> $id,
+													'user_id' 	=> Session::get('user_me')['id'],
 												]);
 
+		/* get detail user logged */
+		$me_detail 							= $API_me->getMeDetail([
+													'user_id'	=> Session::get('user_me')['id'],
+												]);
+
+		/* parsing data to view */
 		$data 								= 	[
 													'point'	=> $me_point['data'],
 													'me'	=> $me_detail['data'],

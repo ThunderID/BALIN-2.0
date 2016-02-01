@@ -24,10 +24,7 @@ class RedeemController extends BaseController
 
 	public function index()
 	{		
-		// $breadcrumb									= 	[
-		// 													'Redeem Code' => route('balin.profile.user.index')
-		// 												];
-
+		/* get detail user logged */
 		$API_me 									= new APIUser;
 		$me_detail 									= $API_me->getMeDetail([
 															'user_id' 	=> Session::get('user_me')['id'],
@@ -44,32 +41,37 @@ class RedeemController extends BaseController
 		return $this->generateView();
 	}
 
+	public function create()
+	{											
+		$page 										= view('web_v2.pages.profile.redeem.create');
+
+		return $page;
+	}
+
 	public function store()
 	{
+		/* get for redirect route to */
+		$to 										= Input::get('to');
+
+		/* array parameter to API */
 		$data										= 	[
 															'user_id'	=> Session::get('user_me')['id'],
 															'code'		=> Input::get('referral_code'),
 														];
 
 		$API_me 									= new APIUser;
-		$result										= $API_me->postMeReferrence($data);
-		// dd($result);
+
+		/* parsing data to API */
+		$result										= $API_me->postMeRedeemCode($data);
 
 		if ($result['status'] != "success")
 		{
 			$this->errors							= $result['message'];
-
-			return Redirect::route('balin.redeem.index')
-							->withErrors(['Maaf referral code anda sudah terpakai atau tidak terdaftar.'])
-							->with('msg-type', 'danger');
 		}
-		
 
-		//return view
-		$this->page_attributes->success 		= "Selamat anda mendapatkan point sebesar ";
+		$this->page_attributes->success 		= "Selamat anda mendapatkan point";
 
-		return Redirect::route('balin.redeem.index')
-							->withErrors(['Suksess.'])
-							->with('msg-type', 'success');
+		//return view and routw
+		return $this->generateRedirectRoute($to);
 	}
 }

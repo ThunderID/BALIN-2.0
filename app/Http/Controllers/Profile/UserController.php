@@ -44,9 +44,9 @@ class UserController extends BaseController
 		/* get order user not status cart */
 		$me_orders									= $API_me->getMeOrder([
 															'user_id'	=> Session::get('user_me')['id'],
-															// 'take'		=> 5
+															'take'		=> 2,
 														]);
-		// dd($me_orders);
+
 		/* parse date of birth in zero date to null */
 		if ($me_detail['data']['date_of_birth'] <= '0000-00-00')
 		{
@@ -107,10 +107,7 @@ class UserController extends BaseController
 
 			if (!$validator->passes())
 			{
-				return Redirect::route('balin.profile.user.index')
-						->withInput()
-						->withErrors($validator->errors())
-						->with('msg-type', 'danger');
+				$this->error 				= $validator->errors();
 			}
 			else 
 			{
@@ -118,15 +115,21 @@ class UserController extends BaseController
 			}
 		}
 
+		/* set api token with api token private */
 		Session::set('API_token', Session::get('API_token_private'));
-// dd($data);
+
+		/* get data to update user */
 		$API_me 							= new APIUser;
 		$result								= $API_me->postDataUpdate($data);	
 
 		if ($result['status'] != 'success')
 		{
-			$error 				= $result['message'];
+			$this->error 					= $result['message'];
 		}
+
+		$this->page_attributes->success 	= "Informasi umum untuk akun tersimpan";
+
+		return $this->generateRedirectRoute('balin.profile.user.index');	
 	}
 
 	public function store($id = "")
