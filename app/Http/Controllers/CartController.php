@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\API\API;
-use App\API\connectors\APIProduct;
-use App\API\connectors\APIUser;
+use App\API\Connectors\APIProduct;
+use App\API\Connectors\APIUser;
 
 use Input, Response, Redirect, Session, Auth, Request, Collection, Carbon;
 

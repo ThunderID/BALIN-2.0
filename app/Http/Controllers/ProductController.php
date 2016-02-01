@@ -2,10 +2,15 @@
 
 use App\API\Connectors\APIProduct;
 use App\API\Connectors\APITag;
-use App\API\Connectors\APIUser;
 use App\API\Connectors\APICategory;
-use Cookie, Response, Input, Auth, App, Config, Collection, Session, BalinMail;
 
+use Response, Input, Collection, Session, BalinMail;
+
+/**
+ * Used for Product Controller
+ * 
+ * @author agil
+ */
 class ProductController extends BaseController 
 {	
 	protected $controller_name 						= 'product';
@@ -31,35 +36,51 @@ class ProductController extends BaseController
 		$this->take 								= 20;
 	}
 
+	/**
+	 * function to generate view and display products of balin
+	 * 
+	 * 1. Check filter
+	 * 2. Check page
+	 * 3. Get data from API
+	 * 4. Generate paginator
+	 * 5. Generate breadcrumb
+	 * 6. Generate view
+	 * @return view
+	 */
 	public function index()
 	{
-		//initialize 
+		//1. Check filter
 		$filters 									= null;
 		$search 									= [];
 
+		//1a. Filter of name
 		if(Input::has('q'))
 		{
-			$search 								= ['name' 			=> Input::get('q')];
+			$search 								= 	['name'		=> Input::get('q')];
 			$filters 								= 	[
 															'name' 	=> 	Input::get('q')
 														];
 		}
 		
+		//1b. Filter of category
 		if(Input::has('category'))
 		{
 			$search['categories']					= Input::get('category');
 		}
 
+		//1c. Filter of tag
 		if(Input::has('tag'))
 		{
 			$search['tags']							= Input::get('tag');
 		}
 
+		//1d. Filter of label
 		if(Input::has('label'))
 		{
 			$search['labelname']					= Input::get('label');
 		}
 
+		//1e. Filter for sorting
 		if (Input::has('sort'))
 		{
 			$sort_item 							= explode('-', Input::get('sort'));
@@ -70,11 +91,11 @@ class ProductController extends BaseController
 			$sort								= ['name' => 'asc'];
 		}
 
-		//get filter removal
+		//1f. Get filter remove
 		$searchresult 							= [];
 		foreach (Input::all() as $key => $value) 
 		{
-			if(in_array($key, ['tag', 'label', 'category']))
+			if(in_array($key, ['tag', 'label', 'category', 'q']))
 			{
 				$query_string 					= Input::all();
 				unset($query_string['page']);
@@ -83,7 +104,7 @@ class ProductController extends BaseController
 			}
 		}
 
-		//get curent page
+		//2. Check page
 		if (is_null(Input::get('page')))
 		{
 			$page 									= 1;
@@ -93,7 +114,8 @@ class ProductController extends BaseController
 			$page 									= Input::get('page');
 		}
 
-		// data here
+		//3. Get data from API
+		//3a. API Product
 		$APIProduct 								= new APIProduct;
 
 		$product 									= $APIProduct->getIndex([
@@ -103,25 +125,24 @@ class ProductController extends BaseController
 															'skip'		=> ($page - 1) * $this->take,
 														]);
 
+		//3b. API Category
 		$API_category 								= new APICategory;
 		$get_api_category							= $API_category->getIndex([
-															'search' 	=> 	[
-																				'name' 	=> Input::get('q'),
-																			],
+															'search' 	=> 	[],
 															'sort' 		=> 	[
-																				'name'	=> 'asc',
+																				'path'	=> 'asc',
 																			],
 														]);
+		//3c. API Tag
 		$API_tag 									= new APITag;
 		$get_api_tag								= $API_tag->getIndex([
-															'search' 	=> 	[
-																				'name' 	=> Input::get('q'),
-																			],
+															'search' 	=> 	[],
 															'sort' 		=> 	[
-																				'name'	=> 'asc',
+																				'path'	=> 'asc',
 																			],
 														]);
 
+		//3e. Manage data in collection
 		$collection_category						= new Collection;
 		$collection_category->add($get_api_category['data']['data']);
 
@@ -131,15 +152,16 @@ class ProductController extends BaseController
 		$category 									= $collection_category->sortBy('name')->all();
 		$tag 										= $collection_tag->sortBy('name')->all();
 
-		//paginate
+		//4. Generate paginator
 		$this->paginate(route('balin.product.index'), $product['data']['count'], $page);
 
-		//breadcrumb
+		//5. Generate breadcrumb
 		$breadcrumb									= 	[
 															'Produk' => route('balin.product.index')
 														];
+		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 
-		//generate View
+		//6. Generate view
 		$this->page_attributes->search 				= $searchresult;
 		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
 		$this->page_attributes->data				= 	[
@@ -148,47 +170,65 @@ class ProductController extends BaseController
 															'category'	=> $category
 														];
 
-		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
 
 		return $this->generateView();
 	}
 
+	/**
+	 * function to generate view and display spesific product of balin
+	 * 
+	 * @return view, redirect route
+	 */
 	public function show($slug = null)
 	{
-		// PRODUCT DETAIL
+		//1. Check product
 		$API_product 							= new APIProduct;
 		$product 								= $API_product->getIndex([
 														'search' 	=> 	[
 																			'slug' 	=> $slug,
 																		],
 													]);
-		// //PRODUCT RELATED
-		$related 								= $API_product->getIndex([
-														'search' 	=> 	[
-																			'name' 	=> Input::get('q'),
-																		],
-														'sort' 		=> 	[
-																			'name'	=> 'asc',
-																		],																		
-														'take'		=> 2,
-													]);	
+		if($product['status'] != 'success')
+		{
+			$this->errors						= $product['message'];
+		}
+		elseif($product['data']['count'] < 1)
+		{
+			$this->errors 						= 'Tidak ada data.';
+		}
+		else
+		{
+			//2. Get Related product
+			$related 								= $API_product->getIndex([
+															'search' 	=> 	[
+																				'name' 	=> Input::get('q'),
+																				'notid' => $product['data']['data'][0]['id'],
+																			],
+															'sort' 		=> 	[
+																				'name'	=> 'asc',
+																			],																		
+															'take'		=> 8,
+														]);	
 
-		//breadcrumb
-		$breadcrumb								= 	[	
-														'Produk' 							=> route('balin.product.index'),
-														$product['data']['data'][0]['name'] => route('balin.product.show', $product['data']['data'][0]['slug'])
-													];
-		//generate View
-		$this->page_attributes->subtitle 		= $product['data']['data'][0]['name'];
-		$this->page_attributes->data			= 	[
-														'product' 	=> $product,
-														'related'	=> $related,
-													];
+			//breadcrumb
+			$breadcrumb								= 	[	
+															'Produk' 							=> route('balin.product.index'),
+															$product['data']['data'][0]['name'] => route('balin.product.show', $product['data']['data'][0]['slug'])
+														];
+			//generate View
+			$this->page_attributes->subtitle 		= $product['data']['data'][0]['name'];
+			$this->page_attributes->data			= 	[
+															'product' 	=> $product,
+															'related'	=> $related,
+														];
 
-		$this->page_attributes->breadcrumb		= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
-		$this->page_attributes->source 			=  $this->page_attributes->source . 'show';
+			$this->page_attributes->breadcrumb		= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
+			$this->page_attributes->source 			=  $this->page_attributes->source . 'show';
 
-		return $this->generateView();
+			return $this->generateView();
+		}
+
+		return $this->generateRedirectRoute('balin.product.index');
 	}
 }
