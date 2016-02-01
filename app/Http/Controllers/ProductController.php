@@ -13,7 +13,15 @@ class ProductController extends BaseController
 	function __construct()
 	{
 		parent::__construct();
-		Session::set('API_token', Session::get('API_token_public'));
+
+		if(Session::has('user_me'))
+		{
+			Session::put('API_token', Session::get('API_token_private'));
+		}
+		else
+		{
+			Session::put('API_token', Session::get('API_token_public'));
+		}
 
 		$this->page_attributes->title 				= 'BALIN.ID';
 		$this->page_attributes->source 				= 'web_v2.pages.product.';
