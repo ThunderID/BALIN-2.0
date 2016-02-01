@@ -28,12 +28,13 @@ class API
 	{
 		$client 				= new Client([
 										'base_uri' => $this->basic_url,
-									    'timeout'  => 2.0
+									    'timeout'  => 1.0
 									]);
 
 		$request 				= new Request('GET',  $this->basic_url . $url);
-		$response 				= $client->send($request, ['timeout' => 2]);
+		$response 				= $client->send($request, ['timeout' => 20]);
 		$body 					= $response->getBody();
+
 		return (string) $body;
 	}
 

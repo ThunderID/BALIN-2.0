@@ -151,8 +151,8 @@ class APIUser extends APIData
 		return $this->get();
 	}
 
-	/* post reference code user */
-	public function postMeReferrence ($data)
+	/* post redeem code user */
+	public function postMeRedeemCode ($data)
 	{
 		$this->api_url 						= '/me/'. Session::get('user_me')['id'] .'/redeem';
 		$this->api_data 					= array_merge($this->api_data, $data);
