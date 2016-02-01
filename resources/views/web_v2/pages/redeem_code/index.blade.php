@@ -4,7 +4,47 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
+
 	<div class="clearfix">&nbsp;</div>
+
+<!-- SECTION FORM INPUT REFERRAL CODE -->
+	<div class="row bg-grey-light ml-0 mr-0">
+		<div class="col-sm-12 header-info p-lg" id="panel-voucher-normal">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<div class="row m-md">
+						<div class="col-md-12">
+							<h4 class="m-t-sm">Punya Referal Code ?</h4>
+						</div>	
+					</div>
+					{!! Form::open(['url' => route('my.balin.redeem.store')]) !!}
+						<div class="row m-md">
+							<div class="col-md-12">
+								<div class="input-group" style="position:relative">
+									<div class="loading-voucher text-center hide">
+										{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
+									</div>
+									{!! Form::hidden('from', 'my.balin.redeem.index') !!}
+									{!! Form::input('text', 'referral_code', null, [
+											'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
+											'placeholder' => 'Masukkan referral code anda',
+											'data-action' => ''
+									]) !!}
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					{!! Form::close() !!}
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- END SECTION FORM INPUT REFERRAL CODE -->
+	
+	<div class="clearfix">&nbsp;</div>
+
 	@include('web_v2.components.alert')
 	<div class="row bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE & BALIN POINT -->
@@ -59,6 +99,7 @@
 		</div>
 		<!-- END SECTION REFERRAL CODE & BALIN POINT -->
 
+	<div class="clearfix mb-xxl">&nbsp;</div>
 		<!-- SECTION FORM INPUT REFERRAL CODE -->
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-sm">
 			<div class="row">
@@ -66,15 +107,15 @@
 					<h4 class="m-t-sm">Punya Referal Code ?</h4>
 				</div>	
 			</div>
-			{!! Form::open(['url' => route('balin.redeem.store')]) !!}
-				{!! Form::hidden('to', route('balin.redeem.index')) !!}
+			{!! Form::open(['url' => route('my.balin.redeem.store')]) !!}
+				{!! Form::hidden('to', route('my.balin.redeem.index')) !!}
 				<div class="row">
 					<div class="col-md-11 pl-md pr-md mb-md">
 						<div class="input-group" style="position:relative">
 							<div class="loading-voucher text-center hide">
 								{!! HTML::image('images/loading.gif', null, ['style' => 'width:20px']) !!}
 							</div>
-							{!! Form::hidden('from', 'balin.redeem.index') !!}
+							{!! Form::hidden('from', 'my.balin.redeem.index') !!}
 							{!! Form::input('text', 'referral_code', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
 									'placeholder' => 'Masukkan nama referral code referensi',

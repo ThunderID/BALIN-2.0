@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\API\API;
-use App\API\connectors\APIProduct;
-use App\API\connectors\APIUser;
+use App\API\Connectors\APIProduct;
+use App\API\Connectors\APIUser;
 
 use Input, Response, Redirect, Session, Auth, Request, Collection, Carbon;
 
@@ -182,8 +182,8 @@ class CartController extends BaseController
 			$post_order 			= 	[
 											'id'					=> isset($order_in_cart['data']['id']) ? $order_in_cart['data']['id'] : '',
 											'user_id'				=> Session::get('user_me')['id'],
-											'transact_at'			=> (isset($order_in_cart['data']['transact_at'])&&(empty($order_in_cart['data']['transact_at']))) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
-											'transactiondetails'	=> isset($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
+											'transact_at'			=> strtotime($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
+											'transactiondetails'	=> empty($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
 											'transactionlogs'		=> 	[
 																			'id'		=> '',
 																			'status'	=> 'cart',

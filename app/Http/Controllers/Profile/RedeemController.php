@@ -1,11 +1,18 @@
 <?php namespace App\Http\Controllers\Profile;
 
 use App\API\Connectors\APIUser;
+
 use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App, Session;
+use Input, Redirect, Session;
+
 use Illuminate\Support\MessageBag;
 
+/**
+ * Used for Redeem Controller
+ * 
+ * @author agil
+ */
 class RedeemController extends BaseController 
 {
 	protected $controller_name 						= 'redeem';
@@ -13,19 +20,25 @@ class RedeemController extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
+
 		Session::set('API_token', Session::get('API_token_private'));
 
 		$this->page_attributes->title 				= 'Redeem Code';
 		$this->page_attributes->source 				= 'web_v2.pages.redeem_code.';
 		$this->page_attributes->breadcrumb			=	[
-															'Redeem Code' 	=> route('balin.redeem.index'),
+															'Redeem Code' 	=> route('my.balin.redeem.index'),
 														];
 	}
 
+	/**
+	 * function to generate view redeem point for balin
+	 *
+	 * @return view
+	 */
 	public function index()
 	{		
-		/* get detail user logged */
 		$API_me 									= new APIUser;
+
 		$me_detail 									= $API_me->getMeDetail([
 															'user_id' 	=> Session::get('user_me')['id'],
 														]);
@@ -41,13 +54,23 @@ class RedeemController extends BaseController
 		return $this->generateView();
 	}
 
+	/**
+	 * function to modal show input redeem point for user
+	 *
+	 *
+	 */
 	public function create()
 	{											
 		$page 										= view('web_v2.pages.profile.redeem.create');
 
 		return $page;
 	}
-
+	
+	/**
+	 * function to store redeem point for user
+	 *
+	 * @param referral_code
+	 */
 	public function store()
 	{
 		/* get for redirect route to */
@@ -60,18 +83,17 @@ class RedeemController extends BaseController
 														];
 
 		$API_me 									= new APIUser;
+		$result										= $API_me->postMeReferrence($data);
 
-		/* parsing data to API */
-		$result										= $API_me->postMeRedeemCode($data);
-
-		if ($result['status'] != "success")
+		if ($result['status'] != 'success')
 		{
 			$this->errors							= $result['message'];
 		}
+		else
+		{
+			$this->page_attributes->success 		= 'Selamat anda poin Anda menjadi '.$result['data']['total_point'];
+		}
 
-		$this->page_attributes->success 		= "Selamat anda mendapatkan point";
-
-		//return view and routw
 		return $this->generateRedirectRoute($to);
 	}
 }

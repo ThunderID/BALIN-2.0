@@ -31,14 +31,14 @@
 				</li> --}}
 				@if (Session::has('user_me'))
 					<li >
-						<a href="{{ route('balin.redeem.index') }}">Referal &amp; Point
+						<a href="{{ route('my.balin.redeem.index') }}">Referal &amp; Point
 							<span class="badge badge-hollow bg-red text-white"><i class="fa fa-exclamation"></i></span>
 						</a>
 					</li>
 				@endif
 				@if (!Session::has('user_me'))
 					<li >
-						<a href="{{ route('balin.login.index') }}">Sign In</a>
+						<a href="{{ route('balin.get.login') }}">Sign In</a>
 					</li>
 				@endif
 				<!-- <li > -->
@@ -55,7 +55,7 @@
 								<a href="{{ route('balin.profile.user.index') }}" class="dropdown-toggle">Profile</a>
 							</li> 
 							<li class="p-xs">
-								<a href="{{ route('balin.dologout') }}">Log out</a>
+								<a href="{{ route('balin.get.logout') }}">Log out</a>
 							</li>
 						</ul>
 					</li> 
