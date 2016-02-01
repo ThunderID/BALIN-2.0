@@ -15,7 +15,11 @@ elixir.config.sourcemaps = false;
 elixir(function(mix) {
 		mix.sass('web_v2/balin.scss', 'public/css/balin.css')
 		.scripts(['jquery.js', 
-				'bootstrap.min.js'
+				'bootstrap.min.js',
+				'icheck.min.js',
+				'quantity_control.js',
+				'checkout_plugin.js',
+				'all.js',
 				], 'public/js/balin.js')
 		.version(['public/css/balin.css',
 				'public/js/balin.js'])

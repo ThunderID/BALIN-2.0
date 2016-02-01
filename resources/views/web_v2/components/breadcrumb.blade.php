@@ -4,7 +4,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
 			<ol class="breadcrumb" style="background:none">
 				<li>
-					<a class="hover-black" href="#">Home</a>
+					<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
 				</li>
 				@foreach($breadcrumb as $b_title => $b_url)
 					@if($b_url == end($breadcrumb))
@@ -29,7 +29,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
 			<ol class="breadcrumb hollow m-t-md p-l-none" style="background:none">
 				<li>
-					<a class="hover-black" href="#">Home</a>
+					<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
 				</li>
 				<?php $ctr = 0;?>
 				@foreach($breadcrumb as $b_title => $b_url)

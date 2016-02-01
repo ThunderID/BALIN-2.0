@@ -10,5 +10,20 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+/**
+* Routes Authorized used only for authorized (login / logout)
+*/
+include('routes_authorized.php');
+
+/**
+* Routes public resource could be opened by public user
+*/
+include('routes_public_resource.php');
+
+/**
+* Routes private resource could be opened by me user
+*/
+include('routes_private_resource.php');
+
 include('routes-campaign.php');
-include('routes-balin.php');

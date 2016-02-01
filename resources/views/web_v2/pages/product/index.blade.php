@@ -245,6 +245,7 @@
 	<div class="row">
 		<div class="col-md-12 hollow-pagination text-right">
 			<div class="mt-5">
+			{!! $paging->appends(Input::all())->render() !!}
 			</div>						
 		</div>
 	</div>

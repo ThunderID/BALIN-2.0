@@ -6,7 +6,8 @@ use Illuminate\Support\MessageBag;
 use App\API\API;
 use App\API\Connectors\APIProduct;
 use App\API\Connectors\APIUser;
-use Route, Session, Cache, Input;
+use App\API\Connectors\APIConfig;
+use Route, Session, Cache, Input, Redirect;
 
 abstract class BaseController extends Controller
 {
@@ -53,7 +54,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->title)){ $this->page_attributes->title = null; }
   		if (!isset($this->page_attributes->subtitle)){ $this->page_attributes->subtitle = null; }
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
-  		// if (!isset($this->page_attributes->paginator)){ $this->page_attributes->paginator = null; }
+  		if(!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!Session::has('carts')) 
   		{
   			if (!Session::has('user_me'))
@@ -94,7 +95,28 @@ abstract class BaseController extends Controller
   			}
   		}
 
-  		// $paging				= $this->page_attributes->paginator;
+  		//generate balin information
+  		$APIConfig 									= new APIConfig;
+		
+		$config 									= $APIConfig->getIndex([
+														'search' 	=> 	[
+																			'default'	=> 'true',
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														]);
+
+		$balin 										= $config['data'];
+
+		unset($balin['info']);
+		foreach ($config['data']['info'] as $key => $value) 
+		{
+			$balin['info'][$value['type']]			= $value;
+		}
+
+		//paginator
+  		$paging				= $this->page_attributes->paginator;
 
 		//initialize view
   		$this->layout 			= view($this->page_attributes->source, compact('paging'))
@@ -102,6 +124,7 @@ abstract class BaseController extends Controller
 									->with('page_title', $this->page_attributes->title)
 									->with('page_subtitle', $this->page_attributes->subtitle)
 									->with('data', $this->page_attributes->data)
+									->with('balin', $balin)
 									;
 
   		//optional data
