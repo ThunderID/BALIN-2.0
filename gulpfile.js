@@ -17,6 +17,7 @@ elixir(function(mix) {
 		.scripts(['jquery.js', 
 				'bootstrap.min.js',
 				'icheck.min.js',
+				'inputmask.js',
 				'quantity_control.js',
 				'checkout_plugin.js',
 				'all.js',
