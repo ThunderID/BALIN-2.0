@@ -22,13 +22,5 @@ class ReferralController extends BaseController
 		$page 								= view('web_v2.pages.profile.referral.index')
 												->with('data', $data);
 		return $page;
-
-		// $this->layout->page 				= view('web.page.profile.referral.index');
-		// $this->layout->breadcrumb				= $breadcrumb;
-		// $this->layout->controller_name			= $this->controller_name;
-		// $this->layout->page_title 				= 'BALIN.ID';
-		// $this->layout->page_subtitle 			= 'Daftar Referral Anda';
-
-		// return $this->layout->page;
 	}
 }

@@ -28,9 +28,12 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 	------------------------------------------------------------------------------------ */
 	Route::get('checkout',												['uses' => 'CheckoutController@index', 'as' => 'balin.checkout.index']);
 	Route::post('checkout',												['uses' => 'CheckoutController@store', 'as' => 'balin.checkout.store']);
+
 	/*---=== check voucher with ajax ===---*/
 	Route::any('check/voucher',											['uses' => 'CheckoutController@getCheckVoucher', 'as' => 'balin.checkout.voucher.check']);
+
 	/*---=== get shippingcost with ajax ===---*/
+
 	Route::any('shipping/cost',											['uses' => 'CheckoutController@getShippingCost', 'as' => 'balin.checkout.shippingcost.get']);
 	/*---=== get address with ajax ===---*/
 	Route::any('shipping/address/{id?}',								['uses' => 'CheckoutController@getAddress', 'as' => 'balin.checkout.shippingaddress.get']);
@@ -61,10 +64,8 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 		Route::get('edit/{id?}', 										['uses' => 'UserController@edit', 'as' => 'balin.profile.user.edit']);
 		Route::post('edit/{id?}', 										['uses' => 'UserController@update', 'as' => 'balin.profile.user.update']);
 
-		/* UPDATE PROFILE USER */
-		// Route::post()
 		// BALIN POINT
-		Route::get('point', 											['uses' => 'PointController@index', 'as' => 'balin.profile.point.index']);
+		Route::get('point/{id?}',										['uses' => 'PointController@index', 'as' => 'balin.profile.point.index']);
 
 		// REFERENCE
 		Route::get('reference', 										['uses' => 'ReferenceController@create', 'as' => 'balin.profile.reference.create']);
@@ -73,6 +74,8 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 		// REFERRAL
 		Route::get('referral/{id?}',									['uses' => 'ReferralController@index', 'as' => 'balin.profile.referral.index']);
 
+		// ORDER
+		Route::get('order/{id?}',										['uses'	=> 'OrderController@show', 'as' => 'balin.profile.order.show']);
 	});
 
 /* 	------------------------------------------------------------------------------------

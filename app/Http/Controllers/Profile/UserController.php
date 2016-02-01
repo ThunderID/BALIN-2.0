@@ -13,6 +13,12 @@ class UserController extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
+
+		if (!Session::has('API_token_private'))
+		{
+			Redirect::route('balin.home.index');
+		}
+
 		Session::set('API_token', Session::get('API_token_private'));
 
 		$this->page_attributes->title 				= 'Profile';
@@ -29,15 +35,23 @@ class UserController extends BaseController
 														];
 
 		$API_me 									= new APIUser;
+
+		/* get detail user */
 		$me_detail 									= $API_me->getMeDetail([
 															'user_id' 	=> Session::get('user_me')['id'],
 														]);
 
-		// dd($me_detail);
+		/* get order user not status cart */
 		$me_orders									= $API_me->getMeOrder([
 															'user_id'	=> Session::get('user_me')['id'],
-															'take'		=> 5
+															// 'take'		=> 5
 														]);
+		// dd($me_orders);
+		/* parse date of birth in zero date to null */
+		if ($me_detail['data']['date_of_birth'] <= '0000-00-00')
+		{
+			$me_detail['data']['date_of_birth']		= '';
+		}
 
 		$this->page_attributes->data				= 	[
 															'me' 		=> $me_detail,
@@ -52,11 +66,19 @@ class UserController extends BaseController
 	}
 
 	public function edit($id = null)
-	{		
-		$data 										= Session::get('user_me');
+	{	
+		$API_me										= new APIUser;
+		$result										= $API_me->getMeDetail([
+															'user_id'	=> $id,
+														]);
+
+		if ($result['data']['date_of_birth'] <= '0000-00-00')
+		{
+			$result['data']['date_of_birth']		= '';
+		}
 
 		$page 										= view('web_v2.pages.profile.user.edit')
-														->with('data', $data);
+														->with('data', $result['data']);
 		return  $page;
 	}
 
@@ -71,7 +93,7 @@ class UserController extends BaseController
 		/* Get input date of birth */
 		if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
 		{
-			$dob['date_of_birth']			= Carbon::createFromFormat('d-m-Y', Input::get('date_of_birth'))->format('Y-m-d H:i:s');
+			$data['date_of_birth']			= Carbon::createFromFormat('d-m-Y', Input::get('date_of_birth'))->format('Y-m-d H:i:s');
 		}
 		else
 		{
@@ -97,8 +119,9 @@ class UserController extends BaseController
 		}
 
 		Session::set('API_token', Session::get('API_token_private'));
-		$API_me 									= new APIUser;
-		$result										= $API_me->postDataUpdate($data);	
+// dd($data);
+		$API_me 							= new APIUser;
+		$result								= $API_me->postDataUpdate($data);	
 
 		if ($result['status'] != 'success')
 		{

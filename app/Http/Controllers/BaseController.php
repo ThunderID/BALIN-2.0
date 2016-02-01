@@ -15,7 +15,6 @@ abstract class BaseController extends Controller
 	protected $take 				= 10;
 	protected $token_public;
 	protected $token_private;
-	protected $template_layout;
 
 	function __construct() 
 	{
