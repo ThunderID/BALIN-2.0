@@ -14,7 +14,7 @@
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
 			<p class="user-hello" style="margin-top:-10px;">
 				<span class="">
-					<a href="#" class="link-black hover-gray unstyle">
+					<a href="{{route('balin.get.logout')}}" class="link-black hover-gray unstyle">
 						<strong><i class="fa fa-sign-out"></i> Logout</strong>
 					</a>
 				</span>

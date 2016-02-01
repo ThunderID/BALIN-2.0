@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\API\connectors\APIProduct;
-use App\API\connectors\APITag;
-use App\API\connectors\APIUser;
-use App\API\connectors\APICategory;
-use Cookie, Response, Input, Auth, App, Config, Collection, Session;
+use App\API\Connectors\APIProduct;
+use App\API\Connectors\APITag;
+use App\API\Connectors\APIUser;
+use App\API\Connectors\APICategory;
+use Cookie, Response, Input, Auth, App, Config, Collection, Session, BalinMail;
 
 class ProductController extends BaseController 
 {	

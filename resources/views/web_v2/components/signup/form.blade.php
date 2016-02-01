@@ -4,7 +4,7 @@ function isMobile() {
 }
 ?>	
 
-{!! Form::open(['url' => route('balin.dosignup'), 'class' => 'form']) !!}
+{!! Form::open(['url' => route('balin.post.signup'), 'class' => 'form']) !!}
 	<div class="form-group">
 		<label for="" style="font-weight:400">Name</label>
 		{!! Form::text('name', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Nama', 'required']) !!}

@@ -55,7 +55,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->title)){ $this->page_attributes->title = null; }
   		if (!isset($this->page_attributes->subtitle)){ $this->page_attributes->subtitle = null; }
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
-  		if(!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
+  		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!Session::has('carts')) 
   		{
   			if (!Session::has('user_me'))
@@ -172,7 +172,7 @@ abstract class BaseController extends Controller
 	// 	{
 	// 		if (!Session::has('API_token_authenticated'))
 	// 		{
-	// 			Redirect::route('balin.login.index');
+	// 			Redirect::route('balin.get.login');
 	// 		}
 	// 	}
 		

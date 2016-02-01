@@ -146,6 +146,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        ThunderID\BalinMailTemplate\BalinMailTemplateServiceProvider::class,
 
     ],
 
@@ -202,6 +203,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PrettyPaginate'=> App\Classes\PrettyPaginator::class,
         'Collection'    => Illuminate\Database\Eloquent\Collection::class,
+        'BalinMail'     => ThunderID\BalinMailTemplate\BalinMail::class,
     ],
 
 ];

@@ -60,7 +60,7 @@ class RedeemController extends BaseController
 			$this->errors							= $result['message'];
 		}
 
-			return Redirect::route('balin.login.index')
+			return Redirect::route('balin.get.login')
 							->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])
 							->with('msg-type', 'danger')
 							->with('msg-from', 'login');

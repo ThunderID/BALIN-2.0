@@ -1,4 +1,4 @@
-{!! Form::open(['url' => route('balin.dologin', ['class' => 'hollow-login'])]) !!}
+{!! Form::open(['url' => route('balin.post.login', ['class' => 'hollow-login'])]) !!}
     <div class="form-group">
         <label for="email" style="font-weight:400">Email</label>
         {!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}
@@ -36,7 +36,7 @@
 			<div class="clearfix">&nbsp;</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<a href="{{route('balin.dosso')}}" class="btn btn-black-hover-white-border-black btn-block" title="facebook">
+			<a href="{{route('balin.get.sso')}}" class="btn btn-black-hover-white-border-black btn-block" title="facebook">
 				<div class="row">
 					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-l-none">
 						<i class="fa fa-facebook"></i>

@@ -3,25 +3,25 @@
 Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], function() 
 {
 	/* Sign up page */
-	Route::post('do/signup',											['uses' => 'Profile\\UserController@store', 'as' => 'balin.dosignup']);
+	Route::post('signup',												['uses' => 'AuthController@postSignUp', 	'as' => 'balin.post.signup']);
 
 	/* Login using SSO */
-	Route::get('do/sso',												['uses' => 'AuthController@doSso', 'as' => 'balin.dosso']);
-	Route::get('sso/success',											['uses' => 'AuthController@getSso', 'as' => 'balin.getsso']);
+	Route::get('sso',													['uses' => 'AuthController@getSso', 		'as' => 'balin.get.sso']);
+	Route::get('sso/success',											['uses' => 'AuthController@redirectSso', 	'as' => 'balin.redirect.sso']);
 
 	/* Login using email */
-	Route::get('login', 												['uses' => 'LoginController@index', 'as' => 'balin.login.index']);
-	Route::post('do/login',												['uses' => 'AuthController@doLogin', 'as' => 'balin.dologin']);
+	Route::get('login', 												['uses' => 'AuthController@getlogin', 		'as' => 'balin.get.login']);
+	Route::post('login',												['uses' => 'AuthController@postlogin', 		'as' => 'balin.post.login']);
 
 	/* Logout */
-	Route::get('dologout',												['uses' => 'AuthController@doLogout', 'as' => 'balin.dologout']);
+	Route::get('logout',												['uses' => 'AuthController@getlogout', 		'as' => 'balin.get.logout']);
 
 	/* Account activation */
-	Route::get('activation/link/{activation_link?}',					['uses' => 'AuthController@activation', 'as' => 'balin.activation']);
+	Route::get('activation/link/{activation_link?}',					['uses' => 'AuthController@getActive', 		'as' => 'balin.get.active']);
 	
 	/* Reset Password */
-	Route::post('forgot/password',										['uses' => 'AuthController@forgot', 'as' => 'balin.forgot.password']);
-	Route::get('reset/password/{link}',									['uses' => 'AuthController@reset', 'as' => 'balin.reset.password']);
-	Route::post('change/password',										['uses' => 'AuthController@change', 'as' => 'balin.change.password']);
+	Route::post('forgot/password',										['uses' => 'PasswordController@forgot', 	'as' => 'balin.forgot.password']);
+	Route::get('reset/password/{link}',									['uses' => 'PasswordController@reset', 		'as' => 'balin.reset.password']);
+	Route::post('change/password',										['uses' => 'PasswordController@change', 	'as' => 'balin.change.password']);
 
 });

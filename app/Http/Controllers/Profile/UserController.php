@@ -133,7 +133,7 @@ class UserController extends BaseController
 
 			if (!$validator->passes())
 			{
-				return Redirect::route('balin.login.index')
+				return Redirect::route('balin.get.login')
 						->withInput()
 						->withErrors($validator->errors())
 						->with('msg-type', 'danger')
@@ -156,14 +156,14 @@ class UserController extends BaseController
 
 		if (count($errors) == 0)
 		{
-			return Redirect::route('balin.login.index')
+			return Redirect::route('balin.get.login')
 					->with('msg', 'Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda')
 					->with('msg-type', 'success')
 					->with('msg-from', 'signup');
 		}
 		else
 		{
-			return Redirect::route('balin.login.index')
+			return Redirect::route('balin.get.login')
 					->withInput(Input::all())
 					->withErrors($errors)
 					->with('msg-type', 'danger')
