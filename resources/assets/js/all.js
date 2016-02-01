@@ -31,3 +31,18 @@
 		$('.menu_accordion').removeClass('active');
 	});
 /* END SECTION COLLAPSE PRODUCT CATEGORY, FILTER */
+
+/* SECTION INPUT MASK */
+	$(".money").inputmask({ rightAlign: false, alias: "numeric", prefix: 'IDR ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+	$(".money_right").inputmask({ rightAlign: true, alias: "numeric", prefix: 'IDR ', radixPoint: '', placeholder: "", autoGroup: !0, digitsOptional: !1, groupSeparator: '.', groupSize: 3, repeat: 15 });              
+	$(".date_time_format").inputmask({
+		mask: "d-m-y h:s",
+		placeholder: "dd-mm-yyyy hh:mm",
+		alias: "datetime",
+	}); 
+	$(".date_format").inputmask({
+		mask: "d-m-y",
+		placeholder: "dd-mm-yyyy",
+		alias: "date",
+	});
+/* END SECTION INPUT MASK */
