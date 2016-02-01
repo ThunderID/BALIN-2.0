@@ -6,7 +6,7 @@
 				<img src="{{ (!empty($value['thumbnail']) ? $value['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg') }}" class="img-responsive" style="{{ isset($style_thumbnail) ? $style_thumbnail : '' }}">
 				<div class="caption text-center">
 					<h4 class="{{ isset($text) ? $text : '' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</h4>
-					<p>@money_indo((!empty($value['price']) ? $value['price'] : '0'))</p>
+					<p>@money_indo(($value['promo_price']!=0 ? $value['promo_price'] : $value['price']))</p>
 				</div>
 				<a href="{{ route('balin.product.show', (!empty($value['slug']) ? $value['slug'] : $value['id'])) }}" class="btn btn-primary btn-block text-uppercase">Detail</a>
 			</div>

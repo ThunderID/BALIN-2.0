@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Profile;
+<?php namespace App\Http\Controllers\Me;
 
 use App\Http\Controllers\BaseController;
 

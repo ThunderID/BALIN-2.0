@@ -103,7 +103,7 @@
 							Pilih Produk Lain
 						</a>
 						@if (!empty($data['carts']))
-							<a href="{{ route('balin.checkout.index') }}" class="btn btn-black-hover-white-border-black pull-right text-uppercase">
+							<a href="{{ route('my.balin.checkout.get') }}" class="btn btn-black-hover-white-border-black pull-right text-uppercase">
 								Checkout
 							</a>			
 						@endif				
@@ -137,7 +137,7 @@
 					@if (!empty($data['carts']))
 						<div class="row mt-sm mb-sm empty-cart-mobile">
 							<div class="col-xs-12">
-								<a href="{{ route('balin.checkout.index') }}" class="btn btn-black-border-white-hover-white btn-block text-uppercase">
+								<a href="{{ route('my.balin.checkout.get') }}" class="btn btn-black-border-white-hover-white btn-block text-uppercase">
 									Checkout
 								</a>
 							</div>

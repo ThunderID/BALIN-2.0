@@ -151,6 +151,18 @@ class APIUser extends APIData
 		return $this->get();
 	}
 
+	/* get list address of user */
+	public function getMeAddress ($parameter = null)
+	{
+		if (!is_null($parameter))
+		{
+			$this->api_url					= '/me/' . $parameter['user_id'] . '/addresses';
+			$this->api_data 				= array_merge($this->api_data, $parameter);
+		}
+
+		return $this->get();
+	}
+
 	/* post redeem code user */
 	public function postMeRedeemCode ($data)
 	{

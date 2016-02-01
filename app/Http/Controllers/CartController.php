@@ -1,11 +1,17 @@
 <?php namespace App\Http\Controllers;
 
 use App\API\API;
+
 use App\API\Connectors\APIProduct;
 use App\API\Connectors\APIUser;
 
-use Input, Response, Redirect, Session, Auth, Request, Collection, Carbon;
+use Input, Response, Redirect, Session, Collection;
 
+/**
+ * Used for Cart (activities) Controller
+ * 
+ * @author agil
+ */
 class CartController extends BaseController 
 {
 	protected $controller_name 					= 'cart';
@@ -13,7 +19,15 @@ class CartController extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
-		Session::set('API_token', Session::get('API_token_public'));
+
+		if(Session::has('user_me'))
+		{
+			Session::put('API_token', Session::get('API_token_private'));
+		}
+		else
+		{
+			Session::put('API_token', Session::get('API_token_public'));
+		}
 
 		$this->page_attributes->title 				= 'Cart';
 		$this->page_attributes->source 				= 'web_v2.pages.cart.';
@@ -22,6 +36,11 @@ class CartController extends BaseController
 														];
 	}
 
+	/**
+	 * function to generate index of cart
+	 *
+	 * @return view
+	 */
 	public function index()
 	{	
 		$breadcrumb									= 	[
@@ -32,8 +51,6 @@ class CartController extends BaseController
 
 		if (Session::has('user_me'))
 		{
-			Session::set('API_token', Session::get('API_token_private'));	
-
 			$API_me 								= new APIUser;
 			$me_order_in_cart 						= $API_me->getMeOrderInCart([
 															'user_id' 	=> Session::get('user_me')['id'],
@@ -73,7 +90,11 @@ class CartController extends BaseController
 		return $this->generateView();
 	}
 
-	/* FUNCTION ADD TO CART SESSION */
+	/**
+	 * function to store an item to cart
+	 *
+	 * @param slug
+	 */
 	public function store($slug = null)
 	{
 		// call API product
@@ -83,6 +104,13 @@ class CartController extends BaseController
 																		'slug' 	=> $slug,
 																	],
 												]);
+
+		if($product['status'] != 'success')
+		{
+			$this->errors						= $product['message'];
+
+			return $this->generateRedirectRoute('balin.product.index');
+		}
 
 		$carts 								= Session::get('carts');
 		$qty 								= Input::get('qty');
@@ -104,11 +132,6 @@ class CartController extends BaseController
 		return Response::json(['carts' => $cart], 200);
 	}
 
-	public function edit ()
-	{
-	
-	}
-
 	public function update($slug = null, $varian_id = null)
 	{
 		// call API product
@@ -118,6 +141,13 @@ class CartController extends BaseController
 																		'slug' 	=> $slug,
 																	],
 												]);
+
+		if($product['status'] != 'success')
+		{
+			$this->errors						= $product['message'];
+
+			return $this->generateRedirectRoute('balin.product.index');
+		}
 
 		$carts 								= Session::get('carts');
 		$product_id							= $product['data']['data'][0]['id'];
@@ -136,18 +166,6 @@ class CartController extends BaseController
 
 		$cart								= $this->addToCart($carts, $product['data']['data'][0], $qtys, $varianids);
 		$carts 								= Session::put('carts', $cart);
-	}
-
-	// FUNCTION REMOVE CART
-	public function destroy ()
-	{
-		
-	}
-
-	// FUNCTION EMPTY CART
-	public function clean()
-	{
-			
 	}
 
 	/* FUNCTION AJAX GET LIST IN CART DROPDOWN REFERSH ITEM */
@@ -370,105 +388,5 @@ class CartController extends BaseController
 		}
 
 		return $temp_carts;
-	}
-
-	function proses_carts($varianids, $qtys, $product, $temp_cart, $index_cart, $index_iteration, $temp_cart_now)
-	{
-		$a = [];
-		$collection_varians		= collect($product['varians']);
-
-		foreach($varianids as $key => $value)
-		{
-			$varianp 			= $collection_varians->where('id', (int) $value)->all();
-			$varian_temp		= [];
-
-			if ((isset($qtys[$value]) && $qtys[$value] != 0) && (isset($temp_cart_now['varian']['id'])) && ($temp_cart_now['varian']['id'] == $value) )
-			{
-				$validqty 					= (int) $qtys[$value] + $temp_cart_now['quantity'];
-			}
-			else 
-			{
-				$validqty 					= (int) $qtys[$value];
-			}
-
-			foreach ($varianp as $k => $v) 
-			{
-				foreach($v as $k2 => $v2) 
-				{
-					$varian_temp[$k2] 	= $v2;
-				}
-			}
-
-			if ($varian_temp['current_stock'] < $validqty && ($varian_temp['current_stock']!=0))
-			{
-				$msg 			= 'Maaf stock tidak mencukupi';
-				$validqty 		= $qtys[$value];
-			}
-			else
-			{
-				$msg 			= null;
-			}
-
-			$x = $index_iteration;
-
-			if (is_null($temp_cart_now))
-			{
-				if ($temp_cart_now['id'] == $product['id'])
-				{
-					if (isset($temp_cart_now['varian']['id']))
-					{
-						$x = $index_cart;
-					}
-				}
-			}
-			$a[$index_iteration] = $index_cart; 
-
-			if ($validqty > 0)
-			{
-				$trs_detail[$x]	= [	'id'			=> $product['id'],
-									'quantity'	=> $validqty,
-									'price'		=> isset($product['price']) ? $product['price'] : 0,
-									'discount'	=> isset($product['discount']) ? $product['discount'] : 0,
-									'varian'		=> [ 'id'				=> $varian_temp['id'],
-													'product_id'		=> $product['id'],
-													'sku'			=> $varian_temp['sku'],
-													'size'			=> $varian_temp['size'],
-													'current_stock'	=> $varian_temp['current_stock'],
-													'on_hold_stock'	=> $varian_temp['on_hold_stock'],
-													'inventory_stock'	=> $varian_temp['inventory_stock'],
-													'reserved_stock'	=> $varian_temp['reserved_stock'],
-													'packed_stock'		=> $varian_temp['packed_stock'],
-													'product'			=> [	'id'				=> $product['id'],
-																		'name'			=> $product['name'],
-																		'upc'			=> isset($product['upc']) ? $product['upc'] : '' ,
-																		'slug'			=> isset($product['slug']) ? $product['slug'] : '',
-																		'description'		=> isset($product['description']) ? $product['description'] : '',
-																		'current_stock'	=> isset($product['current_stock']) ? $product['current_stock'] : 0,
-																		'on_hold_stock'	=> isset($product['on_hold_stock']) ? $product['on_hold_stock'] : 0,
-																		'inventory_stock'	=> isset($product['inventory_stock']) ? $product['inventory_stock'] : 0,
-																		'reserved_stock'	=> isset($product['reserved_stock']) ? $product['reserved_stock'] : 0 ,
-																		'packed_stock'		=> isset($product['packed_stock']) ? $product['packed_stock'] : 0,
-																		'cart_item'		=> '',
-																		'sold_item'		=> '',
-																		'price'			=> isset($product['price']) ? $product['price'] : 0,
-																		'promo_price'		=> isset($product['promo_price']) ? $product['promo_price'] : 0,
-																		'thumbnail'		=> isset($product['thumbnail']) ? $product['thumbnail'] : '',
-																		'image_xs'		=> isset($product['image_xs']) ? $product['image_xs'] : '',
-																		'image_sm'		=> isset($product['image_sm']) ? $product['image_sm'] : '',
-																		'image_md'		=> isset($product['image_md']) ? $product['image_md'] : '',
-																		'image_lg'		=> isset($product['image_lg']) ? $product['image_lg'] : ''
-																		]
-													]
-									];
-
-				if ($validqty==0)
-				{
-					unset($trs_detail[$x]);
-				}
-
-				$index_iteration++;
-			}
-		}
-		return $trs_detail;
 	}
 }

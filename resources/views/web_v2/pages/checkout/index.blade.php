@@ -1,11 +1,8 @@
-<?php	
-	$carts = Session::get('baskets');
-?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
 	<!-- SECTION FORM CHECKOUT -->
-	{!! Form::open(['url' => route('balin.checkout.store'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
+	{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
 		{!! Form::hidden('voucher_id', '', ['class' => 'voucher_code']) !!}
 		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 		<div class="row">
@@ -93,7 +90,7 @@
 									<span class="text-regular">Balin Point Anda</span>
 								</div>
 								<div class="col-lg-5 col-md-5 col-sm-5 text-right">
-									<span class="text-regular text-right" id="point">@money_indo($data['my_point']['data']['count'])</span>
+									<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
 								</div>	
 							</div>
 							<div class="row m-l-none m-r-none">
@@ -121,7 +118,7 @@
 								<div class="col-lg-5 col-md-5 col-sm-5">
 									<h4 class="text-md text-right text-bold mb-sm sub_total">
 										<?php 
-											$total_pembayaran = $total - Session::get('user_me')['total_point'] - $data['order']['data']['unique_number'];
+											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['unique_number'];
 										?>
 										@if ($total_pembayaran && $total_pembayaran < 0)
 											@money_indo(0)
@@ -153,11 +150,11 @@
 								</div>
 								{!! Form::input('text', 'voucher', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
-									'placeholder' => 'Vouche code',
-									'data-action' => route('balin.checkout.voucher.check')
+									'placeholder' => 'Voucher code',
+									'data-action' => route('my.balin.checkout.voucher')
 								]) !!}
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('balin.checkout.voucher.check') }}">Gunakan</button>
+									<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('my.balin.checkout.voucher') }}">Gunakan</button>
 								</span>
 							</div>
 						</div>
@@ -178,7 +175,9 @@
 										<label class="hollow-label text-regular" for="name">Pilih Alamat</label>
 										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
 											<option value="0" selected>Tambah Alamat Baru</option>
-											<option value="1" data-action="{{ route('balin.checkout.shippingaddress.get', 1) }}">Jln. Balong Indah - Dinom</option>
+											@foreach($data['my_address'] as $key => $value)
+												<option value="{{$value['id']}}">{{$value['address']}}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>
