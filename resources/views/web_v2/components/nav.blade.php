@@ -63,7 +63,7 @@
 						<a href="{{ route('balin.profile.user.index') }}" class="dropdown-toggle">Profile</a>
 					</li> 
 					<li class="hidden-md hidden-lg">
-						<a href="{{ route('balin.dologout') }}">Log out</a>
+						<a href="{{ route('balin.get.logout') }}">Log out</a>
 					</li>
 				@endif
 				<li class="dropdown dropdown-cart hidden-xs hidden-sm">

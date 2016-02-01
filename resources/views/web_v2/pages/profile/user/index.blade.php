@@ -226,7 +226,7 @@
 								<a class="link-gold text-regular" href="#" 
 									data-toggle="modal" 
 									data-target=".modal-user-information" 
-									data-action="{{ route('balin.redeem.create') }}" 
+									data-action="{{ route('my.balin.redeem.create') }}" 
 									data-modal-title="Pemberi Referal Referensi Anda" 
 									data-view="modal-md">[ Tambahkan ]</a>
 							</small>

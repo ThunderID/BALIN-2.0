@@ -23,13 +23,13 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::get('order/detail/{id?}',								['uses' => 'OrderController@show', 'as' => 'balin.profile.order.show']);
 
 	/* page user redeem code */
-	Route::get('redeem/code',											['uses' => 'Profile\\RedeemController@index', 'as' => 'balin.redeem.index']);
+	Route::get('redeem/code',											['uses' => 'RedeemController@index', 'as' => 'my.balin.redeem.index']);
 
 	/* Update user redeem code [VIEW TO MODAL] */
-	Route::get('redeem/code/check',										['uses' => 'Profile\\RedeemController@create', 'as' => 'balin.redeem.create']);
+	Route::get('redeem/code/check',										['uses' => 'RedeemController@create', 'as' => 'my.balin.redeem.create']);
 
 	/* Post redeem code */
-	Route::post('redeem/code', 											['uses' => 'Profile\\RedeemController@store', 'as' => 'balin.redeem.store']);
+	Route::post('redeem/code', 											['uses' => 'RedeemController@store', 'as' => 'my.balin.redeem.store']);
 	
 	/* Checkout info */
 	Route::get('checkout',											['uses' => 'CheckoutController@index', 'as' => 'balin.checkout.index']);
