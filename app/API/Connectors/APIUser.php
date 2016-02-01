@@ -65,7 +65,7 @@ class APIUser extends APIData
 	public function postDataUpdate ($data) 
 	{
 		$this->api_url						= '/me/'. Session::get('user_me')['id'] .'/update';
-		$this->api_data 					= array_merge($this->api_data, ["customer" => $data]);
+		$this->api_data 					= array_merge($this->api_data, ['customer' => $data]);
 
 		return $this->post();
 	}
@@ -140,11 +140,11 @@ class APIUser extends APIData
 	}
 
 	/* get list point history user */
-	public function getMyPoint ($parameter = null)
+	public function getMePoint ($parameter = null)
 	{
 		if (!is_null($parameter))
 		{
-			$this->api_url					= '/me/' . Session::get('user_me')['id'] . '/points';
+			$this->api_url					= '/me/' . $parameter['user_id'] . '/points';
 			$this->api_data 				= array_merge($this->api_data, $parameter);
 		}
 
@@ -152,7 +152,7 @@ class APIUser extends APIData
 	}
 
 	/* post reference code user */
-	public function postMyReferrence ($data)
+	public function postMeReferrence ($data)
 	{
 		$this->api_url 						= '/me/'. Session::get('user_me')['id'] .'/redeem';
 		$this->api_data 					= array_merge($this->api_data, $data);

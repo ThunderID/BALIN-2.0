@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo Carbon::parse($expression)->format('d-m-Y'); ?>";
         });
 
+        Blade::directive('datetime_indo', function($expression)
+        {
+        	return "<?php echo Carbon::parse($expression)->format('d-m-Y H:i'); ?>";
+        });
+
         // blade extends date time indonesia with name month 
         Blade::directive('datetime_indo_with_name_month', function($expression)
         {

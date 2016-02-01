@@ -52,23 +52,23 @@ class RedeemController extends BaseController
 														];
 
 		$API_me 									= new APIUser;
-		$result										= $API_me->postMyReferrence($data);
-		dd($result);
+		$result										= $API_me->postMeReferrence($data);
+		// dd($result);
 
 		if ($result['status'] != "success")
 		{
 			$this->errors							= $result['message'];
+			
+			return Redirect::route('balin.redeem.index')
+							->withErrors(['Maaf referral code anda sudah terpakai atau tidak terdaftar.'])
+							->with('msg-type', 'danger');
 		}
-
-			return Redirect::route('balin.get.login')
-							->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.'])
-							->with('msg-type', 'danger')
-							->with('msg-from', 'login');
-		
 
 		//return view
 		$this->page_attributes->success 		= "Selamat anda mendapatkan point sebesar ";
 
-		return $this->generateRedirectRoute('balin.redeem.index');
+		return Redirect::route('balin.redeem.index')
+							->withErrors(['Suksess.'])
+							->with('msg-type', 'success');
 	}
 }

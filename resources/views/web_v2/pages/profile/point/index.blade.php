@@ -1,31 +1,55 @@
+<?php 
+	// dd($data['point']); 
+?>
 <!-- SECTION POINT DESKTOP -->
 <div class="hidden-xs hidden-sm">
 	<div class="row mb-sm">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h4>Balin Point Anda Sekarang <span> IDR 80.000</span></h4>
+			<h4 class="text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 		</div>
 	</div>
 	<div class="row bg-black text-white mr-0 ml-0">
-		<div class="col-md-12 col-sm-12 hidden-xs">
+		<div class="col-md-12 col-sm-12">
 			<div class="row m-t-n">
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-3">
 					<h5>Tanggal</h5>
 				</div>
-				<div class="col-sm-2 text-right">
+				<div class="col-sm-2 ">
 					<h5 class="p-r-sm">Saldo</h5>
 				</div>
-				<div class="col-sm-2 text-center">
+				<div class="col-sm-3">
 					<h5>Expired</h5>
 				</div>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<h5>Info</h5>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row mr-0 ml-0">
 		<div class="col-md-12 col-lg-12 border-1 border-black">
-			<p class="text-center"> Tidak ada data </p>
+			@forelse($data['point']['data'] as $k => $v)
+				<div class="row">
+					<div class="col-md-3 col-lg-3">
+						<p>@datetime_indo($v['created_at'])</p>
+					</div>
+					<div class="col-md-2">
+						<p>{{ $v['amount'] }}</p>
+					</div>
+					<div class="col-md-3">
+						<p>@datetime_indo($v['expired_at'])</p>
+					</div>
+					<div class="col-md-4">
+						<p>{{ $v['notes'] }}</p>
+					</div>
+				</div>
+			@empty
+				<div class="row">
+					<div class="col-md-12 col-lg-12">
+						<p class="text-center"> Tidak ada data </p>
+					</div>
+				</div>
+			@endforelse
 		</div>
 	</div>
 </div>

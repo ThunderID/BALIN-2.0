@@ -170,11 +170,38 @@ p{						line-height: 2em;}
 .m-xxl{										margin: $space-xxl !important;}
 .m-xxxl{									margin: $space-xxxl !important;}
 
+// margin minus
+.mtm-lg{									margin-top: -$space-lg !important;}
+.mbm-lg{									margin-bottom: -$space-lg !important;}
+.mlm-lg{									margin-left: -$space-lg !important;}
+.mrm-lg{									margin-right: -$space-lg !important;}
+
+.mtm-md{									margin-top: -$space-md !important;}
+.mbm-md{									margin-bottom: -$space-md !important;}
+.mlm-md{									margin-left: -$space-md !important;}
+.mrm-md{									margin-right: -$space-md !important;}
+
+.mtm-sm{									margin-top: -$space-sm !important;}
+.mbm-sm{									margin-bottom: -$space-sm !important;}
+.mlm-sm{									margin-left: -$space-sm !important;}
+.mrm-sm{									margin-right: -$space-sm !important;}
+
+.mtm-xs{									margin-top: -$space-xs !important;}
+.mbm-xs{									margin-bottom: -$space-xs !important;}
+.mlm-xs{									margin-left: -$space-xs !important;}
+.mrm-xs{									margin-right: -$space-xs !important;}
+
+.mtm-5{										margin-top: -$space-5 !important;}
+.mbm-5{										margin-bottom: -$space-5 !important;}
+.mlm-5{										margin-left: -$space-5 !important;}
+.mrm-5{										margin-right: -$space-5 !important;}
+
 .mt-0{										margin-top: $space-0 !important;}
 .mb-0{										margin-bottom: $space-0 !important;}
 .ml-0{										margin-left: $space-0 !important;}
 .mr-0{										margin-right: $space-0 !important;}
 
+// margin plus
 .mt-5{										margin-top: $space-5 !important;}
 .mb-5{										margin-bottom: $space-5 !important;}
 .ml-5{										margin-left: $space-5 !important;}

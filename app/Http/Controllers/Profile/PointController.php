@@ -1,24 +1,34 @@
-<?php namespace App\Http\Controllers\Web\Profile;
+<?php namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Web\Controller;
+use App\API\Connectors\APIUser;
+use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Auth, Carbon, Validator, DB, App;
+use Input, Redirect, Auth, Carbon, Validator, DB, App, Session;
 use Illuminate\Support\MessageBag;
 
-class PointController extends Controller 
+class PointController extends BaseController 
 {
 	protected $controller_name 					= 'point';
 
-	public function index()
+	public function index($id = null)
 	{		
-		$breadcrumb								= ['Balin Point' => route('balin.profile.point.index')];
+		Session::set('API_token', Session::get('API_token_private'));
 
-		$this->layout->page 					= view('web.page.profile.point.index');
-		$this->layout->breadcrumb				= $breadcrumb;
-		$this->layout->controller_name			= $this->controller_name;
-		$this->layout->page_title 				= 'BALIN.ID';
-		$this->layout->page_subtitle 			= 'History Balin Point';
+		$API_me 							= new APIUser;
+		$me_point 							= $API_me->getMePoint([
+													'user_id' 	=> $id,
+												]);
+		$me_detail 							= $API_me->getMeDetail([
+													'user_id'	=> $id,
+												]);
 
-		return $this->layout->page;
+		$data 								= 	[
+													'point'	=> $me_point['data'],
+													'me'	=> $me_detail['data'],
+												];
+												
+		$page 								= view('web_v2.pages.profile.point.index')
+												->with('data', $data);
+		return $page;
 	}
 }
