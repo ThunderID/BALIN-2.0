@@ -6,10 +6,10 @@
 			<table>
 				<tbody>
 					<tr>
-						<td><strong>{{ Session::get('user_me')['name'] }}</strong></td>
+						<td><strong>{{ Session::get('whoami')['name'] }}</strong></td>
 					</tr>
 					<tr>
-						<td>{{ Session::get('user_me')['email'] }}</td>
+						<td>{{ Session::get('whoami')['email'] }}</td>
 					</tr>
 				</tbody>
 			</table>

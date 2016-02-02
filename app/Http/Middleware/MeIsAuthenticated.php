@@ -35,7 +35,7 @@ class MeIsAuthenticated
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (!Session::has('user_me')) 
+		if (!Session::has('whoami')) 
 		{
 			Session::put('redirect_url', Request::url());
 			

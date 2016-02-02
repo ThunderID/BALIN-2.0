@@ -201,7 +201,7 @@
 										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
 											<option value="0" {{ isset($data['order']['data']['shipment']['address_id']) ? '' : 'selected' }}>Tambah Alamat Baru</option>
 											@foreach($data['my_address'] as $key => $value)
-												<option value="{{$value['id']}}" data-action="{{ route('balin.checkout.shippingcost.get') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }}>{{$value['address']}}</option>
+												<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }}>{{$value['address']}}</option>
 											@endforeach
 										</select>
 									</div>
@@ -211,7 +211,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Nama Penerima</label>
-										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('user_me')['name'], [
+										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('whoami')['name'], [
 												'class' 	=> 'form-control text-regular ch_name',
 										]) !!}
 									</div>
@@ -243,11 +243,11 @@
 											{!! Form::input('number', 'zipcode', isset($data['order']['data']['shipment']['address']['zipcode']) ? $data['order']['data']['shipment']['address']['zipcode'] : null, [
 													'class' 		=> 'form-control text-regular ch_zipcode',
 													'id'			=> 'zipcode',
-													'data-action'	=> route('balin.checkout.shippingcost.get'),
+													'data-action'	=> route('my.balin.checkout.shippingcost'),
 													'min'			=> '0'
 											]) !!}
 											<span class="input-group-btn">
-												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('balin.checkout.shippingcost.get') }}">Check</a>
+												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('my.balin.checkout.shippingcost') }}">Check</a>
 											</span>
 										</div>
 									</div>

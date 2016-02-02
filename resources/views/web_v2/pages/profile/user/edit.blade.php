@@ -6,7 +6,7 @@
 <!-- SECTION FORM EDIT PROFILE -->
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-xl">
-		{!! Form::open(['url' => route('balin.profile.user.update', $data['id']), 'method' => 'POST', 'class' => 'form']) !!}
+		{!! Form::open(['url' => route('my.balin.profile.update', $data['id']), 'method' => 'POST', 'class' => 'form']) !!}
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">

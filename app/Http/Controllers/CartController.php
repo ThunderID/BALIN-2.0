@@ -20,7 +20,7 @@ class CartController extends BaseController
 	{
 		parent::__construct();
 
-		if(Session::has('user_me'))
+		if(Session::has('whoami'))
 		{
 			Session::put('API_token', Session::get('API_token_private'));
 		}
@@ -49,11 +49,11 @@ class CartController extends BaseController
 
 		$carts 										= Session::get('carts');
 
-		if (Session::has('user_me'))
+		if (Session::has('whoami'))
 		{
 			$API_me 								= new APIUser;
 			$me_order_in_cart 						= $API_me->getMeOrderInCart([
-															'user_id' 	=> Session::get('user_me')['id'],
+															'user_id' 	=> Session::get('whoami')['id'],
 														]);
 			$temp_carts 							= [];
 			$temp_varians 							= [];
@@ -185,7 +185,7 @@ class CartController extends BaseController
 		$cart['thumbnail']					= $product['thumbnail'];
 		$cart['price']						= isset($product['price']) ? $product['price'] : 0;
 
-		if (Session::has('user_me'))
+		if (Session::has('whoami'))
 		{
 			/* SET API TOKEN USE TOKEN PRIVATE */
 			Session::put('API_token', Session::get('API_token_private'));
@@ -193,13 +193,13 @@ class CartController extends BaseController
 			/* GET ORDER STATUS IN CART FROM USER LOGGED */
 			$API_in_cart 			= new APIUser;
 			$order_in_cart 			= $API_in_cart->getMeOrderInCart([
-											'user_id' => Session::get('user_me')['id']
+											'user_id' => Session::get('whoami')['id']
 										]);
 
 			$temp_order 			= $order_in_cart['data'];
 			$post_order 			= 	[
 											'id'					=> isset($order_in_cart['data']['id']) ? $order_in_cart['data']['id'] : '',
-											'user_id'				=> Session::get('user_me')['id'],
+											'user_id'				=> Session::get('whoami')['id'],
 											'transact_at'			=> isset($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
 											'transactiondetails'	=> !empty($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
 											'transactionlogs'		=> 	[
@@ -283,7 +283,7 @@ class CartController extends BaseController
 												];
 
 				/* SAVE ORDER TO USER LOGGED */
-				if (Session::has('user_me'))
+				if (Session::has('whoami'))
 				{
 					if (isset($order_in_cart['data']['id']))
 					{
@@ -365,7 +365,7 @@ class CartController extends BaseController
 
 		}
 		
-		if (Session::has('user_me'))
+		if (Session::has('whoami'))
 		{
 			$post_order['transactiondetails']	= $tmp;
 

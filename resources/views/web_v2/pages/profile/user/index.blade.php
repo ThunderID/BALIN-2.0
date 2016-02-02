@@ -4,7 +4,6 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
-	@include('web_v2.components.alert')
 	<!-- SECTION HEADER USER LOGIN -->
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -85,7 +84,7 @@
 						<a class="hover-gold text-sm text-right" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
 							data-modal-title="History Balin Point Anda" 
 							data-view="modal-lg">[ History ]</a>
 					</p>
@@ -99,7 +98,7 @@
 						<a class="hover-gold text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
 							data-modal-title="History Balin Point Anda" 
 							data-view="modal-lg">[ History ]</a>
 					</p>
@@ -124,7 +123,7 @@
 				Informasi Umum 
 				<small>
 					<a class="pull-right mt-5" href="#"
-						data-action="{{ route('balin.profile.user.edit', $data['me']['data']['id']) }}"
+						data-action="{{ route('my.balin.profile.edit', $data['me']['data']['id']) }}"
 						data-toggle="modal" 
 						data-target=".modal-user-information"
 						data-modal-title="Ubah Informasi Umum" >
@@ -262,7 +261,7 @@
 							<a class="link-gold unstyle" href="#" 
 								data-toggle="modal" 
 								data-target=".modal-user-information" 
-								data-action="{{ route('balin.profile.referral.index', $data['me']['data']['id']) }}" 
+								data-action="{{ route('my.balin.profile.referral', $data['me']['data']['id']) }}" 
 								data-modal-title="Lihat Referal Anda" 
 								data-view="modal-md">
 								[ Lihat Daftar ]
@@ -321,12 +320,7 @@
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait')
 							<p class="text-right mb-0">
-								<a class="text-regular text-right" href="#" 
-									data-toggle="modal" 
-									data-target=".modal-user-information" 
-									data-action="" 
-									data-action-parsing="" 
-									data-modal-title="Pembatalan Pesanan">
+								<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 									[ Batalkan Orderan ]
 								</a>
 							</p>
@@ -344,7 +338,7 @@
 						<a class="link-gold text-regular mt-sm hidden-xs" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
 							[ Lihat Detail Orderan ]
 						</a>
@@ -376,7 +370,7 @@
 						<a class="link-gold text-regular mt-sm ml-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
 							[ Lihat Detail Orderan ]
 						</a>

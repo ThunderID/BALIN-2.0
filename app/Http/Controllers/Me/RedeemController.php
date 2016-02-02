@@ -23,7 +23,7 @@ class RedeemController extends BaseController
 
 		Session::set('API_token', Session::get('API_token_private'));
 
-		$this->page_attributes->title 				= 'Redeem Code';
+		$this->page_attributes->title 				= 'BALIN.ID';
 		$this->page_attributes->source 				= 'web_v2.pages.redeem_code.';
 		$this->page_attributes->breadcrumb			=	[
 															'Redeem Code' 	=> route('my.balin.redeem.index'),
@@ -37,10 +37,10 @@ class RedeemController extends BaseController
 	 */
 	public function index()
 	{		
-		$API_me 									= new APIUser;
+		$APIUser 									= new APIUser;
 
-		$me_detail 									= $API_me->getMeDetail([
-															'user_id' 	=> Session::get('user_me')['id'],
+		$me_detail 									= $APIUser->getMeDetail([
+															'user_id' 	=> Session::get('whoami')['id'],
 														]);
 
 		$this->page_attributes->data				= 	[
@@ -78,12 +78,12 @@ class RedeemController extends BaseController
 
 		/* array parameter to API */
 		$data										= 	[
-															'user_id'	=> Session::get('user_me')['id'],
+															'user_id'	=> Session::get('whoami')['id'],
 															'code'		=> Input::get('referral_code'),
 														];
 
-		$API_me 									= new APIUser;
-		$result										= $API_me->postMeRedeemCode($data);
+		$APIUser 									= new APIUser;
+		$result										= $APIUser->postMeRedeemCode($data);
 
 		if ($result['status'] != 'success')
 		{
