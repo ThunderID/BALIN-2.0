@@ -42,6 +42,12 @@ class AppServiceProvider extends ServiceProvider
         {
             return "<?php echo 'IDR -'.number_format($expression, 0, ',', '.'); ?>";
         });
+
+		// blade extens money indonesia for email
+        Blade::directive('money_indo_for_email', function($expression)
+        {
+            return "<?php echo number_format($expression, 0, ',', '.'); ?>";
+        });
 	}
 
 	/**

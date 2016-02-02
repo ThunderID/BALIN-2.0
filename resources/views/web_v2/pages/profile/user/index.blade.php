@@ -1,5 +1,5 @@
 <?php 
-// dd($data);
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -315,7 +315,7 @@
 							@elseif ($v['status']=='shipping') label-primary
 							@elseif ($v['status']=='delivered') label-success
 							@else label-warning @endif ">
-							{{ $v['status'] }}
+							{{ $status[$v['status']] }}
 						</span>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">

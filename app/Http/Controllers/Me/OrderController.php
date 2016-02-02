@@ -10,6 +10,11 @@ class OrderController extends BaseController
 {
 	protected $controller_name 				= 'order';
 
+	function __construct()
+	{
+		parent::__construct();
+	}
+
 	public function show($id = null)
 	{		
 		/* Set api token to api token private */
@@ -27,7 +32,9 @@ class OrderController extends BaseController
 													'order' 	=> $me_order_detail['data'],
 												];
 
-		$page 								= view('web_v2.pages.profile.order.show')
+  		$balin 								= $this->balin;
+
+		$page 								= view('web_v2.pages.profile.order.show', compact('balin'))
 												->with('data', $data);
 		return $page;
 	}

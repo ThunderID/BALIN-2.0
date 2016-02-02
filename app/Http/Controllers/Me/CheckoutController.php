@@ -5,7 +5,7 @@ use App\API\Connectors\APIUser;
 
 use App\Http\Controllers\BaseController;
 
-use Input, Response, Redirect, Session, Request;
+use Input, Response, Redirect, Session, Request, BalinMail;
 
 /**
  * Used for Checkout Controller
@@ -187,6 +187,10 @@ class CheckoutController extends BaseController
 		}
 		else
 		{
+			$mail 						= new BalinMail;
+
+			$mail->invoice($result['data'], $this->balin['info']);
+
 			Session::forget('carts');
 		}
 
