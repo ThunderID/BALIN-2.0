@@ -8,9 +8,9 @@
 			<h4 class="text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 		</div>
 	</div>
-	<div class="row mr-0 ml-0 border-1 border-solid border-grey-dark">
+	<div class="row mr-0 ml-0 border-bottom-1 border-grey-dark">
 		<div class="col-md-12 col-sm-12">
-			<div class="row m-t-n">
+			<div class="row m-t-n text-grey-dark">
 				<div class="col-sm-3">
 					<h5>Tanggal</h5>
 				</div>
@@ -28,25 +28,48 @@
 	</div>
 	<div class="row mr-0 ml-0">
 		<div class="col-md-12 col-lg-12 ">
-			@forelse($data['point']['data'] as $k => $v)
-				<div class="row {{ (end($data['point']['data']) != $v) ?  'border-bottom-1 border-left-1 border-right-1 border-grey-dark ' : '' }}">
+			<?php $prev_amount = 0; ?>
+			@forelse ($data['point']['data'] as $k => $v)
+				<?php
+					$datetrans				= Carbon::now();
+
+					if ($v['expired_at'] < $datetrans)
+					{
+						$is_expired			= true;
+					}
+					else
+					{
+						$is_expired 		= false;
+					}
+				?>
+				<div class="row {{ ($v != end($data['point']['data'])) ? 'border-bottom-1 border-grey-dark' : '' }}">
 					<div class="col-md-3 col-lg-3">
 						<p>@datetime_indo($v['created_at'])</p>
 					</div>
 					<div class="col-md-2">
-						<p>{{ $v['amount'] }}</p>
+						<p>
+							@if (!$is_expired)
+								@money_indo( ($prev_amount + $v['amount']) )
+							@else
+								<i>Expired</i>
+							@endif
+						<p>
 					</div>
 					<div class="col-md-3">
 						<p>@datetime_indo($v['expired_at'])</p>
 					</div>
 					<div class="col-md-4">
-						<p>{{ $v['notes'] }}</p>
+						<p>
+							Point Anda {{ ($v['amount'] > 0) ? 'Bertambah' : 'Berkurang' }} @money_indo( abs($v['amount']) )
+							{{ $v['notes'] }}
+						</p>
 					</div>
 				</div>
+				<?php $prev_amount 	+= $v['amount']; ?>
 			@empty
 				<div class="row border-bottom-1 border-left-1 border-right-1 border-grey-dark">
 					<div class="col-md-12 col-lg-12">
-						<p class="mt-5 mb-5 text-center"> Tidak ada data </p>
+						<p class="mt-5 mb-5 text-center"> Belum memiliki point </p>
 					</div>
 				</div>
 			@endforelse
@@ -58,23 +81,57 @@
 <div class="hidden-md hidden-lg">
 	<div class="row m-md">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h4 class="text-center">Balin Point Anda Sekarang <span> IDR 80.000</span></h4>
+			<h4 class="text-center text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 		</div>
 	</div>
 	<div class="row m-md">
 		<div class=" col-xs-12">
-			<div class="row m-t-n" style="letter-spacing: 0.1em;">
-				<div class="col-xs-12 text-center">
-					<p style="font-size:12px; margin-bottom: 5px;"></p>
-					<p style="font-size:16px; margin-bottom: 2px; color:red;"><span>(-)</span> IDR 80.000</p>
-					<p style="font-size:9px; margin-bottom: 0px;">Poin Anda sekarang</p>
-					<p style="margin-top: 0px; margin-bottom: 0px;">
-						<i>Expired</i>
-					</p>
-					<h4 style="font-size:16px; margin-top: 4px; margin-bottom: 5px">Berhasil Berkurang</h4>
-					<p style="font-size:9px;">expired on</br> <span style="font-size:10px;">12 Dec 2015</span></p>
+			<?php $prev_amount = 0; ?>
+			@forelse ($data['point']['data'] as $k => $v)
+				<?php
+					$datetrans				= Carbon::now();
+
+					if ($v['expired_at'] < $datetrans)
+					{
+						$is_expired			= true;
+					}
+					else
+					{
+						$is_expired 		= false;
+					}
+				?>
+				<div class="row mt-5 {{ ($v != end($data['point']['data'])) ? 'border-bottom-1 border-grey-light' : '' }}">
+					<div class="col-xs-12 text-center">
+						<p class="text-regular mb-5">@datetime_indo( $v['created_at'] )</p>
+						@if ($v['amount'] > 0)
+							<p class="text-lg mb-5 text-green">
+								<span>(+)</span> @money_indo( abs($v['amount']) )
+							</p>
+						@else
+							<p class="text-lg mb-5 text-red">
+								<span>(-)</span> @money_indo( abs($v['amount']) )
+							</p>
+						@endif
+						<p class="text-xs mb-0">Poin Anda sekarang</p>
+						<p class="mt-0 mb-0">
+							@if (!$is_expired)
+								@money_indo( ($prev_amount + $v['amount']) )
+							@else
+								<i>Expired</i>
+							@endif
+						</p>
+						<h4 class="text-lg mt-5 mb-5">{!! $v['notes'] !!}</h4>
+						<p class="text-xs">expired on</br> <span class="text-sm">@date_indo( $v['expired_at'] )</span></p>
+					</div>
 				</div>
-			</div>
+				<?php $prev_amount 	 += $v['amount']; ?>
+			@empty
+				<div class="row">
+					<div class="col-xs-12">
+						<p class="text-center"> Belum memiliki point </p>
+					</div>
+				</div>
+			@endforelse
 		</div>
 	</div>
 </div>
