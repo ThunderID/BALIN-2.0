@@ -21,13 +21,13 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 		'as' => 'my.balin.order.destroy']);
 	
 	/* Edit user profile [VIEW TO MODAL] */
-	Route::get('edit/{id?}', 										['uses' => 'UserController@edit', 			'as' => 'balin.profile.user.edit']);
-	Route::post('edit/{id?}', 										['uses' => 'UserController@update', 		'as' => 'balin.profile.user.update']);
+	Route::get('edit/{id?}', 										['uses' => 'UserController@edit', 			'as' => 'my.balin.profile.edit']);
+	Route::post('edit/{id?}', 										['uses' => 'UserController@update', 		'as' => 'my.balin.profile.update']);
 
 	/* Display user Point [VIEW TO MODAL] */
-	Route::get('point', 											['uses' => 'PointController@index', 'as' => 'balin.profile.point.index']);
+	Route::get('point', 											['uses' => 'UserController@points', 		'as' => 'my.balin.profile.point']);
 
 	/* Display user referral [VIEW TO MODAL] */
-	Route::get('referral/{id?}',									['uses' => 'ReferralController@index', 'as' => 'balin.profile.referral.index']);
+	Route::get('referral/{id?}',									['uses' => 'UserController@referrals', 		'as' => 'my.balin.profile.referral']);
 
 });

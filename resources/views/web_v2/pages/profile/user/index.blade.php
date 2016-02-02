@@ -85,7 +85,7 @@
 						<a class="hover-gold text-sm text-right" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
 							data-modal-title="History Balin Point Anda" 
 							data-view="modal-lg">[ History ]</a>
 					</p>
@@ -99,7 +99,7 @@
 						<a class="hover-gold text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.point.index', $data['me']['data']['id']) }}" 
+							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
 							data-modal-title="History Balin Point Anda" 
 							data-view="modal-lg">[ History ]</a>
 					</p>
@@ -124,7 +124,7 @@
 				Informasi Umum 
 				<small>
 					<a class="pull-right mt-5" href="#"
-						data-action="{{ route('balin.profile.user.edit', $data['me']['data']['id']) }}"
+						data-action="{{ route('my.balin.profile.edit', $data['me']['data']['id']) }}"
 						data-toggle="modal" 
 						data-target=".modal-user-information"
 						data-modal-title="Ubah Informasi Umum" >
@@ -262,7 +262,7 @@
 							<a class="link-gold unstyle" href="#" 
 								data-toggle="modal" 
 								data-target=".modal-user-information" 
-								data-action="{{ route('balin.profile.referral.index', $data['me']['data']['id']) }}" 
+								data-action="{{ route('my.balin.profile.referral', $data['me']['data']['id']) }}" 
 								data-modal-title="Lihat Referal Anda" 
 								data-view="modal-md">
 								[ Lihat Daftar ]

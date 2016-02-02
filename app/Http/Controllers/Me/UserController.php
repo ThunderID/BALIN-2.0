@@ -132,68 +132,40 @@ class UserController extends BaseController
 		return $this->generateRedirectRoute('balin.profile.user.index');	
 	}
 
-	public function store($id = "")
-	{
-		if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
-		{
-			$dob						= Carbon::createFromFormat('Y-m-d', Input::get('date_of_birth'))->format('Y-m-d H:i:s');
-		}
-		else
-		{
-			$dob						= Carbon::createFromFormat('d-m-Y', Input::get('date_of_birth'))->format('Y-m-d H:i:s');
-		}
-		
-		$data 							=	[
-												'id'			=> $id,
-												'name' 			=> Input::get('name'),
-												'email'			=> Input::get('email'),
-												'password'		=> Input::get('password'),
-												'date_of_birth'	=> $dob,
-												'gender'		=> Input::get('gender'),
-												'role'			=> 'customer'
-											];
-		
-		if (Input::has('password') || is_null($id))
-		{
-			$validator 					= Validator::make(Input::only('password', 'password_confirmation'), ['password' => 'required|min:8|confirmed']);
+	public function points($id = null)
+	{		
+		$API_me 							= new APIUser;
 
-			if (!$validator->passes())
-			{
-				return Redirect::route('balin.get.login')
-						->withInput()
-						->withErrors($validator->errors())
-						->with('msg-type', 'danger')
-						->with('msg-from', 'signup');
-			}
-		}
+		/* get point user logged */
+		$me_point 							= $API_me->getMePoint([
+													'user_id' 	=> Session::get('user_me')['id'],
+												]);
 
-		Session::set('API_token', Session::get('API_token_public'));
+		/* get detail user logged */
+		$me_detail 							= $API_me->getMeDetail([
+													'user_id'	=> Session::get('user_me')['id'],
+												]);
 
-		// API User
-		$API_user 						= new APIUser;
-		$result							= $API_user->postDataSignUp($data);
-
-		$errors 	 					= new MessageBag();
-
-		if ($result['status'] != 'success')
-		{
-			$errors 					= $result['message'];
-		}
-
-		if (count($errors) == 0)
-		{
-			return Redirect::route('balin.get.login')
-					->with('msg', 'Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda')
-					->with('msg-type', 'success')
-					->with('msg-from', 'signup');
-		}
-		else
-		{
-			return Redirect::route('balin.get.login')
-					->withInput(Input::all())
-					->withErrors($errors)
-					->with('msg-type', 'danger')
-					->with('msg-from', 'signup');
-		}
+		/* parsing data to view */
+		$data 								= 	[
+													'point'	=> $me_point['data'],
+													'me'	=> $me_detail['data'],
+												];
+												
+		$page 								= view('web_v2.pages.profile.point.index')
+												->with('data', $data);
+		return $page;
+	}
+	
+	public function referrals($id = null)
+	{		
+		$API_me 							= new APIUser;
+		$me_detail 							= $API_me->getMeDetail([
+													'user_id' 	=> $id,
+												]);
+		$data 								= $me_detail['data'];
+		$page 								= view('web_v2.pages.profile.referral.index')
+												->with('data', $data);
+		return $page;
 	}
 }
