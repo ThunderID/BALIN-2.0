@@ -272,6 +272,13 @@ class AuthController extends BaseController
 					}
 				}
 
+			if(Session::has('redirect_url'))
+			{
+				$redirect 							= Session::get('redirect_url');
+				Session::forget('redirect_url');
+				return Redirect::to($redirect);
+			}
+			
 			return Redirect::route('my.balin.redeem.index');
 		}
 		else
@@ -424,8 +431,15 @@ class AuthController extends BaseController
 				// result
 				if ($result['status'] != 'success')
 				{
-					$error 				= $result['message'];
+					$error 							= $result['message'];
 				}
+			}
+
+			if(Session::has('redirect_url'))
+			{
+				$redirect 							= Session::get('redirect_url');
+				Session::forget('redirect_url');
+				return Redirect::to($redirect);
 			}
 
 			return Redirect::route('my.balin.redeem.index');

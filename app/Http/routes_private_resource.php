@@ -1,6 +1,6 @@
 <?php 
 
-Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix' => 'profile', 'namespace' => 'Me\\'], function() 
+Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix' => 'profile', 'namespace' => 'Me\\', 'middleware' => 'auth.me'], function() 
 {
 	/* User profile */
 	Route::get('/',													['uses' => 'UserController@index', 			'as' => 'balin.profile.user.index']);
