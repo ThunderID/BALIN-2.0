@@ -14,23 +14,20 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::get('checkout',											['uses' => 'CheckoutController@get', 		'as' => 'my.balin.checkout.get']);
 	Route::post('checkout',											['uses' => 'CheckoutController@post', 		'as' => 'my.balin.checkout.post']);
 	Route::any('checkout/voucher',									['uses' => 'CheckoutController@voucher', 	'as' => 'my.balin.checkout.voucher']);
-	Route::any('checkout/shipping/cost',							['uses' => 'CheckoutController@shipping', 	'as' => 'balin.checkout.shippingcost.get']);
+	Route::any('checkout/shipping/cost',							['uses' => 'CheckoutController@shipping', 	'as' => 'my.balin.checkout.shippingcost']);
 
+	/* Order info */
+	Route::get('order/{id?}',										['uses' => 'OrderController@show', 			'as' => 'my.balin.order.show']);
+	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 		'as' => 'my.balin.order.destroy']);
+	
 	/* Edit user profile [VIEW TO MODAL] */
-	Route::get('edit/{id?}', 										['uses' => 'UserController@edit', 		'as' => 'balin.profile.user.edit']);
-	Route::post('edit/{id?}', 										['uses' => 'UserController@update', 	'as' => 'balin.profile.user.update']);
+	Route::get('edit/{id?}', 										['uses' => 'UserController@edit', 			'as' => 'balin.profile.user.edit']);
+	Route::post('edit/{id?}', 										['uses' => 'UserController@update', 		'as' => 'balin.profile.user.update']);
 
 	/* Display user Point [VIEW TO MODAL] */
 	Route::get('point', 											['uses' => 'PointController@index', 'as' => 'balin.profile.point.index']);
 
-	/* Display user referrence [VIEW TO MODAL] */
-	Route::get('reference', 										['uses' => 'ReferenceController@create', 'as' => 'balin.profile.reference.create']);
-	Route::post('reference',										['uses' => 'ReferenceController@store', 'as' => 'balin.profile.reference.store']);
-
 	/* Display user referral [VIEW TO MODAL] */
 	Route::get('referral/{id?}',									['uses' => 'ReferralController@index', 'as' => 'balin.profile.referral.index']);
-
-	/* Display user referral [VIEW TO MODAL] */
-	Route::get('order/detail/{id?}',								['uses' => 'OrderController@show', 'as' => 'balin.profile.order.show']);
 
 });

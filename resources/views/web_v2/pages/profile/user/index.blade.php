@@ -321,12 +321,7 @@
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait')
 							<p class="text-right mb-0">
-								<a class="text-regular text-right" href="#" 
-									data-toggle="modal" 
-									data-target=".modal-user-information" 
-									data-action="" 
-									data-action-parsing="" 
-									data-modal-title="Pembatalan Pesanan">
+								<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 									[ Batalkan Orderan ]
 								</a>
 							</p>
@@ -344,7 +339,7 @@
 						<a class="link-gold text-regular mt-sm hidden-xs" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
 							[ Lihat Detail Orderan ]
 						</a>
@@ -376,7 +371,7 @@
 						<a class="link-gold text-regular mt-sm ml-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('balin.profile.order.show', $v['id']) }}" 
+							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
 							[ Lihat Detail Orderan ]
 						</a>

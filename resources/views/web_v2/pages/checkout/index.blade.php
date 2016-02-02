@@ -186,7 +186,7 @@
 										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
 											<option value="0" selected>Tambah Alamat Baru</option>
 											@foreach($data['my_address'] as $key => $value)
-												<option value="{{$value['id']}}" data-action="{{ route('balin.checkout.shippingcost.get') }}">{{$value['address']}}</option>
+												<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}">{{$value['address']}}</option>
 											@endforeach
 										</select>
 									</div>
@@ -228,11 +228,11 @@
 											{!! Form::input('number', 'zipcode', null, [
 													'class' 		=> 'form-control text-regular ch_zipcode',
 													'id'			=> 'zipcode',
-													'data-action'	=> route('balin.checkout.shippingcost.get'),
+													'data-action'	=> route('my.balin.checkout.shippingcost'),
 													'min'			=> '0'
 											]) !!}
 											<span class="input-group-btn">
-												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('balin.checkout.shippingcost.get') }}">Check</a>
+												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('my.balin.checkout.shippingcost') }}">Check</a>
 											</span>
 										</div>
 									</div>
