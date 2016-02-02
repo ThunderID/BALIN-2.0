@@ -57,7 +57,6 @@ class RedeemController extends BaseController
 	/**
 	 * function to modal show input redeem point for user
 	 *
-	 *
 	 */
 	public function create()
 	{											

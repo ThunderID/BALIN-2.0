@@ -42,9 +42,7 @@ class CheckoutController extends BaseController
 		$carts 									= Session::get('carts');
 
 		$APIUser 								= new APIUser;
-		$order 									= $APIUser->getMeOrderInCart([
-														'user_id' 	=> Session::get('whoami')['id'],
-													]);
+		$order 									= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
 
 		if($order['status']!='success')
 		{
@@ -89,104 +87,37 @@ class CheckoutController extends BaseController
 	 * function to post summary of balin checkout
 	 * 
 	 * 1. Get Session Cart & transaction
-	 * 2. Generate breadcrumb
-	 * 3. Generate view
-	 * @return view
+	 * 2. Parsing variable
+	 * 3. Store checkout
+	 * 4. Check result, send mail
+	 * 5. Redirect url
+	 * @return redirect url
 	 */
 	public function post($slug = null)
 	{
+		//1. Get Session Cart & transaction
 		$APIUser 								= new APIUser;
 
-		//1. Get Session Cart & transaction
-		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
-														'user_id' 	=> Session::get('whoami')['id']
-													]);
-		if($me_order_in_cart['status']=='success')
-		{
-			$trs_id 							= $me_order_in_cart['data']['id'];
-			$trs_date 							= $me_order_in_cart['data']['transact_at'];
-		}
-		else
-		{
-			$trs_id 							= '';
-			$trs_date 							= date('Y-m-d H:i:s');
-		}
-		/* Set temporary transaction */
-		$temp_transaction 						= 	[
-														'id'					=> $trs_id,
-														'user_id'				=> Session::get('whoami')['id'],
-														'transact_at'			=> $trs_date,
-														'transactiondetails'	=> [],
-														'transactionlogs'		=> [],
-														'payment'				=> [],
-														'shipment'				=> 	[
-																						'id'				=> '',
-																						'receiver_name'		=> Input::get('receiver_name'),
-																					],
-														'status'				=> 'wait',
-														'courier'				=> [],
-													];
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
 
-		/* get session carts */
-		$session_cart 			= Session::get('carts');
 
-		if(Session::has('carts'))
+		//2. Parsing variable
+		if($me_order_in_cart['status']!='success')
 		{
-			/* create array for transaction details */
-			foreach($session_cart as $k => $v)
-			{
-				foreach($v['varians'] as $k2 => $v2)
-				{
-					$temp_varian[] 		= 	[
-												'id' 				=> '',
-												'transaction_id'	=> '',
-												'quantity' 			=> $v2['quantity'],
-												'price'				=> $v['price'],
-												'discount'			=> $v['discount'],
-												'varian_id'			=> $v2['varian_id'],
-												'varians'			=> [
-																			'id'			=> $v2['varian_id'],
-																			'product_id'	=> $k,
-																			'sku'			=> $v2['sku'],
-																			'size'			=> $v2['size'],
-																		]
-											];
-					
-				}
-			}
+			Session::forget('carts');
 
-			$temp_transaction['transactiondetails']		= $temp_varian;
+			\App::abort(404);
 		}
 
-		/* create for transaction logs */
-		$temp_transaction['transactionlogs'][]		= 	[
-															'id'			=> '',
-															'status'		=> 'wait',
-															'change_at'		=> date('Y-m-d H:i:s'),
-														];
+		$temp_transaction 						= $me_order_in_cart['data'];
 
-		/* create for shipment addres */
-		if(Input::has('address_id') && Input::get('address_id')!=0)
-		{
-			$temp_transaction['shipment']['address_id']		= 	Input::get('address_id');
-			$temp_transaction['shipment']['receiver_name']	= 	Input::get('receiver_name');
-		}
-		else
-		{
-			$temp_transaction['shipment']['address'] 	= 	[
-																'id' 			=> Input::get('address_id'),
-																'phone'			=> Input::get('phone'),
-																'address'		=> Input::get('address'),
-																'zipcode'		=> Input::get('zipcode'),
-															];
-		}
+		//2a.change status
+		$temp_transaction['status']				= 'wait';
 
-		$temp_transaction['shipment']['courier_id']	= 	1;
+		//3. Store checkout
+		$result 								= $APIUser->postMeOrder($temp_transaction);
 
-		$API_order 									= new APIUser;
-		$result 									= $API_order->postMeOrder($temp_transaction);
-
-		// result
+		//4. Check result, send mail
 		if ($result['status'] != 'success')
 		{
 			$this->errors 							= $result['message'];
@@ -200,7 +131,7 @@ class CheckoutController extends BaseController
 			Session::forget('carts');
 		}
 
-		//return view
+		//5. Redirect url
 		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
 
 		return $this->generateRedirectRoute('my.balin.profile');
@@ -209,30 +140,30 @@ class CheckoutController extends BaseController
 	/**
 	 * function to get voucher discount
 	 * 
-	 * 1. Get transaction
+	 * 1. Get cart detail
 	 * 2. Store voucher
 	 * 3. Return result
 	 * @return json response
 	 */
 	public function voucher()
 	{
+		//1. Get cart detail
 		$APIUser 								= new APIUser;
 
-		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
-														'user_id' 	=> Session::get('whoami')['id'],
-													]);
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
 
 		if ($me_order_in_cart['status']!= 'success')
 		{
 			return Response::json(['type' => 'error', 'msg' => 'Tidak ada keranjang.'], 200);
 		}
 
+		//2. Store voucher
 		$voucher 									= Input::get('voucher');
 		$me_order_in_cart['data']['voucher_code']	= $voucher;
 
 		$result 									= $APIUser->postMeOrder($me_order_in_cart['data']);
 
-		// result
+		//3. Return result
 		if ($result['status'] != 'success')
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
@@ -261,9 +192,7 @@ class CheckoutController extends BaseController
 		//1. Get cart detail
 		$APIUser 								= new APIUser;
 
-		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
-														'user_id' 	=> Session::get('whoami')['id'],
-													]);
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
 
 		if($me_order_in_cart['status']!= 'success')
 		{
@@ -273,14 +202,14 @@ class CheckoutController extends BaseController
 		//2. Store shipment
 		if(!isset($me_order_in_cart['data']['shipment']))
 		{
-			$me_order_in_cart['data']['shipment']['id']				= '';
-			$me_order_in_cart['data']['shipment']['courier_id']		= 1;
+			$me_order_in_cart['data']['shipment']['id']							= '';
+			$me_order_in_cart['data']['shipment']['courier_id']					= 1;
 		}
 
 		if(Input::has('address_id'))
 		{
-			$me_order_in_cart['data']['shipment']['receiver_name']		= Session::get('whoami')['name'];
-			$me_order_in_cart['data']['shipment']['address_id']			= Input::get('address_id');
+			$me_order_in_cart['data']['shipment']['receiver_name']				= Session::get('whoami')['name'];
+			$me_order_in_cart['data']['shipment']['address_id']					= Input::get('address_id');
 			unset($me_order_in_cart['data']['shipment']['address']);
 		}
 		else
@@ -299,12 +228,5 @@ class CheckoutController extends BaseController
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
-
-		$address['receiver_name']				= $result['data']['shipment']['receiver_name'];
-		$address['address']						= $result['data']['shipment']['address']['address'];
-		$address['phone']						= $result['data']['shipment']['address']['phone'];
-		$address['zipcode']						= $result['data']['shipment']['address']['zipcode'];
-
-		return Response::json(['shipping_cost' => $result['data']['shipping_cost'], 'address' => $address], 200);
 	}
 }
