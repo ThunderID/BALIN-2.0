@@ -49,7 +49,7 @@ class CheckoutController extends BaseController
 		if($order['status']!='success')
 		{
 			Session::forget('carts');
-			
+
 			\App::abort(404);
 		}
 
@@ -224,7 +224,7 @@ class CheckoutController extends BaseController
 		// result
 		if ($result['status'] != 'success')
 		{
-			return Response::json(['type' => 'error', 'msg' => $result['messag']], 200);
+			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
 		if ($result['data']['voucher']['type']=='free_shipping_cost')
