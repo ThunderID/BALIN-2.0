@@ -928,16 +928,9 @@ EVENT & FUNCTION OTHER
 		var val = $(this).val();
 		action = $(this).find(':selected').attr('data-action');
 		if (val == 0) {
-			// jQuery('#zipcode').on('input propertychange paste', function() {
-			// 	get_shipping_cost( {'zipcode' : $( "#zipcode" ).val()}, action );
-			// });	
-			// ga = get_address($(this));
-			// parsing_address(ga);
 		}
 		else {
-			get_shipping_cost( {'address_id' : $( "#address_id" ).val()}, action );
-			ga = get_address($(this));
-			parsing_address(ga);
+			get_shipping_cost(val, action);
 		}
 	});
 
@@ -956,7 +949,7 @@ EVENT & FUNCTION OTHER
 		
 	});
 
-	function get_shipping_cost(address_id, action) {
+	function get_shipping_cost(id, action) {
 		ch_name 		= $('.ch_name').val();
 		ch_phone		= $('.ch_phone').val();
 		ch_address 		= $('.ch_address').val();
@@ -965,7 +958,7 @@ EVENT & FUNCTION OTHER
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 
 		// call ajax but not address_id
-		if (address_id !== 0) {
+		if (id == 0) {
 			$.ajax({
 				url: action,
 				type: 'post',
@@ -973,9 +966,9 @@ EVENT & FUNCTION OTHER
 				data: {name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode},
 				success: function(data) {
 					if (cv==0) {
-						$(".shipping_cost").text(data.address.cost);
+						$(".shipping_cost").text(data.shipping_cost);
 					}
-					$(".shipping_cost").attr('data-s', (data.address.cost.replace(/\./g, '')).substring(4));
+					$(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
 					count_sub_total();
 				}
 			});
@@ -986,34 +979,18 @@ EVENT & FUNCTION OTHER
 				url: action,
 				type: 'post',
 				dataType: 'json',
-				data: {address_id: address_id},
+				data: {address_id: id},
 				success: function(data) {
 					if (cv==0) {
-						$(".shipping_cost").text(data.address.cost);
+						$(".shipping_cost").text(data.shipping_cost);
 					}
-					$(".shipping_cost").attr('data-s', (data.address.cost.replace(/\./g, '')).substring(4));
+					$(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
 					count_sub_total();
+					parsing_address(data.address);
 				}
 			});
 		}
 	}
-
-	// $('.ch_zipcode').focusout( function() {
-	// 	val = $(this).val();
-	// 	action = $(this).attr('data-action');
-	// 	get_shipping_cost( {'zipcode' : $( "#zipcode" ).val()}, action);
-	// });
-
-	// function get_shipping_cost (e, action) {
-	// 	cv = parseInt($('.shipping_cost').attr('data-v'));
-	// 	$.post( action, e).done(function( data ) {
-	// 		if (cv==0) {
-	// 			$(".shipping_cost").text(data.address.cost);
-	// 		}
-	// 		$(".shipping_cost").attr('data-s', (data.address.cost.replace(/\./g, '')).substring(4));
-	// 		count_sub_total();
-	// 	});
-	// }
 
 	function get_voucher (e) {
 		value = e.val();
@@ -1082,26 +1059,6 @@ EVENT & FUNCTION OTHER
 	function set_voucher_id (e) {
 		val = e.val();
 		$('.voucher_code').val(val);
-	}
-
-	function get_address (e) {
-		val = e.find(':selected').attr('value');
-		ga = null;
-
-		if (val!==0) {
-			act = e.find(':selected').data('action');
-			$.ajax({
-				url: act,
-				type: 'post',
-				async: false,
-				dataType: 'json',
-				data: {id: val},
-				success: function(data) {
-					ga = data.address;
-				}
-			});
-		}
-		return ga;
 	}
 
 	function parsing_address (e) {
