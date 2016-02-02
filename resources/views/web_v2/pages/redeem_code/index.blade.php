@@ -77,7 +77,7 @@
 							{!! Form::hidden('from', 'my.balin.redeem.index') !!}
 							{!! Form::input('text', 'referral_code', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-									'placeholder' => 'Masukkan nama referral code referensi',
+									'placeholder' => 'Masukkan referral code referensi',
 							]) !!}
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>
@@ -89,6 +89,10 @@
 		</div>
 		<!-- END SECTION FORM INPUT REFERRAL CODE -->
 	</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
+	<div class="clearfix">&nbsp;</div>
 
 	<!-- SECTION MODAL FULLSCREEN -->
 	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
