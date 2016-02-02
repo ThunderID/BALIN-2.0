@@ -225,7 +225,7 @@ class CheckoutController extends BaseController
 		$me_order_in_cart['data']['voucher_code']	= $voucher;
 
 		$result 									= $API_me->postMeOrder($me_order_in_cart['data']);
-// dd($result);
+
 		// result
 		if ($result['status'] != 'success')
 		{
