@@ -8,7 +8,7 @@
 	@include('web_v2.components.alert')
 	<div class="row bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE & BALIN POINT -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-right-divider-to-bottom">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pt-lg pb-lg border-right-divider-to-bottom">
 			<div class="row">
 				<!-- SECTION REFERAAL CODE -->
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
@@ -60,7 +60,7 @@
 		<!-- END SECTION REFERRAL CODE & BALIN POINT -->
 
 		<!-- SECTION FORM INPUT REFERRAL CODE -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-sm">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pt-lg pb-lg">
 			<div class="row">
 				<div class="col-md-12 p-md">
 					<h4 class="m-t-sm">Punya Referal Code ?</h4>
@@ -68,7 +68,7 @@
 			</div>
 			{!! Form::open(['url' => route('my.balin.redeem.store')]) !!}
 				{!! Form::hidden('to', Route::currentRouteName()) !!}
-				<div class="row">
+				<div class="row mb-sm">
 					<div class="col-md-11 pl-md pr-md mb-md">
 						<div class="input-group" style="position:relative">
 							<div class="loading-voucher text-center hide">
