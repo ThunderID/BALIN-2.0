@@ -176,7 +176,7 @@
 										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
 											<option value="0" selected>Tambah Alamat Baru</option>
 											@foreach($data['my_address'] as $key => $value)
-												<option value="{{$value['id']}}">{{$value['address']}}</option>
+												<option value="{{$value['id']}}" data-action="{{ route('balin.checkout.shippingcost.get') }}">{{$value['address']}}</option>
 											@endforeach
 										</select>
 									</div>
