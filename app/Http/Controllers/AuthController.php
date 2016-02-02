@@ -5,7 +5,7 @@ use App\API\API;
 use App\API\Connectors\APIUser;
 use App\API\Connectors\APIConfig;
 
-use Input, Session, Redirect, Auth, Socialite, Validator, Carbon, BalinMail;
+use Input, Session, Redirect, Socialite, Validator, Carbon, BalinMail;
 
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -454,8 +454,6 @@ class AuthController extends BaseController
 	 */
 	public function getLogout()
 	{
-		Auth::logout();
-
 		Session::flush();
 
 		return Redirect::route('balin.home.index');

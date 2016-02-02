@@ -152,7 +152,7 @@
 				<div class="hidden-md hidden-lg clearfix">&nbsp;</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="row mr-0 ml-0 mb-md pt-lg pb-lg border-1 border-solid border-grey-light bg-white panel_form_voucher">
-						@if (!isset($data['order']['data']['voucher_id']))
+						@if (!isset($data['order']['data']['voucher']))
 							<div class="col-md-12 mb-sm">
 								<span class="text-lg voucher-title">Punya Promo Code ?</span>
 							</div>	
@@ -177,7 +177,7 @@
 								<p>
 									@if ($data['order']['data']['voucher']['type'] == 'free_shipping_cost')
 										Selamat! Anda mendapat potongan : gratis biaya pengiriman.
-									@else
+									@elseif ($data['order']['data']['voucher']['type'] == 'debit_point')
 										Selamat! Anda mendapat bonus balin point sebesar {{ $data['order']['data']['voucher']['value'] }} (Balin Point akan ditambahkan jika pesanan sudah dibayar)
 									@endif
 								</p>

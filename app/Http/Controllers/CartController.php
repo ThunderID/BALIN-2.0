@@ -7,6 +7,8 @@ use App\API\Connectors\APIUser;
 
 use Input, Response, Redirect, Session, Collection;
 
+use Illuminate\Support\MessageBag as MessageBag;
+
 /**
  * Used for Cart (activities) Controller
  * 
@@ -29,7 +31,7 @@ class CartController extends BaseController
 			Session::put('API_token', Session::get('API_token_public'));
 		}
 
-		$this->page_attributes->title 				= 'Cart';
+		$this->page_attributes->title 				= 'BALIN.ID';
 		$this->page_attributes->source 				= 'web_v2.pages.cart.';
 		$this->page_attributes->breadcrumb			=	[
 															'Cart' 	=> route('balin.cart.index'),
@@ -43,18 +45,18 @@ class CartController extends BaseController
 	 */
 	public function index()
 	{	
-		$breadcrumb									= 	[
-															'Cart' => route('balin.cart.index')
-														];
-
 		$carts 										= Session::get('carts');
 
 		if (Session::has('whoami'))
 		{
-			$API_me 								= new APIUser;
-			$me_order_in_cart 						= $API_me->getMeOrderInCart([
-															'user_id' 	=> Session::get('whoami')['id'],
-														]);
+			$APIUser 								= new APIUser;
+			$me_order_in_cart 						= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
+
+			if($me_order_in_cart['status']!='success')
+			{
+				\App::abort(404);
+			}
+
 			$temp_carts 							= [];
 			$temp_varians 							= [];
 
@@ -66,25 +68,53 @@ class CartController extends BaseController
 				$temp_carts['current_stock']		= $v['varian']['current_stock'];
 				$temp_carts['thumbnail']			= $v['varian']['product']['thumbnail'];
 				$temp_carts['price']				= $v['price'];
-					
-				$varian_temp[$v['varian']['id']]	= 	[
-															'varian_id'			=> $v['varian']['id'],
-															'quantity'			=> $v['quantity'],
-															'size'				=> $v['varian']['size'],
-															'current_stock'		=> $v['varian']['current_stock'],
-															'message'			=> null,
-														];
-				$temp_carts['varians']				= $varian_temp;
-				$carts[$v['varian']['product_id']]	= $temp_carts;
+				
+				if(!isset($carts[$v['varian']['product_id']]))
+				{
+					$carts[$v['varian']['product_id']]	= $temp_carts;
+				}
+
+				if($v['quantity']!=0)
+				{
+					$varian_temp[$v['varian']['id']]	= 	[
+																'varian_id'			=> $v['varian']['id'],
+																'quantity'			=> $v['quantity'],
+																'size'				=> $v['varian']['size'],
+																'current_stock'		=> $v['varian']['current_stock'],
+																'message'			=> null,
+															];
+					$temp_carts['varians']				= $varian_temp;
+				}
 			}
 		}
 
+		foreach ($carts as $key => $value) 
+		{
+			foreach ($value['varians'] as $key2 => $value2) 
+			{
+				if($value2['quantity'] < 1)
+				{
+					unset($carts[$key]['varians'][$key2]);
+				}
+			}
+
+			if(count($value['varians'])<1)
+			{
+				unset($carts[$key]);
+			}
+		}
+
+		$breadcrumb									= 	[
+															'Cart' => route('balin.cart.index')
+														];
+
+		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
+														
 		$this->page_attributes->data				= 	[
 															'carts' 	=> $carts,
 														];
 
 		$this->page_attributes->subtitle 			= 'Carts';
-		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
 
 		return $this->generateView();
@@ -93,25 +123,24 @@ class CartController extends BaseController
 	/**
 	 * function to store an item to cart
 	 *
+	 * 1. Check existance of product
+	 * 2. Parsing data
+	 * 3. call add to cart function
+	 * 4. return response
 	 * @param slug
 	 */
 	public function store($slug = null)
 	{
-		// call API product
-		$API_product 						= new APIProduct;
-		$product 							= $API_product->getIndex([
-													'search' 	=> 	[
-																		'slug' 	=> $slug,
-																	],
-												]);
+		//1. Check existance of product
+		$APIProduct 						= new APIProduct;
+		$product 							= $APIProduct->getIndex(['search' 	=> 	['slug' 	=> $slug]]);
 
-		if($product['status'] != 'success')
+		if($product['data']['count'] < 1 )
 		{
-			$this->errors						= $product['message'];
-
-			return $this->generateRedirectRoute('balin.product.index');
+			\App::abort(404);
 		}
 
+		//2. Parsing data
 		$carts 								= Session::get('carts');
 		$qty 								= Input::get('qty');
 		$varianids 							= Input::get('varianids');
@@ -119,36 +148,47 @@ class CartController extends BaseController
 		$varians 							= [];
 		$qtys 								= [];
 
-		// make Array varian per product
 		foreach ($varianids as $key => $value) 
 		{
 			$varians[$value] 				= $value;
 			$qtys[$value]					= $qty[$key];
 		}
 
+		//3. call add to cart function
 		$cart								= $this->addToCart($carts, $product['data']['data'][0], $qtys, $varians);
-		$carts 								= Session::put('carts', $cart);
 
-		return Response::json(['carts' => $cart], 200);
+		$carts 								= Session::put('carts', $cart['data']);
+
+		//4. return response
+		if($cart['status']=='success')
+		{
+			return Response::json(['carts' => $cart['data']], 200);
+		}
+		
+		return Response::json(['carts' => $cart['data'], 'message' => $cart['message']], 200);
 	}
 
+	/**
+	 * function to update an item to cart
+	 *
+	 * 1. Check existance of product
+	 * 2. Parsing data
+	 * 3. call add to cart function
+	 * 4. return response
+	 * @param slug, varian id
+	 */
 	public function update($slug = null, $varian_id = null)
 	{
-		// call API product
-		$API_product 						= new APIProduct;
-		$product 							= $API_product->getIndex([
-													'search' 	=> 	[
-																		'slug' 	=> $slug,
-																	],
-												]);
+		//1. Check existance of product
+		$APIProduct 						= new APIProduct;
+		$product 							= $APIProduct->getIndex(['search' 	=> 	['slug' 	=> $slug]]);
 
-		if($product['status'] != 'success')
+		if($product['data']['count'] < 1 )
 		{
-			$this->errors						= $product['message'];
-
-			return $this->generateRedirectRoute('balin.product.index');
+			\App::abort(404);
 		}
 
+		//2. Parsing data
 		$carts 								= Session::get('carts');
 		$product_id							= $product['data']['data'][0]['id'];
 
@@ -157,75 +197,54 @@ class CartController extends BaseController
 		$varianids 							= [];
 		$qtys 								= [];
 
-		// make Array varian per product
 		foreach ($carts[$product_id]['varians'] as $key => $value) 
 		{
-			$varianids[$key] 				= $value['varian_id'];
+			$varianids[$key] 				= $key;
 			$qtys[$key]						= $value['quantity'];
 		}
 
+		//3. call add to cart function
 		$cart								= $this->addToCart($carts, $product['data']['data'][0], $qtys, $varianids);
-		$carts 								= Session::put('carts', $cart);
+
+		$carts 								= Session::put('carts', $cart['data']);
+
+		//4. return response
+		if($cart['status']=='success')
+		{
+			return Response::json(['carts' => $cart['data']], 200);
+		}
+		
+		return Response::json(['carts' => $cart['data'], 'message' => $cart['message']], 200);
 	}
 
-	/* FUNCTION AJAX GET LIST IN CART DROPDOWN REFERSH ITEM */
+	/**
+	 * function to get cart dropdown
+	 *
+	 * @return view
+	 */
 	public function getListBasket() 
 	{
 		return View('web_v2.components.cart.list_ajax_cart_dropdown');
 	}
 
-	// FUNCTION ADD TO CART INTO TO ARRAY
+	/**
+	 * function to store an item to cart or transaction detail
+	 *
+	 * 1. Parsing data
+	 * 2. Check quantity of varian
+	 * 3. Check logged user
+	 * 4. return data
+	 * @param current cart, changes product, changes qty, changes varian
+	 */
 	function addToCart($temp_carts, $product, $qtys, $varianids) 
 	{
-		$cart['product_id']					= $product['id'];
-		$cart['slug']						= $product['slug'];
-		$cart['name']						= $product['name'];
-		$cart['discount']					= isset($product['discount']) ? $product['discount'] : 0;
-		$cart['current_stock']				= (int) $product['current_stock'];
-		$cart['thumbnail']					= $product['thumbnail'];
-		$cart['price']						= isset($product['price']) ? $product['price'] : 0;
+		//1. Parsing data
+		$errors 	 						= new MessageBag();
 
-		if (Session::has('whoami'))
-		{
-			/* SET API TOKEN USE TOKEN PRIVATE */
-			Session::put('API_token', Session::get('API_token_private'));
-
-			/* GET ORDER STATUS IN CART FROM USER LOGGED */
-			$API_in_cart 			= new APIUser;
-			$order_in_cart 			= $API_in_cart->getMeOrderInCart([
-											'user_id' => Session::get('whoami')['id']
-										]);
-
-			$temp_order 			= $order_in_cart['data'];
-			$post_order 			= 	[
-											'id'					=> isset($order_in_cart['data']['id']) ? $order_in_cart['data']['id'] : '',
-											'user_id'				=> Session::get('whoami')['id'],
-											'transact_at'			=> isset($order_in_cart['data']['transact_at']) ? date('Y-m-d H:i:s', strtotime($order_in_cart['data']['transact_at'])) : '',
-											'transactiondetails'	=> !empty($order_in_cart['data']['transactiondetails']) ? $order_in_cart['data']['transactiondetails'] : [],
-											'transactionlogs'		=> 	[
-																			'id'			=> '',
-																			'status'		=> 'cart',
-																			'changed_at'	=> '',
-																			'notes'			=> ''
-																		],
-											'payment'				=> [],
-											'shipment'				=> []
-										];
-			if (Input::has('voucher_id'))
-			{
-				$post_order['voucher_id']	= Input::get('voucher_id');
-			}
-		}
-
-		$msg 								= null;
-		$varian 							= [];
-		$tmp_order 							= [];
-		$tmp 								= [];
-
-
-		/* CHECK VARIAN YANG BERISI JUMLAH KUANTITASNYA */
+		//2. Check quantity of varian
 		foreach ($varianids as $key => $value) 
 		{
+			//2a. get valid quantity of varian
 			if (isset($qtys[$value]) && $qtys[$value]!=0 && isset($temp_carts[$product['id']]['varians'][$value]))
 			{
 				$validqty 					= $qtys[$value];
@@ -239,154 +258,123 @@ class CartController extends BaseController
 				$validqty 					= $qtys[$value];
 			}
 
-			/* GET COLLECTION PRODUCT VARIAN */
-			$collection_varians				= collect($product['varians']);
-
-			/* SEARCH VARIAN ID YANG DIDALAM COLLECTION */
-			$varianp 						= $collection_varians->where('id', $value)->all();
-			$varian_temp					= [];
-
-			/* REMOVE INDEX 0 */
-			foreach ($varianp as $k => $v) 
+			//2b. collect varian from product
+			foreach ($product['varians'] as $key2 => $value2) 
 			{
-				foreach($v as $k2 => $v2) 
+				if($value2['id']==$value)
 				{
-					$varian_temp[$k2] 		= $v2;
+					$varianp 						= $value2;
 				}
 			}
 
-			/* CHECK CURRENT STOCK != 0 */
-			if (isset($varian_temp))
+			//2c. check varian stock
+			if (isset($varianp))
 			{
-				if ($varian_temp['current_stock'] < $validqty && ($varian_temp['current_stock'] != 0))
+				if ($varianp['current_stock'] < $validqty || $varianp['current_stock'] == 0)
 				{
-					$msg 			= 'Maaf stock tidak mencukupi';
-					$validqty 		= $qtys[$value];
-				}
-				else
-				{
-					$msg 			= null;
+					$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran '.$varianp['size'].'.');
 				}
 			}
-
-			/* IF QUANTITY NOT 0 */
-			if ($validqty > 0)
+			else
 			{
-				/* CART IN SESSESION NOT AUTHENTICATED */
-				$varian[$varian_temp['id']]	= 	[	
-													'varian_id' 		=> $varian_temp['id'], 
-													'sku'				=> $varian_temp['sku'],
+				$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran yang dicari.');
+			}
+
+			//2d. parsing detail
+			if (!$errors->count() && $validqty!=0)
+			{
+				if(!isset($temp_carts[$product['id']]))
+				{
+					$temp_carts[$product['id']] 				= $product;
+					$temp_carts[$product['id']]['discount']		= ($product['promo_price']!=0 ? $product['promo_price'] : 0);
+					unset($temp_carts[$product['id']]['varians']);
+				}
+
+				$temp_carts[$product['id']]['varians'][$varianp['id']]		= 	
+												[	
+													'varian_id' 		=> $varianp['id'], 
+													'sku'				=> $varianp['sku'],
 													'quantity' 			=> $validqty, 
-													'size' 				=> $varian_temp['size'], 
-													'current_stock' 	=> $varian_temp['current_stock'],
-													'message'  			=> $msg
+													'size' 				=> $varianp['size'], 
+													'current_stock' 	=> $varianp['current_stock'],
 												];
-
-				/* SAVE ORDER TO USER LOGGED */
-				if (Session::has('whoami'))
-				{
-					if (isset($order_in_cart['data']['id']))
-					{
-						$flag 				= 0;
-
-						/* CHECK TRANSACTION DETAIL IN SAME VARIAN */
-						foreach ($order_in_cart['data']['transactiondetails'] as $k => $v)
-						{
-							if ($v['varian_id'] == $varian_temp['id'])
-							{
-								$flag 					= 1;
-								$trs_index 				= $k;
-								break;
-							}
-						}
-
-						/* IN SAME TRANSACTION DETAIL REMOVE TO ARRAY AND INSERT NEW ROW */
-						if ($flag == 1)
-						{
-							array_except($post_order, ['transactiondetails.'. $trs_index]);
-							$post_order['transactiondetails'][$trs_index]['quantity'] 	= $validqty;
-							$tmp  														= $post_order['transactiondetails'];
-						}
-
-						/* IF NOT SAME CREATE TRANSACTION DETAIL ADD NEW ROW ARRAY */
-						else if (($flag == 0) && ($validqty != 0))
-						{
-							$tmp[]	 = 	[
-											'id' 				=> '',
-											'transaction_id'	=> $order_in_cart['data']['id'],
-											'quantity' 			=> $validqty,
-											'price'				=> $product['price'],
-											'discount'			=> $order_in_cart['data']['transactiondetails'][0]['discount'],
-											'varian_id'			=> $varian_temp['id'],
-											'varian'			=> 	[
-																	'id'				=> $varian_temp['id'],
-																	'product_id'		=> $product['id'],
-																	'sku'				=> $varian_temp['sku'],
-																	'size'				=> $varian_temp['size'],
-																	'current_stock'		=> $varian_temp['current_stock'],
-																	'on_hold_stock'		=> $varian_temp['on_hold_stock'],
-																	'inventory_stock'	=> $varian_temp['inventory_stock'],
-																	'reserved_stock'	=> $varian_temp['reserved_stock'],
-																	'packed_stock'		=> $varian_temp['packed_stock']
-																]
-										];
-							array_push($post_order['transactiondetails'], $tmp);
-						}
-					}
-					else
-					{
-						$tmp[]	= 	[
-										'id' 			=> '',
-										'quantity' 		=> $validqty,
-										'price'			=> $cart['price'],
-										'discount'		=> $cart['discount'],
-										'varian_id'		=> $varian_temp['id'],
-										'varian'		=> 	[
-																'id'				=> $varian_temp['id'],
-																'product_id'		=> $product['id'],
-																'sku'				=> $varian_temp['sku'],
-																'size'				=> $varian_temp['size'],
-																'current_stock'		=> $varian_temp['current_stock'],
-																'on_hold_stock'		=> $varian_temp['on_hold_stock'],
-																'inventory_stock'	=> $varian_temp['inventory_stock'],
-																'reserved_stock'	=> $varian_temp['reserved_stock'],
-																'packed_stock'		=> $varian_temp['packed_stock']
-															]
-									];
-					}
-
-				}
-				
-				if ($validqty == 0)
-				{
-					unset($varian[$varian_temp['id']]);
-				}
 			}
-
-		}
-		
-		if (Session::has('whoami'))
-		{
-			$post_order['transactiondetails']	= $tmp;
-
-			$API_order 							= new APIUser;
-			$result 							= $API_order->postMeOrder($post_order);
-
-			// result
-			if ($result['status'] != 'success')
+			elseif(!$errors->count() && $validqty==0 && isset($temp_carts[$product['id']]))
 			{
-				$error 				= $result['message'];
+				unset($temp_carts[$product['id']]['varians'][$varianp['id']]);
 			}
 		}
-
-		$cart['varians']					= $varian;
-		$temp_carts[$product['id']]			= $cart;
 
 		if (count($temp_carts[$product['id']]['varians'])==0)
 		{
 			unset($temp_carts[$product['id']]);
 		}
 
-		return $temp_carts;
+		//3. Check logged user
+		if (Session::has('whoami') && !$errors->count())
+		{
+			//3a. Check cart
+			$APIUser 						= new APIUser;
+			$order_in_cart 					= $APIUser->getMeOrderInCart(['user_id' => Session::get('whoami')['id']]);
+
+			if($order_in_cart['status']!='success')
+			{
+				$order['id']					= '';
+				$order['transactiondetails']	= [];
+			}
+			else
+			{
+				$order['id']					= $order_in_cart['data']['id'];
+				$order['voucher_id']			= $order_in_cart['data']['voucher_id'];
+				$order['transactiondetails']	= $order_in_cart['data']['transactiondetails'];
+			}
+
+			//3b. Check transactiondetail
+			foreach ($temp_carts as $key => $value) 
+			{
+				foreach ($value['varians'] as $key2 => $value2) 
+				{
+					$id 						= '';
+					foreach ($order['transactiondetails'] as $key3 => $value3) 
+					{
+						if($value3['varian_id'] == $value2['varian_id'])
+						{
+							$id 				= $value3['id'];
+						}
+						else
+						{
+							$id 				= '';
+						}
+					}
+
+					$varian 					= 	[
+														'id' 				=> $id,
+														'varian_id' 		=> $value2['varian_id'],
+														'quantity' 			=> $value2['quantity'],
+														'price' 			=> $value['price'],
+														'discount' 			=> $value['discount'],
+
+													];
+					$order['transactiondetails'][]	= $varian;
+				}
+			}
+
+			//3c. Store cart
+			$result 							= $APIUser->postMeOrder($order);
+
+			//3d. check result
+			if ($result['status'] != 'success')
+			{
+				$errors->add('Cart', $result['message']);
+			}
+		}
+
+		//4. return data
+		if($errors->count())
+		{
+			return ['status' => false, 'data' => $temp_carts, 'message' => $errors];
+		}
+
+		return ['status' => true, 'data' => $temp_carts];
 	}
 }

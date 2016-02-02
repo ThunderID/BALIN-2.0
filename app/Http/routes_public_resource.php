@@ -12,7 +12,7 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 
 	/* Product info */
 	Route::get('products',		 										['uses' => 'ProductController@index', 		'as' => 'balin.product.index']);
-	Route::get('product/{slug?}',										['uses' => 'ProductController@show', 		'as' => 'balin.product.show']);
+	Route::get('product/{slug}',										['uses' => 'ProductController@show', 		'as' => 'balin.product.show']);
 
 	/* Cart info */
 	Route::get('cart',													['uses' => 'CartController@index', 			'as' => 'balin.cart.index']);
