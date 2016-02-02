@@ -43,6 +43,29 @@ abstract class BaseController extends Controller
 			dd('gagal login API');
 		}
 
+
+  		//generate balin information
+  		$APIConfig 									= new APIConfig;
+		
+		$config 									= $APIConfig->getIndex([
+														'search' 	=> 	[
+																			'default'	=> 'true',
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														]);
+
+		$balin 										= $config['data'];
+
+		unset($balin['info']);
+		foreach ($config['data']['info'] as $key => $value) 
+		{
+			$balin['info'][$value['type']]			= $value;
+		}
+
+		$this->balin 				= $balin;
+
 		//nanti kalu butuh template lebih dari satu, switch case aja disini.
 		$this->layout 				= view('web_v2.page_templates.layout');
 	}
@@ -95,26 +118,8 @@ abstract class BaseController extends Controller
   			}
   		}
 
-  		//generate balin information
-  		$APIConfig 									= new APIConfig;
-		
-		$config 									= $APIConfig->getIndex([
-														'search' 	=> 	[
-																			'default'	=> 'true',
-																		],
-														'sort' 		=> 	[
-																			'name'	=> 'asc',
-																		],
-														]);
-
-		$balin 										= $config['data'];
-
-		unset($balin['info']);
-		foreach ($config['data']['info'] as $key => $value) 
-		{
-			$balin['info'][$value['type']]			= $value;
-		}
-
+  		$balin 				= $this->balin;
+  		
 		//paginator
   		$paging				= $this->page_attributes->paginator;
 

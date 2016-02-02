@@ -1,6 +1,5 @@
 <?php 
-	// $status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
-	// dd($data['order']);
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 	<div class="row">
 		<div class="col-md-8 col-sm-8 col-xs-12">
@@ -34,7 +33,7 @@
 					<tr class="row">
 						<td class="col-sm-6" valign="middle"><strong>Status</strong></td>
 						<td valign="middle"> 
-							{{ $data['order']['status'] }} 
+							{{ $status[$data['order']['status']] }} 
 						</td>
 					</tr>
 				</tbody>
@@ -146,15 +145,15 @@
 						</tr>
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Potongan Point</strong></td>
-							<td class="text-right pr-sm">@money_indo( $discount_point - ($data['order']['amount']))</td>
+							<td class="text-right pr-sm">@money_indo( $data['order']['amount'] - $data['order']['bills'] - (isset($data['order']['payment']['amount']) ? $data['order']['payment']['amount'] : 0))</td>
 						</tr>
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Potongan Transfer</strong></td>
 							<td class="text-right pr-sm">@money_indo( $data['order']['unique_number'] )</td>
 						</tr>
 						<tr>
-							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Total</strong></td>
-							<td class="text-right pr-sm">@money_indo( $data['order']['amount'] )</td>
+							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Total Yang Harus Dibayarkan</strong></td>
+							<td class="text-right pr-sm">@money_indo( $data['order']['bills'] )</td>
 						</tr>
 					@endif
 				</tbody>
@@ -236,7 +235,7 @@
 						</tr>
 					@else
 						<tr>
-							<td colspan="2">{!! 'data info bank' !!}</td>
+							<td colspan="2">{!!$balin['info']['bank_information']['value']!!}</td>
 						</tr>
 					@endif
 				</tbody>
@@ -255,7 +254,7 @@
 							@if (in_array($v['status'], ['wait', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
 								<tr>
 									<td> 
-										<strong> {{ $v['status'] }} </strong>
+										<strong> {{ $status[$v['status']] }} </strong>
 										@if ($v['status'] == 'delivered')
 											<p>{{ $v['notes'] }}</p>
 										@endif
