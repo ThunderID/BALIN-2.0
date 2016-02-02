@@ -81,7 +81,6 @@ $bg-balin: 				"../../../images/balin-bg.jpg";
 // MODIFICATION
 .text-uppercase{		text-transform: uppercase;}
 .text-strikethrough{	
-	font-size: $text-xs !important;
 	position: relative;
 	&::after {
 		position: absolute;

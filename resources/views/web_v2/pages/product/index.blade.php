@@ -25,7 +25,7 @@
 						<ul class="list-inline">
 							@foreach ($data['category'][0] as $k => $v)
 								<div class="col-md-3 col-sm-4 pl-0">
-									<li class="mr-lg p-sm ml-5 @if(Input::get('category')==$v['slug']) active @endif">
+									<li class="mr-lg pt-sm pb-sm ml-5 @if(Input::get('category')==$v['slug']) active @endif">
 										<a href="{{ route('balin.product.index', array_merge(Input::all(), ['category' => $v['slug']])) }}">{{ $v['name'] }}</a>
 									</li>
 								</div>
@@ -115,24 +115,28 @@
 	<!-- END SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH DESKTOP -->
 
 	<!-- SECTION MENU CATEGORIES, FILTERS, SORT BY & SEARCH MOBILE & TABLET -->
-	<div class="row hidden-md hidden-lg">
-		<div class="col-xs-12 col-sm-12">
-			@include('web_v2.components.product.menu_product.filter_searching_mobile_tablet')
+	<div class="row ml-0 mr-0 hidden-md hidden-lg">
+		<div class="col-xs-12 col-sm-12 border-1 border-solid border-grey-light pl-0 pr-0">
+			@include('web_v2.components.product.menu_product.category_filter_searching_mobile_tablet')
 		</div>
 	</div>
 
 	<!-- SECTION MODAL SUBMENU IN CATEGORY MOBILE & TABLET -->
 	<div id="modalCategory" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-sm dialog-mobile">
+		<div class="modal-dialog modal-lg dialog-mobile">
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Pilih Kategori</h4>
+					<h4 class="modal-title text-md" id="exampleModalLabel">Pilih Kategori</h4>
 				</div>
-				<div class="modal-body ribbon-menu ribbon-menu-mobile">
-					<ul class="list-inline m-b-none">
+				<div class="modal-body ribbon-menu ribbon-menu-mobile category-device">
+					<ul class="list-unstyled">
 						<!-- SECTION LIST CATEGORY MOBILE & TABLET -->
-						
+						@foreach ($data['category'][0] as $k => $v)
+							<li class="pt-xs pb-xs @if(Input::get('category')==$v['slug']) active @endif">
+								<a href="{{ route('balin.product.index', array_merge(Input::all(), ['category' => $v['slug']])) }}">{{ $v['name'] }}</a>
+							</li>
+						@endforeach
 						<!-- END SECTION LIST CATEGORY MOBILE & TABLET  -->
 					</ul>						      		
 				</div>
@@ -143,13 +147,13 @@
 
 	<!-- SECTION MODAL SUBMENU IN FITLERS MOBILE & TABLET -->
 	<div id="modalTag" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledbytag="mySmallModalLabel">
-		<div class="modal-dialog modal-sm dialog-mobile">
+		<div class="modal-dialog modal-lg dialog-mobile">
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Filter</h4>
+					<h4 class="modal-title text-md" id="exampleModalLabel">Filter</h4>
 				</div>
-				<div class="modal-body ribbon-menu p-t-0">
+				<div class="modal-body ribbon-menu p-t-0 filter-device">
 					
 				</div>
 			</div>
@@ -159,33 +163,26 @@
 
 	<!-- SECTION MODAL SUBMENU IN SORT BY MOBILE & TABLET -->
 	<div id="modalSort" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-sm dialog-mobile">
+		<div class="modal-dialog modal-lg dialog-mobile">
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Urutkan</h4>
+					<h4 class="modal-title text-md" id="exampleModalLabel">Urutkan</h4>
 				</div>
-				<div class="modal-body ribbon-menu">
+				<div class="modal-body ribbon-menu sort-device">
 					<!-- SECTION LIST SORT BY MOBILE & TABLET -->
-					<ul class="list-inline">
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='name-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk A-Z</a></li>
-						</div>
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='name-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk Z-A</a></li>
-						</div>
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='price-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termurah</a></li>
-						</div>
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='price-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termahal</a></li>
-						</div>
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='date-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terbaru</a></li>
-						</div>
-						<div class="col-xs-12">
-							<li> <a @if(Input::get('sort')=='date-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terlama</a></li>
-						</div>																
+					<ul class="list-unstyled">
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='name-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk A-Z</a></li>
+
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='name-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk Z-A</a></li>
+
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='price-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termurah</a></li>
+						
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='price-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termahal</a></li>
+						
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='date-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terbaru</a></li>
+						
+						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='date-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terlama</a></li>	
 					</ul>				
 					<!-- END SECTION LIST SORT BY MOBILE & TABLET -->		      		
 				</div>
@@ -196,16 +193,16 @@
 
 	<!-- SECTION MODAL SEARCH MOBILE & TABLET -->
 	<div id="modalSearch" class="modal modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-sm dialog-mobile">
+		<div class="modal-dialog modal-lg dialog-mobile">
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">Cari</h4>
+					<h4 class="modal-title text-md" id="exampleModalLabel">Cari</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 					{!! Form::open(array('url' => route('balin.product.index', Input::all()), 'method' => 'get', 'id' => 'form2', 'class' => 'form-group' )) !!}
-						<div class="col-xs-9 pr-0">
+						<div class="col-xs-9 pr-0 pl-sm mrm-sm ml-xs">
 							{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Cari nama produk', 'required' => 'required']) !!}
 						</div>
 						<div class="col-xs-3 pl-0">

@@ -1,4 +1,4 @@
-.filter-product{
+
 	.filter-desktop{
 		li{
 			padding: $space-0 !important;
@@ -13,6 +13,7 @@
 				padding-right: 20px !important;
 				padding-left: 20px !important;
 				text-transform: none;
+				text-decoration: none;
 			}
 			i{
 				margin-top: 2px;
@@ -75,35 +76,39 @@
 		}
 	}
 	.filter-mobile{
-		background-color: $grey-light;
-		padding: $space-0 !important; 
-		li{
-			margin-left: $space-0;
-		}
-		h4{
-			border-bottom: 1px solid $grey-dark; 
-			line-height: 0.1em;
-			margin: 10px 0 20px; 
-			padding-top: 5px;
-			text-align: center; 
-			width: 100%; 
+		a{
+			text-decoration: none;
 		}
 	}
-}
+
 
 .subtags, .category, .sort {
 	li {
 		padding-top: 10px;
 		padding-bottom: 10px;
 		padding-left: 25px;
-		a {
-			padding-left: 30px;
-		}
 		&:hover{
 			background-color: $color1;
 			a {
 				color: $white;
 			}
+		}
+		&.active{
+			background-color: $black;
+			color: $white;
+			a{
+				color: $grey-light;
+				background-color: $black;
+			}	
+		}
+	}
+}
+
+.category-device, .filter-device, .sort-device {
+	li.active {
+		background-color: $black;
+		a{
+			color: $white;
 		}
 	}
 }
