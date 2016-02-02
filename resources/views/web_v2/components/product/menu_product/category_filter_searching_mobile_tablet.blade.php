@@ -1,4 +1,4 @@
-<ul class="list-unstyled bg-grey-light">
+<ul class="list-unstyled bg-grey-light mb-0 filter-mobile">
 	<li class="p-sm">
 		<a href="#" class="" data-toggle="modal" data-target="#modalCategory" style="display:block">									
 			KATEGORI <i class="fa fa-chevron-circle-right pull-right"></i>

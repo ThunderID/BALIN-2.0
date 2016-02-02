@@ -4211,7 +4211,7 @@ button.close {
 
 .modal-dialog {
   position: relative;
-  width: auto;
+  width: 85%;
   margin: 10px; }
 
 .modal-center {
@@ -5008,7 +5008,6 @@ button.close {
   text-transform: uppercase; }
 
 .text-strikethrough {
-  font-size: 9px !important;
   position: relative; }
   .text-strikethrough::after {
     position: absolute;
@@ -5633,56 +5632,14 @@ ul.dropdown-user {
 
 .box-grid {
   padding: 0;
-  border-radius: 0; }
-  .box-grid > a {
-    display: block;
-    position: relative; }
-    .box-grid > a:after {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0; }
-    .box-grid > a:hover {
-      color: #ccc; }
-      .box-grid > a:hover:after {
-        background-color: rgba(0, 0, 0, 0.1);
-        position: absolute;
-        top: 0;
-        height: 100% !important;
-        width: 100% !important; }
+  border-radius: 0;
+  margin-bottom: 30px; }
   .box-grid .box-item {
-    min-height: 95px; }
-    .box-grid .box-item .title {
-      min-height: 58px; }
-      .box-grid .box-item .title h4 {
-        color: #000;
-        font-weight: 300;
-        letter-spacing: 0.04em;
-        margin: 10px; }
-    .box-grid .box-item .price {
-      min-height: 30px;
-      padding-bottom: 5px;
-      text-align: center; }
-    .box-grid .box-item .price-promo {
-      color: #000;
-      font-size: 15px;
-      font-weight: 300;
-      margin-bottom: 0px;
-      position: relative; }
-      .box-grid .box-item .price-promo::after {
-        border-bottom: 0.18em solid rgba(255, 0, 0, 0.8);
-        content: "";
-        left: 0;
-        line-height: 1em;
-        margin-top: calc(0.200em / 2 * -1);
-        position: absolute;
-        right: 0;
-        top: 50%;
-        max-width: inherit; }
+    min-height: 105px; }
 
-.filter-product .filter-desktop li {
+.filter-desktop li {
   padding: 0px !important; }
-  .filter-product .filter-desktop li a {
+  .filter-desktop li a {
     background-color: transparent;
     color: #000;
     display: block;
@@ -5692,27 +5649,28 @@ ul.dropdown-user {
     padding-bottom: 12px !important;
     padding-right: 20px !important;
     padding-left: 20px !important;
-    text-transform: none; }
-  .filter-product .filter-desktop li i {
+    text-transform: none;
+    text-decoration: none; }
+  .filter-desktop li i {
     margin-top: 2px;
     padding-left: 10px; }
-  .filter-product .filter-desktop li:hover {
+  .filter-desktop li:hover {
     background-color: #000;
     color: #fff; }
-    .filter-product .filter-desktop li:hover a {
+    .filter-desktop li:hover a {
       color: #e5e5e5;
       background-color: #000; }
 
-.filter-product .filter-desktop .filter-sub-mobile li {
+.filter-desktop .filter-sub-mobile li {
   padding: 0px !important; }
-  .filter-product .filter-desktop .filter-sub-mobile li h4 {
+  .filter-desktop .filter-sub-mobile li h4 {
     color: #888;
     margin-top: 15px;
     margin-bottom: 0px;
     font-weight: 500; }
-    .filter-product .filter-desktop .filter-sub-mobile li h4:last-child {
+    .filter-desktop .filter-sub-mobile li h4:last-child {
       margin-top: 10px; }
-  .filter-product .filter-desktop .filter-sub-mobile li a {
+  .filter-desktop .filter-sub-mobile li a {
     color: #000;
     display: block;
     margin-top: 8px;
@@ -5723,46 +5681,45 @@ ul.dropdown-user {
     padding-left: 20px !important;
     width: 100%;
     height: 100%; }
-    .filter-product .filter-desktop .filter-sub-mobile li a.active {
+    .filter-desktop .filter-sub-mobile li a.active {
       border: 1px solid #000;
       color: #000;
       font-weight: 600;
       padding-top: 12px;
       padding-bottom: 11px; }
-  .filter-product .filter-desktop .filter-sub-mobile li i {
+  .filter-desktop .filter-sub-mobile li i {
     margin-top: 2px;
     padding-left: 10px; }
-  .filter-product .filter-desktop .filter-sub-mobile li:hover {
+  .filter-desktop .filter-sub-mobile li:hover {
     background-color: #000;
     color: #fff; }
-    .filter-product .filter-desktop .filter-sub-mobile li:hover a {
+    .filter-desktop .filter-sub-mobile li:hover a {
       background-color: #000;
       color: #e5e5e5;
       font-weight: 500; }
 
-.filter-product .filter-mobile {
-  background-color: #e5e5e5;
-  padding: 0px !important; }
-  .filter-product .filter-mobile li {
-    margin-left: 0px; }
-  .filter-product .filter-mobile h4 {
-    border-bottom: 1px solid #888;
-    line-height: 0.1em;
-    margin: 10px 0 20px;
-    padding-top: 5px;
-    text-align: center;
-    width: 100%; }
+.filter-mobile a {
+  text-decoration: none; }
 
 .subtags li, .category li, .sort li {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 25px; }
-  .subtags li a, .category li a, .sort li a {
-    padding-left: 30px; }
   .subtags li:hover, .category li:hover, .sort li:hover {
     background-color: #000; }
     .subtags li:hover a, .category li:hover a, .sort li:hover a {
       color: #fff; }
+  .subtags li.active, .category li.active, .sort li.active {
+    background-color: #000;
+    color: #fff; }
+    .subtags li.active a, .category li.active a, .sort li.active a {
+      color: #e5e5e5;
+      background-color: #000; }
+
+.category-device li.active, .filter-device li.active, .sort-device li.active {
+  background-color: #000; }
+  .category-device li.active a, .filter-device li.active a, .sort-device li.active a {
+    color: #fff; }
 
 .searching-product {
   margin-top: 5px; }
@@ -6033,7 +5990,7 @@ footer {
         letter-spacing: 0.082em !important; } }
 
 html, body {
-  height: 80%; }
+  height: 90%; }
 
 body {
   font-weight: 400;
