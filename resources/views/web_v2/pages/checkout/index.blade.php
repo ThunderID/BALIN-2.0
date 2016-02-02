@@ -143,7 +143,7 @@
 							<span class="text-lg voucher-title">Punya Promo Code ?</span>
 						</div>	
 						<div class="col-md-12 mb-xs">
-							<span class="text-regular text-grey">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
+							<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
 							<div class="input-group mt-xs" style="position:relative">
 								<div class="text-center hide loading loading_voucher">
 									{!! HTML::image('images/loading.gif', null, []) !!}
@@ -192,6 +192,16 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="hollow-label text-regular" for="">No. Telp</label>
+										{!! Form::input('text', 'phone', null, [
+												'class' 		=> 'form-control text-regular ch_phone',
+										]) !!}
+									</div>
+								</div>
+							</div>
 							<div class="row new-address">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -204,18 +214,17 @@
 									</div>
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Kode Pos</label>
-										{!! Form::input('number', 'zipcode', null, [
-												'class' 		=> 'form-control text-regular ch_zipcode',
-												'id'			=> 'zipcode',
-												'data-action'	=> route('balin.checkout.shippingcost.get'),
-												'min'			=> '0'
-										]) !!}
-									</div>
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="">No. Telp</label>
-										{!! Form::input('text', 'phone', null, [
-												'class' 		=> 'form-control text-regular ch_phone',
-										]) !!}
+										<div class="input-group">
+											{!! Form::input('number', 'zipcode', null, [
+													'class' 		=> 'form-control text-regular ch_zipcode',
+													'id'			=> 'zipcode',
+													'data-action'	=> route('balin.checkout.shippingcost.get'),
+													'min'			=> '0'
+											]) !!}
+											<span class="input-group-btn">
+												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('balin.checkout.shippingcost.get') }}">Check</a>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
