@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
-// use App\API\Connectors\APIVoucher;
 
 use App\Http\Controllers\BaseController;
 
@@ -22,7 +21,7 @@ class CheckoutController extends BaseController
 
 		Session::put('API_token', Session::get('API_token_private'));
 
-		$this->page_attributes->title 			= 'Checkout';
+		$this->page_attributes->title 			= 'BALIN.ID';
 		$this->page_attributes->source 			= 'web_v2.pages.checkout.';
 		$this->page_attributes->breadcrumb		=	[
 														'Checkout' 	=> route('my.balin.checkout.get'),
@@ -42,9 +41,9 @@ class CheckoutController extends BaseController
 		//1.Get Session Cart & transaction
 		$carts 									= Session::get('carts');
 
-		$API_me 								= new APIUser;
-		$order 									= $API_me->getMeOrderInCart([
-														'user_id' 	=> Session::get('user_me')['id'],
+		$APIUser 								= new APIUser;
+		$order 									= $APIUser->getMeOrderInCart([
+														'user_id' 	=> Session::get('whoami')['id'],
 													]);
 
 		if($order['status']!='success')
@@ -55,13 +54,13 @@ class CheckoutController extends BaseController
 		}
 
 		//1a. get my point
-		$my_point 								= $API_me->getMeDetail([
-														'user_id'	=> Session::get('user_me')['id'],
+		$my_point 								= $APIUser->getMeDetail([
+														'user_id'	=> Session::get('whoami')['id'],
 													]);
 
 		//1b. get my address
-		$my_address 							= $API_me->getMeAddress([
-													'user_id' 	=> Session::get('user_me')['id'],
+		$my_address 							= $APIUser->getMeAddress([
+													'user_id' 	=> Session::get('whoami')['id'],
 												]);
 
 		//2. Generate breadcrumb
@@ -86,14 +85,21 @@ class CheckoutController extends BaseController
 		return $this->generateView();
 	}
 
-	/* FUNCTION ADD TO CART SESSION */
+	/**
+	 * function to post summary of balin checkout
+	 * 
+	 * 1. Get Session Cart & transaction
+	 * 2. Generate breadcrumb
+	 * 3. Generate view
+	 * @return view
+	 */
 	public function post($slug = null)
 	{
-		$API_me 								= new APIUser;
+		$APIUser 								= new APIUser;
 
-		/* Ambil Data transaction */
-		$me_order_in_cart 						= $API_me->getMeOrderInCart([
-														'user_id' 	=> Session::get('user_me')['id']
+		//1. Get Session Cart & transaction
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
+														'user_id' 	=> Session::get('whoami')['id']
 													]);
 		if($me_order_in_cart['status']=='success')
 		{
@@ -108,7 +114,7 @@ class CheckoutController extends BaseController
 		/* Set temporary transaction */
 		$temp_transaction 						= 	[
 														'id'					=> $trs_id,
-														'user_id'				=> Session::get('user_me')['id'],
+														'user_id'				=> Session::get('whoami')['id'],
 														'transact_at'			=> $trs_date,
 														'transactiondetails'	=> [],
 														'transactionlogs'		=> [],
@@ -197,7 +203,7 @@ class CheckoutController extends BaseController
 		//return view
 		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
 
-		return $this->generateRedirectRoute('balin.profile.user.index');
+		return $this->generateRedirectRoute('my.balin.profile');
 	}
 
 	/**
@@ -210,10 +216,10 @@ class CheckoutController extends BaseController
 	 */
 	public function voucher()
 	{
-		$API_me 								= new APIUser;
+		$APIUser 								= new APIUser;
 
-		$me_order_in_cart 						= $API_me->getMeOrderInCart([
-														'user_id' 	=> Session::get('user_me')['id'],
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
+														'user_id' 	=> Session::get('whoami')['id'],
 													]);
 
 		if ($me_order_in_cart['status']!= 'success')
@@ -224,7 +230,7 @@ class CheckoutController extends BaseController
 		$voucher 									= Input::get('voucher');
 		$me_order_in_cart['data']['voucher_code']	= $voucher;
 
-		$result 									= $API_me->postMeOrder($me_order_in_cart['data']);
+		$result 									= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		// result
 		if ($result['status'] != 'success')
@@ -253,10 +259,10 @@ class CheckoutController extends BaseController
 	public function shipping()
 	{
 		//1. Get cart detail
-		$API_me 								= new APIUser;
+		$APIUser 								= new APIUser;
 
-		$me_order_in_cart 						= $API_me->getMeOrderInCart([
-														'user_id' 	=> Session::get('user_me')['id'],
+		$me_order_in_cart 						= $APIUser->getMeOrderInCart([
+														'user_id' 	=> Session::get('whoami')['id'],
 													]);
 
 		if($me_order_in_cart['status']!= 'success')
@@ -273,7 +279,7 @@ class CheckoutController extends BaseController
 
 		if(Input::has('address_id'))
 		{
-			$me_order_in_cart['data']['shipment']['receiver_name']		= Session::get('user_me')['name'];
+			$me_order_in_cart['data']['shipment']['receiver_name']		= Session::get('whoami')['name'];
 			$me_order_in_cart['data']['shipment']['address_id']			= Input::get('address_id');
 			unset($me_order_in_cart['data']['shipment']['address']);
 		}
@@ -286,7 +292,7 @@ class CheckoutController extends BaseController
 			$me_order_in_cart['data']['shipment']['address']['phone']			= Input::get('phone');
 		}
 
-		$result 								= $API_me->postMeOrder($me_order_in_cart['data']);
+		$result 								= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		//3. Return result
 		if ($result['status'] != 'success')

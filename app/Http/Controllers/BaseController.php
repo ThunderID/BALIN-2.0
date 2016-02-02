@@ -80,7 +80,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!Session::has('carts')) 
   		{
-  			if (!Session::has('user_me'))
+  			if (!Session::has('whoami'))
   			{
 	  			$recommend 							= Cache::remember('recommended_batik', 30, function() {
 	  				$API_product 					= new APIProduct;
@@ -107,7 +107,7 @@ abstract class BaseController extends Controller
   					$recommend 						= $API_product->getIndex([
 	  														'search' 	=> 	[
 	  																			'name' 	=> Input::get('q'),
-	  																			'recommended' => Session::get('user_me')['id'],
+	  																			'recommended' => Session::get('whoami')['id'],
 	  																		],
 	  														'sort' 		=> 	[
 	  																			'name'	=> 'asc',

@@ -24,7 +24,7 @@ class OrderController extends BaseController
 
 		/* ambil data order detail dari API */
 		$me_order_detail					= $API_me->getMeOrderDetail([
-													'user_id' 	=> Session::get('user_me')['id'],
+													'user_id' 	=> Session::get('whoami')['id'],
 													'order_id'	=> $id
 												]);
 		/* parsing data dari API */
@@ -46,7 +46,7 @@ class OrderController extends BaseController
 
 		/* ambil data order detail dari API */
 		$me_order_detail					= $API_me->getMeOrderDetail([
-													'user_id' 	=> Session::get('user_me')['id'],
+													'user_id' 	=> Session::get('whoami')['id'],
 													'order_id'	=> $id
 												]);
 		$me_order_detail['data']['status']	= 'canceled';
@@ -68,6 +68,6 @@ class OrderController extends BaseController
 		//return view
 		$this->page_attributes->success 			= "Pesanan Anda sudah dibatalkan.";
 
-		return $this->generateRedirectRoute('balin.profile.user.index');
+		return $this->generateRedirectRoute('my.balin.profile');
 	}
 }

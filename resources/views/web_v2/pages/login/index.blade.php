@@ -9,16 +9,10 @@
 					<div class="col-md-12">
 						<div class="signin" style="@if (Session::has('msg-from')) @if (Session::get('msg-from')=='login') display:block; @else display:none; @endif @else display:block; @endif">
 							<h3>Sign In</h3>
-							@if (Session::has('msg-from') && Session::get('msg-from')=='login')
-								@include('web_v2.components.alert')
-							@endif
 							@include('web_v2.components.login.form')
 						</div>
 						<div class="signup" style="@if (Session::has('msg-from') && Session::get('msg-from')=='signup') display:block; @else display:none; @endif">
 							<h3>Sign Up</h3>
-							@if (Session::has('msg-from') && Session::get('msg-from')=='signup')
-								@include('web_v2.components.alert')
-							@endif
 							@include('web_v2.components.signup.form')
 						</div>
 						<div class="forgot" style="display:none">

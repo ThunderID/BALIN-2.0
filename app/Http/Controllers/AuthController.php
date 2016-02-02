@@ -172,14 +172,14 @@ class AuthController extends BaseController
 			}
 
 			Session::put('API_token_private', $result['data']['token']['access_token']);
-			Session::put('user_me', $result['data']['me']);
+			Session::put('whoami', $result['data']['me']);
 
 				if (!Session::has('carts'))
 				{
 					Session::set('API_token', Session::get('API_token_private'));	
 					$API_me 								= new APIUser;
 					$me_order_in_cart 						= $API_me->getMeOrderInCart([
-																	'user_id' 	=> Session::get('user_me')['id'],
+																	'user_id' 	=> Session::get('whoami')['id'],
 																]);
 					if ($me_order_in_cart['status'] == 'success')
 					{
@@ -218,7 +218,7 @@ class AuthController extends BaseController
 					/* SET API TOKEN USE TOKEN PRIVATE */
 					$temp_carts 			= 	[
 												'id'					=> '',
-												'user_id'				=> Session::get('user_me')['id'],
+												'user_id'				=> Session::get('whoami')['id'],
 												'transact_at'			=> date('Y-m-d H:i:s'),
 												'transactiondetails'	=> [],
 												'transactionlogs'		=> 	[
@@ -297,7 +297,7 @@ class AuthController extends BaseController
 	 */
 	public function getLogin()
 	{	
-		if (Session::has('user_me'))
+		if (Session::has('whoami'))
 		{
 			return Redirect::route('my.balin.redeem.index');
 		}
@@ -334,7 +334,7 @@ class AuthController extends BaseController
 		if ($result['status'] == "success")
 		{
 			Session::put('API_token_private', $result['data']['token']['access_token']);
-			Session::put('user_me', $result['data']['me']);
+			Session::put('whoami', $result['data']['me']);
 			Session::put('API_token', Session::get('API_token_private'));	
 
 			//check user before login carts
@@ -342,7 +342,7 @@ class AuthController extends BaseController
 			{
 				$API_me 								= new APIUser;
 				$me_order_in_cart 						= $API_me->getMeOrderInCart([
-																'user_id' 	=> Session::get('user_me')['id'],
+																'user_id' 	=> Session::get('whoami')['id'],
 															]);
 				if ($me_order_in_cart['status'] == 'success')
 				{
@@ -382,7 +382,7 @@ class AuthController extends BaseController
 				/* SET API TOKEN USE TOKEN PRIVATE */
 				$temp_carts 			= 	[
 											'id'					=> '',
-											'user_id'				=> Session::get('user_me')['id'],
+											'user_id'				=> Session::get('whoami')['id'],
 											'transact_at'			=> date('Y-m-d H:i:s'),
 											'transactiondetails'	=> [],
 											'transactionlogs'		=> 	[

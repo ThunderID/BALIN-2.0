@@ -10,12 +10,10 @@
 						<div class="col-md-12">
 							<h3>Contact Us</h3>
 
-							@include('web_v2.components.alert')
-
 							{!! Form::open(['url' => route('balin.email.us')]) !!}
 							    <div class="form-group">
 							        <label for="name" style="font-weight:400">Nama *</label>
-									{!! Form::text('name', (Session::has('user_me') ? Session::get('user_me')['name'] : ''), [
+									{!! Form::text('name', (Session::has('whoami') ? Session::get('whoami')['name'] : ''), [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '1', 
 												'placeholder'   => 'Masukkan nama anda',
@@ -24,7 +22,7 @@
 							    </div>
 							    <div class="form-group">
 							        <label for="email" style="font-weight:400">Email *</label>
-									{!! Form::email('email', (Session::has('user_me') ? Session::get('user_me')['email'] : ''), [
+									{!! Form::email('email', (Session::has('whoami') ? Session::get('whoami')['email'] : ''), [
 												'class'         => 'form-control hollow', 
 												'tabindex'      => '2', 
 												'placeholder'   => 'Masukkan email anda',

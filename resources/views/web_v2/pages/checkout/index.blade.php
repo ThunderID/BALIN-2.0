@@ -211,7 +211,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Nama Penerima</label>
-										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('user_me')['name'], [
+										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('whoami')['name'], [
 												'class' 	=> 'form-control text-regular ch_name',
 										]) !!}
 									</div>

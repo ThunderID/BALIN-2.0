@@ -19,7 +19,7 @@ class ProductController extends BaseController
 	{
 		parent::__construct();
 
-		if(Session::has('user_me'))
+		if(Session::has('whoami'))
 		{
 			Session::put('API_token', Session::get('API_token_private'));
 		}

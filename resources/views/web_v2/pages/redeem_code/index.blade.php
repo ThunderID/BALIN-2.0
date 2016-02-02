@@ -5,7 +5,6 @@
 
 @section('content')
 	<div class="clearfix">&nbsp;</div>
-	@include('web_v2.components.alert')
 	<div class="row bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE & BALIN POINT -->
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pt-lg pb-lg border-right-divider-to-bottom">

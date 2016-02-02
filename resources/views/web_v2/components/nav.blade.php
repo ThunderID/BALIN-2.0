@@ -29,14 +29,14 @@
 				{{-- <li>
 					<a href="" data-scroll>Why Join</a>
 				</li> --}}
-				@if (Session::has('user_me'))
+				@if (Session::has('whoami'))
 					<li >
 						<a href="{{ route('my.balin.redeem.index') }}">Referal &amp; Point
 							<span class="badge badge-hollow bg-red text-white"><i class="fa fa-exclamation"></i></span>
 						</a>
 					</li>
 				@endif
-				@if (!Session::has('user_me'))
+				@if (!Session::has('whoami'))
 					<li >
 						<a href="{{ route('balin.get.login') }}">Sign In</a>
 					</li>
@@ -47,12 +47,12 @@
 				<!-- <li>
 					<a href="" data-scroll>Contact Us</a>
 				</li> -->
-				@if (Session::has('user_me'))
+				@if (Session::has('whoami'))
 					<li class="dropdown hidden-xs hidden-sm">
 						<a href="javascript:void(0);" class="dropdown-toggle">Akun Anda <span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-right dropdown-user user_dropdown">
 							<li class="p-xs">
-								<a href="{{ route('balin.profile.user.index') }}" class="dropdown-toggle">Profile</a>
+								<a href="{{ route('my.balin.profile') }}" class="dropdown-toggle">Profile</a>
 							</li> 
 							<li class="p-xs">
 								<a href="{{ route('balin.get.logout') }}">Log out</a>
@@ -60,7 +60,7 @@
 						</ul>
 					</li> 
 					<li class="dropdown hidden-md hidden-lg">
-						<a href="{{ route('balin.profile.user.index') }}" class="dropdown-toggle">Profile</a>
+						<a href="{{ route('my.balin.profile') }}" class="dropdown-toggle">Profile</a>
 					</li> 
 					<li class="hidden-md hidden-lg">
 						<a href="{{ route('balin.get.logout') }}">Log out</a>

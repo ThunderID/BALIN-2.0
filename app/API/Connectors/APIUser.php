@@ -64,7 +64,7 @@ class APIUser extends APIData
 	/* post user update profile */
 	public function postDataUpdate ($data) 
 	{
-		$this->api_url						= '/me/'. Session::get('user_me')['id'] .'/update';
+		$this->api_url						= '/me/'. Session::get('whoami')['id'] .'/update';
 		$this->api_data 					= array_merge($this->api_data, ['customer' => $data]);
 
 		return $this->post();
@@ -79,7 +79,14 @@ class APIUser extends APIData
 			$this->api_data 				= array_merge($this->api_data, $parameter);
 		}
 
-		return $this->get();
+		$data 								= $this->get();
+
+		if($data['status']!='success')
+		{
+			\App::abort(404);
+		}
+
+		return $data;
 	}
 
 	/* get order transaction status type 'cart' */
@@ -109,7 +116,7 @@ class APIUser extends APIData
 	/* post data order transaction user */
 	public function postMeOrder ($data)
 	{
-		$this->api_url 						= '/me/'. Session::get('user_me')['id'] .'/order/store';
+		$this->api_url 						= '/me/'. Session::get('whoami')['id'] .'/order/store';
 		$this->api_data 					= array_merge($this->api_data, ["order" => $data]);
 
 		return $this->post();
@@ -132,7 +139,7 @@ class APIUser extends APIData
 	{
 		if (!is_null($parameter))
 		{
-			$this->api_url 					= '/me/' . Session::get('user_me')['id'] .'/products/recommended';
+			$this->api_url 					= '/me/' . Session::get('whoami')['id'] .'/products/recommended';
 			$this->api_data 				= array_merge($this->api_data, $parameter);
 		}
 
@@ -166,7 +173,7 @@ class APIUser extends APIData
 	/* post redeem code user */
 	public function postMeRedeemCode ($data)
 	{
-		$this->api_url 						= '/me/'. Session::get('user_me')['id'] .'/redeem';
+		$this->api_url 						= '/me/'. Session::get('whoami')['id'] .'/redeem';
 		$this->api_data 					= array_merge($this->api_data, $data);
 
 		return $this->post();

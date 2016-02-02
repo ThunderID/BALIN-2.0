@@ -4,7 +4,6 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
-	@include('web_v2.components.alert')
 	<!-- SECTION HEADER USER LOGIN -->
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
