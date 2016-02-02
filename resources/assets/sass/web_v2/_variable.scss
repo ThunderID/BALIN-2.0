@@ -15,7 +15,7 @@ $text-xs:				9px;
 
 // color
 $red:					#d91e18;
-$grey: 					#999;
+$grey: 					#ccc;
 $grey-dark:				#888;
 $grey-light: 			#e5e5e5;
 $black:					#000;
@@ -302,6 +302,7 @@ p{						line-height: 2em;}
 // -----------------
 // 4. INPUT
 // -----------------
+// btn black in hover bgcolor white border black
 .btn-black-hover-white-border-black{					
 	background-color: $black;
 	color: $white;
@@ -315,6 +316,21 @@ p{						line-height: 2em;}
 		transition: 0.4s ease;
 	}
 }
+// btn black in hover bgcolor white border grey
+.btn-black-hover-white-border-grey{
+	background-color: $black;
+	color: $white;
+	&:hover, &:focus, &:active{
+		border: $space-1 solid $grey;
+		background-color: rgba(255, 255, 255, 0.8);
+		color: $black !important;
+		-webkit-transition: 0.4s ease;
+		-moz-transition: 0.4s ease;
+		-o-transition: 0.4s ease;
+		transition: 0.4s ease;
+	}
+}
+// btn black border white in hover bgcolor white border white
 .btn-black-border-white-hover-white{
 	border: $space-1 solid $white; 
 	background-color: $black;
@@ -328,7 +344,8 @@ p{						line-height: 2em;}
 		-o-transition: 0.4s ease;
 		transition: 0.4s ease;
 	}
-}	
+}
+// btn transparent border black in hover color & bgcolor black
 .btn-transaparent-border-black-hover-black{
 	border: $space-1 solid $black;
 	background-color: transparent;
