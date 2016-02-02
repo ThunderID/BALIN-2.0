@@ -9,7 +9,7 @@
 			parsing_address(ga);
 		}
 		else {
-			get_shipping_cost( {'address' : $( "#address_id" ).val()}, action );
+			get_shipping_cost( {'address_id' : $( "#address_id" ).val()}, action );
 			ga = get_address($(this));
 			parsing_address(ga);
 		}
@@ -31,8 +31,6 @@
 	function get_shipping_cost (e, action) {
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 		$.post( action, e).done(function( data ) {
-		console.log(action);
-		console.log(cv);
 			if (cv==0) {
 				$(".shipping_cost").text(data.address.cost);
 			}
@@ -44,7 +42,7 @@
 	function get_voucher (e) {
 		value = e.val();
 		action = e.attr('data-action');
-		gv;
+		gv = '';
 		$.ajax({
 			url: action,
 			type: 'post',

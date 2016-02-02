@@ -87,7 +87,7 @@
 							</div>
 							<div class="row m-l-none m-r-none">
 								<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-									<span class="text-regular">Balin Point Anda</span>
+									<span class="text-regular">Point Anda</span>
 								</div>
 								<div class="col-lg-5 col-md-5 col-sm-5 text-right">
 									<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
@@ -145,8 +145,8 @@
 						<div class="col-md-12 mb-xs">
 							<span class="text-regular text-grey">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
 							<div class="input-group mt-xs" style="position:relative">
-								<div class="text-center hide loading_voucher">
-									{!! HTML::image('Balin/web/image/loading.gif', null, []) !!}
+								<div class="text-center hide loading loading_voucher">
+									{!! HTML::image('images/loading.gif', null, []) !!}
 								</div>
 								{!! Form::input('text', 'voucher', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
@@ -186,7 +186,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Nama Penerima</label>
-										{!! Form::input('text', 'receiver_name', 'Admin', [
+										{!! Form::input('text', 'receiver_name', Session::get('user_me')['name'], [
 												'class' 	=> 'form-control text-regular ch_name',
 										]) !!}
 									</div>

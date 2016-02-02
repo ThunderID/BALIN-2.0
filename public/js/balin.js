@@ -957,8 +957,6 @@ EVENT & FUNCTION OTHER
 	function get_shipping_cost (e, action) {
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 		$.post( action, e).done(function( data ) {
-		console.log(action);
-		console.log(cv);
 			if (cv==0) {
 				$(".shipping_cost").text(data.address.cost);
 			}
