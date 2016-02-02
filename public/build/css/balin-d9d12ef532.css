@@ -5000,6 +5000,9 @@ button.close {
 .text-grey-light {
   color: #e5e5e5 !important; }
 
+.text-green {
+  color: green !important; }
+
 .text-uppercase, .initialism {
   text-transform: uppercase; }
 
