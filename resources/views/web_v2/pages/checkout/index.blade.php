@@ -1,9 +1,12 @@
+<?php 
+// dd($data['order']);
+?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
 	<!-- SECTION FORM CHECKOUT -->
 	{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
-		{!! Form::hidden('voucher_id', '', ['class' => 'voucher_code']) !!}
+		{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
 		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 		<div class="row">
 			@if ($data['carts'])
@@ -128,7 +131,7 @@
 								<div class="col-lg-5 col-md-5 col-sm-5">
 									<h4 class="text-md text-right text-bold mb-sm sub_total">
 										<?php 
-											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['unique_number'];
+											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'];
 										?>
 										@if ($total_pembayaran && $total_pembayaran < 0)
 											@money_indo(0)
@@ -149,25 +152,37 @@
 				<div class="hidden-md hidden-lg clearfix">&nbsp;</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="row mr-0 ml-0 mb-md pt-lg pb-lg border-1 border-solid border-grey-light bg-white panel_form_voucher">
-						<div class="col-md-12 mb-sm">
-							<span class="text-lg voucher-title">Punya Promo Code ?</span>
-						</div>	
-						<div class="col-md-12 mb-xs">
-							<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
-							<div class="input-group mt-xs" style="position:relative">
-								<div class="text-center hide loading loading_voucher">
-									{!! HTML::image('images/loading.gif', null, []) !!}
+						@if (!isset($data['order']['data']['voucher_id']))
+							<div class="col-md-12 mb-sm">
+								<span class="text-lg voucher-title">Punya Promo Code ?</span>
+							</div>	
+							<div class="col-md-12 mb-xs">
+								<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
+								<div class="input-group mt-xs" style="position:relative">
+									<div class="text-center hide loading loading_voucher">
+										{!! HTML::image('images/loading.gif', null, []) !!}
+									</div>
+									{!! Form::input('text', 'voucher', null, [
+										'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
+										'placeholder' => 'Voucher code',
+										'data-action' => route('my.balin.checkout.voucher')
+									]) !!}
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('my.balin.checkout.voucher') }}">Gunakan</button>
+									</span>
 								</div>
-								{!! Form::input('text', 'voucher', null, [
-									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
-									'placeholder' => 'Voucher code',
-									'data-action' => route('my.balin.checkout.voucher')
-								]) !!}
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('my.balin.checkout.voucher') }}">Gunakan</button>
-								</span>
 							</div>
-						</div>
+						@else
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<p>
+									@if ($data['order']['data']['voucher']['type'] == 'free_shipping_cost')
+										Selamat! Anda mendapat potongan : gratis biaya pengiriman.
+									@else
+										Selamat! Anda mendapat bonus balin point sebesar {{ $data['order']['data']['voucher']['value'] }} (Balin Point akan ditambahkan jika pesanan sudah dibayar)
+									@endif
+								</p>
+							</div>
+						@endif
 					</div>
 					<div class="row mr-0 ml-0 pt-sm border-left-1 border-right-1 border-bottom-1 border-grey-light bg-white">
 						<div class="col-xs-12 col-sm-12 col-md-12" >
@@ -184,9 +199,9 @@
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="name">Pilih Alamat</label>
 										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
-											<option value="0" selected>Tambah Alamat Baru</option>
+											<option value="0" {{ isset($data['order']['data']['shipment']['address_id']) ? '' : 'selected' }}>Tambah Alamat Baru</option>
 											@foreach($data['my_address'] as $key => $value)
-												<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}">{{$value['address']}}</option>
+												<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }}>{{$value['address']}}</option>
 											@endforeach
 										</select>
 									</div>
@@ -196,7 +211,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Nama Penerima</label>
-										{!! Form::input('text', 'receiver_name', Session::get('user_me')['name'], [
+										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('user_me')['name'], [
 												'class' 	=> 'form-control text-regular ch_name',
 										]) !!}
 									</div>
@@ -206,7 +221,7 @@
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">No. Telp</label>
-										{!! Form::input('text', 'phone', null, [
+										{!! Form::input('text', 'phone', isset($data['order']['data']['shipment']['address']['phone']) ? $data['order']['data']['shipment']['address']['phone'] : null, [
 												'class' 		=> 'form-control text-regular ch_phone',
 										]) !!}
 									</div>
@@ -216,7 +231,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Alamat</label>
-										{!! Form::textarea('address', null, [
+										{!! Form::textarea('address', isset($data['order']['data']['shipment']['address']['address']) ? $data['order']['data']['shipment']['address']['address'] : null, [
 												'class'			=> 'form-control text-regular ch_address',
 												'rows'			=> '2',
 												'style'     	=> 'resize:none;',
@@ -225,7 +240,7 @@
 									<div class="form-group">
 										<label class="hollow-label text-regular" for="">Kode Pos</label>
 										<div class="input-group">
-											{!! Form::input('number', 'zipcode', null, [
+											{!! Form::input('number', 'zipcode', isset($data['order']['data']['shipment']['address']['zipcode']) ? $data['order']['data']['shipment']['address']['zipcode'] : null, [
 													'class' 		=> 'form-control text-regular ch_zipcode',
 													'id'			=> 'zipcode',
 													'data-action'	=> route('my.balin.checkout.shippingcost'),

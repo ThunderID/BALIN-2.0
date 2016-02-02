@@ -1,3 +1,7 @@
+	/*
+	*	function pilih address
+	*	
+	*/
 	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		action = $(this).find(':selected').attr('data-action');
@@ -15,6 +19,10 @@
 		count_sub_total();
 	});
 
+	/*
+	*	function check address
+	*	
+	*/
 	$('.check_address').click( function() {
 		ch_address_id	= $('.choice_address').val();
 		action 			= $(this).attr('data-action');
@@ -23,6 +31,10 @@
 		
 	});
 
+	/*
+	*	function get shipping cost
+	*	@param id, action
+	*/
 	function get_shipping_cost(id, action) {
 		ch_name 		= $('.ch_name').val();
 		ch_phone		= $('.ch_phone').val();
@@ -66,6 +78,10 @@
 		}
 	}
 
+	/*
+	*	function get voucher from ajax
+	*	@param data object input code
+	*/
 	function get_voucher (e) {
 		value = e.val();
 		action = e.attr('data-action');
@@ -88,12 +104,15 @@
 		return gv;
 	}
 
+	/*
+	*	function show notif modal 
+	*	@param data parsing and object input
+	*/
 	function show_voucher (e, p) {
 		if (e.type=='success')
 		{
 			panel_voucher = $('.panel_form_voucher');
 			//panel_voucher_device = $('.panel-form-voucher-device');
-
 			modal_notif = $('.modal_notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
@@ -130,11 +149,19 @@
 		}
 	}
 
+	/*
+	*	function set voucher id
+	*	@param input code object 
+	*/
 	function set_voucher_id (e) {
 		val = e.val();
 		$('.voucher_code').val(val);
 	}
 
+	/*
+	*	function parsing address from ajax to form input
+	*	@param data parsing
+	*/
 	function parsing_address (e) {
 		ch_name = $('.ch_name');
 		ch_address = $('.ch_address');
