@@ -58,42 +58,16 @@
 			</div>
 		</li>
 
-		<?php
-			// FAKE DATA
-			$image 									= ['http://drive.thunder.id/file/public/4/1/2015/12/06/05/paniya-long-front.jpg', 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg', 'http://drive.thunder.id/file/public/4/1/2015/12/06/04/pavana-short-front.jpg'];
-			$name 									= ['Batik Pavana Short Sleeve', 'Batik Paniya Long Sleeve', 'Batik Avani Long Sleeve'];
-			$price 									= ['350000', '300000', '390000'];
-			$data['thumbnail'] 						= $image[array_rand($image)];
-			$data['name']							= $name[array_rand($name)];
-			$data['price']							= $price[array_rand($price)];
-			$data['slug']							= str_slug($data['name'], '-');
-			$data['gallery']						= $image;
-			$data['description']					= 'Sparkle up your charm with a dress like this. Embellished Shift Dress dari ZALORA tampil chic dengan rhinestone. Sempurna untuk tampilan evening date. <br><br>- Stretchable poliester kombinasi<br>- Blush<br>- Kerah bulat<br>- Lengan pendek<br>- Resleting belakang<br>- Aksen bordir, mesh<br>- Regular fit<br>- Unlined';
-
-			$size_fit 								= strpos($data['name'], 'long');
-			$data['size_fit']						= ($size_fit !== false) ? 'size-long' : 'size-short'; 
-
-			for ($x=1; $x<3; $x++) 
-			{
-				$recomend[$x]['id']			= $x;
-				$recomend[$x]['images'] 		= $image[array_rand($image)];
-				$recomend[$x]['name']			= $name[array_rand($name)];
-				$recomend[$x]['prices']		= $price[array_rand($price)];
-				$recomend[$x]['slug']			= str_slug($recomend[$x]['name'], '-');
-			}
-			$recomend['data']					= $recomend;
-		?>
-
 		<!-- SECTION RECOMMENDATION PRODUCT -->
-		@foreach($recomend['data'] as $k => $item)
-			<li class="{{ ($item != end($recomend['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
+		@foreach($recommend['data']['data'] as $k => $item)
+			<li class="{{ ($item != end($recommend['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
 				@include('web_v2.components.cart.cart_recommendation', [
 					'label_id'				=> $k,
-					'label_image'			=> $item['images'],
+					'label_image'			=> $item['image_lg'],
 					'label_name'			=> $item['name'],
-					'label_price'			=> $item['prices'],
+					'label_price'			=> $item['price'],
 					//'label_qty'				=> $item['varians'],
-					'label_promo'			=> 0,
+					'label_promo'			=> $item['promo_price'],
 					'label_slug'			=> $item['slug'],
 				])
 			</li>

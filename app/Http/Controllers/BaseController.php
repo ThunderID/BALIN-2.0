@@ -87,35 +87,41 @@ abstract class BaseController extends Controller
 	  				$recommend 						= $API_product->getIndex([
 	  														'search' 	=> 	[
 	  																			'name' 	=> Input::get('q'),
+	  																			'recommended' => 0,
 	  																		],
 	  														'sort' 		=> 	[
 	  																			'name'	=> 'asc',
-	  																		],																		
+	  																		],
 	  														'take'		=> 2,
 	  														'skip'		=> '',
-	  													]);			
-
-	  				return $recommend;
+	  													]);
+  					return $recommend;
 	  			});
-
-	  			$this->recommend 					= $recommend;
   			}
   			else
   			{
   				Session::set('API_token', Session::get('API_token_private'));
 
   				$recommend 							= Cache::remember('recommended_batik', 30, function() {
-  					$API_recommended				= new APIUser;
-  					$recommend 						= $API_recommended->getMeRecommended([
-  															'search'	=> [
-  																				'user_id'	=> Session::get('user_me')['id']
-  																			]
-  														]);
+	  				$API_product 					= new APIProduct;
+  					$recommend 						= $API_product->getIndex([
+	  														'search' 	=> 	[
+	  																			'name' 	=> Input::get('q'),
+	  																			'recommended' => Session::get('user_me')['id'],
+	  																		],
+	  														'sort' 		=> 	[
+	  																			'name'	=> 'asc',
+	  																		],
+	  														'take'		=> 2,
+	  														'skip'		=> '',
+	  													]);
   					return $recommend;
   				});
-
-  				$this->recommend 					= $recommend;
   			}
+  		}
+  		else
+  		{
+  			$recommend 		= [];
   		}
 
   		$balin 				= $this->balin;
@@ -130,6 +136,7 @@ abstract class BaseController extends Controller
 									->with('page_subtitle', $this->page_attributes->subtitle)
 									->with('data', $this->page_attributes->data)
 									->with('balin', $balin)
+									->with('recommend', $recommend)
 									;
 
   		//optional data
@@ -170,34 +177,4 @@ abstract class BaseController extends Controller
 		$this->page_attributes->paginator 			= new LengthAwarePaginator($count, $count, $this->take, $current);
 	    $this->page_attributes->paginator->setPath($route);
 	}
-	// public function __construct() 
-	// {
-	// 	if (Session::has('user_me'))
-	// 	{
-	// 		if (!Session::has('API_token_authenticated'))
-	// 		{
-	// 			Redirect::route('balin.get.login');
-	// 		}
-	// 	}
-		
-	// 	$recommend 							= Cache::remember('recommended_batik', 30, function() 
-	// 	{
-	// 		$API_product 					= new APIProduct;
-
-	// 		return $API_product->getIndex([]);
-	// 	});
-
-	// 	$this->recommend 					= $recommend;
-
-
-	// 	if (Route::is('balin.campaign.join.get'))
-	// 	{
-	// 		$this->layout 				= view('web_v2.page_templates.layout_campaign');
-	// 	}
-	// 	else
-	// 	{
-	// 		$this->layout 					= view('web_v2.page_templates.layout')
-	// 											->with('recommend', $this->recommend);
-	// 	}
-	// }
 }
