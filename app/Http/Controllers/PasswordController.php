@@ -14,7 +14,7 @@ use Input, Session, Redirect, Auth, Socialite, Validator, App, BalinMail;
  */
 class PasswordController extends BaseController 
 {
-	protected $controller_name 				= 'Login';
+	protected $controller_name 				= 'Password';
 
 	public function __construct()
 	{
@@ -22,7 +22,7 @@ class PasswordController extends BaseController
 
 		Session::set('API_token', Session::get('API_token_private'));
 		
-		$this->page_attributes->title 		= 'Balin.id';
+		$this->page_attributes->title		= 'BALIN.ID';
 	}
 
 	/**
