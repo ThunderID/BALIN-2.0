@@ -104,6 +104,16 @@
 							<div class="row m-l-none m-r-none">
 								<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
 									<span class="text-regular">
+										Potongan Voucher
+									</span>
+								</div>
+								<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
+									<span class="text-regular text-right text-red voucher_discount" data-unique="{{ $data['order']['data']['voucher_discount'] }}">@money_indo_negative($data['order']['data']['voucher_discount'])</span>
+								</div>
+							</div>
+							<div class="row m-l-none m-r-none">
+								<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
+									<span class="text-regular">
 										Pengenal Pembayaran <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
 									</span>
 								</div>
