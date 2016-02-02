@@ -1954,6 +1954,7 @@ select[multiple].input-lg,
   background-image: none;
   border: 1px solid transparent;
   white-space: nowrap;
+  outline: none !important;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
@@ -5984,6 +5985,16 @@ input[type=number]::-webkit-outer-spin-button {
 @media screen and (min-width: 768px) {
   .border-right-divider-to-hide {
     border-right: 1px solid #e5e5e5; } }
+
+.loading {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  line-height: 30px; }
+  .loading img {
+    width: 20px; }
 
 footer {
   color: #fff;

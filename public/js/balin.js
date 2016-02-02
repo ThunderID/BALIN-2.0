@@ -935,7 +935,7 @@ EVENT & FUNCTION OTHER
 			parsing_address(ga);
 		}
 		else {
-			get_shipping_cost( {'address' : $( "#address_id" ).val()}, action );
+			get_shipping_cost( {'address_id' : $( "#address_id" ).val()}, action );
 			ga = get_address($(this));
 			parsing_address(ga);
 		}
@@ -970,7 +970,7 @@ EVENT & FUNCTION OTHER
 	function get_voucher (e) {
 		value = e.val();
 		action = e.attr('data-action');
-		gv;
+		gv = '';
 		$.ajax({
 			url: action,
 			type: 'post',
