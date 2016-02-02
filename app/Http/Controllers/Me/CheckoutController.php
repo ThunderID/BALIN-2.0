@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
+// use App\API\Connectors\APIVoucher;
 
 use App\Http\Controllers\BaseController;
 
@@ -211,7 +212,7 @@ class CheckoutController extends BaseController
 														'user_id' 	=> Session::get('user_me')['id'],
 													]);
 
-		if($me_order_in_cart['status']!= 'success')
+		if ($me_order_in_cart['status']!= 'success')
 		{
 			return Response::json(['type' => 'error', 'msg' => 'Tidak ada keranjang.'], 200);
 		}
@@ -220,7 +221,7 @@ class CheckoutController extends BaseController
 		$me_order_in_cart['data']['voucher_code']	= $voucher;
 
 		$result 									= $API_me->postMeOrder($me_order_in_cart['data']);
-
+// dd($result);
 		// result
 		if ($result['status'] != 'success')
 		{
@@ -274,12 +275,12 @@ class CheckoutController extends BaseController
 		}
 		else
 		{
-			$me_order_in_cart['data']['shipment']['address']['id']		= 0;
-			$me_order_in_cart['data']['shipment']['address']['address']	= Input::get('address');
-			$me_order_in_cart['data']['shipment']['address']['zipcode']	= Input::get('zipcode');
-			$me_order_in_cart['data']['shipment']['address']['phone']	= Input::get('phone');
+			$me_order_in_cart['data']['shipment']['address']['id']				= 0;
+			$me_order_in_cart['data']['shipment']['address']['receiver_name']	= Input::get('receiver_name');
+			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
+			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
+			$me_order_in_cart['data']['shipment']['address']['phone']			= Input::get('phone');
 		}
-
 
 		$result 								= $API_me->postMeOrder($me_order_in_cart['data']);
 
@@ -289,6 +290,11 @@ class CheckoutController extends BaseController
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		return Response::json(['shipping_cost' => $result['data']['shipping_cost']], 200);
+		$address['receiver_name']				= $result['data']['shipment']['receiver_name'];
+		$address['address']						= $result['data']['shipment']['address']['address'];
+		$address['phone']						= $result['data']['shipment']['address']['phone'];
+		$address['zipcode']						= $result['data']['shipment']['address']['zipcode'];
+
+		return Response::json(['shipping_cost' => $result['data']['shipping_cost'], 'address' => $address], 200);
 	}
 }
