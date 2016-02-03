@@ -5,7 +5,7 @@
 <div class="hidden-xs hidden-sm">
 	<div class="row mb-sm">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h4 class="text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
+			<h4 class="text-light">Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 		</div>
 	</div>
 	<div class="row mr-0 ml-0 border-bottom-1 border-grey-dark">
@@ -80,8 +80,9 @@
 <!-- SECTION POINT MOBILE, TABLET -->
 <div class="hidden-md hidden-lg">
 	<div class="row m-md">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h4 class="text-center text-light">Balin Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+			<h4 class="text-light mb-0">Point Anda Sekarang</h4>
+			<h4 class="text-bold"> @money_indo($data['me']['total_point'])</h4>
 		</div>
 	</div>
 	<div class="row m-md">
@@ -120,7 +121,7 @@
 								<i>Expired</i>
 							@endif
 						</p>
-						<h4 class="text-lg mt-5 mb-5">{!! $v['notes'] !!}</h4>
+						<h4 class="text-lg text-light mt-5 mb-5">{!! $v['notes'] !!}</h4>
 						<p class="text-xs">expired on</br> <span class="text-sm">@date_indo( $v['expired_at'] )</span></p>
 					</div>
 				</div>

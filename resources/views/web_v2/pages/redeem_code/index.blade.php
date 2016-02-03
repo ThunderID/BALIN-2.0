@@ -45,12 +45,12 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
 					<p class="mtm-xs pull-right">
-						<a class="text-sm" href="#" 
+						<a class="hover-gold text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-modal-title="History Balin Point Anda">
-							[ History ]
-						</a>
+							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
+							data-modal-title="History Point Anda" 
+							data-view="modal-lg">[ History ]</a>
 					</p>
 				</div>
 			</div>
@@ -109,22 +109,6 @@
 	</div>
 	<!-- END SECTION MODAL FULLSCREEN -->
 
-	<!-- SECTION SUBMODAL FULLSCREEN -->
-	<div id="submodal-balance" class="modal submodal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
-				<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
-		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
-					
-		      	</div>
-	   		</div>
-	  	</div>
-	</div>
-	<!-- END SECTION SUBMODAL FULLSCREEN -->
-
 	<!-- SECTION MODAL BALIN POINT -->
 	<div id="" class="modal modal-balin-point modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  	<div class="modal-dialog">
@@ -165,10 +149,20 @@
 	<!-- END SECTION MODAL REFERRAL CODE -->
 @stop
 
-@section('script')
-	
-@stop
+@section('js')
+	$('.modal-user-information').on('show.bs.modal', function(e) {
+		action 		= $(e.relatedTarget).attr('data-action');
+		title 		= $(e.relatedTarget).attr('data-modal-title');
+		view_mode 	= $(e.relatedTarget).attr('data-view');
+		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
 
-@section('script_plugin')
-	
+		$(this).find('.modal-body').html('loading...');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+		});
+	});	
 @stop

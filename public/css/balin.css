@@ -3207,7 +3207,7 @@ tbody.collapse.in {
     .breadcrumb > li + li:before {
       content: "/ ";
       padding: 0 5px;
-      color: #ccc; }
+      color: #000; }
   .breadcrumb > .active {
     color: #777777; }
 
@@ -4211,8 +4211,8 @@ button.close {
 
 .modal-dialog {
   position: relative;
-  width: 85%;
-  margin: 10px; }
+  width: 90%;
+  margin: 0 auto; }
 
 .modal-center {
   text-align: center !important;
@@ -5023,7 +5023,7 @@ button.close {
 .text-shadow {
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1); }
 
-a:hover {
+a:hover, a:active {
   text-decoration: none; }
 
 .hover-grey:hover {
@@ -5582,6 +5582,9 @@ p {
 
 .bg-red {
   background-color: #d91e18 !important; }
+
+.bg-none {
+  background: none !important; }
 
 .absolute {
   position: absolute !important; }

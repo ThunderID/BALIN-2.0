@@ -52,8 +52,12 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<h4 class="mt-xl mb-xl">PILIH UKURAN</h4>
 						<div class="clearfix mt-0 mb-0">&nbsp;</div>
-						<div class="row">
-							@foreach($data['product']['data']['data'][0]['varians'] as $v)
+						<div class="row pb-xl">
+							@foreach($data['product']['data']['data'][0]['varians'] as $k => $v)
+								@if (($k % 3 == 0)&&($k!=0))
+									</div>
+									<div class="row mt-xl pt-xl pb-xl">
+								@endif
 								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 									<div class="qty text-center">
 										<p>

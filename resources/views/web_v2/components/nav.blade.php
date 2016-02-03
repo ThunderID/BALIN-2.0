@@ -6,7 +6,7 @@
 					data-toggle="collapse" aria-controls="#bs-example-navbar-collapse-1" data-target="#bs-example-navbar-collapse-1">
 				<i class="fa fa-bars fa-lg"></i>
 			</button>
-			<a href="#" class="navbar-toggle border-0 ico_cart" style="color: #fff;
+			<a href="{{ route('balin.cart.index') }}" class="navbar-toggle border-0 ico_cart" style="color: #fff;
 			    ">
 				<i class="fa fa-shopping-bag fa-lg vertical-baseline"></i>
 				<span class="ml-xs">

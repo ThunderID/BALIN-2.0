@@ -97,7 +97,7 @@ $bg-balin: 				"../../../images/balin-bg.jpg";
 .text-shadow{			text-shadow:1px 2px 4px rgba(0, 0, 0, 0.1);}
 
 // LINK
-a:hover {				text-decoration: none;}
+a:hover, a:active {				text-decoration: none;}
 .hover-grey:hover{		color: $grey;}
 .hover-black:hover{		color: $black;}
 .hover-white:hover{		color: $white;}
@@ -423,6 +423,7 @@ p{						line-height: 2em;}
 .bg-transparent{		background-color: transparent !important;}
 .bg-color2{				background-color: $color2 !important;}
 .bg-red{				background-color: $red !important;}
+.bg-none{				background: none !important;}
 
 
 // -----------------
