@@ -94,4 +94,30 @@ class OrderController extends BaseController
 
 		return $this->generateRedirectRoute('my.balin.profile');
 	}
+
+	/**
+	 * function to resend invoice only order status 'wait'
+	 */
+	public function resend_invoice($id = null)
+	{
+		//1. Get order detail
+		$APIUser 								= new APIUser;
+		$result									= $APIUser->getMeOrderDetail(['user_id' 	=> Session::get('whoami')['id'], 'order_id' 	=> $id]);
+
+		//2. Check result
+		if ($result['status'] != 'success')
+		{
+			$this->errors						= $result['message'];
+		}
+		else
+		{
+			$mail 								= new BalinMail;
+
+			$mail->invoice($result['data'], $this->balin['info']);
+		}
+
+		$this->page_attributes->success 		= "Resend invoice terkirim.";
+
+		return $this->generateRedirectRoute('my.balin.profile');
+	}
 }

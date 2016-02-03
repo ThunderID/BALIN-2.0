@@ -22,6 +22,7 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::any('checkout/shipping/cost',							['uses' => 'CheckoutController@shipping', 	'as' => 'my.balin.checkout.shippingcost']);
 
 	/* Order info */
-	Route::get('order/{id}',										['uses' => 'OrderController@show', 			'as' => 'my.balin.order.show']);
-	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 		'as' => 'my.balin.order.destroy']);
+	Route::get('order/{id}',										['uses' => 'OrderController@show', 				'as' => 'my.balin.order.show']);
+	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 			'as' => 'my.balin.order.destroy']);
+	Route::any('order/resend/invoice/{id}',							['uses' => 'OrderController@resend_invoice',	'as' => 'my.balin.order.resend.invoice']);
 });

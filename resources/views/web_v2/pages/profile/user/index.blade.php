@@ -314,12 +314,13 @@
 							@elseif ($v['status']=='shipping') label-primary
 							@elseif ($v['status']=='delivered') label-success
 							@else label-warning @endif ">
-							{{ $status[$v['status']] }}
+							{{ $status[$v['status']] }} 
 						</span>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait')
 							<p class="text-right mb-0">
+								<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="text-regular">[ Resend Invoice ]</a>
 								<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 									[ Batalkan Orderan ]
 								</a>
@@ -379,6 +380,7 @@
 			@empty
 				<p class="text-center mt-xs">tidak ada order</p>
 			@endforelse
+			@include('web_v2.components.ajax_page')
 		</div>
 	</div>
 	<!-- END SECTION INFORMATION TRACKING ORDER -->
@@ -390,8 +392,8 @@
 	<div class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+				<div class="modal-header bg-black text-white">
+					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 					<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 				</div>
 				<div class="modal-body m-md pt-5 mt-sm">
@@ -402,21 +404,27 @@
 	</div>
 	<!-- END SECTION MODAL USER INFORMATION -->
 
-	<!-- SECTION SUB MODAL  USER INFORMATION -->
-	<div id="submodal-balance" class="modal submodal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog">
+	<!-- SECTION MODAL USER INFORMATION MOBILE -->
+	<div class="modal modal-user-information-mobile fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-					<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+				<div class="modal-header bg-black text-white">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+								<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+				<div class="modal-body m-md pt-5 mt-sm">
 					
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- END SECTION SUB MODAL USER INFORMATION -->
+	<!-- END SECTION MODAL USER INFORMATION MOBILE -->
 
 	<!-- SECTION MODAL INFORMATION & FUNCTION BALIN POINT -->
 	<div id="" class="modal point-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
@@ -462,9 +470,9 @@
 
 @section('js')
 	$('.modal-user-information').on('show.bs.modal', function(e) {
-		var action 		= $(e.relatedTarget).attr('data-action');
-		var title 		= $(e.relatedTarget).attr('data-modal-title');
-		var view_mode 	= $(e.relatedTarget).attr('data-view');
+		action 		= $(e.relatedTarget).attr('data-action');
+		title 		= $(e.relatedTarget).attr('data-modal-title');
+		view_mode 	= $(e.relatedTarget).attr('data-view');
 		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
 
 		$(this).find('.modal-body').html('loading...');

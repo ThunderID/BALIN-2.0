@@ -121,13 +121,13 @@ abstract class BaseController extends Controller
   		}
   		else
   		{
-  			$recommend 		= [];
+  			$recommend 			= [];
   		}
 
-  		$balin 				= $this->balin;
+  		$balin 					= $this->balin;
   		
 		//paginator
-  		$paging				= $this->page_attributes->paginator;
+  		$paging					= $this->page_attributes->paginator;
 
 		//initialize view
   		$this->layout 			= view($this->page_attributes->source, compact('paging'))

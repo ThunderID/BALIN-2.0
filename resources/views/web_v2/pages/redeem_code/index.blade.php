@@ -76,7 +76,7 @@
 							{!! Form::hidden('from', 'my.balin.redeem.index') !!}
 							{!! Form::input('text', 'referral_code', null, [
 									'class' => 'form-control hollow transaction-input-voucher-code m-b-sm check-voc-ref',
-									'placeholder' => 'Masukkan referral code referensi',
+									'placeholder' => 'Referal code referensi',
 							]) !!}
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-black-hover-white-border-black" data-action="">Gunakan</button>

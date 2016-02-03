@@ -16,7 +16,7 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<h3 style="margin-top:3px;">Join Us</h3>
-	<p class="text-light text-grey">
+	<p class="text-light text-grey-dark">
 		Connect dengan akun Facebook Anda atau daftarkan email Anda untuk menikmati penawaran spesial dari Kami.
 	</p>
 	<div class="row">

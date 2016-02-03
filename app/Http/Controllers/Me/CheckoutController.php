@@ -228,5 +228,7 @@ class CheckoutController extends BaseController
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
+
+		return Response::json(['type' => 'success', 'shipping_cost' => $result['shipping_cost'] ]);
 	}
 }

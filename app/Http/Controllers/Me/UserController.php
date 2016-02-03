@@ -28,6 +28,7 @@ class UserController extends BaseController
 		$this->page_attributes->breadcrumb			=	[
 															'Profile' 	=> route('my.balin.profile'),
 														];
+		$this->take 								= 5;
 	}
 
 	/**
@@ -45,8 +46,21 @@ class UserController extends BaseController
 
 		$whoami 									= $APIUser->getMeDetail(['user_id' 	=> Session::get('whoami')['id']]);
 
+		//2. Check page
+		if (is_null(Input::get('page')))
+		{
+			$page 									= 1;
+		}
+		else
+		{
+			$page 									= Input::get('page');
+		}
+
 		//temporary order
-		$me_orders									= $APIUser->getMeOrder(['user_id'	=> Session::get('whoami')['id']]);
+		$me_orders									= $APIUser->getMeOrder(['user_id'	=> Session::get('whoami')['id'], 
+																			'take'		=> $this->take,
+																			'skip'		=> ($page - 1) * $this->take,
+														]);
 
 		//parse date of birth
 		if ($whoami['data']['date_of_birth'] <= '0000-00-00')
@@ -61,6 +75,8 @@ class UserController extends BaseController
 
 		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 
+		//2. paginate order 
+		$this->paginate(route('my.balin.profile'), $me_orders['data']['count'], $page);
 
 		//3. Generate view
 		$this->page_attributes->data				= 	[
