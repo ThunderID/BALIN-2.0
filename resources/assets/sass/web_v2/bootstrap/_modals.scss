@@ -108,6 +108,7 @@
 // Close icon
 .modal-header .close {
   margin-top: -2px;
+  color: white !important;
 }
 
 // Title text within header
@@ -163,7 +164,15 @@
   background-color: black;
   border-bottom: none;
   color:white;
-}   
+}
+
+//  Modal fullscreen
+.modal-fullscreen > .modal-dialog{
+  @media screen and (min-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
 
 // Scale up the modal
 @media (min-width: $screen-sm-min) {
