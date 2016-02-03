@@ -5029,6 +5029,9 @@ a:hover, a:active {
 .hover-grey:hover {
   color: #ccc; }
 
+.hover-grey-dark:hover {
+  color: #888; }
+
 .hover-black:hover {
   color: #000; }
 
@@ -5637,6 +5640,19 @@ ul.dropdown-user {
   padding: 0;
   border-radius: 0;
   margin-bottom: 30px; }
+  .box-grid a {
+    display: block;
+    position: relative;
+    text-decoration: none; }
+    .box-grid a:hover .hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 0; }
+  .box-grid .hover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; }
   .box-grid .box-item {
     min-height: 105px; }
 

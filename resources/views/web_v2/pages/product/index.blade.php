@@ -74,32 +74,32 @@
 					<div class="row sort">
 						<ul class="list-inline">
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='name-asc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='name-asc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-asc'])) }}" class="hover-black">Nama Produk A-Z</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='name-desc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='name-desc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-desc'])) }}" class="hover-black">Nama Produk Z-A</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='price-asc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='price-asc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-asc'])) }}" class="hover-black">Harga Produk Termurah</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='price-desc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='price-desc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-desc'])) }}" class="hover-black">Harga Produk Termahal</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='newest-desc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='newest-desc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-desc'])) }}" class="hover-black">Produk Terbaru</a>
 								</li>
 							</div>
 							<div class="col-md-3 col-lg-3 pl-0">
-								<li class="mr-lg p-sm ml-5 @if(Input::get('sort')=='newest-asc') active @endif">
+								<li class="mr-lg p-sm ml-5 {{ (Input::get('sort')=='newest-asc') ? 'active' : '' }}">
 									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-asc'])) }}" class="hover-black">Produk Terlama</a>
 								</li>
 							</div>																			
@@ -172,17 +172,17 @@
 				<div class="modal-body ribbon-menu sort-device">
 					<!-- SECTION LIST SORT BY MOBILE & TABLET -->
 					<ul class="list-unstyled">
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='name-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk A-Z</a></li>
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='name-asc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-asc'])) }}">Nama Produk A-Z</a></li>
 
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='name-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Nama Produk Z-A</a></li>
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='name-desc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'name-desc'])) }}">Nama Produk Z-A</a></li>
 
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='price-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termurah</a></li>
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='price-asc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-asc'])) }}">Harga Produk Termurah</a></li>
 						
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='price-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Harga Produk Termahal</a></li>
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='price-desc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'price-desc'])) }}">Harga Produk Termahal</a></li>
 						
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='date-desc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terbaru</a></li>
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='newest-desc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-desc'])) }}">Produk Terbaru</a></li>
 						
-						<li class="pt-xs pb-xs"> <a @if(Input::get('sort')=='date-asc') class="active" @endif href="{{ route('balin.product.index', array_merge(Input::all())) }}">Produk Terlama</a></li>	
+						<li class="pt-xs pb-xs {{ (Input::get('sort')=='newest-asc') ? 'active' : '' }}"> <a href="{{ route('balin.product.index', array_merge(Input::all(), ['sort' => 'newest-asc'])) }}">Produk Terlama</a></li>	
 					</ul>				
 					<!-- END SECTION LIST SORT BY MOBILE & TABLET -->		      		
 				</div>

@@ -3,9 +3,12 @@
 	@forelse($datas['data']['data'] as $value)
 		<div class="{{ isset($col) ? $col : 'col-xs-12 col-sm-4 col-md-3 col-lg-3' }}">
 			<div class="thumbnail box-grid text-center">
-				<img src="{{ (!empty($value['thumbnail']) ? $value['thumbnail'] : '') }}" class="img-responsive" style="{{ isset($style_thumbnail) ? $style_thumbnail : '' }}">
-				<div class="text-center box-item pl-5 pr-5">
-					<h4 class="{{ isset($text) ? $text : 'text-light text-lg' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</h4>
+				<a href="{{ route('balin.product.show', $value['slug']) }}" title="{{ $value['name'] }}">
+					<img src="{{ (!empty($value['thumbnail']) ? $value['thumbnail'] : '') }}" class="img-responsive" style="{{ isset($style_thumbnail) ? $style_thumbnail : '' }}">
+					<div class="hover"></div>
+				</a>
+				<div class="text-center box-item pl-5 pr-5 mt-xs">
+					<a href="{{ route('balin.product.show', $value['slug']) }}" class="hover-grey-dark {{ isset($text) ? $text : 'text-light text-lg' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</a>
 					<p class="mb-0">@money_indo(($value['promo_price']!=0 ? $value['promo_price'] : $value['price']))</p>
 					@if ($value['promo_price'] != 0)
 						<p class="mtm-sm mb-5">
@@ -13,7 +16,7 @@
 						</p>
 					@endif
 				</div>
-				<a href="{{ route('balin.product.show', (!empty($value['slug']) ? $value['slug'] : $value['id'])) }}" class="btn btn-primary btn-block text-uppercase">Detail</a>
+				<a href="{{ route('balin.product.show', (!empty($value['slug']) ? $value['slug'] : $value['id'])) }}" class="btn btn-black-hover-white-border-black btn-block text-uppercase">Detail</a>
 			</div>
 		</div>
 	@empty
