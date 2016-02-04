@@ -58,7 +58,7 @@
 			</div>
 		</li>
 
-		@if(isset($recommend['data']))
+		@if(isset($recommend['data']['data']))
 		<!-- SECTION RECOMMENDATION PRODUCT -->
 		@foreach($recommend['data']['data'] as $k => $item)
 			<li class="{{ ($item != end($recommend['data']) ? 'border-bottom-1 border-grey-light' : '') }}">

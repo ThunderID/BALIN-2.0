@@ -22,8 +22,6 @@ class AuthController extends BaseController
 	{
 		parent::__construct();
 
-		Session::set('API_token', Session::get('API_token_private'));
-		
 		$this->page_attributes->title 				= 'BALIN.ID';
 	}
 
@@ -153,6 +151,7 @@ class AuthController extends BaseController
 			//check registered user
 			if(!$result['data']['me']['is_active'] && $result['data']['me']['activation_link'] != '')
 			{
+
 				$APIConfig 					= new APIConfig;
 			
 				$config 					= $APIConfig->getIndex([
@@ -173,68 +172,68 @@ class AuthController extends BaseController
 
 			Session::put('API_token_private', $result['data']['token']['access_token']);
 			Session::put('whoami', $result['data']['me']);
+			Session::set('API_token', Session::get('API_token_private'));	
 
-				if (!Session::has('carts'))
+			if (!Session::has('carts'))
+			{
+				$API_me 								= new APIUser;
+				$me_order_in_cart 						= $API_me->getMeOrderInCart([
+																'user_id' 	=> Session::get('whoami')['id'],
+															]);
+				if ($me_order_in_cart['status'] == 'success')
 				{
-					Session::set('API_token', Session::get('API_token_private'));	
-					$API_me 								= new APIUser;
-					$me_order_in_cart 						= $API_me->getMeOrderInCart([
-																	'user_id' 	=> Session::get('whoami')['id'],
-																]);
-					if ($me_order_in_cart['status'] == 'success')
+					$carts 									= $me_order_in_cart;
+					$temp_carts 							= [];
+
+					foreach ($carts['data']['transactiondetails'] as $k => $v)
 					{
-						$carts 									= $me_order_in_cart;
-						$temp_carts 							= [];
+						$temp_carts[$v['varian']['product_id']]		= 	[
+								'product_id'		=> $v['varian']['product_id'],
+								'slug'				=> $v['varian']['product']['slug'],
+								'name'				=> $v['varian']['product']['name'],
+								'discount'			=> $v['discount'],
+								'current_stock'		=> $v['varian']['current_stock'],
+								'thumbnail'			=> $v['varian']['product']['thumbnail'],
+								'price'				=> $v['price'],
+						];
 
-						foreach ($carts['data']['transactiondetails'] as $k => $v)
-						{
-							$temp_carts[$v['varian']['product_id']]		= 	[
-									'product_id'		=> $v['varian']['product_id'],
-									'slug'				=> $v['varian']['product']['slug'],
-									'name'				=> $v['varian']['product']['name'],
-									'discount'			=> $v['discount'],
-									'current_stock'		=> $v['varian']['current_stock'],
-									'thumbnail'			=> $v['varian']['product']['thumbnail'],
-									'price'				=> $v['price'],
-							];
+						$temp_varian[$v['varian']['id']] 	=	[
+								'varian_id'			=> $v['varian_id'],
+								'sku'				=> $v['varian']['sku'],
+								'quantity'			=> $v['quantity'],
+								'size'				=> $v['varian']['size'],
+								'current_stock'		=> $v['varian']['current_stock'],
+								'message'			=> null,
+						];
 
-							$temp_varian[$v['varian']['id']] 	=	[
-									'varian_id'			=> $v['varian_id'],
-									'sku'				=> $v['varian']['sku'],
-									'quantity'			=> $v['quantity'],
-									'size'				=> $v['varian']['size'],
-									'current_stock'		=> $v['varian']['current_stock'],
-									'message'			=> null,
-							];
-
-							$temp_carts[$v['varian']['product_id']]['varians']	= $temp_varian;
-						}
-						
-						Session::set('carts', $temp_carts);
+						$temp_carts[$v['varian']['product_id']]['varians']	= $temp_varian;
 					}
+					
+					Session::set('carts', $temp_carts);
 				}
-				else
+			}
+			else
+			{
+				/* SET API TOKEN USE TOKEN PRIVATE */
+				$temp_carts 			= 	[
+											'id'					=> '',
+											'user_id'				=> Session::get('whoami')['id'],
+											'transact_at'			=> date('Y-m-d H:i:s'),
+											'transactiondetails'	=> [],
+											'transactionlogs'		=> 	[
+																			'id'		=> '',
+																			'status'	=> 'cart',
+																			'change_at'	=> '',
+																			'notes'		=> ''
+																		],
+											'payment'				=> [],
+											'shipment'				=> []
+										];
+
+				$session_cart 			= Session::get('carts');
+
+				foreach($session_cart as $k => $v)
 				{
-					/* SET API TOKEN USE TOKEN PRIVATE */
-					$temp_carts 			= 	[
-												'id'					=> '',
-												'user_id'				=> Session::get('whoami')['id'],
-												'transact_at'			=> date('Y-m-d H:i:s'),
-												'transactiondetails'	=> [],
-												'transactionlogs'		=> 	[
-																				'id'		=> '',
-																				'status'	=> 'cart',
-																				'change_at'	=> '',
-																				'notes'		=> ''
-																			],
-												'payment'				=> [],
-												'shipment'				=> []
-											];
-
-					$session_cart 			= Session::get('carts');
-
-					foreach($session_cart as $k => $v)
-					{
 					foreach($v['varians'] as $k2 => $v2)
 					{
 						$temp_varian[] 		= 	[
@@ -253,24 +252,23 @@ class AuthController extends BaseController
 												];
 						
 					}
-					}
-					$temp_carts['transactiondetails']	= $temp_varian;
-
-
-					$API_order 							= new APIUser;
-					$result 							= $API_order->postMeOrder($temp_carts);
-
-					// result
-					if ($result['status'] != 'success')
-					{
-						$this->error 					= $result['message'];
-
-						return Redirect::route('balin.login.index')
-								->withErrors($this->error)
-								->with('msg-type', 'danger')
-								->with('msg-from', 'login');
-					}
 				}
+				$temp_carts['transactiondetails']	= $temp_varian;
+
+
+				$API_order 							= new APIUser;
+				$result 							= $API_order->postMeOrder($temp_carts);
+
+				// result
+				if ($result['status'] != 'success')
+				{
+					$this->error 					= $result['message'];
+					return Redirect::route('balin.login.index')
+							->withErrors($this->error)
+							->with('msg-type', 'danger')
+							->with('msg-from', 'login');
+				}
+			}
 
 			if(Session::has('redirect_url'))
 			{

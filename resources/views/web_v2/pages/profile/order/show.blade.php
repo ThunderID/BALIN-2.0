@@ -208,7 +208,7 @@
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
-						@if (isset($data['order']['payment']))
+						@if (count($data['order']['payment']))
 							<th colspan="2">Nota Bayar</th>
 						@else
 							<th colspan="2">Lakukan Pembayaran Melalui</th>
@@ -216,7 +216,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if (isset($data['order']['payment']))
+					@if (count($data['order']['payment']))
 						<tr>
 							<td><strong>Tanggal</strong></td>
 							<td>@date_indo( $data['order']['payment']['ondate'] )</td>

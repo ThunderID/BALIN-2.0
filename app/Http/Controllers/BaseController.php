@@ -34,15 +34,13 @@ abstract class BaseController extends Controller
 		// Get success API token
 		if ($result['status'] == "success")
 		{
-			// $this->token_public = $result['data']['token']['access_token'];
 			Session::set('API_token_public', $result['data']['token']['access_token']);
 			Session::set('API_token', $result['data']['token']['access_token']);
 		}
 		else
 		{
-			dd('gagal login API');
+			\App::abort(503);
 		}
-
 
   		//generate balin information
   		$APIConfig 									= new APIConfig;
@@ -64,10 +62,10 @@ abstract class BaseController extends Controller
 			$balin['info'][$value['type']]			= $value;
 		}
 
-		$this->balin 				= $balin;
+		$this->balin 								= $balin;
 
 		//nanti kalu butuh template lebih dari satu, switch case aja disini.
-		$this->layout 				= view('web_v2.page_templates.layout');
+		$this->layout 								= view('web_v2.page_templates.layout');
 	}
 
 	public function generateView()
@@ -78,45 +76,40 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->subtitle)){ $this->page_attributes->subtitle = null; }
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
   		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
-  		if (!Session::has('carts')) 
+
+  		if (!Session::has('carts') || is_null(Session::get('carts'))) 
   		{
   			if (!Session::has('whoami'))
   			{
-	  			$recommend 							= Cache::remember('recommended_batik', 30, function() {
-	  				$API_product 					= new APIProduct;
-	  				$recommend 						= $API_product->getIndex([
-	  														'search' 	=> 	[
-	  																			'name' 	=> Input::get('q'),
-	  																			'recommended' => 0,
-	  																		],
-	  														'sort' 		=> 	[
-	  																			'name'	=> 'asc',
-	  																		],
-	  														'take'		=> 2,
-	  														'skip'		=> '',
-	  													]);
-  					return $recommend;
-	  			});
+  				$APIProduct 					= new APIProduct;
+  				$recommend 						= $APIProduct->getIndex([
+  														'search' 	=> 	[
+  																			'name' 	=> Input::get('q'),
+  																			'recommended' => 0,
+  																		],
+  														'sort' 		=> 	[
+  																			'name'	=> 'asc',
+  																		],
+  														'take'		=> 2,
+  														'skip'		=> '',
+  													]);
   			}
   			else
   			{
   				Session::set('API_token', Session::get('API_token_private'));
 
-  				$recommend 							= Cache::remember('recommended_batik', 30, function() {
-	  				$API_product 					= new APIProduct;
-  					$recommend 						= $API_product->getIndex([
-	  														'search' 	=> 	[
-	  																			'name' 	=> Input::get('q'),
-	  																			'recommended' => Session::get('whoami')['id'],
-	  																		],
-	  														'sort' 		=> 	[
-	  																			'name'	=> 'asc',
-	  																		],
-	  														'take'		=> 2,
-	  														'skip'		=> '',
-	  													]);
-  					return $recommend;
-  				});
+				$APIProduct 					= new APIProduct;
+				$recommend 						= $APIProduct->getIndex([
+														'search' 	=> 	[
+																			'name' 	=> Input::get('q'),
+																			'recommended' => Session::get('whoami')['id'],
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														'take'		=> 2,
+														'skip'		=> '',
+													]);
   			}
   		}
   		else
