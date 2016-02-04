@@ -126,7 +126,7 @@
 			'datas' 			=> $data['related'],
 			'col'				=> 'col-xs-12 col-sm-6 col-md-3 col-lg-3',
 			'text'				=> 'text-md',
-			'style_thumbnail' 	=> 'width:80%'
+			'style_thumbnail' 	=> ''
 		])
 	</div>
 	<!-- END SECTION RELATED PRODUCT -->
