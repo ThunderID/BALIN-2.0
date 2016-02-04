@@ -208,9 +208,19 @@ class CheckoutController extends BaseController
 
 		if(Input::has('address_id'))
 		{
-			$me_order_in_cart['data']['shipment']['receiver_name']				= Session::get('whoami')['name'];
 			$me_order_in_cart['data']['shipment']['address_id']					= Input::get('address_id');
-			unset($me_order_in_cart['data']['shipment']['address']);
+			if (Input::has('flagcheck'))
+			{
+				$me_order_in_cart['data']['shipment']['receiver_name']			= Input::get('receiver_name');
+				$me_order_in_cart['data']['shipment']['address']['address']		= Input::get('address');
+				$me_order_in_cart['data']['shipment']['address']['zipcode']		= Input::get('zipcode');
+				$me_order_in_cart['data']['shipment']['address']['phone']		= Input::get('phone');
+			}
+			else 
+			{
+				$me_order_in_cart['data']['shipment']['receiver_name']			= Session::get('whoami')['name'];
+				unset($me_order_in_cart['data']['shipment']['address']);
+			}
 		}
 		else
 		{
@@ -234,6 +244,19 @@ class CheckoutController extends BaseController
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		return Response::json(['type' => 'success', 'shipping_cost' => $result['data']['shipping_cost']]);
+		// generate from ajax to view for order detail same for index
+		// 3.a. session carts
+		$carts									= Session::get('carts');
+
+		// 3.b. get order from API setelah shipping cost
+		$order 									= $result['data'];
+
+		$data 			= 	[
+								'carts'			=> Session::get('carts'),
+								'order' 		=> $result['data'],
+							];
+
+		return View('web_v2.components.checkout.part_products')->with('data', $data);
+
 	}
 }

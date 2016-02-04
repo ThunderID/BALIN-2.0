@@ -934,7 +934,7 @@ EVENT & FUNCTION OTHER
 		if (val == 0) {
 		}
 		else {
-			get_shipping_cost(val, action);
+			get_shipping_cost(val, action, 0);
 		}
 	});
 
@@ -953,7 +953,7 @@ EVENT & FUNCTION OTHER
 		ch_address_id	= $('.choice_address').val();
 		action 			= $(this).attr('data-action');
 		
-		get_shipping_cost(ch_address_id, action);
+		get_shipping_cost(ch_address_id, action, 1);
 		
 	});
 
@@ -961,7 +961,7 @@ EVENT & FUNCTION OTHER
 	*	function get shipping cost
 	*	@param id, action
 	*/
-	function get_shipping_cost(id, action) {
+	function get_shipping_cost(id, action, flag) {
 		ch_name 		= $('.ch_name').val();
 		ch_phone		= $('.ch_phone').val();
 		ch_address 		= $('.ch_address').val();
@@ -969,7 +969,6 @@ EVENT & FUNCTION OTHER
 		
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 
-		// call ajax but not address_id
 		if (id == 0) {
 			$.ajax({
 				url: action,
@@ -977,30 +976,59 @@ EVENT & FUNCTION OTHER
 				dataType: 'json',
 				data: {name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode},
 				success: function(data) {
-					if (cv==0) {
-						$(".shipping_cost").text(data.shipping_cost);
+					if (typeof(data.type) != "undefined" && data.type !== null) {
+						console.log(data.msg[0]);
 					}
-					$(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
-					count_sub_total();
+					else {
+						$('.section_order').html(data);
+						parsing_address(data.address);
+					}
 				}
 			});
 		}
 		// call ajax but set address_id
 		else {
-			$.ajax({
-				url: action,
-				type: 'post',
-				dataType: 'json',
-				data: {address_id: id},
-				success: function(data) {
-					if (cv==0) {
-						$(".shipping_cost").text(data.shipping_cost);
+			if (flag == 1){
+				console.log('ada flag');
+				$.ajax({
+					url: action,
+					type: 'post',
+					dataType: 'json',
+					data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
+					success: function(data) {
+						if (typeof(data.type) != "undefined" && data.type !== null) {
+							console.log(data.msg[0]);
+						}
+						else {
+							$('.section_order').html(data);
+							parsing_address(data.address);
+						}
 					}
-					$(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
-					count_sub_total();
-					parsing_address(data.address);
-				}
-			});
+				});	
+			}
+			else {
+				console.log('tidak ada flag');
+				$.ajax({
+					url: action,
+					type: 'post',
+					dataType: 'json',
+					data: {address_id: id},
+					success: function(data) {
+						if (typeof(data.type) != "undefined" && data.type !== null) {
+							console.log(data.msg[0]);
+						}
+						else {
+							$('.section_order').html(data);
+							parsing_address(data.address);
+						}
+						// if (cv==0) {
+						// 	$(".shipping_cost").text(data.shipping_cost);
+						// }
+						// $(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
+						// count_sub_total();
+					}
+				});	
+			}
 		}
 	}
 
@@ -1191,3 +1219,17 @@ EVENT & FUNCTION OTHER
 		alias: "date",
 	});
 /* END SECTION INPUT MASK */
+
+/* CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
+	function checkOffset() {
+		var wh=$(document).scrollTop()+window.innerHeight;
+		var dh=$('.divider_footer').offset().top;
+		if (wh<dh) {
+			$('.navbar_shortcut').fadeIn();
+		} else {
+			$('.navbar_shortcut').fadeOut();
+		}
+	}
+	$(document).ready(checkOffset);
+	$(document).scroll(checkOffset);
+/* END CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
