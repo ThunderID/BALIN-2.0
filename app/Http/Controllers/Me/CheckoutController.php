@@ -215,7 +215,7 @@ class CheckoutController extends BaseController
 		else
 		{
 			$me_order_in_cart['data']['shipment']['address']['id']				= 0;
-			$me_order_in_cart['data']['shipment']['address']['receiver_name']	= Input::get('receiver_name');
+			$me_order_in_cart['data']['shipment']['receiver_name']				= Input::get('name');
 			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
 			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
 			$me_order_in_cart['data']['shipment']['address']['phone']			= Input::get('phone');
