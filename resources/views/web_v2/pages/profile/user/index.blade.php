@@ -307,7 +307,7 @@
 		<div class="col-sm-12 mt-5 mb-5">
 			@forelse($data['me_orders']['data']['data'] as $k => $v)
 				<div class="row mt-xs pb-xs {{ ($v != end($data['me_orders']['data']['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
-					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<div class="col-xs-5 col-sm-6 col-md-6 col-lg-6">
 						<span class="label 
 							@if ($v['status']=='wait') label-default 
 							@elseif ($v['status']=='paid') label-info
@@ -317,13 +317,17 @@
 							{{ $status[$v['status']] }} 
 						</span>
 					</div>
-					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait')
-							<p class="text-right mb-0">
-								<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="text-regular">[ Resend Invoice ]</a>
-								<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
-									[ Batalkan Orderan ]
-								</a>
+							<p class="text-right">
+								<span class="text-right mb-0">
+									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="text-regular">[ Resend Invoice ]</a>
+								</span>
+								<span class="text-right mb-0">
+									<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
+										[ Batalkan ]
+									</a>
+								</span>
 							</p>
 						@else
 							&nbsp;

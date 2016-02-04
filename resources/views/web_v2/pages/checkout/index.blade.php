@@ -1,16 +1,13 @@
-<?php 
-// dd($data['order']);
-?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
 	<!-- SECTION FORM CHECKOUT -->
 	{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
-		{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
-		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 		<div class="row">
+			{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
+			{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 			@if ($data['carts'])
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 section_order">
 			@else
 				<div class="col-xs-12 col-sm-12 col-md-12">
 			@endif
@@ -290,39 +287,49 @@
 							<span class="text-regular text-right" id="total">@money_indo($total)</span>
 						</div>
 					</div>
-					<div class="row m-l-none m-r-none">
+					<div class="row">
 						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-							<span class="text-regular">Balin Point Anda</span>
+							<span class="text-regular">Point Anda</span>
 						</div>
 						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-							<span class="text-regular text-right" id="point">@money_indo(900000)</span>
+							<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
 						</div>	
 					</div>
-					<div class="row m-l-none m-r-none">
+					<div class="row">
 						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 							<span class="text-regular">Biaya Pengiriman</span>
 						</div>
 						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-							<span class="text-regular text-right shipping_cost" data-s="0" data-v="0">@money_indo(12000)</span>
+							<span class="text-regular text-right shipping_cost" data-s="0" data-v="0">@money_indo($data['order']['data']['shipping_cost'])</span>
 						</div>	
 					</div>
-					<div class="row m-l-none m-r-none">
+					<div class="row">
+						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
+							<span class="text-regular">Potongan Voucher</span>
+						</div>
+						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+							<span class="text-regular text-right potongan_voucher">@money_indo_negative( $data['order']['data']['voucher_discount'] )</span>
+						</div>	
+					</div>
+					<div class="row">
 						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
 							<span class="text-regular">
 								Pengenal Pembayaran <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
 							</span>
 						</div>
 						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-							<span class="text-regular text-right text-red unique_number" data-unique="{{ '112' }}">@money_indo_negative(112)</span>
+							<span class="text-regular text-right text-red unique_number" data-unique="{{ $data['order']['data']['unique_number'] }}">@money_indo_negative($data['order']['data']['unique_number'])</span>
 						</div>
 					</div>
-					<div class="row m-l-none m-r-none">
+					<div class="row">
 						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 							<h4 class="text-md">Total Pembayaran</h4>
 						</div>
 						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<h4 class="text-md text-right text-bold mb-sm sub_total">
-								<?php $total_pembayaran = -200; ?>
+								?php 
+									$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'];
+								?>
 								@if ($total_pembayaran && $total_pembayaran < 0)
 									@money_indo(0)
 								@else
