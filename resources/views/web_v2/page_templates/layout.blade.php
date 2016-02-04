@@ -68,7 +68,7 @@
 					<p class="text-sm">Produk</p>
 				</div>
 				@if (Session::has('whoami'))
-					<div onclick="location.href='{{ URL::route('balin.profile') }}';" class="col-xs-3 text-center border-right-1 border-grey pt-xs pb-xs">
+					<div onclick="location.href='{{ URL::route('my.balin.profile') }}';" class="col-xs-3 text-center border-right-1 border-grey pt-xs pb-xs">
 						{!! HTML::image('images/profile.png', 'image', ['style' => 'height:35px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
 						<p class="text-sm">Profile</p>
 					</div>
