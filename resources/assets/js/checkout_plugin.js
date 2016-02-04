@@ -12,11 +12,15 @@
 		}
 	});
 
+	/*
+	* 	function get voucher form input
+	*/
 	$('button.voucher_desktop').click( function() {
 		inp = $('input.voucher_desktop');
 		voucher = get_voucher(inp);
 		show_voucher(voucher, inp);
-		count_sub_total();
+		reload_view(voucher, 'desktop');
+		reload_view(voucher, 'mobile');
 	});
 
 	/*
@@ -54,7 +58,8 @@
 						console.log(data.msg[0]);
 					}
 					else {
-						$('.section_order').html(data);
+						reload_view(data, 'desktop');
+						reload_view(data, 'mobile');
 						parsing_address(data.address);
 					}
 				}
@@ -74,7 +79,8 @@
 							console.log(data.msg[0]);
 						}
 						else {
-							$('.section_order').html(data);
+							reload_view(data, 'desktop');
+							reload_view(data, 'mobile');
 							parsing_address(data.address);
 						}
 					}
@@ -92,7 +98,8 @@
 							console.log(data.msg[0]);
 						}
 						else {
-							$('.section_order').html(data);
+							reload_view(data, 'desktop');
+							reload_view(data, 'mobile');
 							parsing_address(data.address);
 						}
 						// if (cv==0) {
@@ -104,6 +111,21 @@
 				});	
 			}
 		}
+	}
+
+	/*
+	*	function relaod view on order detail in checkout
+	* 	parameter page view, and type (desktop or mobile)
+	*/
+	function reload_view(param, type){
+		$.ajax({
+			url: param.action,
+			data: {model : type },
+			success: function(result) {
+				tmp_div = $('#section_checkout_order_'+ type);
+				tmp_div.html(result);
+			}
+		});
 	}
 
 	/*
@@ -124,11 +146,9 @@
 				$('.loading_voucher').removeClass('hide');
 			},
 			success: function(data) {
-				// $('.loading_voucher').addClass('hide');
 				gv = data;
 			}
 		});
-
 		return gv;
 	}
 
@@ -140,7 +160,6 @@
 		if (e.type=='success')
 		{
 			panel_voucher = $('.panel_form_voucher');
-			//panel_voucher_device = $('.panel-form-voucher-device');
 			modal_notif = $('.modal_notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
