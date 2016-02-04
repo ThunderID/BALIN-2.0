@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="format-detection" content="telephone=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="shortcut icon" href="{{ url('images/favicon.ico') }} "/>
 		{!! HTML::style(elixir('css/balin.css')) !!}
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,11 +41,13 @@
 		<div class="wrapper @yield('wrapper_class')" style=" margin-bottom: 0px;
 			{{ (Route::currentRouteName()!='balin.home.index') ? 'margin-top:51px;' : 'margin-top:0px;' }}  ">
 			<section class="{{ (Route::currentRouteName()!='balin.home.index') ? 'container' : '' }}">
-				<!-- SECTION BREADCRUMB -->
-				@if(isset($breadcrumb))
-					@include('web_v2.components.breadcrumb')
+				@if (Route::currentRouteName()!='balin.home.index')
+					<!-- SECTION BREADCRUMB -->
+					@if(isset($breadcrumb))
+						@include('web_v2.components.breadcrumb')
+					@endif
+					<!-- END SECTION BREADCRUMB -->
 				@endif
-				<!-- END SECTION BREADCRUMB -->
 
 				<!-- SECTION CONTENT -->
 				@yield('content')
@@ -53,9 +56,41 @@
 		</div>
 		<!-- END SECTION WRAPPER -->
 
-		<!-- SECTION FOOTER  -->
-		@include('web_v2.components.footer')
-		<!-- END SECTION FOOTER -->
+		<!-- SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
+		<div class="navbar navbar-default navbar-fixed-bottom navbar hidden-lg hidden-md hidden-sm col-xs-12 border-top-1 border-grey" role="navigation">
+			<div class="nav navbar-nav text-center mt-0 mb-0">
+				<div onclick="location.href='{{ URL::route('balin.home.index') }}';" class="col-xs-{{ (Session::has('whoami')) ? "3" : "4" }} text-center border-right-1 border-grey pt-xs pb-xs">
+					{!! HTML::image('images/home.png', 'image' ,['style' => 'height:37px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
+					<p class="text-sm">Home</p>
+				</div>
+				<div onclick="location.href='{{ URL::route('balin.product.index') }}';" class="col-xs-{{ (Session::has('whoami')) ? "3" : "4" }} text-center border-right-1 border-grey pt-xs pb-xs" style="height:75px;">
+					{!! HTML::image('images/product.png', 'image' ,['style' => 'height:37px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
+					<p class="text-sm">Produk</p>
+				</div>
+				@if (Session::has('whoami'))
+					<div onclick="location.href='{{ URL::route('balin.profile') }}';" class="col-xs-3 text-center border-right-1 border-grey pt-xs pb-xs" style="height:75px;">
+						{!! HTML::image('images/profile.png', 'image', ['style' => 'height:37px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
+						<p class="text-sm">Profile</p>
+					</div>
+				@endif
+				@if (Session::has('whoami'))
+					<div onclick="location.href='{{ URL::route('balin.get.logout') }}';" class="col-xs-3 text-center pt-xs pb-xs" style="height:75px;">
+						{!! HTML::image('images/sign-out.png', 'image' ,['style' => 'height:37px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
+				@else
+					<div onclick="location.href='{{ URL::route('balin.get.login') }}';" class="col-xs-4 text-center pt-xs pb-xs" style="height:75px;">
+						{!! HTML::image('images/sign-in.png', 'image' ,['style' => 'height:37px; width:25px; margin: 0 auto;', 'class' => 'pt-5 pb-5']) !!}
+				@endif
+					<p class="text-sm">{{ (Session::has('whoami')) ? "Log Out":"Sign In" }}</p>
+				</div>		
+			</div>
+		</div>
+		<!-- END SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
+
+		@if (Route::currentRouteName()!='balin.home.index')
+			<!-- SECTION FOOTER  -->
+			@include('web_v2.components.footer')
+			<!-- END SECTION FOOTER -->
+		@endif
 			
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') !!}
