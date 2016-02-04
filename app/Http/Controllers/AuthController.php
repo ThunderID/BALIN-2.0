@@ -57,11 +57,7 @@ class AuthController extends BaseController
 
 			if (!$validator->passes())
 			{
-				return Redirect::route('balin.get.login')
-						->withInput()
-						->withErrors($validator->errors())
-						->with('msg-type', 'danger')
-						->with('msg-from', 'signup');
+				$this->errors			= $validator->errors();
 			}
 		}
 
@@ -71,11 +67,9 @@ class AuthController extends BaseController
 		$API_user 						= new APIUser;
 		$result							= $API_user->postDataSignUp($data);
 
-		$errors 	 					= new MessageBag();
-
 		if ($result['status'] != 'success')
 		{
-			$errors->add('Auth', $result['message']);
+			$this->errors 				= $result['message'];
 		}
 		else
 		{
@@ -97,21 +91,9 @@ class AuthController extends BaseController
 			$mail->welcome($result['data'], $balin['info']);
 		}
 
-		if (!$errors->count())
-		{
-			return Redirect::route('balin.get.login')
-					->with('msg', 'Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda')
-					->with('msg-type', 'success')
-					->with('msg-from', 'signup');
-		}
-		else
-		{
-			return Redirect::route('balin.get.login')
-					->withInput(Input::all())
-					->withErrors($errors)
-					->with('msg-type', 'danger')
-					->with('msg-from', 'signup');
-		}
+		$this->page_attributes->success 			= "Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda.";
+
+		return $this->generateRedirectRoute('balin.get.login');
 	}
 
 	/**
