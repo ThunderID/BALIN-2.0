@@ -25,7 +25,7 @@ copy this code below to show notification
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12 text-center content">
+				<div class="col-md-12 text-center text-light content">
 					{{ $data['content'] }}
 				</div>
 			</div>

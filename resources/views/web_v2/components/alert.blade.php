@@ -1,18 +1,25 @@
-@section('js_plugin')
-	@if (Session::has('msg') || $errors->any())
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="alert alert-{{Session::get('msg-type')}} alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					@if (Session::has('msg'))
-						{{ Session::get('msg') }}
-					@else
-						@foreach ($errors->all('<p>:message</p>') as $error)
-							{!! $error !!}
-						@endforeach
-					@endif
+@if (Session::has('msg') || $errors->any())
+	<div id="alert_window" class="modal modal-notif modal-center fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm pt-0">
+			<div class="modal-header">
+				<div class="row">
+					<div class="col-md-12 text-center title">
+						<strong style="letter-spacing: 3px;">{{ $data['title'] }}</strong>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-left text-light content text-grey-light">
+						<p class="border-bottom-1 border-grey-light">Info</p>
+						@if (Session::has('msg'))
+							{{ Session::get('msg') }}
+						@else
+							@foreach ($errors->all('<p>:message</p>') as $error)
+								{!! $error !!}
+							@endforeach
+						@endif
+					</div>
 				</div>
 			</div>
 		</div>
-	@endif
-@stop
+	</div>
+@endif

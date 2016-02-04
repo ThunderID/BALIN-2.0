@@ -56,6 +56,8 @@
 		</div>
 		<!-- END SECTION WRAPPER -->
 
+		@include('web_v2.components.alert')
+		
 		<!-- SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
 		@include('web_v2.components.navbar_shortcut')
 		<!-- END SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
@@ -74,6 +76,9 @@
 		@yield('js_plugin')
 		<script type="text/javascript">
 			@yield('js')
+			@if (Session::has('msg') || $errors->any())
+				$('#alert_window').modal('show');
+			@endif
 		</script>
 	</body>
 </html>

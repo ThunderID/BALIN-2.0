@@ -171,11 +171,11 @@ class CheckoutController extends BaseController
 
 		if ($result['data']['voucher']['type']=='free_shipping_cost')
 		{
-			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat potongan : gratis biaya pengiriman.', 'discount' => $result['data']['voucher_discount']], 200);
+			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat potongan : gratis biaya pengiriman.', 'discount' => $result['data']['voucher_discount'], 'action' => route('my.balin.checkout.get.order', $result['data']['id']) ], 200);
 		}
 		else
 		{
-			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus balin point sebesar '.$result['data']['voucher']['value'].' (Balin Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false], 200);
+			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus balin point sebesar '.$result['data']['voucher']['value'].' (Balin Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false, 'action' => route('my.balin.checkout.get.order', $result['data']['id'])], 200);
 		}
 	}
 
@@ -211,7 +211,7 @@ class CheckoutController extends BaseController
 			$me_order_in_cart['data']['shipment']['address_id']					= Input::get('address_id');
 			if (Input::has('flagcheck'))
 			{
-				$me_order_in_cart['data']['shipment']['receiver_name']			= Input::get('receiver_name');
+				$me_order_in_cart['data']['shipment']['receiver_name']			= Input::get('name');
 				$me_order_in_cart['data']['shipment']['address']['address']		= Input::get('address');
 				$me_order_in_cart['data']['shipment']['address']['zipcode']		= Input::get('zipcode');
 				$me_order_in_cart['data']['shipment']['address']['phone']		= Input::get('phone');
@@ -225,13 +225,13 @@ class CheckoutController extends BaseController
 		else
 		{
 			$me_order_in_cart['data']['shipment']['address']['id']				= 0;
-			$me_order_in_cart['data']['shipment']['address']['receiver_name']	= Input::get('receiver_name');
+			$me_order_in_cart['data']['shipment']['receiver_name']				= Input::get('name');
 			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
 			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
 			$me_order_in_cart['data']['shipment']['address']['phone']			= Input::get('phone');
 		}
 
-		$result 								= $APIUser->postMeOrder($me_order_in_cart['data']);
+		$result 																= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		//3. Return result
 		if ($result['status'] != 'success')
@@ -244,19 +244,34 @@ class CheckoutController extends BaseController
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		// generate from ajax to view for order detail same for index
-		// 3.a. session carts
+		return Response::json(['action' => route('my.balin.checkout.get.order', $result['data']['id']) ], 200);
+	}
+
+	/**
+	 * function to get view desktop for order detail in checkout
+	 * 1. Get cart detail
+	 * 2. return to view
+	 */
+	public function get_view($id = null)
+	{
+		// 1. Get detail Order
+		$APIUser								= new APIUser;
+		$result 								= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
+
+		// 2. generate from ajax to view for order detail same for index
+		// 2.a. session carts
 		$carts									= Session::get('carts');
 
-		// 3.b. get order from API setelah shipping cost
+		// 2.b. get order from API setelah shipping cost
 		$order 									= $result['data'];
 
 		$data 			= 	[
 								'carts'			=> Session::get('carts'),
 								'order' 		=> $result['data'],
 							];
+		// 2.c. get model view to return
+		$model 			= (Input::get('model') != 'mobile') ? 'desktop' : 'mobile';
 
-		return View('web_v2.components.checkout.part_products')->with('data', $data);
-
+		return View('web_v2.components.checkout.part_total_order_'. $model)->with('data', $data);
 	}
 }

@@ -7,7 +7,7 @@
 			{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
 			{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 			@if ($data['carts'])
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 section_order">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 			@else
 				<div class="col-xs-12 col-sm-12 col-md-12">
 			@endif
@@ -74,7 +74,7 @@
 				<!-- END SECTION PRODUCT IN CART -->
 
 				<!-- SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR DESKTOP -->
-				<div class="row border-right-1 border-left-1 border-bottom-1 border-grey-light ml-0 mr-0 hidden-sm hidden-xs ">
+				<div class="row border-right-1 border-left-1 border-bottom-1 border-grey-light ml-0 mr-0 hidden-sm hidden-xs" id='section_checkout_order_desktop'>
 					@if ($data['carts'])
 						<div class="col-lg-12 col-md-12 checkout-bottom panel-subtotal" id="panel-subtotal-normal">
 							<div class="row mt-sm">
@@ -128,7 +128,7 @@
 								<div class="col-lg-5 col-md-5 col-sm-5">
 									<h4 class="text-md text-right text-bold mb-sm sub_total">
 										<?php 
-											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'];
+											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
 										?>
 										@if ($total_pembayaran && $total_pembayaran < 0)
 											@money_indo(0)
@@ -144,10 +144,11 @@
 				<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN  FOR DESKTOP -->
 			</div>
 
+			<!-- SECTION FORM VOUCHER & DETAIL INFORMATION SHIPPING -->
 			@if ($data['carts'])
-				<!-- SECTION FORM DETAIL INFORMATION SHIPPING -->
 				<div class="hidden-md hidden-lg clearfix">&nbsp;</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<!-- SECTION GET VOUCHER -->
 					<div class="row mr-0 ml-0 mb-md pt-lg pb-lg border-1 border-solid border-grey-light bg-white panel_form_voucher">
 						@if (!isset($data['order']['data']['voucher']))
 							<div class="col-md-12 mb-sm">
@@ -181,6 +182,7 @@
 							</div>
 						@endif
 					</div>
+					<!-- END SECTION GET VOUCHER -->
 					<div class="row mr-0 ml-0 pt-sm border-left-1 border-right-1 border-bottom-1 border-grey-light bg-white">
 						<div class="col-xs-12 col-sm-12 col-md-12" >
 							<div class="row mt-sm mb-sm">
@@ -271,13 +273,13 @@
 					</div>
 				</div>
 				<div class="clearfix hidden-xs">&nbsp;</div>
-				<!-- END SECTION FORM DETAIL INFORMATION SHIPPING -->
 			@endif
+			<!-- END SECTION FORM VOUCHER & DETAIL INFORMATION SHIPPING -->
 		</div>
 
 		<!-- SECTION INFO TOTAL PRODUCT & TOAL PEMBAYARAN FOR MOBILE & TABLET -->
 		@if ($data['carts'])
-			<div class="row border-1 border-solid border-grey-light ml-0 mr-0 mt-sm hidden-md hidden-lg">
+			<div class="row border-1 border-solid border-grey-light ml-0 mr-0 mt-sm hidden-md hidden-lg" id="section_checkout_order_mobile">
 				<div class="col-lg-12 col-md-12 checkout-bottom panel-subtotal" id="panel-subtotal-normal">
 					<div class="row mt-sm">
 						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
@@ -327,8 +329,8 @@
 						</div>
 						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<h4 class="text-md text-right text-bold mb-sm sub_total">
-								?php 
-									$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'];
+								<?php 
+									$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
 								?>
 								@if ($total_pembayaran && $total_pembayaran < 0)
 									@money_indo(0)
@@ -369,7 +371,7 @@
 
 
 	<!-- Term and Condition -->
-	<div id="tnc" class="modal modal-left modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div id="tnc" class="modal modal-left fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -393,7 +395,7 @@
 	</div>	
 
 <!-- Modal Balance -->
-<div id="modal-balance" class="modal modal-unique-number modal-fullscreen fade user-page" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id="modal-balance" class="modal modal-unique-number fade user-page" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">

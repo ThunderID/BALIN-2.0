@@ -20,6 +20,8 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::post('checkout',											['uses' => 'CheckoutController@post', 		'as' => 'my.balin.checkout.post']);
 	Route::any('checkout/voucher',									['uses' => 'CheckoutController@voucher', 	'as' => 'my.balin.checkout.voucher']);
 	Route::any('checkout/shipping/cost',							['uses' => 'CheckoutController@shipping', 	'as' => 'my.balin.checkout.shippingcost']);
+	/* Get order in view total cart */
+	Route::any('checkout/order/{id}',								['uses' => 'CheckoutController@get_view',	'as' => 'my.balin.checkout.get.order']);
 
 	/* Order info */
 	Route::get('order/{id}',										['uses' => 'OrderController@show', 				'as' => 'my.balin.order.show']);
