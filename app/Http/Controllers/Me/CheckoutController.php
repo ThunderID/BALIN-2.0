@@ -226,9 +226,14 @@ class CheckoutController extends BaseController
 		//3. Return result
 		if ($result['status'] != 'success')
 		{
+			unset($me_order_in_cart['data']['shipment']['address']);
+			$me_order_in_cart['data']['shipment']['address_id']					= "";
+
+			$result2															= $APIUser->postMeOrder($me_order_in_cart['data']);
+
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		return Response::json(['type' => 'success', 'shipping_cost' => $result['shipping_cost'] ]);
+		return Response::json(['type' => 'success', 'shipping_cost' => $result['data']['shipping_cost']]);
 	}
 }
