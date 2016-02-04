@@ -1191,3 +1191,17 @@ EVENT & FUNCTION OTHER
 		alias: "date",
 	});
 /* END SECTION INPUT MASK */
+
+/* CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
+	function checkOffset() {
+		var wh=$(document).scrollTop()+window.innerHeight;
+		var dh=$('.divider_footer').offset().top;
+		if (wh<dh) {
+			$('.navbar_shortcut').fadeIn();
+		} else {
+			$('.navbar_shortcut').fadeOut();
+		}
+	}
+	$(document).ready(checkOffset);
+	$(document).scroll(checkOffset);
+/* END CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
