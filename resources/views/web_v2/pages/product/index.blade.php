@@ -127,7 +127,7 @@
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title text-md" id="exampleModalLabel">Pilih Kategori</h4>
+					<h4 class="modal-title text-md text-uppercase" id="exampleModalLabel">Kategori</h4>
 				</div>
 				<div class="modal-body ribbon-menu ribbon-menu-mobile category-device">
 					<ul class="list-unstyled">
@@ -151,10 +151,26 @@
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title text-md" id="exampleModalLabel">Filter</h4>
+					<h4 class="modal-title text-md text-uppercase" id="exampleModalLabel">Filter</h4>
 				</div>
 				<div class="modal-body ribbon-menu p-t-0 filter-device">
-					
+					<ul class="list-unstyled">
+						@foreach ($data['tag'][0] as $k => $v)
+							@if ($v['category_id'] == 0)
+								<li class="col-sm-12 col-md-12 pt-xs pb-0 border-bottom-1 border-grey-dark">
+									<span class="text-grey-dark">{{ $v['name'] }}</span>
+								</li>
+							@endif
+
+							@foreach ($data['tag'][0] as $k2 => $v2)
+								@if ($v['category_id'] == $v2['id'])
+									<li class="pt-xs pb-xs @if(Input::get('tag')==$v['slug']) active @endif">
+										<a href="{{ route('balin.product.index', array_merge(Input::all(), ['tag' => $v['slug']])) }}">{{ $v['name'] }}</a>
+									</li>
+								@endif
+							@endforeach
+						@endforeach
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -167,7 +183,7 @@
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title text-md" id="exampleModalLabel">Urutkan</h4>
+					<h4 class="modal-title text-md text-uppercase" id="exampleModalLabel">Urutkan</h4>
 				</div>
 				<div class="modal-body ribbon-menu sort-device">
 					<!-- SECTION LIST SORT BY MOBILE & TABLET -->
@@ -197,7 +213,7 @@
 			<div class="modal-content">
 				<div class="modal-header modal-filter-title">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title text-md" id="exampleModalLabel">Cari</h4>
+					<h4 class="modal-title text-md text-uppercase" id="exampleModalLabel">Cari</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
