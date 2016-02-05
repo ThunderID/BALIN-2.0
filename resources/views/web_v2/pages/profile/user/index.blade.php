@@ -4,6 +4,18 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
+	<!-- SECTION INFO NO ACTIVE -->
+		@if ($data['me']['data']['is_active']==0)
+			<div class="row">
+			    <div class="col-lg-12">
+			        <div class="alert alert-danger alert-dismissable text-red">
+			            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		                Anda belum konfirmasi email, jika belum dapat email konfirmasi silahkan klik <a href="#" class="text-black hover-white">Resend Email</a>.
+			        </div>
+			    </div>
+			</div>
+		@endif
+	<!-- END SECTION INFO NO ACTIVE -->
 	<!-- SECTION HEADER USER LOGIN -->
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
