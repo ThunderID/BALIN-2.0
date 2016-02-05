@@ -6,7 +6,7 @@ use App\Http\Controllers\BaseController;
 
 use Illuminate\Support\MessageBag;
 
-use Input, Redirect, Carbon, Validator, Session;
+use Input, Redirect, Carbon, Validator, Session, BalinMail;
 
 /**
  * Used for User Controller
@@ -235,5 +235,34 @@ class UserController extends BaseController
 		$data 								= $me_orders['data'];
 		$page 								= view('web_v2.pages.profile.order.index')->with('data', $data);
 		return $page;
+	}
+
+	/**
+	 * function to resend activation mail
+	 * 
+	 * @return redirect
+	 */
+	public function activation()
+	{
+		//1. Get Me
+		$APIUser 							= new APIUser;
+
+		$whoami 							= $APIUser->getMeDetail(['user_id' 	=> Session::get('whoami')['id']]);
+		
+		//2. Whoami
+		if(!$whoami['data']['me']['is_active'] && $whoami['data']['me']['activation_link'] != '')
+		{
+			$mail 							= new BalinMail;
+			
+			$mail->welcome($whoami['data']['me'], $this->balin['info']);
+		}
+		else
+		{
+			$this->errors 					= 'Akun anda sudah di aktivasi.';
+		}
+
+		$this->page_attributes->success 	= "Email aktivasi sudah dikirim.";
+
+		return $this->generateRedirectRoute('my.balin.profile');	
 	}
 }
