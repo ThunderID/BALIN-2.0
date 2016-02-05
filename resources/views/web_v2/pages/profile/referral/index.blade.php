@@ -29,7 +29,7 @@
 					</div>
 				</div>
 			@empty
-				<div class="row border-bottom-1 border-left-1 border-right-1 border-grey-dark">
+				<div class="row ">
 					<div class="col-md-12 col-lg-12 text-center">
 						<p class="mt-5 mb-5">tidak ada referral</p>
 					</div>

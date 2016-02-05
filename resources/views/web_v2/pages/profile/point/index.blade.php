@@ -67,7 +67,7 @@
 				</div>
 				<?php $prev_amount 	+= $v['amount']; ?>
 			@empty
-				<div class="row pr-lg pl-lg border-bottom-1 border-left-1 border-right-1 border-grey-dark">
+				<div class="row ml-0 mr-0 pl-sm pr-sm">
 					<div class="col-md-12 col-lg-12">
 						<p class="mt-5 mb-5 text-center"> Belum memiliki history point </p>
 					</div>

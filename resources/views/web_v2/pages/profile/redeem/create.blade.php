@@ -1,6 +1,6 @@
 <!-- SECTION REFERENCE -->
-<div class="row">
-	<div class="col-sm-12">
+<div class="row ml-0 mr-0">
+	<div class="col-sm-12 pl-xl pr-xl">
 		{!! Form::open(['url' => route('my.balin.redeem.store'), 'method' => 'POST']) !!}
 			{!! Form::hidden('to', Route::currentRouteName()) !!}
 			<div class="row">

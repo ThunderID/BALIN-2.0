@@ -95,62 +95,67 @@
 
 	<!-- SECTION MODAL FULLSCREEN -->
 	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
+		<div class="modal-dialog">
+			<div class="modal-content">
 				<div class="modal-header">
-					<div class="row ml-lg mr-lg">
+					<div class="row ml-sm mr-sm">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-				       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 						</div>
-			       	</div>
-		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
-					<div class="row ml-md mr-md">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
 					</div>
-		      	</div>
-	   		</div>
-	  	</div>
+				</div>
+				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- END SECTION MODAL FULLSCREEN -->
 
 	<!-- SECTION MODAL BALIN POINT -->
 	<div id="" class="modal modal-balin-point modal-fullscreen fade modal-balance" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
+		<div class="modal-dialog">
+			<div class="modal-content">
 				<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Balin Point</h5>
-		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
+					<div class="row ml-sm mr-sm">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+							<h5 class="modal-title" id="exampleModalLabel">Balin Point</h5>
+						</div>
+				   </div>
+				</div>
+				<div class="modal-body mt-75 mobile-m-t-10 ml-xl mr-xl" style="text-align:left">
 					<p>Balin Point ini adalah voucher discount yang dapat anda gunakan untuk pembelian produk di Balin</p>
 					<p>Untuk menambah jumlah Balin Point ini, ajak teman dan kerabat anda untuk melakukan registrasi di situs Balin.id dan berikan kode referal anda kepada mereka. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000.</p>
 					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
 					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
 					<p>Balin Point tidak dapat diuangkan.</p>
-		      	</div>
-	   		</div>
-	  	</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- END SECTION MODAL BALIN POINT -->
 
 	<!-- SECTION MODAL REFERRAL CODE -->
 	<div id="" class="modal modal-referral-code modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
+		<div class="modal-dialog">
+			<div class="modal-content">
 				<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-		       		<h5 class="modal-title" id="exampleModalLabel">Referal Code</h5>
-		      	</div>
-		      	<div class="modal-body mt-75 mobile-m-t-10" style="text-align:left">
+					<div class="row ml-sm mr-sm">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<h5 class="modal-title" id="exampleModalLabel">Referal Code</h5>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body mt-75 mobile-m-t-10 ml-xl mr-xl" style="text-align:left">
 					<p>Kode referal adalah kode akun anda di Balin.id. Anda dapat mengajak teman atau kerabat anda untuk mendaftar ke situs Balin.id dan berikan kode referal anda. Dengan menggunakan kode referal anda, teman anda akan mendapatkan Balin Point sebesar Rp. 50.000 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000</p>
 					<p>Kode referal anda, pada mulanya hanya dapat anda berikan kepada 10 orang teman anda. Apabila teman yang menggunakan kode referal anda melakukan pembelian, anda akan mendapatkan tambahan kuota tersebut menjadi 11 dan anda akan mendapatkan Balin Point sebesar Rp. 10.000, dan demikian seterusnya tanpa ada batasnya.</p>
 					<p>Semakin banyak teman yang menggunakan referal anda dan semakin sering teman yang anda referensikan melakukan pembelian, semakin besar voucher yang anda dapatkan.</p>
 					<p>Balin Point tidak dapat diuangkan.</p>
-		      	</div>
-	   		</div>
-	  	</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- END SECTION MODAL REFERRAL CODE -->
 @stop
@@ -162,7 +167,7 @@
 		view_mode 	= $(e.relatedTarget).attr('data-view');
 		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
 
-		$(this).find('.modal-body').children().children().html('loading...');
+		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
 		$(this).find('.modal-title').html(title);
 		$(this).find('.modal-dialog').addClass(view_mode);
 		$(this).find('.modal-body').load(action, function() {
@@ -181,9 +186,9 @@
 	});
 
 	$(".modal-fullscreen").on('show.bs.modal', function () {
-	  	setTimeout( function() {
-	    	$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
-	  	}, 0);
+		setTimeout( function() {
+			$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+		}, 0);
 	});
 	$(".modal-fullscreen").on('hidden.bs.modal', function () {
 		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
