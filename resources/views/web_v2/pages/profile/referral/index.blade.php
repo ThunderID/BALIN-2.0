@@ -1,10 +1,10 @@
 <!-- SECTION REFERRAL DESKTOP -->
-	<div class="row hidden-xs">
+	<div class="row ml-0 mr-0 pl-lg pr-lg hidden-xs">
 		<div class="col-md-12 col-lg-12 pl-0 pr-0">
 			<h4 class="mt-0 mb-sm text-light">Sisa Kuota Referal Anda : <strong>{{ $data['quota_referral'] }}</strong></h4>
 		</div>
 		<div class="col-md-12 col-sm-12">
-			<div class="row mt-5 border-1 border-solid border-grey-dark">
+			<div class="row mt-5 border-bottom-1 border-grey-dark text-grey-dark">
 				<div class="col-sm-1">
 					<h5>No</h5>
 				</div>
@@ -17,7 +17,7 @@
 			</div>
 			<!-- SECTION DATA REFERRAL DESKTOP -->
 			@forelse($data['myreferrals'] as $k => $v)
-				<div class="row mt-xs mb-xs {{ ($data['myreferrals'][$k] != $v) ?  'border-bottom-1 border-left-1 border-right-1 border-grey-dark ' : '' }} ">
+				<div class="row mt-xs mb-xs {{ ($data['myreferrals'][$k] != $v) ?  'border-bottom-1 border-grey-dark ' : '' }} ">
 					<div class="col-md-1 col-lg-1">
 						{{ $k+1 }}
 					</div>

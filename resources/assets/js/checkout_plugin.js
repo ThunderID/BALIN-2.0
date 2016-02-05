@@ -44,6 +44,7 @@
 		ch_phone		= $('.ch_phone').val();
 		ch_address 		= $('.ch_address').val();
 		ch_zipcode		= $('.ch_zipcode').val();
+		modal_alert		= $('#alert_window');
 		
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 
@@ -55,7 +56,9 @@
 				data: {name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode},
 				success: function(data) {
 					if (typeof(data.type) != "undefined" && data.type !== null) {
-						console.log(data.msg[0]);
+						modal_alert.find('.content').html(data.msg);
+
+						$('#alert_window').modal('show');
 					}
 					else {
 						reload_view(data, 'desktop');
@@ -68,7 +71,6 @@
 		// call ajax but set address_id
 		else {
 			if (flag == 1){
-				console.log('ada flag');
 				$.ajax({
 					url: action,
 					type: 'post',
@@ -76,7 +78,9 @@
 					data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
-							console.log(data.msg[0]);
+							modal_alert.find('.content').html(data.msg);
+
+							$('#alert_window').modal('show');
 						}
 						else {
 							reload_view(data, 'desktop');
@@ -87,7 +91,6 @@
 				});	
 			}
 			else {
-				console.log('tidak ada flag');
 				$.ajax({
 					url: action,
 					type: 'post',
@@ -95,7 +98,9 @@
 					data: {address_id: id},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
-							console.log(data.msg[0]);
+							modal_alert.find('.content').html(data.msg);
+
+							$('#alert_window').modal('show');
 						}
 						else {
 							reload_view(data, 'desktop');
@@ -186,8 +191,7 @@
 				$('.loading_voucher').addClass('hide');
 			}, 1000);
 			
-			modal_notif = $('.modal-notif');
-			modal_notif.find('.title').children().html('');
+			modal_notif = $('#alert_window');
 			modal_notif.find('.content').html(e.msg);
 
 			p.addClass('error');

@@ -409,11 +409,14 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-black text-white">
-					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-					<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+					<div class="row ml-xl mr-xl">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pr-md pl-md">
+							<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+						</div>
+					</div>
 				</div>
 				<div class="modal-body m-md pt-5 mt-sm">
-					
 				</div>
 			</div>
 		</div>
@@ -421,12 +424,12 @@
 	<!-- END SECTION MODAL USER INFORMATION -->
 
 	<!-- SECTION MODAL USER INFORMATION MOBILE -->
-	<div class="modal modal-user-information-mobile fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+	{{-- <div class="modal modal-user-information-mobile fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-black text-white">
 					<div class="container">
-						<div class="row">
+						<div class="row ml-md mr-md">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 								<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 								<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
@@ -435,11 +438,13 @@
 					</div>
 				</div>
 				<div class="modal-body m-md pt-5 mt-sm">
-					
+					<div class="row ml-md mr-md">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<!-- END SECTION MODAL USER INFORMATION MOBILE -->
 
 	<!-- SECTION MODAL INFORMATION & FUNCTION BALIN POINT -->
@@ -491,7 +496,7 @@
 		view_mode 	= $(e.relatedTarget).attr('data-view');
 		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
 
-		$(this).find('.modal-body').html('loading...');
+		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
 		$(this).find('.modal-title').html(title);
 		$(this).find('.modal-dialog').addClass(view_mode);
 		$(this).find('.modal-body').load(action, function() {

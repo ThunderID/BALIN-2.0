@@ -245,7 +245,14 @@ class CheckoutController extends BaseController
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		return Response::json(['action' => route('my.balin.checkout.get.order', $result['data']['id']) ], 200);
+		// parsing array to json to parsing in form address
+		$address = [	'address'			=> $result['data']['shipment']['address']['address'],
+						'receiver_name'		=> $result['data']['shipment']['receiver_name'],
+						'phone'				=> $result['data']['shipment']['address']['phone'],
+						'zipcode'			=> $result['data']['shipment']['address']['zipcode'],
+					];
+					
+		return Response::json(['action' => route('my.balin.checkout.get.order', $result['data']['id']), 'address' => $address], 200);
 	}
 
 	/**

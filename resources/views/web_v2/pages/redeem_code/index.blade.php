@@ -98,7 +98,7 @@
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">
-					<div class="row ml-md mr-md">
+					<div class="row ml-lg mr-lg">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
 				       		<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>

@@ -4,7 +4,7 @@
 	}
 ?>	
 <!-- SECTION FORM EDIT PROFILE -->
-<div class="row">
+<div class="row ml-0 mr-0 pl-5 pr-5">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-xl">
 		{!! Form::open(['url' => route('my.balin.profile.update', $data['id']), 'method' => 'POST', 'class' => 'form']) !!}
 			<div class="row">
