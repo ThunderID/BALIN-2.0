@@ -12,7 +12,7 @@
 			@empty
 			@endforelse
 		</div>
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
 			<img src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" class="img-responsive border-1 border-solid border-grey-light mb-md text-center">
 		</div>
 		<!-- END SECTION IMAGE SLIDER PRODUCT -->

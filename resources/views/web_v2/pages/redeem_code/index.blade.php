@@ -94,7 +94,7 @@
 	<div class="clearfix">&nbsp;</div>
 
 	<!-- SECTION MODAL FULLSCREEN -->
-	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+	<div id="modal-balance" class="modal modal-user-information modal-fullscreen modal-center fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 				<div class="modal-header">

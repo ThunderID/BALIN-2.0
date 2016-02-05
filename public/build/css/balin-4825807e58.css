@@ -2904,14 +2904,15 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 4px 10px;
+  padding: 6px 10px;
   font-size: 18px;
   line-height: 20px;
   height: 50px; }
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
   .navbar-brand > img {
-    display: block; }
+    display: block;
+    width: 130px; }
   @media (min-width: 992px) {
     .navbar > .container .navbar-brand,
     .navbar > .container-fluid .navbar-brand {
@@ -4209,8 +4210,8 @@ button.close {
 
 .modal-dialog {
   position: relative;
-  width: 90%;
-  margin: 0 auto; }
+  width: auto;
+  margin: 10px; }
 
 .modal-center {
   text-align: center !important;
@@ -4308,10 +4309,32 @@ button.close {
   border-bottom: none;
   color: white; }
 
-@media screen and (min-width: 768px) {
-  .modal-fullscreen > .modal-dialog {
-    width: 100%;
-    margin: 0 auto; } }
+.modal-fullscreen .modal-content {
+  background: transparent;
+  border: 0;
+  box-shadow: none; }
+
+.modal-backdrop.modal-backdrop-fullscreen {
+  background: #ffffff; }
+
+.modal-backdrop.modal-backdrop-fullscreen.in {
+  opacity: .97;
+  filter: alpha(opacity=97); }
+
+.modal-fullscreen .modal-dialog {
+  margin: 0; }
+  @media screen and (min-width: 768px) {
+    .modal-fullscreen .modal-dialog {
+      width: 768px; } }
+  @media (min-width: 768px) {
+    .modal-fullscreen .modal-dialog {
+      width: 750px; } }
+  @media (min-width: 992px) {
+    .modal-fullscreen .modal-dialog {
+      width: 970px; } }
+  @media (min-width: 1200px) {
+    .modal-fullscreen .modal-dialog {
+      width: 100%; } }
 
 @media (min-width: 768px) {
   .modal-dialog {
