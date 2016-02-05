@@ -131,26 +131,6 @@ class AuthController extends BaseController
 		if ($result['status'] == "success")
 		{
 			//check registered user
-			if(!$result['data']['me']['is_active'] && $result['data']['me']['activation_link'] != '')
-			{
-
-				$APIConfig 					= new APIConfig;
-			
-				$config 					= $APIConfig->getIndex([
-												'search' 	=> 	[
-																	'default'	=> 'true',
-																],
-												'sort' 		=> 	[
-																	'name'	=> 'asc',
-																],
-												]);
-
-				$balin 						= $config['data'];
-
-				$mail 						= new BalinMail;
-				
-				$mail->welcome($result['data']['me'], $balin['info']);
-			}
 
 			Session::put('API_token_private', $result['data']['token']['access_token']);
 			Session::put('whoami', $result['data']['me']);
