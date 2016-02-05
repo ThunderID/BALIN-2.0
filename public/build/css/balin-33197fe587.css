@@ -4291,6 +4291,22 @@ button.close {
   border-bottom: none;
   color: white; }
 
+.dialog-mobile {
+  width: 90% !important;
+  border-radius: none !important; }
+
+.modal-filter-title {
+  background-color: black;
+  color: white; }
+
+.modal-filter-title button {
+  color: #ddd !important;
+  opacity: 1 !important; }
+
+.modal-filter-title button:hover {
+  color: white !important;
+  opacity: 1 !important; }
+
 .modal-center.modal {
   text-align: center !important;
   padding: 0 !important; }

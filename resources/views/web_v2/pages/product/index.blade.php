@@ -46,14 +46,14 @@
 							@foreach ($data['tag'][0] as $k => $v)
 								@if ($v['category_id'] == 0)
 									<div class="col-sm-12 col-md-12 mt-sm ml-sm">
-										<span class="text-grey">{{ $v['name'] }}</span>
+										<span class="text-grey-dark">{{ $v['name'] }}</span>
 									</div>
 								@endif
 
 								@foreach ($data['tag'][0] as $k2 => $v2)
 									@if ($v['category_id'] == $v2['id'])
 										<div class="col-md-3 col-sm-4 pl-0">
-											<li class="mr-lg p-sm ml-5 @if(Input::get('tag')==$v['slug']) active @endif">
+											<li class="mr-lg p-sm ml-sm @if(Input::get('tag')==$v['slug']) active @endif">
 												<a href="{{ route('balin.product.index', array_merge(Input::all(), ['tag' => $v['slug']])) }}">{{ $v['name'] }}</a>
 											</li>
 										</div>
