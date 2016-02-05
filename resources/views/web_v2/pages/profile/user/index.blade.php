@@ -10,7 +10,7 @@
 			    <div class="col-lg-12">
 			        <div class="alert alert-danger alert-dismissable text-red">
 			            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		                Anda belum konfirmasi email, jika belum dapat email konfirmasi silahkan klik <a href="{{ route('my.balin.profile.activate') }}" class="text-black hover-white">Resend Email</a>.
+		                Anda belum konfirmasi email, jika belum Anda belum menerima email konfirmasi silahkan <a href="{{ route('my.balin.profile.activate') }}" class="text-black hover-white">Kirim Ulang Email Aktivasi</a>.
 			        </div>
 			    </div>
 			</div>

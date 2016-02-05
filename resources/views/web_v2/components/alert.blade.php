@@ -3,11 +3,6 @@
 		<div class="modal-dialog modal-sm pt-0">
 			<div class="modal-header">
 				<div class="row">
-					<div class="col-md-12 text-center title">
-						<strong style="letter-spacing: 3px;">{{ $data['title'] }}</strong>
-					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-12 text-left text-light content text-grey-light">
 						<p class="border-bottom-1 border-grey-light">Info</p>
 						@if (Session::has('msg'))

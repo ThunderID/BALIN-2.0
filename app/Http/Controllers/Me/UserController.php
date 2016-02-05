@@ -248,13 +248,13 @@ class UserController extends BaseController
 		$APIUser 							= new APIUser;
 
 		$whoami 							= $APIUser->getMeDetail(['user_id' 	=> Session::get('whoami')['id']]);
-		
+
 		//2. Whoami
-		if(!$whoami['data']['me']['is_active'] && $whoami['data']['me']['activation_link'] != '')
+		if(!$whoami['data']['is_active'] && $whoami['data']['activation_link'] != '')
 		{
 			$mail 							= new BalinMail;
 			
-			$mail->welcome($whoami['data']['me'], $this->balin['info']);
+			$mail->welcome($whoami['data'], $this->balin['info']);
 		}
 		else
 		{
