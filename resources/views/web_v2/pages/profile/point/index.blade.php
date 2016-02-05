@@ -3,14 +3,14 @@
 ?>
 <!-- SECTION POINT DESKTOP -->
 <div class="hidden-xs hidden-sm">
-		<div class="row mb-sm">
+		<div class="row m-md">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h4 class="text-light">Point Anda Sekarang <span class="text-bold"> @money_indo($data['me']['total_point'])</span></h4>
 			</div>
 		</div>
-		<div class="row mr-0 ml-0 border-bottom-1 border-grey-dark">
-			<div class="col-md-12 col-sm-12">
-				<div class="row m-t-n text-grey-dark">
+		<div class="row mr-0 ml-0 border-bottom-1 border-grey-dark pl-md pr-md">
+			<div class="col-md-12 col-sm-12 border-bottom-1 border-grey-dark">
+				<div class="rowtext-grey-dark">
 					<div class="col-sm-3">
 						<h5>Tanggal</h5>
 					</div>
@@ -26,8 +26,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mr-0 ml-0">
-			<div class="col-md-12 col-lg-12 ">
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
 				<?php $prev_amount = 0; ?>
 				@forelse ($data['point']['data'] as $k => $v)
 					<?php
@@ -67,7 +67,7 @@
 					</div>
 					<?php $prev_amount 	+= $v['amount']; ?>
 				@empty
-					<div class="row border-bottom-1 border-left-1 border-right-1 border-grey-dark">
+					<div class="row pr-lg pl-lg border-bottom-1 border-left-1 border-right-1 border-grey-dark">
 						<div class="col-md-12 col-lg-12">
 							<p class="mt-5 mb-5 text-center"> Belum memiliki history point </p>
 						</div>
