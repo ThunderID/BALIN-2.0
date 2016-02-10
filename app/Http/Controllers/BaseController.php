@@ -25,8 +25,8 @@ abstract class BaseController extends Controller
 		$api_url 					= '/oauth/client/access_token';
 		$api_data 					= 	[
 											'grant_type'	=> 'client_credentials',
-											'client_id'		=> 'f3d259ddd3ed8ff3843839b',
-											'client_secret'	=> '4c7f6f8fa93d59c45502c0ae8c4a95b',
+											'client_id'		=> env('CLIENT_ID'),
+											'client_secret'	=> env('CLIENT_SECRET'),
 										];
 		$api 						= new API;
 		$result 					= json_decode($api->post($api_url, $api_data),true);
@@ -155,7 +155,7 @@ abstract class BaseController extends Controller
 			return Redirect::back()
 					->withInput(Input::all())
 					->withErrors($this->errors)
-					->with('msg-type', 'danger');
+					->with('type', isset($parameter['type']) ? $parameter['type'] : null );
 
 		}
 	}

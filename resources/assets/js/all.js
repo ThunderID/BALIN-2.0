@@ -60,3 +60,46 @@
 	$(document).ready(checkOffset);
 	$(document).scroll(checkOffset);
 /* END CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
+
+/* SECTION OWL CAROUSEL SLIDER PRODCT */
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    responsiveClass:true,
+    navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>' ],
+    responsive:{
+        0:{
+            items:2,
+            nav:true
+        },
+        600:{
+            items:3,
+            nav:false
+        },
+        1000:{
+            items:4,
+            nav:true,
+            loop:false
+        }
+    }
+});
+/* END SECTION OWL CAROUSEL SLIDER PRODCT */
+
+/* SECTION EASYZOOM SLIDER PRODUCT */
+// Instantiate EasyZoom instances
+var $easyzoom = $('.easyzoom').easyZoom({loadingNotice:""});
+// Get an instance API
+var api1 = $easyzoom.filter('.easyzoom--with-thumbnails').data('easyZoom');
+
+$('.item-carousel').on('click', 'a', function(e) {
+	var $this = $(this);
+	
+	e.preventDefault();
+
+	$('.canvas-image').addClass('myCanvas');
+	api1.swap($this.data('standard'), $this.attr('href'));
+	setTimeout(function() {
+		$('.canvas-image').removeClass('myCanvas');
+	}, 800);
+});
+/* END SECTION EASYZOOM SLIDER PRODUCT */

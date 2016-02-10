@@ -1,20 +1,39 @@
 <?php 
 	// dd($data['product']['data']); 
+	// $data['product']['data']['data'][0]['images'] = [	'0' => ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
+	// 													'1'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
+	// 													'2'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
+	// 													'3'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
+	// 													'4'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg']
+	// 												];
 ?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
 	<div class="row">
 		<!-- SECTION IMAGE SLIDER PRODUCT -->
-		<div class="hidden-xs col-sm-2 col-md-1 col-lg-1 text-center pr-0">
-			@forelse($data['product']['data']['data'][0]['images'] as $img)
-				<img src="{{ $img['thumbnail'] }}" class="img-responsive border-1 border-solid border-grey-light mb-xs" style="width: 65%">
-			@empty
-			@endforelse
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center hidden-md">
+			<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails m-t-md" style="width:100%;">
+				<a class="img-large" href="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" >
+					<img class="img img-responsive border-1 border-solid border-grey-light mb-md text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
+				</a>
+			</div>
+			{{-- <img src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" class="img-responsive border-1 border-solid border-grey-light mb-md text-center"> --}}
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="owl-carousel gallery-product">
+						@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
+							<div class="item-carousel">
+								<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
+									<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
+								</a>
+							</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
-			<img src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" class="img-responsive border-1 border-solid border-grey-light mb-md text-center">
-		</div>
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">&nbsp;</div>
 		<!-- END SECTION IMAGE SLIDER PRODUCT -->
 
 		<!-- SECTION INFO DETAIL PRODUCT -->
@@ -125,7 +144,7 @@
 		@include('web_v2.components.product.card_product',[
 			'datas' 			=> $data['related'],
 			'col'				=> 'col-xs-12 col-sm-6 col-md-3 col-lg-3',
-			'text'				=> 'text-md',
+			'text'				=> 'text-lg text-light',
 			'style_thumbnail' 	=> ''
 		])
 	</div>

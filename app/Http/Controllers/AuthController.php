@@ -93,7 +93,7 @@ class AuthController extends BaseController
 
 		$this->page_attributes->success 			= "Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda.";
 
-		return $this->generateRedirectRoute('balin.get.login');
+		return $this->generateRedirectRoute('balin.get.login', ['type' => 'signup']);
 	}
 
 	/**
@@ -121,8 +121,8 @@ class AuthController extends BaseController
 													'password' 		=> 'facebook',
 													'sso' 			=> $sso,
 													'grant_type'	=> 'password',
-													'client_id'		=> 'f3d259ddd3ed8ff3843839b',
-													'client_secret'	=> '4c7f6f8fa93d59c45502c0ae8c4a95b',
+													'client_id'		=> env('CLIENT_ID'),
+													'client_secret'	=> env('CLIENT_SECRET'),
 												];
 
 		$api 								= new API;
@@ -225,10 +225,9 @@ class AuthController extends BaseController
 				if ($result['status'] != 'success')
 				{
 					$this->error 					= $result['message'];
-					return Redirect::route('balin.login.index')
+					return Redirect::route('balin.login.index', ['type' => 'login'])
 							->withErrors($this->error)
-							->with('msg-type', 'danger')
-							->with('msg-from', 'login');
+							->with('msg-type', 'danger');
 				}
 			}
 
@@ -243,10 +242,9 @@ class AuthController extends BaseController
 		}
 		else
 		{
-			return Redirect::route('balin.get.login')
-							->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami.'])
-							->with('msg-type', 'danger')
-							->with('msg-from', 'login');
+			return Redirect::route('balin.get.login', ['type' => 'login'])
+							->withErrors(['Maaf email yang ada pada facebook anda sudah terdaftar.'])
+							->with('msg-type', 'danger');
 		}
 	}
 
@@ -284,8 +282,8 @@ class AuthController extends BaseController
 													'email' 		=> Input::get('email'),
 													'password' 		=> Input::get('password'),
 													'grant_type'	=> 'password',
-													'client_id'		=> 'f3d259ddd3ed8ff3843839b',
-													'client_secret'	=> '4c7f6f8fa93d59c45502c0ae8c4a95b',
+													'client_id'		=> env('CLIENT_ID'),
+													'client_secret'	=> env('CLIENT_SECRET'),
 												];
 
 		$api 								= new API;
@@ -401,10 +399,8 @@ class AuthController extends BaseController
 			return Redirect::route('my.balin.redeem.index');
 		}
 		
-		return Redirect::route('balin.get.login')
-						->withErrors(['Username dan password yang anda masukkan tidak cocok dengan data kami.'])
-						->with('msg-type', 'danger')
-						->with('msg-from', 'login');
+		return Redirect::route('balin.get.login', ['type' => 'login'])
+						->with('msg-type', 'danger');
 	}
 
 	/**
@@ -427,7 +423,7 @@ class AuthController extends BaseController
 	public function getActive($activation_link = null)
 	{
 		$breadcrumb										= 	[
-																'Activation Link' => ''
+																'Aktivasi' => ''
 															];
 		/* set api token use token public */
 		Session::set('API_token', Session::get('API_token_public'));
@@ -447,7 +443,7 @@ class AuthController extends BaseController
 																'me'	=> $result['data'],
 															];
 
-			$this->page_attributes->subtitle 			= 'Activation Link';
+			$this->page_attributes->subtitle 			= 'Aktivasi';
 			$this->page_attributes->breadcrumb			= array_merge($breadcrumb);
 			$this->page_attributes->source 				= 'web_v2.pages.profile.activation.index';
 
