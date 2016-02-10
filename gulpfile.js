@@ -19,7 +19,9 @@ elixir(function(mix) {
 				'icheck.min.js',
 				'inputmask.js',
 				'quantity_control.js',
+				'owl_carousel.js',
 				'checkout_plugin.js',
+				'easyzoom.js',
 				'all.js',
 				], 'public/js/balin.js')
 		.version(['public/css/balin.css',
