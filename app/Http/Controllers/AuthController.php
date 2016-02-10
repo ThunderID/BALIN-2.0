@@ -121,8 +121,8 @@ class AuthController extends BaseController
 													'password' 		=> 'facebook',
 													'sso' 			=> $sso,
 													'grant_type'	=> 'password',
-													'client_id'		=> 'f3d259ddd3ed8ff3843839b',
-													'client_secret'	=> '4c7f6f8fa93d59c45502c0ae8c4a95b',
+													'client_id'		=> env('CLIENT_ID'),
+													'client_secret'	=> env('CLIENT_SECRET'),
 												];
 
 		$api 								= new API;
@@ -282,8 +282,8 @@ class AuthController extends BaseController
 													'email' 		=> Input::get('email'),
 													'password' 		=> Input::get('password'),
 													'grant_type'	=> 'password',
-													'client_id'		=> 'f3d259ddd3ed8ff3843839b',
-													'client_secret'	=> '4c7f6f8fa93d59c45502c0ae8c4a95b',
+													'client_id'		=> env('CLIENT_ID'),
+													'client_secret'	=> env('CLIENT_SECRET'),
 												];
 
 		$api 								= new API;
