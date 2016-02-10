@@ -1,4 +1,4 @@
-{!! Form::open(['url' => route('balin.post.login', ['class' => 'hollow-login'])]) !!}
+{!! Form::open(['url' => route('balin.post.login'), 'class' => 'hollow-login']) !!}
     <div class="form-group">
         <label for="email" style="font-weight:400">Email</label>
         {!! Form::email('email', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Email', 'required' => 'required']) !!}

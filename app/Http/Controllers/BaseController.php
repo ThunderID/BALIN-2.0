@@ -155,7 +155,7 @@ abstract class BaseController extends Controller
 			return Redirect::back()
 					->withInput(Input::all())
 					->withErrors($this->errors)
-					->with('msg-type', 'danger');
+					->with('type', isset($parameter['type']) ? $parameter['type'] : null );
 
 		}
 	}
