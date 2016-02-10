@@ -219,7 +219,7 @@
 					<div class="row">
 					{!! Form::open(array('url' => route('balin.product.index', Input::all()), 'method' => 'get', 'id' => 'form2', 'class' => 'form-group' )) !!}
 						<div class="col-xs-9 pr-0 pl-sm mrm-sm ml-xs">
-							{!! Form::text('name', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Cari nama produk', 'required' => 'required']) !!}
+							{!! Form::text('q', null, ['class' => 'form-control hollow', 'style' => 'border-right:0;','placeholder' => 'Cari nama produk', 'required' => 'required']) !!}
 						</div>
 						<div class="col-xs-3 pl-0">
 							<button type="submit" tabindex="21" class="btn btn-black-hover-white-border-black">
