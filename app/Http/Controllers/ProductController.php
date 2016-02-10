@@ -208,7 +208,7 @@ class ProductController extends BaseController
 															'sort' 		=> 	[
 																				'name'	=> 'asc',
 																			],																		
-															'take'		=> 8,
+															'take'		=> 4,
 														]);	
 
 			//breadcrumb
