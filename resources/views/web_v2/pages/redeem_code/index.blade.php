@@ -13,7 +13,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
 					<h4 class="pull-left">Referal Code 
 						<small>
-							<a href="#" class="hover-gold mtm-5 text-grey-dark" 
+							<a href="#" class="hover-black text-grey mtm-5" 
 								data-toggle="modal" 
 								data-target=".modal-referral-code">
 								<i class="fa fa-question-circle"></i>
@@ -34,7 +34,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-0 pb-0 p-md">
 					<h4 class="pull-left">Balin Point Anda 
 						<small>
-							<a href="#" class="hover-gold help text-grey-dark" 
+							<a href="#" class="hover-black text-grey help" 
 								data-toggle="modal" 
 								data-target=".modal-balin-point">
 								<i class="fa fa-question-circle fa-1x"></i>
@@ -45,7 +45,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
 					<p class="mtm-xs pull-right">
-						<a class="hover-gold text-sm" href="#" 
+						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 

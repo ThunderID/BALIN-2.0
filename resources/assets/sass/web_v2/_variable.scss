@@ -94,26 +94,26 @@ $bg-balin: 				"../../../images/balin-bg.jpg";
 		max-width: inherit;
 	}
 }
-.text-shadow{			text-shadow:1px 2px 4px rgba(0, 0, 0, 0.1);}
+.text-shadow{					text-shadow:1px 2px 4px rgba(0, 0, 0, 0.1);}
 
 // LINK
 a:hover, a:active {				text-decoration: none;}
-.hover-grey:hover{		color: $grey;}
-.hover-grey-dark:hover{	color: $grey-dark;}
-.hover-black:hover{		color: $black;}
-.hover-white:hover{		color: $white;}
-.hover-gold:hover{		color: $gold-light;}
-.hover-red:hover{		color: $red;}
+a.hover-grey:hover{				color: $grey !important;}
+a.hover-grey-dark:hover{		color: $grey-dark !important;}
+a.hover-black:hover{			color: $black !important;}
+a.hover-white:hover{			color: $white !important;}
+a.hover-gold:hover{				color: $gold-light !important;}
+a.hover-red:hover{				color: $red !important;}
 
 // TEXT
-p{						line-height: 2em;}
+p{								line-height: 2em;}
 
 // LETTER SPACE
-.letter-space-xs{		letter-spacing: 0.02em;}
-.letter-space-sm{		letter-spacing: 0.04em;}
-.letter-space-regular{	letter-spacing: 0.06em;}
-.letter-space-md{		letter-spacing: 0.08em;}
-.letter-space-lg{		letter-spacing: 0.1em;}
+.letter-space-xs{				letter-spacing: 0.02em;}
+.letter-space-sm{				letter-spacing: 0.04em;}
+.letter-space-regular{			letter-spacing: 0.06em;}
+.letter-space-md{				letter-spacing: 0.08em;}
+.letter-space-lg{				letter-spacing: 0.1em;}
 
 
 // -----------------

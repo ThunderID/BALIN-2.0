@@ -10,7 +10,7 @@
 			    <div class="col-lg-12">
 			        <div class="alert alert-danger alert-dismissable text-red">
 			            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		                Anda belum konfirmasi email, silahkan klik <a href="{{ route('my.balin.profile.activate') }}" class="text-bold text-black hover-white">Kirim Ulang Email Aktivasi</a> jika anda belum menerima email konfirmasi.
+		                Anda belum konfirmasi email, silahkan klik <a href="{{ route('my.balin.profile.activate') }}" class="text-bold text-black hover-grey-dark">Kirim Ulang Email Aktivasi</a> jika anda belum menerima email konfirmasi.
 			        </div>
 			    </div>
 			</div>
@@ -26,7 +26,7 @@
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
 			<p class="user-hello mtm-xs">
 				<span class="">
-					<a href="{{route('balin.get.logout')}}" class="link-black hover-gray unstyle">
+					<a href="{{route('balin.get.logout')}}" class="link-black hover-grey-dark unstyle">
 						<strong><i class="fa fa-sign-out"></i> Logout</strong>
 					</a>
 				</span>
@@ -51,7 +51,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
 					<h4 class="mb-xs">Referal Code 
 						<small>
-							<a href="#" class="text-grey" data-toggle="modal" data-target=".referral-user-information">
+							<a href="#" class="hover-black text-grey" data-toggle="modal" data-target=".referral-user-information">
 								<i class="fa fa-question-circle"></i>
 							</a>
 						</small>
@@ -81,7 +81,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
 					<h4 class="">Point Anda 
 						<small>
-							<a href="#" class="text-grey" data-toggle="modal" data-target=".point-user-information">
+							<a href="#" class="hover-black text-grey" data-toggle="modal" data-target=".point-user-information">
 								<i class="fa fa-question-circle fa-1x"></i>
 							</a>
 						</small>
@@ -93,7 +93,7 @@
 						<strong>@money_indo($data['me']['data']['total_point'])</strong>
 					</p>
 					<p class="mtm-xs mb-md text-right hidden-xs hidden-sm">
-						<a class="hover-gold text-sm text-right" href="#" 
+						<a class="hover-grey text-sm text-right" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
@@ -107,7 +107,7 @@
 						<strong>@money_indo($data['me']['data']['total_point'])</strong>
 					</p>
 					<p class="ml-5 mtm-xs mb-md hidden-md hidden-lg">
-						<a class="hover-gold text-sm" href="#" 
+						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.profile.point', $data['me']['data']['id']) }}" 
@@ -131,10 +131,10 @@
 	<div class="row bg-white ml-0 mr-0">
 		<!-- SECTION INFORMATION GENERAL -->
 		<div class="col-sm-6 border-right-divider-to-bottom">
-			<h5 class="text-grey text-uppercase mt-sm mb-md">
+			<h5 class="hover-black text-grey text-uppercase mt-sm mb-md">
 				Informasi Umum 
 				<small>
-					<a class="pull-right mt-5" href="#"
+					<a class="hover-black text-grey pull-right mt-5" href="#"
 						data-action="{{ route('my.balin.profile.edit', $data['me']['data']['id']) }}"
 						data-toggle="modal" 
 						data-target=".modal-user-information"
@@ -234,7 +234,7 @@
 					<h4 class="mt-5 mb-5">Pemberi Referal Anda
 						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
 							<small>
-								<a class="link-gold text-regular" href="#" 
+								<a class="hover-grey text-regular" href="#" 
 									data-toggle="modal" 
 									data-target=".modal-user-information" 
 									data-action="{{ route('my.balin.redeem.create') }}" 
@@ -270,7 +270,7 @@
 					<p class="mb-0">
 						Referal Anda 
 						<small>
-							<a class="link-gold unstyle" href="#" 
+							<a class="hover-grey unstyle" href="#" 
 								data-toggle="modal" 
 								data-target=".modal-user-information" 
 								data-action="{{ route('my.balin.profile.referral', $data['me']['data']['id']) }}" 
@@ -333,7 +333,7 @@
 						@if ($v['status'] == 'wait')
 							<p class="text-right">
 								<span class="text-right mb-0">
-									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="text-regular">[ Resend Invoice ]</a>
+									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
 								</span>
 								<span class="text-right mb-0">
 									<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
@@ -352,7 +352,7 @@
 						<p class="mt-0 mb-xxs">
 							<strong>{{ $v['ref_number'] }}</strong>
 						</p>
-						<a class="link-gold text-regular mt-sm hidden-xs" href="#" 
+						<a class="hover-grey text-regular mt-sm hidden-xs" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
@@ -384,7 +384,7 @@
 						@endif
 					</div>
 					<div class="hidden-sm hidden-md hidden-lg">
-						<a class="link-gold text-regular mt-sm ml-sm" href="#" 
+						<a class="hover-grey text-regular mt-sm ml-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.order.show', $v['id']) }}" 

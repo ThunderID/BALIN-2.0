@@ -5095,23 +5095,23 @@ button.close {
 a:hover, a:active {
   text-decoration: none; }
 
-.hover-grey:hover {
-  color: #ccc; }
+a.hover-grey:hover {
+  color: #ccc !important; }
 
-.hover-grey-dark:hover {
-  color: #888; }
+a.hover-grey-dark:hover {
+  color: #888 !important; }
 
-.hover-black:hover {
-  color: #000; }
+a.hover-black:hover {
+  color: #000 !important; }
 
-.hover-white:hover {
-  color: #fff; }
+a.hover-white:hover {
+  color: #fff !important; }
 
-.hover-gold:hover {
-  color: #e18a07; }
+a.hover-gold:hover {
+  color: #e18a07 !important; }
 
-.hover-red:hover {
-  color: #d91e18; }
+a.hover-red:hover {
+  color: #d91e18 !important; }
 
 p {
   line-height: 2em; }
