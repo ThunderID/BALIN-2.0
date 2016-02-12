@@ -1,10 +1,11 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
 
-use Session, BalinMail;
+use Session;
 
 class OrderController extends BaseController 
 {
@@ -75,18 +76,28 @@ class OrderController extends BaseController
 		$me_order_detail['data']['status']	= 'canceled';
 
 		//3.  Store order
-		$result								= $APIUser->postMeOrder($me_order_detail['data']);
+		$order									= $APIUser->postMeOrder($me_order_detail['data']);
 
-		//4. Check result
-		if ($result['status'] != 'success')
+		//4. Check order
+		if ($order['status'] != 'success')
 		{
-			$this->errors					= $result['message'];
+			$this->errors						= $order['message'];
 		}
 		else
 		{
-			$mail 						= new BalinMail;
-
-			$mail->canceled($result['data'], $this->balin['info']);
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
+			
+			$mail 								= new APISendMail;
+			$result								= $mail->cancelorder($order['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 		}
 
 		//5. Generate view
@@ -102,18 +113,28 @@ class OrderController extends BaseController
 	{
 		//1. Get order detail
 		$APIUser 								= new APIUser;
-		$result									= $APIUser->getMeOrderDetail(['user_id' 	=> Session::get('whoami')['id'], 'order_id' 	=> $id]);
+		$order									= $APIUser->getMeOrderDetail(['user_id' 	=> Session::get('whoami')['id'], 'order_id' 	=> $id]);
 
-		//2. Check result
-		if ($result['status'] != 'success')
+		//2. Check order
+		if ($order['status'] != 'success')
 		{
-			$this->errors						= $result['message'];
+			$this->errors						= $order['message'];
 		}
 		else
 		{
-			$mail 								= new BalinMail;
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
 
-			$mail->invoice($result['data'], $this->balin['info']);
+			$mail 								= new APISendMail;
+			$result								= $mail->invoice($order['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 		}
 
 		$this->page_attributes->success 		= "Resend invoice terkirim.";

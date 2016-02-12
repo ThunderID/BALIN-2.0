@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
 
@@ -115,18 +116,28 @@ class CheckoutController extends BaseController
 		$temp_transaction['status']				= 'wait';
 
 		//3. Store checkout
-		$result 								= $APIUser->postMeOrder($temp_transaction);
+		$order 									= $APIUser->postMeOrder($temp_transaction);
 
-		//4. Check result, send mail
-		if ($result['status'] != 'success')
+		//4. Check order, send mail
+		if ($order['status'] != 'success')
 		{
-			$this->errors 							= $result['message'];
+			$this->errors 						= $order['message'];
 		}
 		else
 		{
-			$mail 						= new BalinMail;
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
 
-			$mail->invoice($result['data'], $this->balin['info']);
+			$mail 								= new APISendMail;
+			$result								= $mail->invoice($order['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 
 			Session::forget('carts');
 		}

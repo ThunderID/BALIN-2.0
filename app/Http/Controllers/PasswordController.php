@@ -4,6 +4,7 @@ use App\API\API;
 
 use App\API\Connectors\APIUser;
 use App\API\Connectors\APIConfig;
+use App\API\Connectors\APISendMail;
 
 use Input, Session, Redirect, Auth, Socialite, Validator, App, BalinMail;
 
@@ -42,37 +43,36 @@ class PasswordController extends BaseController
 		$email 											= Input::Get('email');
 
 		$API_me 										= new APIUser;
-		$result 										= $API_me->postForgot([
+		$whoami 										= $API_me->postForgot([
 																'email'	=> $email,
 															]);
 		//check if reset password fail
-		if ($result['status'] != 'success')
+		if ($whoami['status'] != 'success')
 		{
-			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
+			return Redirect::route('balin.home.index')->withErrors($whoami['message'])->with('msg-type', 'danger');
 		}
 		else
 		{
 			//send reset password mail
-			$APIConfig 					= new APIConfig;
-			
-			$config 					= $APIConfig->getIndex([
-											'search' 	=> 	[
-																'default'	=> 'true',
-															],
-											'sort' 		=> 	[
-																'name'	=> 'asc',
-															],
-											]);
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
 
-			$balin 						= $config['data'];
-
-			$mail 						= new BalinMail;
+			$infos['action']					= route(env('ROUTE_BALIN_RESET_PASSWORD'), $whoami['data']['reset_password_link']);
 			
-			$mail->resetpassword($result['data'], $balin['info']);
+			$mail 								= new APISendMail;
+			$result								= $mail->resetpassword($whoami['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 
 			//generate view
 			$this->page_attributes->data 				= 	[
-																'me'	=> $result['data'],
+																'me'	=> $whoami['data'],
 															];
 
 			$this->page_attributes->subtitle 			= 'Lupa Password';
