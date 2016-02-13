@@ -10,7 +10,7 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pt-lg pb-lg border-right-divider-to-bottom">
 			<div class="row">
 				<!-- SECTION REFERAAL CODE -->
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-0 p-md">
 					<h4 class="pull-left">Referal Code 
 						<small>
 							<a href="#" class="hover-black text-grey mtm-5" 
@@ -20,11 +20,19 @@
 							</a>
 						</small>
 					</h4>	
-					<p class="pull-right mt-5">
-						<strong>{{ isset($data['me']['data']['code_referral']) ? $data['me']['data']['code_referral'] : '' }}</strong>
+					<p class="pull-right mt-5 text-uppercase text-bold">
+						{{ isset($data['me']['data']['code_referral']) ? $data['me']['data']['code_referral'] : '' }}
 					</p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
+					<p class="mtm-xs pull-right">
+						<a class="hover-grey text-sm" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-modal-title="Undang Teman" 
+							data-view="modal-lg">[ Undang Teman ]</a>
+					</p>
 				</div>
 			</div>
 			<!-- END SECTION REFERRAL CODE -->
@@ -41,7 +49,7 @@
 							</a>
 						</small>
 					</h4>
-					<p class="mt-5 pull-right"><strong>@money_indo($data['me']['data']['total_point'])</strong></p>
+					<p class="mt-5 pull-right text-bold">@money_indo($data['me']['data']['total_point'])</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
 					<p class="mtm-xs pull-right">
@@ -100,7 +108,7 @@
 				<div class="modal-header">
 					<div class="row ml-sm mr-sm">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 						</div>
 					</div>
