@@ -1,4 +1,15 @@
 // QUATITY IN PRODUCT
+.size-product{
+	.size-input{
+		border: none;
+		border-top: 1px solid $grey-light;
+		border-bottom: 1px solid $grey-light;
+		display: inline-block;
+		height: 30px;
+		width: 45px;
+		outline: none;
+	}
+}
 .qty{
 	width: 61px;
 	position: relative;

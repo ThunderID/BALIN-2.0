@@ -95,4 +95,15 @@ class RedeemController extends BaseController
 
 		return $this->generateRedirectRoute($to);
 	}
+
+	/**
+	 * function to show modal invite friend
+	 * 
+	 */
+	public function invite()
+	{
+		$page 										= View('web_v2.pages.profile.redeem.invite');
+
+		return $page;
+	}
 }

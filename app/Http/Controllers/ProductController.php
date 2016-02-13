@@ -141,6 +141,35 @@ class ProductController extends BaseController
 																				'path'	=> 'asc',
 																			],
 														]);
+		// dd($get_api_tag);
+		foreach ($get_api_tag['data']['data'] as $k => $v)
+		{
+			if (isset($v['tag']) && (strtolower($v['tag']['slug'])=='warna'))
+			{
+				switch (strtolower($v['name'])) {
+					case 'biru':
+						$code 		= '#3399cc';
+						break;
+					case 'merah':
+						$code		= '#9C2A00';
+						break;
+					case 'coklat':
+						$code		= '#A46B36';
+						break;
+					case 'krem':
+						$code		= '#F6EDF0';
+						break;
+					case 'hijau':
+						$code		= '#3C948B';
+						break;
+					default:
+						$code		= '#000';
+						break;
+				}
+
+				$get_api_tag['data']['data'][$k]['code']	= $code;
+			}
+		}
 
 		//3e. Manage data in collection
 		$collection_category						= new Collection;

@@ -6,6 +6,7 @@
 	// 													'3'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
 	// 													'4'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg']
 	// 												];
+	// dd(Session::get('carts'));
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -20,7 +21,18 @@
 			</div>
 			{{-- <img src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" class="img-responsive border-1 border-solid border-grey-light mb-md text-center"> --}}
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-md-12 col-lg-12 hidden-xs hidden-sm">
+					<div class="owl-carousel gallery-product">
+						@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
+							<div class="item-carousel">
+								<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
+									<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
+								</a>
+							</div>
+						@endforeach
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 pl-0 pr-0 hidden-md hidden-lg">
 					<div class="owl-carousel gallery-product">
 						@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
 							<div class="item-carousel">
@@ -70,8 +82,48 @@
 				<div class="row mb-xxl">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<h4 class="mt-xl mb-xl">PILIH UKURAN</h4>
-						<div class="clearfix mt-0 mb-0">&nbsp;</div>
-						<div class="row pb-xl">
+						@foreach($data['product']['data']['data'][0]['varians'] as $k => $v)
+							<div class="row border-1 border-solid border-grey text-regular mr-0 ml-0 p-5 mb-xs">
+								<div class="col-xs-6 col-sm-6 col-md-5 col-lg-5">
+									<p class="mt-5 mb-0">
+										@if (strpos($v['size'], '.')==true)
+											<?php $frac = explode('.', $v['size']); ?>
+											{{ $frac[0].' &frac12;'}}
+										@else
+											{{ $v['size'] }}
+										@endif
+									</p>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 text-right size-product">
+									<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm mrm-5 btn_number minus"
+										data-field="qty-{{ strtolower($v['size']) }}[1]"
+										data-page="product" 
+										data-type="minus" disabled
+										>&ndash;</a>
+									<input type="hidden" name="varianids[{{ $v['id'] }}]" class="form-control pvarians" value="{{ $v['id'] }}">
+									<input type="number" name="qty[{{ $v['id'] }}]" class="text-center text-regular size-input pqty input_number" value="0" 
+										min="0" 
+										max="{{ (20>=$v['current_stock']) ? $v['current_stock'] : 20 }}"
+										data-id="{{ $v['id'] }}"
+										data-name="qty-{{ strtolower($v['size']) }}[1]"
+										data-stock="{{ $v['current_stock'] }}"
+										data-price="{{ isset($data['product']['data']['data'][0]['price']) ? $data['product']['data']['data'][0]['price'] : 0 }}"
+										data-discount="{{ isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : 0 }}"
+										data-total="0"
+										data-oldValue="" 
+										data-toggle="tooltip" 
+										data-placement="right"
+										data-page="product"
+										>
+									<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm mlm-5 btn_number plus"
+										data-field="qty-{{ strtolower($v['size']) }}[1]"
+										data-page="product"
+										data-type="plus"
+										>&#43;</a>
+								</div>
+							</div>
+						@endforeach
+						<!-- <div class="row pb-xl">
 							@foreach($data['product']['data']['data'][0]['varians'] as $k => $v)
 								@if (($k % 3 == 0)&&($k!=0))
 									</div>
@@ -108,6 +160,7 @@
 								</div>
 							@endforeach
 						</div>
+						-->
 					</div>
 				</div>
 				<!-- END SECTION SIZE CHOICE -->

@@ -15,13 +15,13 @@
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-4 text-right">
 						@if(isset($balin['info']['instagram_url']) && !empty($balin['info']['instagram_url']['value']))
-							<a href="{{$balin['info']['instagram_url']['value']}}" target="blank" class="btn btn-socmed"><i class="fa fa-instagram"></i></a>
+							<a href="{{$balin['info']['instagram_url']['value']}}" target="blank" class="btn btn-socmed mr-xs"><i class="fa fa-instagram"></i></a>
 						@endif
 						@if(isset($balin['info']['twitter_url']) && !empty($balin['info']['twitter_url']['value']))
-							<a href="{{$balin['info']['twitter_url']['value']}}" target="blank" class="btn btn-socmed"><i class="fa fa-twitter"></i></a>
+							<a href="{{$balin['info']['twitter_url']['value']}}" target="blank" class="btn btn-socmed mr-xs"><i class="fa fa-twitter"></i></a>
 						@endif
 						@if(isset($balin['info']['facebook_url']) && !empty($balin['info']['facebook_url']['value']))
-							<a href="{{$balin['info']['facebook_url']['value']}}" target="blank" class="btn btn-socmed"><i class="fa fa-facebook"></i></a>
+							<a href="{{$balin['info']['facebook_url']['value']}}" target="blank" class="btn btn-socmed mr-xs"><i class="fa fa-facebook"></i></a>
 						@endif
 					</div>
 				</div>

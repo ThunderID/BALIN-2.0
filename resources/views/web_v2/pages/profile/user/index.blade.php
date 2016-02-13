@@ -1,5 +1,6 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	// dd(Session::get('whoami'));
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -59,15 +60,31 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<!-- SECTION REFERRAL CODE DESKTOP -->
-					<p class="text-right hidden-xs hidden-sm">
-						<strong>{{ $data['me']['data']['code_referral'] }}</strong>
+					<p class="mb-0 text-uppercase text-bold text-right hidden-xs hidden-sm">
+						{{ $data['me']['data']['code_referral'] }}
+					</p>
+					<p class="mtm-xs mb-md text-right hidden-xs hidden-sm">
+						<a class="hover-grey text-sm text-right" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-modal-title="Undang Teman" 
+							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
 					<div class="clearfix hidden-xs hidden-sm">&nbsp;</div>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
 					<!-- SECTION REFERRAL CODE DESKTOP -->
-					<p class="ml-5 hidden-md hidden-lg">
-						<strong>{{ $data['me']['data']['code_referral'] }}</strong>
+					<p class="ml-5 text-bold text-uppercase hidden-md hidden-lg">
+						{{ $data['me']['data']['code_referral'] }}
+					</p>
+					<p class="ml-5 mtm-xs mb-md hidden-md hidden-lg">
+						<a class="hover-grey text-sm" href="#" 
+							data-toggle="modal" 
+							data-target=".modal-user-information" 
+							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-modal-title="Undang Teman" 
+							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 				</div>
@@ -132,7 +149,7 @@
 		<!-- SECTION INFORMATION GENERAL -->
 		<div class="col-sm-6 border-right-divider-to-bottom">
 			<h5 class="hover-black text-grey text-uppercase mt-sm mb-md">
-				Informasi Umum 
+				Profil Saya
 				<small>
 					<a class="hover-black text-grey pull-right mt-5" href="#"
 						data-action="{{ route('my.balin.profile.edit', $data['me']['data']['id']) }}"
@@ -231,10 +248,10 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-					<h4 class="mt-5 mb-5">Pemberi Referal Anda
+					<p class="mb-0">Pemberi Referal Anda
 						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
 							<small>
-								<a class="hover-grey text-regular" href="#" 
+								<a class="hover-grey-dark text-regular" href="#" 
 									data-toggle="modal" 
 									data-target=".modal-user-information" 
 									data-action="{{ route('my.balin.redeem.create') }}" 
@@ -242,7 +259,7 @@
 									data-view="modal-md">[ Tambahkan ]</a>
 							</small>
 						@endif
-					</h4>
+					</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION PEMBERI REFERRAL DESKTOP -->
@@ -270,7 +287,7 @@
 					<p class="mb-0">
 						Referal Anda 
 						<small>
-							<a class="hover-grey unstyle" href="#" 
+							<a class="hover-grey-dark unstyle" href="#" 
 								data-toggle="modal" 
 								data-target=".modal-user-information" 
 								data-action="{{ route('my.balin.profile.referral', $data['me']['data']['id']) }}" 
@@ -336,7 +353,7 @@
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
 								</span>
 								<span class="text-right mb-0">
-									<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
+									<a class="text-regular text-right hover-black text-grey" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 										[ Batalkan ]
 									</a>
 								</span>
@@ -352,12 +369,12 @@
 						<p class="mt-0 mb-xxs">
 							<strong>{{ $v['ref_number'] }}</strong>
 						</p>
-						<a class="hover-grey text-regular mt-sm hidden-xs" href="#" 
+						<a class="hover-grey-dark text-regular mt-sm hidden-xs" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
-							[ Lihat Detail Orderan ]
+							[ Lihat Detail ]
 						</a>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mt-5">
@@ -384,12 +401,12 @@
 						@endif
 					</div>
 					<div class="hidden-sm hidden-md hidden-lg">
-						<a class="hover-grey text-regular mt-sm ml-sm" href="#" 
+						<a class="hover-grey-dark text-regular mt-sm ml-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
-							[ Lihat Detail Orderan ]
+							[ Lihat Detail ]
 						</a>
 					</div>
 				</div>
