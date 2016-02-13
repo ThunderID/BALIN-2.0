@@ -76,7 +76,7 @@
 				<li class="info-point pull-right mt-sm ml-xl pl-xl mr-xl pr-md">
 					<span class="p-xs pl-md pr-md text-white border-left-1 border-top-1 border-bottom-1 border-grey text-regular text-uppercase">Jumlah Point</span>
 					<span class="p-xs pl-md pr-md mlm-5 text-white border-1 border-solid border-grey bg-grey-light text-black text-regular">
-						@money_indo((Session::has('user_me')['total_point']) ? Session::get('user_me')['total_point'] : '0')
+						@money_indo(Session::has('whoami') ? Session::get('whoami')['total_point'] : '0')
 					</span>
 				</li>
 			</ul>

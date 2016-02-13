@@ -1,5 +1,6 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	// dd(Session::get('whoami'));
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -352,7 +353,7 @@
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
 								</span>
 								<span class="text-right mb-0">
-									<a class="text-regular text-right" href="{{route('my.balin.order.destroy', $v['id'])}}" >
+									<a class="text-regular text-right hover-black text-grey" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 										[ Batalkan ]
 									</a>
 								</span>
@@ -405,7 +406,7 @@
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.order.show', $v['id']) }}" 
 							data-modal-title="Detail Pesanan {{ $v['ref_number'] }}">
-							[ Lihat Detail Orderan ]
+							[ Lihat Detail ]
 						</a>
 					</div>
 				</div>
