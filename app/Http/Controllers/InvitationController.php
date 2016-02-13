@@ -71,7 +71,7 @@ class InvitationController extends BaseController
 												'date_of_birth'	=> $dob,
 												'gender'		=> Input::get('gender'),
 												'role'			=> 'customer',
-												'reference_name'=> $code,
+												'reference_code'=> $code,
 											];
 		
 		if (Input::has('password') || is_null($id))
