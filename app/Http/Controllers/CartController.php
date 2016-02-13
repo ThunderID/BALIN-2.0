@@ -158,7 +158,7 @@ class CartController extends BaseController
 		$carts 								= Session::put('carts', $cart['data']);
 
 		//4. return response
-		if($cart['status']=='success')
+		if($cart['status']==true)
 		{
 			return Response::json(['carts' => $cart['data']], 200);
 		}
