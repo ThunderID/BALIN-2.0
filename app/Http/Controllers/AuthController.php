@@ -4,6 +4,7 @@ use App\API\API;
 
 use App\API\Connectors\APIUser;
 use App\API\Connectors\APIConfig;
+use App\API\Connectors\APISendMail;
 
 use Input, Session, Redirect, Socialite, Validator, Carbon, BalinMail;
 
@@ -65,30 +66,29 @@ class AuthController extends BaseController
 
 		// API User
 		$API_user 						= new APIUser;
-		$result							= $API_user->postDataSignUp($data);
+		$user							= $API_user->postDataSignUp($data);
 
-		if ($result['status'] != 'success')
+		if ($user['status'] != 'success')
 		{
-			$this->errors 				= $result['message'];
+			$this->errors 				= $user['message'];
 		}
 		else
 		{
-			$APIConfig 					= new APIConfig;
-		
-			$config 					= $APIConfig->getIndex([
-											'search' 	=> 	[
-																'default'	=> 'true',
-															],
-											'sort' 		=> 	[
-																'name'	=> 'asc',
-															],
-											]);
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
 
-			$balin 						= $config['data'];
-
-			$mail 						= new BalinMail;
-
-			$mail->welcome($result['data'], $balin['info']);
+			$infos['action']					= route(env('ROUTE_BALIN_CLAIM_VOUCHER'), $user['data']['activation_link']);
+			
+			$mail 								= new APISendMail;
+			$result								= $mail->welcomemail($user['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 		}
 
 		$this->page_attributes->success 			= "Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda.";

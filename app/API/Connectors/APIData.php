@@ -1,5 +1,5 @@
 <?php 
-namespace App\API\Connectors;
+namespace App\API\connectors;
 
 use App\API\API;
 use Exception, Session, Redirect;
@@ -11,18 +11,18 @@ abstract class APIData
 
 	function __construct() 
 	{
+		$this->api 						= new API;
+
 		$this->api_data 				= ['access_token' => Session::get('API_token')];
 		
-		if (is_null(Session::get('API_token')))
+		if(is_null(Session::get('API_token')))
 		{
-			// dd('kosong');
 			Redirect::route('balin.home.index')->send();
 		}
 	}
 
 	protected function get()
 	{
-		$api 						= new API;
 		$queryString 				= Null;
 
 		foreach ($this->api_data as $title => $data) {
@@ -31,7 +31,20 @@ abstract class APIData
 				foreach ($data as $subTitle => $subData) {
 					if(!is_null($subData) || !empty($subData))
 					{
-						$queryString = $queryString . $title . "[" .  $subTitle . "]=" . $subData . "&";				
+						if(is_array($subData))
+						{
+							foreach ($subData as $subTitle2 => $subData2) {
+								if(!is_null($subData2) || !empty($subData2))
+								{
+									$queryString = $queryString . $title . "[" .  $subTitle . "][" .  $subTitle2 . "]=" . $subData2 . "&";				
+								}
+							}
+						}
+						else
+						{
+							$queryString = $queryString . $title . "[" .  $subTitle . "]=" . $subData . "&";				
+						}
+
 					}
 				}
 			}
@@ -43,27 +56,22 @@ abstract class APIData
 
 		$queryString 				= str_replace(' ', '%20', $queryString);
 
-
 		$this->api_url				= $this->api_url . '?' . $queryString;
 
-		$result 					= json_decode($api->get($this->api_url), true);
+		$result 					= json_decode($this->api->get($this->api_url), true);
 
 		return $this->validateResponse($result);
 	}
 
 	protected function post()
 	{
-		$api 						= new API;
-
-		$result 					= json_decode($api->post($this->api_url, $this->api_data),true);
+		$result 					= json_decode($this->api->post($this->api_url, $this->api_data),true);
 
 		return $this->validateResponse($result);
 	}
 
 	protected function delete()
 	{
-		$api 						= new API;
-		
 		$queryString 				= null;
 
 		foreach ($this->api_data as $key => $data) 
@@ -73,7 +81,7 @@ abstract class APIData
 
 		$this->api_url				= $this->api_url . '?' . $queryString;
 
-		$result 					= json_decode($api->delete($this->api_url), true);		
+		$result 					= json_decode($this->api->delete($this->api_url), true);		
 
 		return $this->validateResponse($result);
 	}	

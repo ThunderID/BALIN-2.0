@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
 
@@ -252,9 +253,21 @@ class UserController extends BaseController
 		//2. Whoami
 		if(!$whoami['data']['is_active'] && $whoami['data']['activation_link'] != '')
 		{
-			$mail 							= new BalinMail;
+			$infos 								= [];
+			foreach ($this->balin['info'] as $key => $value) 
+			{
+				$infos[$value['type']]			= $value['value'];
+			}
+
+			$infos['action']					= route(env('ROUTE_BALIN_CLAIM_VOUCHER'), $whoami['data']['activation_link']);
 			
-			$mail->welcome($whoami['data'], $this->balin['info']);
+			$mail 								= new APISendMail;
+			$result								= $mail->welcomemail($whoami['data'], $infos);
+			
+			if ($result['status'] != 'success')
+			{
+				$this->errors					= $result['message'];
+			}
 		}
 		else
 		{
