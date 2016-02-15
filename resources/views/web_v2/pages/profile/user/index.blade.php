@@ -47,7 +47,7 @@
 	<!-- SECTION POINT INFO & REFERRAL CODE -->
 	<div class="row point-info bg-white ml-0 mr-0">
 		<!-- SECTION REFERRAL CODE -->
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-sm">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row ">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-md pb-xs">
 					<h4 class="mb-xs">Referal Code 
@@ -63,18 +63,18 @@
 					<p class="mb-0 text-uppercase text-bold text-right hidden-xs hidden-sm">
 						{{ $data['me']['data']['code_referral'] }}
 					</p>
-					<p class="mtm-xs mb-md text-right hidden-xs hidden-sm">
+					<p class="mtm-xs mb-lg text-right hidden-xs hidden-sm">
 						<a class="hover-grey text-sm text-right" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.invite.get') }}" 
+							data-action="{{ route('my.balin.invitation.create') }}" 
 							data-modal-title="Undang Teman" 
+							data-from="{{ Route::currentRouteName() }}"
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
-					<div class="clearfix hidden-xs hidden-sm">&nbsp;</div>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
-					<!-- SECTION REFERRAL CODE DESKTOP -->
+					<!-- SECTION REFERRAL CODE TABLET, MOBILE -->
 					<p class="ml-5 text-bold text-uppercase hidden-md hidden-lg">
 						{{ $data['me']['data']['code_referral'] }}
 					</p>
@@ -82,11 +82,12 @@
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.invite.get') }}" 
+							data-action="{{ route('my.balin.invitation.create') }}" 
 							data-modal-title="Undang Teman" 
+							data-from="{{ Route::currentRouteName() }}"
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
-					<!-- END SECTION REFERRAL CODE DESKTOP -->
+					<!-- END SECTION REFERRAL CODE TABLET, MOBILE -->
 				</div>
 			</div>
 		</div>
@@ -440,6 +441,25 @@
 	</div>
 	<!-- END SECTION MODAL USER INFORMATION -->
 
+	<!-- SECTION MODAL SUB USER INFORMATION -->
+	<div class="modal modal-sub-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-black text-white">
+					<div class="row ml-xl mr-xl">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pr-md pl-md">
+							<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
+							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body m-md pt-5 mt-sm">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END SECTION MODAL SUB USER INFORMATION -->
+
 	<!-- SECTION MODAL USER INFORMATION MOBILE -->
 	{{-- <div class="modal modal-user-information-mobile fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
@@ -519,7 +539,27 @@
 		action 		= $(e.relatedTarget).attr('data-action');
 		title 		= $(e.relatedTarget).attr('data-modal-title');
 		view_mode 	= $(e.relatedTarget).attr('data-view');
-		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
+		parsing 	= $(e.relatedTarget).attr('data-action-parsing');
+		from 		= $(e.relatedTarget).attr('data-from');
+
+		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+			if (from !== null && from !== undefined) {
+				$('.from_route').val(from);
+			}
+		});
+	});	
+
+	$('.modal-sub-user-information').on('show.bs.modal', function(e) {
+		action 		= $(e.relatedTarget).attr('data-action');
+		title 		= $(e.relatedTarget).attr('data-modal-title');
+		view_mode 	= $(e.relatedTarget).attr('data-view');
+		parsing 	= $(e.relatedTarget).attr('data-action-parsing');
 
 		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
 		$(this).find('.modal-title').html(title);

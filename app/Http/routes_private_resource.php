@@ -15,8 +15,6 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::get('redeem',											['uses' => 'RedeemController@index', 		'as' => 'my.balin.redeem.index']);
 	Route::get('redeem/create',										['uses' => 'RedeemController@create', 		'as' => 'my.balin.redeem.create']);
 	Route::post('redeem/store', 									['uses' => 'RedeemController@store', 		'as' => 'my.balin.redeem.store']);
-	Route::get('invitation',										['uses' => 'RedeemController@invite', 		'as' => 'my.balin.invite.get']);
-	Route::post('invitations', 										['uses' => 'RedeemController@send_invite', 	'as' => 'my.balin.invite.post']);
 
 	/* broadcast invitation */
 	Route::get('who/got/my/invitation',								['uses' => 'InvitationController@index', 	'as' => 'my.balin.invitation.index']);

@@ -73,7 +73,7 @@
 					</a>
 					@include('web_v2.components.cart.cart_dropdown', ['carts' => Session::get('carts')]) 
 				</li>
-				<li class="info-point pull-right mt-sm ml-xl pl-xl mr-xl pr-md">
+				<li class="info-point pull-right mt-sm ml-xl pl-xl mr-xl pr-md hidden-xs hidden-sm">
 					<span class="p-xs pl-md pr-md text-white border-left-1 border-top-1 border-bottom-1 border-grey text-regular text-uppercase">Jumlah Point</span>
 					<span class="p-xs pl-md pr-md mlm-5 text-white border-1 border-solid border-grey bg-grey-light text-black text-regular">
 						@money_indo(Session::has('whoami') ? Session::get('whoami')['total_point'] : '0')

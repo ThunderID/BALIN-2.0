@@ -4,7 +4,7 @@
 	}
 ?>	
 
-{!! Form::open(['url' => route('balin.post.signup'), 'class' => 'form']) !!}
+{!! Form::open(['url' => (isset($data['code'])) ? route('balin.invitation.post', $data['code']) : route('balin.post.signup'), 'class' => 'form']) !!}
 	<div class="form-group">
 		<label for="" style="font-weight:400">Name</label>
 		{!! Form::text('name', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Nama', 'required']) !!}

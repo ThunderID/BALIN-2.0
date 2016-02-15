@@ -29,8 +29,9 @@
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.invite.get') }}" 
+							data-action="{{ route('my.balin.invitation.create') }}" 
 							data-modal-title="Undang Teman" 
+							data-from="{{ Route::currentRouteName() }}"
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
 				</div>
@@ -101,7 +102,7 @@
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
 
-	<!-- SECTION MODAL FULLSCREEN -->
+	<!-- SECTION MODAL FULLSCREEN USER-INFORMATION -->
 	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -118,7 +119,26 @@
 			</div>
 		</div>
 	</div>
-	<!-- END SECTION MODAL FULLSCREEN -->
+	<!-- END SECTION MODAL FULLSCREEN USER-INFORMATION-->
+
+	<!-- SECTION MODAL SUB USER INFORMATION -->
+	<div class="modal modal-sub-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-black text-white">
+					<div class="row ml-xl mr-xl">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pr-md pl-md">
+							<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
+							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body m-md pt-5 mt-sm">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END SECTION MODAL SUB USER INFORMATION -->
 
 	<!-- SECTION MODAL BALIN POINT -->
 	<div id="" class="modal modal-balin-point modal-fullscreen fade modal-balance" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
@@ -173,7 +193,27 @@
 		action 		= $(e.relatedTarget).attr('data-action');
 		title 		= $(e.relatedTarget).attr('data-modal-title');
 		view_mode 	= $(e.relatedTarget).attr('data-view');
-		parsing 		= $(e.relatedTarget).attr('data-action-parsing');
+		parsing 	= $(e.relatedTarget).attr('data-action-parsing');
+		from 		= $(e.relatedTarget).attr('data-from');
+
+		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+			if (from !== null && from !== undefined) {
+				$('.from_route').val(from);
+			}
+		});
+	});	
+
+	$('.modal-sub-user-information').on('show.bs.modal', function(e) {
+		action 		= $(e.relatedTarget).attr('data-action');
+		title 		= $(e.relatedTarget).attr('data-modal-title');
+		view_mode 	= $(e.relatedTarget).attr('data-view');
+		parsing 	= $(e.relatedTarget).attr('data-action-parsing');
 
 		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
 		$(this).find('.modal-title').html(title);

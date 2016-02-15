@@ -7,11 +7,11 @@
 			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 				<div class="row panel panel-default p-xs mt-md">
 					<div class="col-md-12">
-						<div class="signin" style="@if (Session::has('type')) {{ (Session::get('type')=='login') ? 'display:block; yes-11' : 'display:none; yes-12' }} @else display:block; yes-13 @endif">
+						<div class="signin" style="@if (Session::has('type')) {{ (Session::get('type')=='login') ? 'display:block;' : 'display:none;' }} @else {{ (isset($type) && ($type!='signup') || (Input::get('type')!='signup')) ? 'display:block;' : 'display:none;' }} @endif">
 							<h3>Sign In</h3>
 							@include('web_v2.components.login.form')
 						</div>
-						<div class="signup" style="@if (Session::has('type') && (Session::get('type')=='signup')) display:block; yes-21 @else display:none; yes-22 @endif">
+						<div class="signup" style="@if (Session::has('type') && (Session::get('type')=='signup') || (isset($type) && ($type=='signup'))) display:block; @else display:none; @endif">
 							<h3>Sign Up</h3>
 							@include('web_v2.components.signup.form')
 						</div>
