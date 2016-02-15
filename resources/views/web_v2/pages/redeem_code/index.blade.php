@@ -29,7 +29,7 @@
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-action="{{ route('my.balin.invite.get') }}" 
 							data-modal-title="Undang Teman" 
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>

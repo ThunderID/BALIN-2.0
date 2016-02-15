@@ -67,7 +67,7 @@
 						<a class="hover-grey text-sm text-right" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-action="{{ route('my.balin.invite.get') }}" 
 							data-modal-title="Undang Teman" 
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
@@ -82,7 +82,7 @@
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
-							data-action="{{ route('my.balin.redeem.invite') }}" 
+							data-action="{{ route('my.balin.invite.get') }}" 
 							data-modal-title="Undang Teman" 
 							data-view="modal-lg">[ Undang Teman ]</a>
 					</p>
@@ -428,7 +428,7 @@
 				<div class="modal-header bg-black text-white">
 					<div class="row ml-xl mr-xl">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pr-md pl-md">
-							<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
 							<h5 class="modal-title" id="exampleModalLabel">History Balance</h5>
 						</div>
 					</div>
@@ -471,7 +471,7 @@
 				<div class="modal-header">
 					<div class="row ml-sm mr-sm">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 							<h5 class="modal-title text-uppercase" id="exampleModalLabel">Balin Point</h5>
 						</div>
 					</div>
@@ -496,7 +496,7 @@
 				<div class="modal-header">
 					<div class="row ml-sm mr-sm">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 							<h5 class="modal-title text-uppercase" id="exampleModalLabel">Referal Code</h5>
 						</div>
 					</div>

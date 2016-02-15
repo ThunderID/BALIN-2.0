@@ -179,4 +179,16 @@ class APIUser extends APIData
 		return $this->post();
 	}
 	/*--- end token private ----*/
+
+	/**
+	* function send mail invite friend
+	* @param array email & user id
+	*/
+	public function sendInvitation($data)
+	{
+		$this->api_url						= '/me/'. Session::get('whoami')['id']. '/invite';
+		$this->api_data 					= array_merge($this->api_data, $data);
+
+		return $this->post();
+	}
 }
