@@ -54,9 +54,10 @@ class InvitationController extends BaseController
 
 		$this->page_attributes->subtitle 			= 'Who Got My Invitation';
 		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb);
-		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
+		$page 										= View('web_v2.pages.profile.invitation.index')
+														->with('data', $this->page_attributes->data);
 
-		return $this->generateView();
+		return $page;
 	}
 
 	/**
@@ -114,7 +115,8 @@ class InvitationController extends BaseController
 			{
 				$infos[$value['type']]			= $value['value'];
 			}
-			$infos['action']					= route(env('ROUTE_BALIN_INVITATION'), $whoami['data']['code_referral']);
+
+			$infos['action']					= route( env('ROUTE_BALIN_INVITATION_GET'), $whoami['data']['code_referral']);
 
 			$mail 								= new APISendMail;
 			$result								= $mail->invitation($whoami['data'], $emails, $infos);
@@ -124,7 +126,7 @@ class InvitationController extends BaseController
 				$this->errors					= $result['message'];
 			}
 
-			$this->page_attributes->success 		= 'Anda telah mengirimkan  '.count($emails).' undangan kepada teman Anda';
+			$this->page_attributes->success 	= 'Anda telah mengirimkan  '.count($emails).' undangan kepada teman Anda';
 		}
 
 		return $this->generateRedirectRoute($to);

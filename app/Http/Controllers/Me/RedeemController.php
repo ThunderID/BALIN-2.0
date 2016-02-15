@@ -95,46 +95,4 @@ class RedeemController extends BaseController
 
 		return $this->generateRedirectRoute($to);
 	}
-
-	/**
-	 * function to show modal invite friend
-	 * 
-	 */
-	public function invite()
-	{
-		$page 										= View('web_v2.pages.profile.redeem.invite');
-
-		return $page;
-	}
-
-	/**
-	 * function send post invite to api
-	 * @param array email
-	 */
-	public function send_invite()
-	{
-		/* get for redirect route to */
-		$to 										= Input::get('to');
-
-		/* array parameter to API */
-		$data										= 	[
-															'user_id'			=> Session::get('whoami')['id'],
-															'invitations'		=> Input::get('email'),
-														];
-
-		$APIUser 									= new APIUser;
-		$result										= $APIUser->sendInvitation($data);
-dd($result);
-
-		if ($result['status'] != 'success')
-		{
-			$this->errors							= $result['message'];
-		}
-		else
-		{
-			$this->page_attributes->success 		= 'Email terkirim';
-		}
-
-		return $this->generateRedirectRoute($to);	
-	}
 }

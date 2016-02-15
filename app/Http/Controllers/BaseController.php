@@ -76,6 +76,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->subtitle)){ $this->page_attributes->subtitle = null; }
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
   		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
+  		if (!isset($this->page_attributes->type_form)){$this->page_attributes->type_form = null;}
 
   		if (!Session::has('carts') || is_null(Session::get('carts'))) 
   		{
@@ -130,6 +131,7 @@ abstract class BaseController extends Controller
 									->with('data', $this->page_attributes->data)
 									->with('balin', $balin)
 									->with('recommend', $recommend)
+									->with('type', $this->page_attributes->type_form)
 									;
 
   		//optional data
@@ -147,7 +149,7 @@ abstract class BaseController extends Controller
 		if (count($this->errors) == 0)
 		{
 			return Redirect::route($to, $parameter)
-					->with('msg',$this->page_attributes->success)
+					->with('msg', $this->page_attributes->success)
 					->with('msg-type', 'success');
 		}
 		else
