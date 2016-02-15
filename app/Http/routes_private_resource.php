@@ -18,6 +18,11 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::get('invitation',										['uses' => 'RedeemController@invite', 		'as' => 'my.balin.invite.get']);
 	Route::post('invitations', 										['uses' => 'RedeemController@send_invite', 	'as' => 'my.balin.invite.post']);
 
+	/* broadcast invitation */
+	Route::get('who/got/my/invitation',								['uses' => 'InvitationController@index', 	'as' => 'my.balin.invitation.index']);
+	Route::get('broadcast/invitation',								['uses' => 'InvitationController@create', 	'as' => 'my.balin.invitation.create']);
+	Route::post('broadcast/invitation', 							['uses' => 'InvitationController@store', 	'as' => 'my.balin.invitation.store']);
+
 	/* Checkout info */
 	Route::get('checkout',											['uses' => 'CheckoutController@get', 		'as' => 'my.balin.checkout.get']);
 	Route::post('checkout',											['uses' => 'CheckoutController@post', 		'as' => 'my.balin.checkout.post']);
@@ -27,7 +32,7 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::any('checkout/order/{id}',								['uses' => 'CheckoutController@get_view',	'as' => 'my.balin.checkout.get.order']);
 
 	/* Order info */
-	Route::get('order/{id}',										['uses' => 'OrderController@show', 				'as' => 'my.balin.order.show']);
-	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 			'as' => 'my.balin.order.destroy']);
-	Route::any('order/resend/invoice/{id}',							['uses' => 'OrderController@resend_invoice',	'as' => 'my.balin.order.resend.invoice']);
+	Route::get('order/{id}',										['uses' => 'OrderController@show', 			'as' => 'my.balin.order.show']);
+	Route::get('order/cancel/{id}',									['uses' => 'OrderController@destroy', 		'as' => 'my.balin.order.destroy']);
+	Route::any('order/resend/invoice/{id}',							['uses' => 'OrderController@resend_invoice','as' => 'my.balin.order.resend.invoice']);
 });

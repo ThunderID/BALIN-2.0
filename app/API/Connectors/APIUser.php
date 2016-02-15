@@ -178,6 +178,27 @@ class APIUser extends APIData
 
 		return $this->post();
 	}
+
+	/* get list of who got my invitation */
+	public function getMeInvited ($parameter = null)
+	{
+		if (!is_null($parameter))
+		{
+			$this->api_url					= '/me/' . $parameter['user_id'] . '/invitations';
+			$this->api_data 				= array_merge($this->api_data, $parameter);
+		}
+
+		return $this->get();
+	}
+
+	/* post my invitations */
+	public function postMeInvitation($data)
+	{
+		$this->api_url 						= '/me/'. Session::get('whoami')['id'] .'/invite';
+		$this->api_data 					= array_merge($this->api_data, $data);
+
+		return $this->post();
+	}
 	/*--- end token private ----*/
 
 	/**

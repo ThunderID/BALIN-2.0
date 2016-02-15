@@ -45,4 +45,13 @@ class APISendMail extends APIData
 
 		return $this->post();
 	}	
+
+	public function invitation($user, $email, $store)
+	{
+		$this->api_url 						= '/mail/invitation';
+
+		$this->api_data 					= array_merge($this->api_data, ["user" => $user, "email" => $email, "store" => $store]);
+
+		return $this->post();
+	}	
 }
