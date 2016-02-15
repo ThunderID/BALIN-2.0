@@ -95,6 +95,7 @@ $bg-balin: 				"../../../images/balin-bg.jpg";
 	}
 }
 .text-shadow{					text-shadow:1px 2px 4px rgba(0, 0, 0, 0.1);}
+.text-underline{				text-decoration: underline;}
 
 // LINK
 a:hover, a:active {				text-decoration: none;}
@@ -323,6 +324,20 @@ p{								line-height: 2em;}
 	&:hover, &:focus, &:active{
 		border: $space-1 solid $grey;
 		background-color: rgba(255, 255, 255, 0.8);
+		color: $black !important;
+		-webkit-transition: 0.4s ease;
+		-moz-transition: 0.4s ease;
+		-o-transition: 0.4s ease;
+		transition: 0.4s ease;
+	}
+}
+// btn black in hover bgcolor transparent border black
+.btn-black-hover-transparent-border-black{
+	background-color: $black;
+	color: $white;
+	&:hover, &:focus, &:active{
+		border: $space-1 solid $black;
+		background-color: transparent;
 		color: $black !important;
 		-webkit-transition: 0.4s ease;
 		-moz-transition: 0.4s ease;

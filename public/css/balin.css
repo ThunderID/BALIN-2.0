@@ -4364,18 +4364,6 @@ button.close {
 
 .modal-fullscreen .modal-dialog {
   margin: 0; }
-  @media screen and (min-width: 768px) {
-    .modal-fullscreen .modal-dialog {
-      width: 768px; } }
-  @media (min-width: 768px) {
-    .modal-fullscreen .modal-dialog {
-      width: 750px; } }
-  @media (min-width: 992px) {
-    .modal-fullscreen .modal-dialog {
-      width: 970px; } }
-  @media (min-width: 1200px) {
-    .modal-fullscreen .modal-dialog {
-      width: 100%; } }
 
 @media (min-width: 768px) {
   .modal-dialog {
@@ -5091,6 +5079,9 @@ button.close {
 .text-shadow {
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1); }
 
+.text-underline {
+  text-decoration: underline; }
+
 a:hover, a:active {
   text-decoration: none; }
 
@@ -5568,6 +5559,15 @@ p {
   .btn-black-hover-white-border-grey:hover, .btn-black-hover-white-border-grey:focus, .btn-black-hover-white-border-grey:active {
     border: 1px solid #ccc;
     background-color: rgba(255, 255, 255, 0.8);
+    color: #000 !important;
+    transition: 0.4s ease; }
+
+.btn-black-hover-transparent-border-black {
+  background-color: #000;
+  color: #fff; }
+  .btn-black-hover-transparent-border-black:hover, .btn-black-hover-transparent-border-black:focus, .btn-black-hover-transparent-border-black:active {
+    border: 1px solid #000;
+    background-color: transparent;
     color: #000 !important;
     transition: 0.4s ease; }
 
