@@ -463,10 +463,9 @@ FUNCTION IN PAGE PRODUCT SHOW
 	function total_product(e, flag) {
 		qty = parseInt(e.val());
 		price = parseInt(e.attr('data-price'));
-		discount = parseInt(e.attr('data-discount'));
 		total_price_qty = 0;
 		
-		total_price_qty = (price-discount)*qty;
+		total_price_qty = (price*qty);
 		e.attr('data-total', total_price_qty);
 	}
 
@@ -498,6 +497,9 @@ FUNCTION IN PAGE PRODUCT SHOW
 		e.attr("data-oldValue", "0");
 		$(".price_all_product").text("IDR "+number_format(0));
 		$(".btn_number[data-type='minus']").attr('disabled', true);
+		setTimeout( function() {
+			$('#notif_window').modal('hide');
+		}, 1500);
 	}
 
 /*=============================================
@@ -659,10 +661,9 @@ FUNCTION IN PAGE CART
 		{
 			var qty = parseInt(e.val());
 			var price = parseInt(e.attr('data-price'));
-			var discount = parseInt(e.attr('data-discount'));
 			var total_price_qty = 0;
 			
-			total_price_qty = (price-discount)*qty;
+			total_price_qty = (price*qty);
 			e.attr('data-total', total_price_qty);
 
 			return total_price_qty;
@@ -678,10 +679,9 @@ FUNCTION IN PAGE CART
 		{
 			var qty = parseInt(e.val());
 			var price = parseInt(e.attr('data-price'));
-			var discount = parseInt(e.attr('data-discount'));
 			var total_price_qty = 0;
 			
-			total_price_qty = (price-discount)*qty;
+			total_price_qty = (price*qty);
 			e.attr('data-total', total_price_qty);
 		}
 

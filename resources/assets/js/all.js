@@ -68,11 +68,11 @@ $('.owl-carousel').owlCarousel({
     responsiveClass:true,
     navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>' ],
     responsive:{
-        0:{
+        320:{
             items:1,
             stagePadding: 0,
             margin: 0,
-            nav:true
+            nav:false
         },
         768:{
             items:1,

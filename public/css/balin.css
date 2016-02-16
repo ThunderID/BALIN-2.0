@@ -5716,6 +5716,11 @@ ul.dropdown-user {
 .dropdown-cart {
   float: right !important; }
 
+.navbar-bottom {
+  margin: 0 auto;
+  height: 25px;
+  width: 20px; }
+
 .breadcrumb li a {
   color: #888;
   font-weight: 300; }
@@ -5825,9 +5830,14 @@ ul.dropdown-user {
     color: #fff; }
 
 .category-device li.active, .filter-device li.active, .sort-device li.active {
-  background-color: #000; }
-  .category-device li.active a, .filter-device li.active a, .sort-device li.active a {
-    color: #fff; }
+  background-color: #000;
+  color: #fff; }
+
+.icon-filter {
+  position: absolute;
+  margin-left: 15%;
+  height: 25px;
+  width: 25px; }
 
 .searching-product .input-search {
   margin-top: 5px;

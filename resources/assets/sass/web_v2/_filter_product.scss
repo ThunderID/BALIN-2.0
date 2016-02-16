@@ -105,8 +105,12 @@
 .category-device, .filter-device, .sort-device {
 	li.active {
 		background-color: $black;
-		a{
-			color: $white;
-		}
+		color: $white;
 	}
+}
+.icon-filter {
+    position: absolute;
+    margin-left: 15%;
+	height: 25px;
+    width: 25px;
 }
