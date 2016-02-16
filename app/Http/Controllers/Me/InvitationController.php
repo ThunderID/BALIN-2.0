@@ -79,8 +79,6 @@ class InvitationController extends BaseController
 	public function store()
 	{
 		/* get for redirect route to */
-		$to 										= Input::get('to');
-
 		$APIUser 									= new APIUser;
 
 		$whoami 									= $APIUser->getMeDetail([
@@ -129,6 +127,6 @@ class InvitationController extends BaseController
 			$this->page_attributes->success 	= 'Anda telah mengirimkan  '.count($emails).' undangan kepada teman Anda';
 		}
 
-		return $this->generateRedirectRoute($to);
+		return $this->generateRedirectRoute('my.balin.redeem.index');	
 	}
 }
