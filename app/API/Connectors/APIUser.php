@@ -8,6 +8,7 @@ class APIUser extends APIData
 	function __construct() 
 	{
 		parent::__construct();
+		$this->api->timeout 				= 60;
 	}
 
 	/*--- use token public ----*/
