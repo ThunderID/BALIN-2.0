@@ -4325,8 +4325,7 @@ button.close {
   border-radius: 0px !important; }
 
 .modal-fullscreen {
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 99999; }
+  background-color: rgba(255, 255, 255, 0.95); }
 
 .modal-fullscreen .modal-content {
   background: transparent;
