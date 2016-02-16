@@ -75,7 +75,7 @@
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
 					<!-- SECTION REFERRAL CODE TABLET, MOBILE -->
-					<p class="ml-5 text-bold text-uppercase hidden-md hidden-lg">
+					<p class="ml-5 mb-5 text-bold text-uppercase hidden-md hidden-lg">
 						{{ $data['me']['data']['code_referral'] }}
 					</p>
 					<p class="ml-5 mtm-xs mb-md hidden-md hidden-lg">
@@ -121,7 +121,7 @@
 					<!-- END SECTION POINT DESKTOP -->
 
 					<!-- SECTION POINT MOBILE, TABLET -->
-					<p class="ml-5 mb-0 hidden-md hidden-lg">
+					<p class="ml-5 mb-5 hidden-md hidden-lg">
 						<strong>@money_indo($data['me']['data']['total_point'])</strong>
 					</p>
 					<p class="ml-5 mtm-xs mb-md hidden-md hidden-lg">

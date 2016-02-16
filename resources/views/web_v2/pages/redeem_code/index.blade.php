@@ -20,11 +20,12 @@
 							</a>
 						</small>
 					</h4>	
-					<p class="pull-right mt-5 text-uppercase text-bold">
+					<p class="pull-right mt-5 mb-5 text-uppercase text-bold">
 						{{ isset($data['me']['data']['code_referral']) ? $data['me']['data']['code_referral'] : '' }}
 					</p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
+				<div class="hidden-md hidden-lg mtm-xs mbm-xs">&nbsp;</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-xs mb-sm pr-md">
 					<p class="mtm-xs pull-right">
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
@@ -50,9 +51,10 @@
 							</a>
 						</small>
 					</h4>
-					<p class="mt-5 pull-right text-bold">@money_indo($data['me']['data']['total_point'])</p>
+					<p class="mt-5 mb-5 pull-right text-bold">@money_indo($data['me']['data']['total_point'])</p>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-sm mb-sm pr-md">
+				<div class="hidden-md hidden-lg mtm-xs mbm-xs">&nbsp;</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mtm-xs mb-sm pr-md">
 					<p class="mtm-xs pull-right">
 						<a class="hover-grey text-sm" href="#" 
 							data-toggle="modal" 
