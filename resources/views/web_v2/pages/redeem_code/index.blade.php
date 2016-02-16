@@ -103,7 +103,7 @@
 	<div class="clearfix">&nbsp;</div>
 
 	<!-- SECTION MODAL FULLSCREEN USER-INFORMATION -->
-	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+	<div id="modal-balance" class="modal modal-user-information modal-fullscreen fade" tabindex="0" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -114,7 +114,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left">
+				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left;">
 				</div>
 			</div>
 		</div>
@@ -224,26 +224,4 @@
 			}
 		});
 	});	
-
-	var view_mode = '';
-	var parsing = '';
-
-	$('.modal-balance').on('hidden.bs.modal', function(e) {
-		$('.modal-dialog').removeClass(view_mode);
-		$(this).find('.modal-body').removeData('bs.modal');
-	});
-
-	$(".modal-fullscreen").on('show.bs.modal', function () {
-		setTimeout( function() {
-			$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
-		}, 0);
-	});
-	$(".modal-fullscreen").on('hidden.bs.modal', function () {
-		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
-	});
-
-	// After load event
-	function change_action(e) {
-		e.context.firstChild.action = parsing;
-	}
 @stop
