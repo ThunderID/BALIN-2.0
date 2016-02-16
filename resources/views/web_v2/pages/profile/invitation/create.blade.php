@@ -10,13 +10,8 @@
 			{!! Form::hidden('to', Route::currentRouteName(), ['class' => 'from_route']) !!}
 			<div class="row mb-sm">
 				<div class="col-md-12 pl-md pr-md mb-md">
-					 {!! Form::text('emails', null, [
-                                'class'         => 'select_tag_email', 
-                                'tabindex'      => '1', 
-                                'id'            => '',
-                                'placeholder'   => 'Tambah email',
-                                'style'         => 'width:100%'
-                    ]) !!}
+					<select name="emails" class="select_tag_email" tabindex="1" style="width:100%" multiple="true">
+					</select>
 				</div>
 			</div>
 			<div class="row">
