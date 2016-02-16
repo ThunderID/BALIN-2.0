@@ -49,15 +49,15 @@
 						"item_list_image"				=> $item['thumbnail'],
 						"item_list_name" 				=> $item['name'],
 						"item_list_qty"					=> $qty,
-						"item_list_normal_price"		=> $item['price'],
+						"item_list_normal_price"		=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? $item['price'] : $item['price'],
 						"item_list_size"				=> $item['varians'],
-						"item_list_discount_price"		=> $item['discount'],
-						"item_list_total_price"			=> (($item['price']-$item['discount'])*$qty),
+						"item_list_discount_price"		=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-$item['promo_price']) : 0,
+						"item_list_total_price"			=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-($item['price']-$item['promo_price'])*$qty) : ($item['price']*$qty),
 						"item_varians"					=> $item['varians'],
 						"item_list_slug"				=> $item['slug'],
 						"item_mode"						=> 'new',
 					))
-					<?php $total += (($item['price']-$item['discount'])*$qty); ?>
+					<?php $total += (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-($item['price']-$item['promo_price'])*$qty) : ($item['price']*$qty); ?>
 				@endforeach
 			@else
 				<div class="row mr-0 ml-0 border-bottom-1 border-left-1 border-right-1 border-grey-light p-sm hidden-xs">

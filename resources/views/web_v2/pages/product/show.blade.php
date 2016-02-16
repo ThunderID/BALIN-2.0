@@ -54,7 +54,13 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<h3 class="mt-0">{{ $data['product']['data']['data'][0]['name'] }}</h3>
-					<h4 class="text-light mt-sm">@money_indo($data['product']['data']['data'][0]['price'])</h4>
+					<h4 class="text-light mt-sm">
+						@money_indo( (isset($data['product']['data']['data'][0]['promo_price'])&&($data['product']['data']['data'][0]['promo_price']!=0)) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'] )
+					</h4>
+					@if (isset($data['product']['data']['data'][0]['promo_price'])&&($data['product']['data']['data'][0]['promo_price']!=0))
+						<span class="text-md text-strikethrough mtm-md">@money_indo( $data['product']['data']['data'][0]['price'] )</span>
+					@endif
+
 					<h4 class="mt-xl">DESKRIPSI</h4>
 					<?php  $description = isset($data['product']['data']['data'][0]['description']) ? json_decode($data['product']['data']['data'][0]['description'], true) : ['description' => '', 'fit' => '']; ?>
 					<p class="text-superlight">{!! $description['description'] !!}</p>
@@ -107,8 +113,7 @@
 										data-id="{{ $v['id'] }}"
 										data-name="qty-{{ strtolower($v['size']) }}[1]"
 										data-stock="{{ $v['current_stock'] }}"
-										data-price="{{ isset($data['product']['data']['data'][0]['price']) ? $data['product']['data']['data'][0]['price'] : 0 }}"
-										data-discount="{{ isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : 0 }}"
+										data-price="{{ (isset($data['product']['data']['data'][0]['promo_price'])&&($data['product']['data']['data'][0]['promo_price']!=0)) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'] }}"
 										data-total="0"
 										data-oldValue="" 
 										data-toggle="tooltip" 
@@ -123,44 +128,6 @@
 								</div>
 							</div>
 						@endforeach
-						<!-- <div class="row pb-xl">
-							@foreach($data['product']['data']['data'][0]['varians'] as $k => $v)
-								@if (($k % 3 == 0)&&($k!=0))
-									</div>
-									<div class="row mt-xl pt-xl pb-xl">
-								@endif
-								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-									<div class="qty text-center">
-										<p>
-											@if (strpos($v['size'], '.')==true)
-												<?php $frac = explode('.', $v['size']); ?>
-												{{ $frac[0].' &frac12;'}}
-											@else
-												{{ $v['size'] }}
-											@endif
-										</p>
-										<input type="hidden" name="varianids[{{ $v['id'] }}]" class="form-control pvarians" value="{{ $v['id'] }}">
-										<input type="number" name="qty[{{ $v['id'] }}]" class="form-control qty-size pqty input_number" min="0" 
-										max="{{ (20>=$v['current_stock'] ) ? $v['current_stock'] : '20' }}"
-										value="0" 
-										data-stock="{{ $v['current_stock'] }}" 
-										data-id="{{ $v['id'] }}" 
-										data-price="{{ isset($data['product']['data']['data'][0]['price']) ? $data['product']['data']['data'][0]['price'] : 239000 }}"
-										data-discount="{{ isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : 0 }}"
-										data-total="0"
-										data-name="qty-{{ strtolower($v['size']) }}[1]" 
-										data-oldValue="" 
-										data-toggle="tooltip" 
-										data-placement="right" 
-										data-page="product">
-
-										<button type="button" class="btn btn-control btn_number minus" data-type="minus" data-field="qty-{{ strtolower($v['size']) }}[1]" data-page="product" disabled>&ndash;</button>
-										<button type="button" class="btn btn-control btn_number plus" data-type="plus" data-field="qty-{{ strtolower($v['size']) }}[1]" data-page="product">&#43;</button>
-									</div>
-								</div>
-							@endforeach
-						</div>
-						-->
 					</div>
 				</div>
 				<!-- END SECTION SIZE CHOICE -->
@@ -171,7 +138,7 @@
 						<h4>TOTAL</h4>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-						<h4 class="price_all_product">@money_indo($data['product']['data']['data'][0]['price'])</h4>
+						<h4 class="price_all_product">@money_indo( isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'])</h4>
 					</div>
 				</div>
 				<!-- END SECTION TOTAL PRICE -->

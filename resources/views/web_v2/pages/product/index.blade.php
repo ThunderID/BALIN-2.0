@@ -165,16 +165,21 @@
 					<ul class="list-unstyled">
 						@foreach ($data['tag'][0] as $k => $v)
 							@if ($v['category_id'] == 0)
-								<li class="col-sm-12 col-md-12 pt-xs pb-0 border-bottom-1 border-grey-dark">
-									<span class="text-grey-dark">{{ $v['name'] }}</span>
+								<li class="pt-xs pb-0 mb-xs border-bottom-1 border-grey-dark pl-0 pr-0 text-grey-dark">
+									{{ $v['name'] }}
 								</li>
 							@endif
 
 							@foreach ($data['tag'][0] as $k2 => $v2)
 								@if ($v['category_id'] == $v2['id'])
-									<li class="pt-xs pb-xs @if(Input::get('tag')==$v['slug']) active @endif">
-										<a href="{{ route('balin.product.index', array_merge(Input::all(), ['tag' => $v['slug']])) }}">{{ $v['name'] }}</a>
-									</li>
+									<a href="{{ route('balin.product.index', array_merge(Input::all(), ['tag' => $v['slug']])) }}">
+										<li class="pt-xs pb-xs {{ (Input::get('tag')==$v['slug']) ? 'active' : '' }}">
+											@if (isset($v['code']))
+												<div class="icon-filter pull-left" style="background-color: {{ $v['code'] }};"></div>
+											@endif
+											{{ $v['name'] }}
+										</li>
+									</a>
 								@endif
 							@endforeach
 						@endforeach
