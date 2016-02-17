@@ -105,6 +105,8 @@ class CartController extends BaseController
 			}
 		}
 
+		Session::put('carts', $carts);
+
 		$breadcrumb									= 	[
 															'Cart' => route('balin.cart.index')
 														];
@@ -276,13 +278,13 @@ class CartController extends BaseController
 					$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran '.$varianp['size'].'.');
 				}
 			}
-			else
-			{
-				$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran yang dicari.');
-			}
+			// else
+			// {
+			// 	$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran yang dicari.');
+			// }
 
 			//2d. parsing detail
-			if (!$errors->count() && $validqty!=0)
+			if (!$errors->count() && $validqty!=0 && isset($varianp))
 			{
 				if(!isset($temp_carts[$product['id']]))
 				{
@@ -300,7 +302,7 @@ class CartController extends BaseController
 													'current_stock' 	=> $varianp['current_stock'],
 												];
 			}
-			elseif(!$errors->count() && $validqty==0 && isset($temp_carts[$product['id']]))
+			elseif(!$errors->count() && $validqty==0 && isset($temp_carts[$product['id']]) && isset($varianp))
 			{
 				unset($temp_carts[$product['id']]['varians'][$varianp['id']]);
 			}
@@ -329,6 +331,7 @@ class CartController extends BaseController
 				$order['voucher_id']			= $order_in_cart['data']['voucher_id'];
 				$order['transactiondetails']	= $order_in_cart['data']['transactiondetails'];
 			}
+			$order_detail 						= [];
 
 			//3b. Check transactiondetail
 			foreach ($temp_carts as $key => $value) 
@@ -356,9 +359,19 @@ class CartController extends BaseController
 														'discount' 			=> $value['discount'],
 
 													];
-					$order['transactiondetails'][]	= $varian;
+					$order_detail[]				= $varian;
 				}
 			}
+
+			if(empty($temp_carts))
+			{
+				foreach ($order['transactiondetails'] as $keyx => $valuex) 
+				{
+					$valuex['quantity']			= 	0;
+					$order_detail[]				= $valuex;
+				}
+			}
+			$order['transactiondetails'] 		= $order_detail;
 
 			//3c. Store cart
 			$result 							= $APIUser->postMeOrder($order);
