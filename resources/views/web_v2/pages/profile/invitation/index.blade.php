@@ -20,6 +20,9 @@
 				<div class="col-sm-3">
 					<h5>Email</h5>
 				</div>
+				<div class="col-sm-3">
+					<h5>Respon</h5>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -36,6 +39,14 @@
 						</div>
 						<div class="col-md-3">
 							<p>{{ $v['email'] }}</p>
+						</div>
+						<div class="col-md-3">
+							<p>
+								@if($v['is_used'])
+									<span class="label label-success">Mendaftar</span>
+								@else
+								@endif
+							</p>
 						</div>
 					</div>
 				@empty
