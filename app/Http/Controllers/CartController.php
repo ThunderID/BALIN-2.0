@@ -88,17 +88,20 @@ class CartController extends BaseController
 
 		foreach ($carts as $key => $value) 
 		{
-			foreach ($value['varians'] as $key2 => $value2) 
+			if(isset($value['varians']))
 			{
-				if($value2['quantity'] < 1)
+				foreach ($value['varians'] as $key2 => $value2) 
 				{
-					unset($carts[$key]['varians'][$key2]);
+					if($value2['quantity'] < 1)
+					{
+						unset($carts[$key]['varians'][$key2]);
+					}
 				}
-			}
 
-			if(count($value['varians'])<1)
-			{
-				unset($carts[$key]);
+				if(count($value['varians'])<1)
+				{
+					unset($carts[$key]);
+				}
 			}
 		}
 
@@ -284,7 +287,7 @@ class CartController extends BaseController
 				if(!isset($temp_carts[$product['id']]))
 				{
 					$temp_carts[$product['id']] 				= $product;
-					$temp_carts[$product['id']]['discount']		= ($product['promo_price']!=0 ? $product['promo_price'] : 0);
+					$temp_carts[$product['id']]['discount']		= ($product['promo_price']!=0 ? ($product['price'] - $product['promo_price']) : 0);
 					unset($temp_carts[$product['id']]['varians']);
 				}
 
