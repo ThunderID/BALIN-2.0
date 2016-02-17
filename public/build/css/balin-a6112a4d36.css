@@ -2693,7 +2693,7 @@ tbody.collapse.in {
     .nav > li > a {
       position: relative;
       display: block;
-      padding: 10px 25px; }
+      padding: 10px 15px; }
       .nav > li > a:hover, .nav > li > a:focus {
         text-decoration: none;
         background-color: #eeeeee; }
@@ -5120,6 +5120,24 @@ p {
 .letter-space-lg {
   letter-spacing: 0.1em; }
 
+.line-height-5 {
+  line-height: 5px; }
+
+.line-height-10 {
+  line-height: 10px; }
+
+.line-height-15 {
+  line-height: 15px; }
+
+.line-height-20 {
+  line-height: 20px; }
+
+.line-height-25 {
+  line-height: 25px; }
+
+.line-height-30 {
+  line-height: 30px; }
+
 .border-0 {
   border-width: 0px; }
 
@@ -5750,7 +5768,8 @@ ul.dropdown-user {
     min-height: 105px; }
 
 .filter-desktop li {
-  padding: 0px !important; }
+  padding: 0px !important;
+  vertical-align: top; }
   .filter-desktop li a {
     background-color: transparent;
     color: #000;
@@ -6056,6 +6075,14 @@ input[type=number]::-webkit-outer-spin-button {
         border-top-color: #333;
         border-bottom-color: #333;
         border-right-color: #333; }
+
+.checkout-step li {
+  width: 200px;
+  border: 1px solid #ccc;
+  color: #ccc; }
+  .checkout-step li.active {
+    border: 1px solid #000;
+    color: #000; }
 
 /* 
  *  Owl Carousel - Animate Plugin

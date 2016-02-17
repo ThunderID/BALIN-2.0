@@ -54,7 +54,7 @@
 		if (wh<dh) {
 			$('.navbar_shortcut').fadeIn();
 		} else {
-			$('.navbar_shortcut').fadeOut();
+			// $('.navbar_shortcut').fadeOut();
 		}
 	}
 	$(document).ready(checkOffset);

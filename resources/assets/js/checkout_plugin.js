@@ -57,8 +57,11 @@
 				success: function(data) {
 					if (typeof(data.type) != "undefined" && data.type !== null) {
 						modal_alert.find('.content').html(data.msg);
-
 						$('#alert_window').modal('show');
+
+						setTimeout( function() {
+							$('#alert_window').modal('hide');
+						}, 1500);
 					}
 					else {
 						reload_view(data, 'desktop');
@@ -79,8 +82,11 @@
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							modal_alert.find('.content').html(data.msg);
-
 							$('#alert_window').modal('show');
+
+							setTimeout( function() {
+								$('#alert_window').modal('hide');
+							}, 1500);
 						}
 						else {
 							reload_view(data, 'desktop');
@@ -99,19 +105,17 @@
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							modal_alert.find('.content').html(data.msg);
-
 							$('#alert_window').modal('show');
+
+							setTimeout( function() {
+								$('#alert_window').modal('hide');
+							}, 1500);
 						}
 						else {
 							reload_view(data, 'desktop');
 							reload_view(data, 'mobile');
 							parsing_address(data.address);
 						}
-						// if (cv==0) {
-						// 	$(".shipping_cost").text(data.shipping_cost);
-						// }
-						// $(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
-						// count_sub_total();
 					}
 				});	
 			}
@@ -165,7 +169,7 @@
 		if (e.type=='success')
 		{
 			panel_voucher = $('.panel_form_voucher');
-			modal_notif = $('.modal_notif');
+			modal_notif = $('.modal-notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
 
@@ -180,7 +184,6 @@
 			setTimeout( function() {
 				$('.loading_voucher').addClass('hide');
 				panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
-				panel_voucher_device.html('<p class="m-b-none text-center">'+e.msg+'</p>');
 			}, 2000);
 
 			$('#notif_window').modal('show');
@@ -198,6 +201,10 @@
 
 			$('#notif_window').modal('show');
 		}
+
+		setTimeout( function() {
+			$('#notif_window').modal('hide');
+		}, 1500);
 	}
 
 	/*

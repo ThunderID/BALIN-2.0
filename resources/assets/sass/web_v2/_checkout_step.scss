@@ -1,0 +1,11 @@
+.checkout-step {
+	li{
+		width: 200px;
+		border: 1px solid $grey;
+		color: $grey;
+		&.active{
+			border: 1px solid $black;
+			color: $black;
+		}
+	}
+}

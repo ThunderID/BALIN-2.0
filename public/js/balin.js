@@ -692,11 +692,12 @@ FUNCTION IN PAGE CART
 		=============================================*/
 		function total(e, flag)
 		{
-			var qty = parseInt(e.val());
-			var price = parseInt(e.attr('data-price'));
-			var total_price_qty = 0;
+			qty = parseInt(e.val());
+			price = parseInt(e.attr('data-price'));
+			discount = parseInt(e.attr('data-discount'));
+			total_price_qty = 0;
 			
-			total_price_qty = (price*qty);
+			total_price_qty = ((price-discount)*qty);
 			e.attr('data-total', total_price_qty);
 
 			return total_price_qty;
@@ -710,11 +711,12 @@ FUNCTION IN PAGE CART
 		=============================================*/
 		function total_mobile(e, flag)
 		{
-			var qty = parseInt(e.val());
-			var price = parseInt(e.attr('data-price'));
-			var total_price_qty = 0;
+			qty = parseInt(e.val());
+			price = parseInt(e.attr('data-price'));
+			discount = parseInt(e.attr('data-discount'));
+			total_price_qty = 0;
 			
-			total_price_qty = (price*qty);
+			total_price_qty = ((price-discount)*qty);
 			e.attr('data-total', total_price_qty);
 		}
 
@@ -817,13 +819,14 @@ EVENT & FUNCTION OTHER
 
 	/* ===FUNCTION ADD TO CART=== */
 	$('.addto_cart').on('click', function(e) {
-		var pvarians 		= [];
-		var pqty 			= [];
-		var form_quantity 	= $('.form_addtocart');
-		var pslug			= $('.slug_form').val();
-		var pname 			= $('.name_form').val();
-		var count_cart 		= 0;
-		var check 			= 0;
+		pvarians 		= [];
+		pqty 			= [];
+		form_quantity 	= $('.form_addtocart');
+		pslug			= $('.slug_form').val();
+		pname 			= $('.name_form').val();
+		count_cart 		= 0;
+		check 			= 0;
+		route 			= $(this).attr('data-route');
 
 		form_quantity.attr('action', 'javascript:void(0);');
 		$('.pqty').each( function() {
@@ -848,6 +851,7 @@ EVENT & FUNCTION OTHER
 				count_cart 	= Object.keys(result.carts).length; 
 				$('.addto_cart').text('ADD TO CART');
 				$('.ico_cart').find('span').text(count_cart);
+				$('.ico_cart').attr('href', route);
 
 				// Get ajax refresh list cart
 				$.ajax({
@@ -4053,8 +4057,11 @@ EVENT & FUNCTION OTHER
 				success: function(data) {
 					if (typeof(data.type) != "undefined" && data.type !== null) {
 						modal_alert.find('.content').html(data.msg);
-
 						$('#alert_window').modal('show');
+
+						setTimeout( function() {
+							$('#alert_window').modal('hide');
+						}, 1500);
 					}
 					else {
 						reload_view(data, 'desktop');
@@ -4075,8 +4082,11 @@ EVENT & FUNCTION OTHER
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							modal_alert.find('.content').html(data.msg);
-
 							$('#alert_window').modal('show');
+
+							setTimeout( function() {
+								$('#alert_window').modal('hide');
+							}, 1500);
 						}
 						else {
 							reload_view(data, 'desktop');
@@ -4095,19 +4105,17 @@ EVENT & FUNCTION OTHER
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							modal_alert.find('.content').html(data.msg);
-
 							$('#alert_window').modal('show');
+
+							setTimeout( function() {
+								$('#alert_window').modal('hide');
+							}, 1500);
 						}
 						else {
 							reload_view(data, 'desktop');
 							reload_view(data, 'mobile');
 							parsing_address(data.address);
 						}
-						// if (cv==0) {
-						// 	$(".shipping_cost").text(data.shipping_cost);
-						// }
-						// $(".shipping_cost").attr('data-s', (data.shipping_cost.replace(/\./g, '')).substring(4));
-						// count_sub_total();
 					}
 				});	
 			}
@@ -4161,7 +4169,7 @@ EVENT & FUNCTION OTHER
 		if (e.type=='success')
 		{
 			panel_voucher = $('.panel_form_voucher');
-			modal_notif = $('.modal_notif');
+			modal_notif = $('.modal-notif');
 			modal_notif.find('.title').children().html('');
 			modal_notif.find('.content').html(e.msg);
 
@@ -4176,7 +4184,6 @@ EVENT & FUNCTION OTHER
 			setTimeout( function() {
 				$('.loading_voucher').addClass('hide');
 				panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
-				panel_voucher_device.html('<p class="m-b-none text-center">'+e.msg+'</p>');
 			}, 2000);
 
 			$('#notif_window').modal('show');
@@ -4194,6 +4201,10 @@ EVENT & FUNCTION OTHER
 
 			$('#notif_window').modal('show');
 		}
+
+		setTimeout( function() {
+			$('#notif_window').modal('hide');
+		}, 1500);
 	}
 
 	/*
@@ -4326,7 +4337,7 @@ EVENT & FUNCTION OTHER
 		if (wh<dh) {
 			$('.navbar_shortcut').fadeIn();
 		} else {
-			$('.navbar_shortcut').fadeOut();
+			// $('.navbar_shortcut').fadeOut();
 		}
 	}
 	$(document).ready(checkOffset);
