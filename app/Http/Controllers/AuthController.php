@@ -400,6 +400,7 @@ class AuthController extends BaseController
 		}
 		
 		return Redirect::route('balin.get.login', ['type' => 'login'])
+						->withErrors($result['message'])
 						->with('msg-type', 'danger');
 	}
 
