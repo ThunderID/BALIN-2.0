@@ -32,7 +32,6 @@
 				$total 	= 0; 
 				$i 		= 0;
 				$temp_product = 0;
-				// dd($data['carts']);
 			?>
 
 			@if (!empty($data['carts']))
@@ -49,15 +48,15 @@
 						"item_list_image"				=> $item['thumbnail'],
 						"item_list_name" 				=> $item['name'],
 						"item_list_qty"					=> $qty,
-						"item_list_normal_price"		=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? $item['price'] : $item['price'],
+						"item_list_normal_price"		=> $item['price'],
 						"item_list_size"				=> $item['varians'],
-						"item_list_discount_price"		=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-$item['promo_price']) : 0,
-						"item_list_total_price"			=> (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-($item['price']-$item['promo_price'])*$qty) : ($item['price']*$qty),
+						"item_list_discount_price"		=> $item['discount'],
+						"item_list_total_price"			=> $item['discount']!=0 ? (($item['price']-$item['discount'])*$qty) : ($item['price']*$qty),
 						"item_varians"					=> $item['varians'],
 						"item_list_slug"				=> $item['slug'],
 						"item_mode"						=> 'new',
 					))
-					<?php $total += (isset($item['promo_price'])&&($item['promo_price']!=0)) ? ($item['price']-($item['price']-$item['promo_price'])*$qty) : ($item['price']*$qty); ?>
+					<?php $total += ($item['discount']!=0) ? (($item['price']-$item['discount'])*$qty) : ($item['price']*$qty); ?>
 				@endforeach
 			@else
 				<div class="row mr-0 ml-0 border-bottom-1 border-left-1 border-right-1 border-grey-light p-sm hidden-xs">
@@ -137,7 +136,7 @@
 					@if (!empty($data['carts']))
 						<div class="row mt-sm mb-sm empty-cart-mobile">
 							<div class="col-xs-12">
-								<a href="{{ route('my.balin.checkout.get') }}" class="btn btn-black-border-white-hover-white btn-block text-uppercase">
+								<a href="{{ route('my.balin.checkout.get') }}" class="btn btn-black-border-white-hover-white btn-block btn-lg text-uppercase">
 									Checkout
 								</a>
 							</div>
@@ -145,7 +144,7 @@
 					@endif
 					<div class="row mt-sm mb-sm">
 						<div class="col-xs-12">
-							<a href="{{ route('balin.product.index') }}" class="btn btn-black-border-white-hover-white btn-block text-uppercase">
+							<a href="{{ route('balin.product.index') }}" class="btn btn-black-border-white-hover-white btn-block btn-lg text-uppercase">
 								Pilih Produk Lain
 							</a>
 						</div>

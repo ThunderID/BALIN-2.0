@@ -146,7 +146,7 @@
 				<!-- SECTION BUTTON ADD TO CART -->
 				<div class="row mt-sm mb-md">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black addto_cart">ADD TO CART</a>
+						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black addto_cart" data-route="{{ route('balin.cart.index') }}">ADD TO CART</a>
 					</div>
 				</div>
 				<!-- END SECTION BUTTON ADD TO CART -->

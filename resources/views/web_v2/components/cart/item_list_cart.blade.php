@@ -123,7 +123,7 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<div class="row">
 				<!-- SECTION IMAGE THUMBNAIL -->
-				<div class="col-xs-8 col-xs-offset-2">
+				<div class="col-xs-10 col-xs-offset-1">
 					 <a href="#">
 						<img class="img-responsive m-t-sm border-1 border-solid border-grey-light" src="{{ $item_list_image }}">
 					 </a>

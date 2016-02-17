@@ -56,8 +56,38 @@
 		</div>
 		<!-- END SECTION WRAPPER -->
 
+		<!-- SECTION MODAL USER INFORMATION -->
+		<div class="modal modal-referral-code modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header bg-black text-white">
+						<div class="row ml-xl mr-xl">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pr-md pl-md">
+								<button type="button" class="close text-white close_modal" data-dismiss="modal" aria-label="Close">&times;</button>
+								<h5 class="modal-title" id="exampleModalLabel">Referal Code & Poin</h5>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body m-md pt-5 mt-sm">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END SECTION MODAL USER INFORMATION -->
+
 		@include('web_v2.components.alert')
-		
+
 		<!-- SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
 		@include('web_v2.components.navbar_shortcut')
 		<!-- END SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
@@ -78,7 +108,36 @@
 			@yield('js')
 			@if (Session::has('msg') || $errors->any())
 				$('#alert_window').modal('show');
+
+				setTimeout( function() {
+					$('#alert_window').modal('hide');
+				}, 1500);
 			@endif
+			// 	ev_click = 0;
+
+			// 	<?php (Session::has('click_iteration') ? $ev_click = Session::put('click_iteration') : $ev_click = 0); ?>
+			// 	console.log("{{ Session::get('click_iteration') }}");
+
+			// @if (Session::get('click_iteration')<2 && (!Session::has('event_click')))
+			// 	$(window).scroll(function() {
+			// 		if (ev_click < 1) {
+			// 			if ($(this).scrollTop() > 300) {
+			// 				$('.modal-referral-code').modal('show');
+			// 			}
+			// 			console.log(ev_click);
+			// 		}
+			// 	});
+			// @else
+			// 	<?php Session::put('event_click', true); ?>
+			// @endif
+
+			// $('.close_modal').click(function() {
+			// 	ev_click++;
+			// 	<?php 
+			// 		$ev_click++; 
+			// 		Session::put('click_iteration', $ev_click);
+			// 	?>
+			// });
 		</script>
 	</body>
 </html>

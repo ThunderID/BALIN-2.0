@@ -22,13 +22,14 @@
 						'label_image'			=> $item['thumbnail'],
 						'label_name'			=> $item['name'],
 						'label_qty'				=> $item['varians'],
-						'label_price'			=> ($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price']),
-						'label_total'			=> $qty*($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price'])
+						'label_price'			=> $item['price'],
+						'label_discount'		=> ($item['discount']!=0) ? ($item['price']-$item['discount']) : 0,
+						'label_total'			=> $qty*($item['discount']!=0 ? ($item['price'] - ($item['price']-$item['discount'])) : $item['price'])
 					])
 				</li>
 				<!-- END SECTION CART DROPDOWN ITEM -->
 
-				<?php $total += (($item['discount']!=0 ? ($item['price'] - $item['discount']) : $item['price'])*$qty); $i++; ?>
+				<?php $total += (($item['discount']!=0 ? ($item['price'] - ($item['price']-$item['discount'])) : $item['price'])*$qty); $i++; ?>
 			@endforeach
 		</div>
 		<div class="cart-bottom">
@@ -52,30 +53,30 @@
 		<li class=" solid text-center">
 			<h4 class="pt-md pb-md mt-0 mb-0 text-md text-light">Belum ada item di Cart</h4>
 		</li>
-		<li class="" style="background-color: #000; color: #fff;">
+		<li class="bg-black text-white">
 			<div class="row">
 				<div class="col-xs-12 text-center" style=" ">
-					<h4 style="margin-bottom: 10px; font-weight: 500; font-size: 14px; letter-spacing: 0.1em;">Anda Mungkin Suka</h4>
+					<h4 class="mb-xs text-md letter-space-sm text-bold">Anda Mungkin Suka</h4>
 				</div>
 			</div>
 		</li>
 
 		@if(isset($recommend['data']['data']))
-		<!-- SECTION RECOMMENDATION PRODUCT -->
-		@foreach($recommend['data']['data'] as $k => $item)
-			<li class="{{ ($item != end($recommend['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
-				@include('web_v2.components.cart.cart_recommendation', [
-					'label_id'				=> $k,
-					'label_image'			=> $item['image_lg'],
-					'label_name'			=> $item['name'],
-					'label_price'			=> $item['price'],
-					//'label_qty'				=> $item['varians'],
-					'label_promo'			=> $item['promo_price'],
-					'label_slug'			=> $item['slug'],
-				])
-			</li>
-		@endforeach
+			<!-- SECTION RECOMMENDATION PRODUCT -->
+			@foreach($recommend['data']['data'] as $k => $item)
+				<li class="{{ ($item != end($recommend['data']) ? 'border-bottom-1 border-grey-light' : '') }}">
+					@include('web_v2.components.cart.cart_recommendation', [
+						'label_id'				=> $k,
+						'label_image'			=> $item['image_lg'],
+						'label_name'			=> $item['name'],
+						'label_price'			=> $item['price'],
+						//'label_qty'				=> $item['varians'],
+						'label_promo'			=> $item['promo_price'],
+						'label_slug'			=> $item['slug'],
+					])
+				</li>
+			@endforeach
+			<!-- END SECTION RECOMMENDATION PRODUCT -->
 		@endif
-		<!-- END SECTION RECOMMENDATION PRODUCT -->
 	@endif
 </ul>

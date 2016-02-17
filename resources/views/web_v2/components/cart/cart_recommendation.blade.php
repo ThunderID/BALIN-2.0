@@ -15,8 +15,8 @@
 				@if ($label_promo==0)
 					<span class="text-product">@money_indo($label_price)</span>
 				@else
-					<span class="text-product small-price">@money_indo($label_price)</span><br>
-					<span class="text-product">@money_indo($label_promo)</span>
+					<span class="text-product">@money_indo($label_promo)</span><br>
+					<span class="text-regular text-strikethrough">@money_indo( $label_price )</span>
 				@endif
 			</div> 
 		</div>

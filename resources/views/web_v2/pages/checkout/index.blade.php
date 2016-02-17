@@ -1,349 +1,31 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
+	<div class="row mb-md">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+			<ul class="list-inline checkout-step text-light">
+				<li class="text-md pt-md pb-md active" data-part="#pengiriman">Pengiriman</li>
+				<li class="text-md pt-md pb-md ml-lg mr-lg" data-part="#voucher">Voucher</li>
+				<li class="text-md pt-md pb-md" data-part="#review">Check & Review Pesanan</li>
+			</ul>
+		</div>
+	</div>
+
 	<!-- SECTION FORM CHECKOUT -->
 	{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST', 'novalidate' => 'novalidate', 'class' => 'no_enter']) !!}
-		<div class="row">
-			{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
-			{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
-			@if ($data['carts'])
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-			@else
-				<div class="col-xs-12 col-sm-12 col-md-12">
-			@endif
+		{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
+		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 
-				<!-- SECTION PRODUCT IN CART -->
-				<div class="row ml-0 mr-0 border-1 border-solid border-grey-light pt-xs hidden-xs">
-					<div class="col-md-2 col-sm-2 hidden-xs">
-						<p class="">Produk</p>
-					</div>
-					<div class="col-md-10 col-sm-10 hidden-xs">
-						<div class="row">
-							<div class="col-sm-2 col-md-2"></div>
-							<div class="col-sm-3 col-md-3">
-								<p class="text-right mr-sm">Harga</p>
-							</div>
-							<div class="col-sm-1 col-md-1">
-								<p class="text-center">Kuantitas</p>
-							</div>
-							<div class="col-sm-3 col-md-3">
-								<p class="text-right">Diskon</p>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<p class="text-right mr-sm">Total</p>
-							</div>
-						</div>
-					</div>
+		<div class="row mr-0 ml-0">
+			<div class="col-sm-12 pt-md pb-md">
+				<div id="pengiriman" class="">
+					@include('web_v2.components.checkout.address')
 				</div>
-
-				@if ($data['carts'])
-					<?php $total = 0; ?>
-					@foreach ($data['carts'] as $k => $item)
-						<?php
-							$qty 			= 0;
-							foreach ($item['varians'] as $key => $value) 
-							{
-								$qty 		= $qty + $value['quantity'];
-							}
-						?>
-
-						<!-- SECTION ITEM LIST PRODUCT CHECKOUT -->
-						@include('web_v2.components.checkout.item_list_checkout', array(
-							"item_list_id"					=> $k,
-							"item_list_image"				=> $item['thumbnail'],
-							"item_list_name" 				=> $item['name'],
-							"item_list_qty"					=> $qty,
-							"item_list_normal_price"		=> $item['price'],
-							"item_list_size"				=> $item['varians'],
-							"item_list_discount_price"		=> $item['discount'],
-							"item_list_total_price"			=> (($item['price']-$item['discount'])*$qty),
-							"item_varians"					=> $item['varians'],
-							"item_list_slug"				=> $item['slug'],
-							"item_mode"						=> 'new',
-						))
-						<?php $total += (($item['price']-$item['discount'])*$qty); ?>
-						<!-- END SECTION ITEM LIST PRODUCT CHECKOUT -->
-					@endforeach
-				@else
-					<div class="row chart">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-							<h4 class="text-center">Tidak ada item di cart</h4>
-						</div>
-					</div>
-				@endif
-				<!-- END SECTION PRODUCT IN CART -->
-
-				<!-- SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR DESKTOP -->
-				<div class="row border-right-1 border-left-1 border-bottom-1 border-grey-light ml-0 mr-0 hidden-sm hidden-xs" id='section_checkout_order_desktop'>
-					@if ($data['carts'])
-						<div class="col-lg-12 col-md-12 checkout-bottom panel-subtotal" id="panel-subtotal-normal">
-							<div class="row mt-sm">
-								<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
-									<span class="text-regular">Subtotal</span>
-								</div>
-								<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-									<span class="text-regular text-right" id="total">@money_indo($total)</span>
-								</div>
-							</div>
-							<div class="row m-l-none m-r-none">
-								<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-									<span class="text-regular">Point Anda</span>
-								</div>
-								<div class="col-lg-5 col-md-5 col-sm-5 text-right">
-									<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
-								</div>	
-							</div>
-							<div class="row m-l-none m-r-none">
-								<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-									<span class="text-regular">Biaya Pengiriman</span>
-								</div>
-								<div class="col-lg-5 col-md-5 col-sm-5 text-right">
-									<span class="text-regular text-right shipping_cost" data-s="0" data-v="0">@money_indo($data['order']['data']['shipping_cost'])</span>
-								</div>	
-							</div>
-							<div class="row m-l-none m-r-none">
-								<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
-									<span class="text-regular">
-										Potongan Voucher
-									</span>
-								</div>
-								<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-									<span class="text-regular text-right text-red voucher_discount" data-unique="{{ $data['order']['data']['voucher_discount'] }}">@money_indo_negative($data['order']['data']['voucher_discount'])</span>
-								</div>
-							</div>
-							<div class="row m-l-none m-r-none">
-								<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
-									<span class="text-regular">
-										Pengenal Pembayaran <a href="#" class="text-black hover-grey-dark" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
-									</span>
-								</div>
-								<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-									<span class="text-regular text-right text-red unique_number" data-unique="{{ $data['order']['data']['unique_number'] }}">@money_indo_negative($data['order']['data']['unique_number'])</span>
-								</div>
-							</div>
-							<div class="row m-l-none m-r-none">
-								<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
-									<h4 class="text-md">Total Pembayaran</h4>
-								</div>
-								<div class="col-lg-5 col-md-5 col-sm-5">
-									<h4 class="text-md text-right text-bold mb-sm sub_total">
-										<?php 
-											$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
-										?>
-										@if ($total_pembayaran && $total_pembayaran < 0)
-											@money_indo(0)
-										@else
-											@money_indo($total_pembayaran)
-										@endif
-									</h4>
-								</div>	
-							</div>
-						</div>
-					@endif
+				<div id="voucher" class="hide">
+					@include('web_v2.components.checkout.voucher')
 				</div>
-				<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN  FOR DESKTOP -->
 			</div>
-
-			<!-- SECTION FORM VOUCHER & DETAIL INFORMATION SHIPPING -->
-			@if ($data['carts'])
-				<div class="hidden-md hidden-lg clearfix">&nbsp;</div>
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<!-- SECTION GET VOUCHER -->
-					<div class="row mr-0 ml-0 mb-md pt-lg pb-lg border-1 border-solid border-grey-light bg-white panel_form_voucher">
-						@if (!isset($data['order']['data']['voucher']))
-							<div class="col-md-12 mb-sm">
-								<span class="text-lg voucher-title">Punya Promo Code ?</span>
-							</div>	
-							<div class="col-md-12 mb-xs">
-								<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
-								<div class="input-group mt-xs" style="position:relative">
-									<div class="text-center hide loading loading_voucher">
-										{!! HTML::image('images/loading.gif', null, []) !!}
-									</div>
-									{!! Form::input('text', 'voucher', null, [
-										'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
-										'placeholder' => 'Voucher code',
-										'data-action' => route('my.balin.checkout.voucher')
-									]) !!}
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('my.balin.checkout.voucher') }}">Gunakan</button>
-									</span>
-								</div>
-							</div>
-						@else
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<p>
-									@if ($data['order']['data']['voucher']['type'] == 'free_shipping_cost')
-										Selamat! Anda mendapat potongan : gratis biaya pengiriman.
-									@elseif ($data['order']['data']['voucher']['type'] == 'debit_point')
-										Selamat! Anda mendapat bonus balin point sebesar {{ $data['order']['data']['voucher']['value'] }} (Balin Point akan ditambahkan jika pesanan sudah dibayar)
-									@endif
-								</p>
-							</div>
-						@endif
-					</div>
-					<!-- END SECTION GET VOUCHER -->
-					<div class="row mr-0 ml-0 pt-sm border-left-1 border-right-1 border-bottom-1 border-grey-light bg-white">
-						<div class="col-xs-12 col-sm-12 col-md-12" >
-							<div class="row mt-sm mb-sm">
-								<div class="m-t-sm hidden-lg hidden-md hidden-sm col-xs-12">
-									<span class="m-t-none m-b-md text-lg">Alamat Pengiriman</span>
-								</div>						
-								<div class="col-md-12 hidden-xs">
-									<span class="text-lg">Alamat Pengiriman</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="name">Pilih Alamat</label>
-										<select class="form-control text-regular choice_address" name="address_id" id="address_id">
-											<option value="0" {{ isset($data['order']['data']['shipment']['address_id']) ? '' : 'selected' }}>Tambah Alamat Baru</option>
-											@foreach($data['my_address'] as $key => $value)
-												<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }}>{{$value['address']}}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="">Nama Penerima</label>
-										{!! Form::input('text', 'receiver_name', isset($data['order']['data']['shipment']['receiver_name']) ? $data['order']['data']['shipment']['receiver_name'] : Session::get('whoami')['name'], [
-												'class' 	=> 'form-control text-regular ch_name',
-										]) !!}
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="">No. Telp</label>
-										{!! Form::input('text', 'phone', isset($data['order']['data']['shipment']['address']['phone']) ? $data['order']['data']['shipment']['address']['phone'] : null, [
-												'class' 		=> 'form-control text-regular ch_phone',
-										]) !!}
-									</div>
-								</div>
-							</div>
-							<div class="row new-address">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="">Alamat</label>
-										{!! Form::textarea('address', isset($data['order']['data']['shipment']['address']['address']) ? $data['order']['data']['shipment']['address']['address'] : null, [
-												'class'			=> 'form-control text-regular ch_address',
-												'rows'			=> '2',
-												'style'     	=> 'resize:none;',
-										]) !!}
-									</div>
-									<div class="form-group">
-										<label class="hollow-label text-regular" for="">Kode Pos</label>
-										<div class="input-group">
-											{!! Form::input('number', 'zipcode', isset($data['order']['data']['shipment']['address']['zipcode']) ? $data['order']['data']['shipment']['address']['zipcode'] : null, [
-													'class' 		=> 'form-control text-regular ch_zipcode',
-													'id'			=> 'zipcode',
-													'data-action'	=> route('my.balin.checkout.shippingcost'),
-													'min'			=> '0'
-											]) !!}
-											<span class="input-group-btn">
-												<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black check_address" data-action="{{ route('my.balin.checkout.shippingcost') }}">Check</a>
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row hidden-xs hidden-sm">
-								<div class="col-md-12">
-									<div class="checkbox i-checks">
-										<label class="text-regular"> 
-											<input type="checkbox" value="1" name="term" required> Saya menyetujui <a href="#" class="link-black unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix">&nbsp;</div>
-							<div class="row">
-								<div class="col-md-12 hidden-xs hidden-sm">
-									<div class="form-group text-right">
-										<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="7">Checkout</button>
-									</div>        
-								</div>        
-							</div>  
-						</div>
-					</div>
-				</div>
-				<div class="clearfix hidden-xs">&nbsp;</div>
-			@endif
-			<!-- END SECTION FORM VOUCHER & DETAIL INFORMATION SHIPPING -->
 		</div>
-
-		<!-- SECTION INFO TOTAL PRODUCT & TOAL PEMBAYARAN FOR MOBILE & TABLET -->
-		@if ($data['carts'])
-			<div class="row border-1 border-solid border-grey-light ml-0 mr-0 mt-sm hidden-md hidden-lg" id="section_checkout_order_mobile">
-				<div class="col-lg-12 col-md-12 checkout-bottom panel-subtotal" id="panel-subtotal-normal">
-					<div class="row mt-sm">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
-							<span class="text-regular">Subtotal</span>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-							<span class="text-regular text-right" id="total">@money_indo($total)</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-							<span class="text-regular">Point Anda</span>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-							<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-							<span class="text-regular">Biaya Pengiriman</span>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-							<span class="text-regular text-right shipping_cost" data-s="0" data-v="0">@money_indo($data['order']['data']['shipping_cost'])</span>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-							<span class="text-regular">Potongan Voucher</span>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-							<span class="text-regular text-right potongan_voucher">@money_indo_negative( $data['order']['data']['voucher_discount'] )</span>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
-							<span class="text-regular">
-								Pengenal Pembayaran <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
-							</span>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-							<span class="text-regular text-right text-red unique_number" data-unique="{{ $data['order']['data']['unique_number'] }}">@money_indo_negative($data['order']['data']['unique_number'])</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-7 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-							<h4 class="text-md">Total Pembayaran</h4>
-						</div>
-						<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-							<h4 class="text-md text-right text-bold mb-sm sub_total">
-								<?php 
-									$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
-								?>
-								@if ($total_pembayaran && $total_pembayaran < 0)
-									@money_indo(0)
-								@else
-									@money_indo($total_pembayaran)
-								@endif
-							</h4>
-						</div>	
-					</div>
-				</div>
-			</div>
-		@endif
-		<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR MOBILE & TABLET -->
 
 		<!-- SECTION CHECKBOX TERM & CONDITION FOR MOBILE & TABLET -->
 		<div class="col-xs-12 hidden-lg hidden-md pt-sm">
@@ -358,14 +40,13 @@
 
 		<!-- SECTION BUTTON CHECKOUT FOR MOBILE & TABLET -->
 		<div class="clearfix">&nbsp;</div>
-			<div class="row p-b-md p-t-xs hidden-md hidden-lg">
-				<div class="col-md-12">
-					<div class="form-group text-right">
-						<button type="submit" class="btn btn-black-hover-white-border-black btn-block text-lg" tabindex="7">Checkout</button>
-					</div>        
+		<div class="row p-b-md p-t-xs hidden-md hidden-lg">
+			<div class="col-md-12">
+				<div class="form-group text-right">
+					<button type="submit" class="btn btn-black-hover-white-border-black btn-block text-lg" tabindex="7">Checkout</button>
 				</div>        
-			</div>  			
-		</div>
+			</div>        
+		</div>  			
 		<!-- END SECTION BUTTON CHECKOUT FOR MOBILE & TABLET -->
 	{!! Form::close() !!}
 
@@ -425,5 +106,5 @@
 @stop
 
 @section('js_plugin')
-	@include('web_v2.plugins.notif', ['data' => ['title' => 'Terima Kasih', 'content' => 'Produk telah ditambahkan di cart']])
+	@include('web_v2.plugins.notif')
 @stop

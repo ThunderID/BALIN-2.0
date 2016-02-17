@@ -44,16 +44,6 @@
 			</div>	
 		</div>
 		<div class="row">
-			<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
-				<span class="text-regular">
-					Pengenal Pembayaran <a href="#" class="link-grey hover-black" data-toggle="modal" data-target=".modal-unique-number"><i class="fa fa-question-circle"></i></a>
-				</span>
-			</div>
-			<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
-				<span class="text-regular text-right text-red unique_number" data-unique="{{ $data['order']['unique_number'] }}">@money_indo_negative($data['order']['unique_number'])</span>
-			</div>
-		</div>
-		<div class="row">
 			<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
 				<h4 class="text-md">Total Pembayaran</h4>
 			</div>
