@@ -4,7 +4,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.select_tag_email').select2({
-			placeholder: 'Tambah email teman',
+			placeholder: 'pisahkan email dengan spasi atau koma',
 			minimumResultsForSearch: Infinity,
 			tags: true,
 			tokenSeparators: [',', ' ', '\n', '\t', ';'],

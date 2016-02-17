@@ -68,9 +68,9 @@
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.invitation.create') }}" 
-							data-modal-title="Undang Teman" 
+							data-modal-title="Bagikan via Email" 
 							data-from="{{ Route::currentRouteName() }}"
-							data-view="modal-lg">[ Undang Teman ]</a>
+							data-view="modal-lg">[ Bagikan via Email ]</a>
 					</p>
 					<!-- END SECTION REFERRAL CODE DESKTOP -->
 
@@ -83,9 +83,9 @@
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.invitation.create') }}" 
-							data-modal-title="Undang Teman" 
+							data-modal-title="Bagikan via Email" 
 							data-from="{{ Route::currentRouteName() }}"
-							data-view="modal-lg">[ Undang Teman ]</a>
+							data-view="modal-lg">[ Bagikan via Email ]</a>
 					</p>
 					<!-- END SECTION REFERRAL CODE TABLET, MOBILE -->
 				</div>

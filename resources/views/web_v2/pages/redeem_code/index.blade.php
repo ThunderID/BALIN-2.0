@@ -31,9 +31,9 @@
 							data-toggle="modal" 
 							data-target=".modal-user-information" 
 							data-action="{{ route('my.balin.invitation.create') }}" 
-							data-modal-title="Undang Teman" 
+							data-modal-title="Bagikan via Email" 
 							data-from="{{ Route::currentRouteName() }}"
-							data-view="modal-lg">[ Undang Teman ]</a>
+							data-view="modal-lg">[ Bagikan via Email ]</a>
 					</p>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-body mt-75 mobile-m-t-0" style="text-align:left;">
+				<div class="modal-body">
 				</div>
 			</div>
 		</div>
