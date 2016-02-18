@@ -272,6 +272,51 @@ class CheckoutController extends BaseController
 		return Response::json(['action' => route('my.balin.checkout.get.order', $result['data']['id']), 'address' => $address], 200);
 	}
 
+
+	/**
+	 * function to store extension
+	 * 
+	 * 1. Get cart detail
+	 * 2. Store extension
+	 * 3. Return result
+	 * @return json response
+	 */
+	public function extension()
+	{
+		//1. Get cart detail
+		$APIUser				= new APIUser;
+
+		$me_order_in_cart		= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
+
+		if($me_order_in_cart['status']!= 'success')
+		{
+			return Response::json(['type' => 'error', 'msg' => 'Tidak ada keranjang.'], 200);
+		}
+
+		//2. Store extension
+		$extension 				= Input::only('product_extension_id', 'value', 'price', 'flag');
+		$extensions 			= [];
+		foreach ($extension['product_extension_id'] as $key => $value) 
+		{
+			if($value!='' && $extension['flag'][$key]==true)
+			{
+				$extensions[]	= ['product_extension_id' => $value, 'price' => $extension['price'][$key], 'value' => $extension['value'][$key]];
+			}
+		}
+
+		$me_order_in_cart['data']['transactionextensions']	= $extensions;
+
+		$result					= $APIUser->postMeOrder($me_order_in_cart['data']);
+
+		//3. Return result
+		if ($result['status'] != 'success')
+		{
+			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
+		}
+
+		return Response::json(['type' => 'success', 'msg' => 'Bingkisan sudah tersimpan (akan dikenakan biaya sesuai yang tertera).'], 200);
+	}
+
 	/**
 	 * function to get view desktop for order detail in checkout
 	 * 1. Get cart detail
