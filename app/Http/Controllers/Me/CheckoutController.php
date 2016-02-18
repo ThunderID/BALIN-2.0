@@ -228,26 +228,17 @@ class CheckoutController extends BaseController
 			$me_order_in_cart['data']['shipment']['courier_id']					= 1;
 		}
 
-		if(Input::has('address_id'))
+		if(!isset($me_order_in_cart['data']['shipment']['address_id']))
 		{
-			$me_order_in_cart['data']['shipment']['address_id']					= Input::get('address_id');
-			if (Input::has('flagcheck'))
-			{
-				$me_order_in_cart['data']['shipment']['address']['id']			= "";
-				$me_order_in_cart['data']['shipment']['receiver_name']			= Input::get('name');
-				$me_order_in_cart['data']['shipment']['address']['address']		= Input::get('address');
-				$me_order_in_cart['data']['shipment']['address']['zipcode']		= Input::get('zipcode');
-				$me_order_in_cart['data']['shipment']['address']['phone']		= Input::get('phone');
-			}
-			else 
-			{
-				$me_order_in_cart['data']['shipment']['receiver_name']			= Session::get('whoami')['name'];
-				unset($me_order_in_cart['data']['shipment']['address']);
-			}
+			$me_order_in_cart['data']['shipment']['address_id']					= "";
+			$me_order_in_cart['data']['shipment']['address']['id']				= "";
+			$me_order_in_cart['data']['shipment']['receiver_name']				= Input::get('name');
+			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
+			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
+			$me_order_in_cart['data']['shipment']['address']['phone']			= Input::get('phone');
 		}
 		else
 		{
-			$me_order_in_cart['data']['shipment']['address']['id']				= "";
 			$me_order_in_cart['data']['shipment']['receiver_name']				= Input::get('name');
 			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
 			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
