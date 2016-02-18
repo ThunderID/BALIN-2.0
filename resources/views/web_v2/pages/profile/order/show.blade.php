@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 	<div class="row">
 		<div class="col-md-8 col-sm-8 col-xs-12">
@@ -139,18 +139,33 @@
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Ongkos Kirim</strong></td>
 							<td class="text-right pr-sm">@money_indo( $data['order']['shipping_cost'] )</td>
 						</tr>
+
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Diskon Voucher</strong></td>
-							<td class="text-right pr-sm">@money_indo( $data['order']['voucher_discount'] )</td>
+							<td class="text-right pr-sm text-red">@money_indo( $data['order']['voucher_discount'] )</td>
 						</tr>
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Potongan Point</strong></td>
-							<td class="text-right pr-sm">@money_indo( $data['order']['amount'] - $data['order']['bills'] - (isset($data['order']['payment']['amount']) ? $data['order']['payment']['amount'] : 0))</td>
+							<td class="text-right pr-sm text-red">@money_indo( $data['order']['point_discount'])</td>
 						</tr>
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Potongan Transfer</strong></td>
-							<td class="text-right pr-sm">@money_indo( $data['order']['unique_number'] )</td>
+							<td class="text-right pr-sm text-red">@money_indo( $data['order']['unique_number'] )</td>
 						</tr>
+						<tr>
+							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Biaya Tambahan </strong>
+								@foreach($data['order']['transactionextensions'] as $key => $value)
+									<br/> {{$value['productextension']['name']}}
+								@endforeach
+							</td>
+							<td class="text-right pr-sm">@money_indo( $data['order']['extend_cost'] )</td>
+						</tr>
+						@if(isset($data['order']['payment']))
+							<tr>
+								<td class="text-left pl-sm col-md-8 col-sm-8"><strong>{{ucwords($data['order']['payment']['method'])}}</strong></td>
+								<td class="text-right pr-sm text-red">@money_indo( $data['order']['payment']['amount'] )</td>
+							</tr>
+						@endif
 						<tr>
 							<td class="text-left pl-sm col-md-8 col-sm-8"><strong>Total Yang Harus Dibayarkan</strong></td>
 							<td class="text-right pr-sm">@money_indo( $data['order']['bills'] )</td>
@@ -210,6 +225,8 @@
 					<tr>
 						@if (count($data['order']['payment']))
 							<th colspan="2">Nota Bayar</th>
+						@elseif($data['order']['bills'] == 0)
+							<th colspan="2">Pelunasan Dengan Point</th>
 						@else
 							<th colspan="2">Lakukan Pembayaran Melalui</th>
 						@endif
@@ -232,6 +249,10 @@
 						<tr>
 							<td><strong>Total Bayar</strong></td>
 							<td>@money_indo( $data['order']['payment']['amount'] )</td>
+						</tr>
+					@elseif($data['order']['bills'] == 0)
+						<tr>
+							<td colspan="2">@money_indo( $data['order']['point_discount'])</td>
 						</tr>
 					@else
 						<tr>

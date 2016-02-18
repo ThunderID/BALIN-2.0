@@ -1,6 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Pembayaran Diterima', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
-	// dd(Session::get('whoami'));
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -348,7 +347,7 @@
 						</span>
 					</div>
 					<div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
-						@if ($v['status'] == 'wait')
+						@if ($v['status'] != 'wait')
 							<p class="text-right">
 								<span class="text-right mb-0">
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
