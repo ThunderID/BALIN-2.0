@@ -284,34 +284,65 @@
 		}
 	}
 
-	function add_gift() {
+	function add_gift(e) {
 		extension_id = [];
 		extension_price = [];
 		extension_value = [];
 		extension_flag = [];
+		action = e.attr('data-action');
+		modal_alert		= $('#alert_window');
 
 		$('.extension_id').each( function() {
 			extension_id.push($(this).val());
 		});
-
 		$('.extension_price').each( function() {
 			extension_price.push($(this).val());
 		});
-
 		$('.extension_value').each( function() {
 			extension_value.push($(this).val());
 		});
-
 		$('.extension_flag').each(function() {
 			extension_flag.push($(this).val());
 		});
 
-		
+		$.ajax({
+			url: action,
+			type: 'post',
+			dataType: 'json',
+			async: false,
+			data: {product_extension_id: extension_id, value: extension_value, price: extension_value, flag: extension_flag},
+			success: function(data) {
+				if (typeof(data.type) == 'eror') {
+					error = true;
+					msg = '';
+					$.each(e.msg, function (index, value) {
+						msg += '<p class="mb-5"> - '+ value +'</p>';
+					});
 
-		console.log(extension_id);
-		console.log(extension_price);
-		console.log(extension_value);
-		console.log(extension_flag);
+					modal_alert.find('.content').html(msg);
+					$('#alert_window').modal('show');
+
+					setTimeout( function() {
+						$('#alert_window').modal('hide');
+					}, 1500);
+				}
+				else {
+					error = false;
+
+					modal_alert.find('.content').html(data.msg);
+					$('#alert_window').modal('show');
+
+					setTimeout( function() {
+						$('#alert_window').modal('hide');
+					}, 1500);
+
+					reload_view(data, 'desktop');
+					reload_view(data, 'mobile');
+				}
+			}
+		});
+
+		return error;
 	}
 
 	// function count_sub_total() {
@@ -424,11 +455,10 @@
 			input_voucher = $('.voucher_desktop').val();
 			if (typeof(input_voucher) != "undefined" && input_voucher !== null) {
 				// param_check = check_voucher();
-				
 			}
 		}
 		else if (ajax=='gift') {
-			add_gift();
+			param_check = add_gift(e);
 		}
 		else if (ajax=='submit') {
 

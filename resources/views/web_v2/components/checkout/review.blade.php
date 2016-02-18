@@ -90,7 +90,7 @@
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 								<span class="text-regular">
 									Potongan Voucher
 								</span>
@@ -105,6 +105,21 @@
 								</span>
 							</div>
 						</div>
+						@if (isset($data['order']['data']['extend_cost']))
+							<div class="row">
+								<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
+									<span class="text-regular">Bingkisan Tambahan</span>
+									@if (isset($data['order']['transactionextensions']))
+										@foreach($data['order']['transactionextensions'] as $key => $value)
+											<p class="mb-0">{{$value['productextension']['name']}}</p>
+										@endforeach
+									@endif
+								</div>
+								<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right ">
+									<span class="text-regular text-right potongan_voucher">@money_indo($data['order']['data']['extend_cost'])</span>
+								</div>	
+							</div>
+						@endif
 						<div class="row">
 							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 								<h4 class="text-md">Total Pembayaran</h4>
@@ -112,7 +127,7 @@
 							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5">
 								<h4 class="text-md text-right text-bold mb-sm sub_total">
 									<?php 
-										$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
+										$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'] + (isset($data['order']['data']['extend_cost']) ? $data['order']['data']['extend_cost'] : 0);
 									?>
 									@if ($total_pembayaran && $total_pembayaran < 0)
 										@money_indo(0)

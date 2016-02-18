@@ -66,7 +66,8 @@ class CheckoutController extends BaseController
 		//1c. get list product extension
 		$APIProductExtension 					= new APIProductExtension;
 		$product_extension						= $APIProductExtension->getIndex();
-// dd($product_extension);
+		// $product_extension						= null;
+
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
 														'Checkout' => route('my.balin.checkout.get')
@@ -303,14 +304,14 @@ class CheckoutController extends BaseController
 		$me_order_in_cart['data']['transactionextensions']	= $extensions;
 
 		$result					= $APIUser->postMeOrder($me_order_in_cart['data']);
-
+		
 		//3. Return result
 		if ($result['status'] != 'success')
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
 
-		return Response::json(['type' => 'success', 'msg' => 'Bingkisan sudah tersimpan (akan dikenakan biaya sesuai yang tertera).'], 200);
+		return Response::json(['type' => 'success', 'msg' => 'Bingkisan sudah tersimpan (akan dikenakan biaya sesuai yang tertera).', 'action' => route('my.balin.checkout.get.order', $result['data']['id'])], 200);
 	}
 
 	/**
