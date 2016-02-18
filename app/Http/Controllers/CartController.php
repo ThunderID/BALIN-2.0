@@ -88,19 +88,24 @@ class CartController extends BaseController
 
 		foreach ($carts as $key => $value) 
 		{
-			foreach ($value['varians'] as $key2 => $value2) 
+			if(isset($value['varians']))
 			{
-				if($value2['quantity'] < 1)
+				foreach ($value['varians'] as $key2 => $value2) 
 				{
-					unset($carts[$key]['varians'][$key2]);
+					if($value2['quantity'] < 1)
+					{
+						unset($carts[$key]['varians'][$key2]);
+					}
+				}
+
+				if(count($value['varians'])<1)
+				{
+					unset($carts[$key]);
 				}
 			}
-
-			if(count($value['varians'])<1)
-			{
-				unset($carts[$key]);
-			}
 		}
+
+		Session::put('carts', $carts);
 
 		$breadcrumb									= 	[
 															'Cart' => route('balin.cart.index')
@@ -273,18 +278,18 @@ class CartController extends BaseController
 					$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran '.$varianp['size'].'.');
 				}
 			}
-			else
-			{
-				$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran yang dicari.');
-			}
+			// else
+			// {
+			// 	$errors->add('Stock', $product['name']. ' tidak tersedia dalam ukuran yang dicari.');
+			// }
 
 			//2d. parsing detail
-			if (!$errors->count() && $validqty!=0)
+			if (!$errors->count() && $validqty!=0 && isset($varianp))
 			{
 				if(!isset($temp_carts[$product['id']]))
 				{
 					$temp_carts[$product['id']] 				= $product;
-					$temp_carts[$product['id']]['discount']		= ($product['promo_price']!=0 ? $product['promo_price'] : 0);
+					$temp_carts[$product['id']]['discount']		= ($product['promo_price']!=0 ? ($product['price'] - $product['promo_price']) : 0);
 					unset($temp_carts[$product['id']]['varians']);
 				}
 
@@ -297,7 +302,7 @@ class CartController extends BaseController
 													'current_stock' 	=> $varianp['current_stock'],
 												];
 			}
-			elseif(!$errors->count() && $validqty==0 && isset($temp_carts[$product['id']]))
+			elseif(!$errors->count() && $validqty==0 && isset($temp_carts[$product['id']]) && isset($varianp))
 			{
 				unset($temp_carts[$product['id']]['varians'][$varianp['id']]);
 			}
@@ -326,6 +331,7 @@ class CartController extends BaseController
 				$order['voucher_id']			= $order_in_cart['data']['voucher_id'];
 				$order['transactiondetails']	= $order_in_cart['data']['transactiondetails'];
 			}
+			$order_detail 						= [];
 
 			//3b. Check transactiondetail
 			foreach ($temp_carts as $key => $value) 
@@ -353,9 +359,19 @@ class CartController extends BaseController
 														'discount' 			=> $value['discount'],
 
 													];
-					$order['transactiondetails'][]	= $varian;
+					$order_detail[]				= $varian;
 				}
 			}
+
+			if(empty($temp_carts))
+			{
+				foreach ($order['transactiondetails'] as $keyx => $valuex) 
+				{
+					$valuex['quantity']			= 	0;
+					$order_detail[]				= $valuex;
+				}
+			}
+			$order['transactiondetails'] 		= $order_detail;
 
 			//3c. Store cart
 			$result 							= $APIUser->postMeOrder($order);

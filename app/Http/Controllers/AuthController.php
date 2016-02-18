@@ -159,7 +159,7 @@ class AuthController extends BaseController
 								'price'				=> $v['price'],
 						];
 
-						$temp_varian[$v['varian']['id']] 	=	[
+						$temp_varian 	=	[
 								'varian_id'			=> $v['varian_id'],
 								'sku'				=> $v['varian']['sku'],
 								'quantity'			=> $v['quantity'],
@@ -168,7 +168,7 @@ class AuthController extends BaseController
 								'message'			=> null,
 						];
 
-						$temp_carts[$v['varian']['product_id']]['varians']	= $temp_varian;
+						$temp_carts[$v['varian']['product_id']]['varians'][$v['varian']['id']]	= $temp_varian;
 					}
 					
 					Session::set('carts', $temp_carts);
@@ -319,7 +319,7 @@ class AuthController extends BaseController
 								'price'				=> $v['price'],
 						];
 
-						$temp_varian[$v['varian']['id']] 	=	[
+						$temp_varian 	=	[
 								'varian_id'			=> $v['varian_id'],
 								'sku'				=> $v['varian']['sku'],
 								'quantity'			=> $v['quantity'],
@@ -328,10 +328,10 @@ class AuthController extends BaseController
 								'message'			=> null,
 						];
 
-						$temp_carts[$v['varian']['product_id']]['varians']	= $temp_varian;
+						$temp_carts[$v['varian']['product_id']]['varians'][$v['varian']['id']]	= $temp_varian;
 					}
-					
-					Session::set('carts', $temp_carts);
+
+					Session::put('carts', $temp_carts);
 				}
 			}
 			//check user no before login carts
