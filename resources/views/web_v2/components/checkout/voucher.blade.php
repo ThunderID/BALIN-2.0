@@ -1,33 +1,58 @@
-<div class="row mr-0 ml-0 mb-md pt-lg pb-lg border-1 border-solid border-grey-light bg-white panel_form_voucher">
-	@if (!isset($data['order']['data']['voucher']))
-		<div class="col-md-12 mb-sm">
-			<span class="text-lg voucher-title">Punya Promo Code ?</span>
-		</div>	
-		<div class="col-md-12 mb-xs">
-			<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
-			<div class="input-group mt-xs" style="position:relative">
-				<div class="text-center hide loading loading_voucher">
-					{!! HTML::image('images/loading.gif', null, []) !!}
+<div class="row panel_form_voucher">
+	<div class="col-xs-8 col-xs-offset-2 col-sm-8 col-xs-offset-2 col-md-8 col-xs-offset-2 bg-white border-1 border-solid border-grey-light">
+		<div class="content_checkout">
+			@if (!isset($data['order']['data']['voucher']))
+				<div class="row pt-md pb-sm">
+					<div class="col-md-12 mb-sm">
+						<span class="text-lg voucher-title">Punya Kode Voucher ?</span>
+					</div>	
+					<div class="col-md-12 mb-xs">
+						<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
+						<div class="mt-xs" style="position:relative">
+							<div class="text-center hide loading loading_voucher">
+								{!! HTML::image('images/loading.gif', null, []) !!}
+							</div>
+							{!! Form::input('text', 'voucher', null, [
+								'class' 		=> 'form-control transaction-input-voucher-code text-regular voucher_desktop',
+								'placeholder' 	=> 'Voucher code',
+								'style'			=> 'width:100%'
+							]) !!}
+						</div>
+					</div>
 				</div>
-				{!! Form::input('text', 'voucher', null, [
-					'class' => 'form-control hollow transaction-input-voucher-code m-b-sm text-regular voucher_desktop',
-					'placeholder' => 'Voucher code',
-					'data-action' => route('my.balin.checkout.voucher')
-				]) !!}
-				<span class="input-group-btn">
-					<button type="button" class="btn btn-black-hover-white-border-black voucher_desktop" data-action="{{ route('my.balin.checkout.voucher') }}">Gunakan</button>
-				</span>
+			@else
+				<div class="row pt-md pb-sm">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<p>
+							@if ($data['order']['data']['voucher']['type'] == 'free_shipping_cost')
+								Selamat! Anda mendapat potongan : gratis biaya pengiriman.
+							@elseif ($data['order']['data']['voucher']['type'] == 'debit_point')
+								Selamat! Anda mendapat bonus balin point sebesar {{ $data['order']['data']['voucher']['value'] }} (Balin Point akan ditambahkan jika pesanan sudah dibayar)
+							@endif
+						</p>
+					</div>
+				</div>
+			@endif
+		</div>
+		<div class="row pt-md pb-md">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step" 
+				data-target="#sc1"  
+				data-value="#sc2"
+				data-param="0"
+				data-type="prev"
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'shipped']) }}">Kembali</a>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
+				data-action="{ route('my.balin.checkout.voucher') }}" 
+				data-target="#sc3"  
+				data-value="#sc2"
+				data-param="2"
+				data-type="next"
+				data-event="voucher"
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'review']) }}">Gunakan & Lanjutkan</a>
 			</div>
 		</div>
-	@else
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<p>
-				@if ($data['order']['data']['voucher']['type'] == 'free_shipping_cost')
-					Selamat! Anda mendapat potongan : gratis biaya pengiriman.
-				@elseif ($data['order']['data']['voucher']['type'] == 'debit_point')
-					Selamat! Anda mendapat bonus balin point sebesar {{ $data['order']['data']['voucher']['value'] }} (Balin Point akan ditambahkan jika pesanan sudah dibayar)
-				@endif
-			</p>
-		</div>
-	@endif
+	</div>
 </div>

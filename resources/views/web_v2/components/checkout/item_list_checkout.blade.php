@@ -1,6 +1,6 @@
 <!-- SECTION ITEM LIST PRODUCT CHECKOUT FOR DESKTOP -->
 <div class="hidden-xs">
-	<div class="row border-right-1 border-left-1 border-bottom-1 border-grey-light mr-0 ml-0">
+	<div class="row border-bottom-1 border-grey-light mr-0 ml-0">
 		<div class="col-sm-2 col-md-2">
 			<a href="{{ route('balin.product.show', $item_list_slug) }}">
 				<img class="img-responsive mt-sm mb-sm" src="{{ $item_list_image }}" style="width: 85%;">

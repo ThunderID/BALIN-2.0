@@ -5947,6 +5947,10 @@ input[type=number]::-webkit-outer-spin-button {
   appearance: textfield;
   margin: 0; }
 
+label.warning {
+  font-size: 12px;
+  color: #d91e18; }
+
 .size-product .size-input {
   border: none;
   border-top: 1px solid #e5e5e5;
@@ -6076,11 +6080,11 @@ input[type=number]::-webkit-outer-spin-button {
         border-bottom-color: #333;
         border-right-color: #333; }
 
-.checkout-step li {
+.step-checkout li {
   width: 200px;
   border: 1px solid #ccc;
   color: #ccc; }
-  .checkout-step li.active {
+  .step-checkout li.active {
     border: 1px solid #000;
     color: #000; }
 
