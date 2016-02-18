@@ -240,6 +240,11 @@ class CheckoutController extends BaseController
 		}
 		else
 		{
+			if($me_order_in_cart['data']['shipment']['address_id']==0)
+			{
+				$me_order_in_cart['data']['shipment']['address']['id']			= "";
+			}
+
 			$me_order_in_cart['data']['shipment']['receiver_name']				= Input::get('name');
 			$me_order_in_cart['data']['shipment']['address']['address']			= Input::get('address');
 			$me_order_in_cart['data']['shipment']['address']['zipcode']			= Input::get('zipcode');
@@ -297,14 +302,14 @@ class CheckoutController extends BaseController
 		{
 			if($value!='' && $extension['flag'][$key]==true)
 			{
-				$extensions[]	= ['product_extension_id' => $value, 'price' => $extension['price'][$key], 'value' => $extension['value'][$key]];
+				$extensions[]	= ['id' => '', 'transaction_id' => $me_order_in_cart['data']['id'], 'product_extension_id' => $value, 'price' => $extension['price'][$key], 'value' => $extension['value'][$key]];
 			}
 		}
 
 		$me_order_in_cart['data']['transactionextensions']	= $extensions;
 
 		$result					= $APIUser->postMeOrder($me_order_in_cart['data']);
-		
+		dd($result);
 		//3. Return result
 		if ($result['status'] != 'success')
 		{
