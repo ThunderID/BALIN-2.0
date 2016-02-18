@@ -1,7 +1,6 @@
-	/*
-	*	function pilih address
-	*	
-	*/
+	/**
+	 * [function pilih address]
+	 */
 	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		action = $(this).find(':selected').attr('data-action');
@@ -30,45 +29,50 @@
 		reload_view(voucher, 'mobile');
 	}
 
-	/*
-	*	function check address
-	*	
-	*/
-	// $('.check_address').click( function() {
-	// 	ch_address_id	= $('.choice_address').val();
-	// 	action 			= $(this).attr('data-action');
-		
-	// 	get_shipping_cost(ch_address_id, action, 1);
-		
-	// });
+	/**
+	 * [function check address to parsin function get shipping cost]
+	 * 
+	 * @param  e {element button step}
+	 * @return check {false/true jika ada error}
+	 */
 	function check_address(e) {
 		ch_address_id	= $(e).val();
 		action 			= $(e).attr('data-action');
 		
-		get_shipping_cost(ch_address_id, action, 1);
+		check 			= get_shipping_cost(ch_address_id, action, 1);
+		return check;
 	}
 
-	/*
-	*	function get shipping cost
-	*	@param id, action
-	*/
+	/**
+	 * [function get shipping cost]
+	 * 
+	 * @param 	id 		{jika id address tidak ada}
+	 * @param 	action 	{url yang akan dituju}
+	 * @param 	flag 	{jika address sudah ada 0 merupakan tidak ada perubahan data, 1 ada perubahan data}
+	 * @return 	error 	{false/true}
+	 */
 	function get_shipping_cost(id, action, flag) {
 		ch_name 		= $('.ch_name').val();
 		ch_phone		= $('.ch_phone').val();
 		ch_address 		= $('.ch_address').val();
 		ch_zipcode		= $('.ch_zipcode').val();
 		modal_alert		= $('#alert_window');
+		error 			= false;
 		
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 
+		// call ajax add address new
 		if (id == 0) {
 			$.ajax({
 				url: action,
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				data: {name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode},
 				success: function(data) {
 					if (typeof(data.type) != "undefined" && data.type !== null) {
+						error = true;
+
 						modal_alert.find('.content').html(data.msg);
 						$('#alert_window').modal('show');
 
@@ -84,16 +88,20 @@
 				}
 			});
 		}
-		// call ajax but set address_id
+		// address sudah ada
 		else {
+			// address sudah ada tapi ubah data address
 			if (flag == 1){
 				$.ajax({
 					url: action,
 					type: 'post',
 					dataType: 'json',
+					async: false,
 					data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
+							error = true;
+
 							modal_alert.find('.content').html(data.msg);
 							$('#alert_window').modal('show');
 
@@ -109,14 +117,18 @@
 					}
 				});	
 			}
+			// address sudah ada tapi ambil data dari select address
 			else {
 				$.ajax({
 					url: action,
 					type: 'post',
 					dataType: 'json',
+					async: false,
 					data: {address_id: id},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
+							error = true;
+
 							modal_alert.find('.content').html(data.msg);
 							$('#alert_window').modal('show');
 
@@ -133,12 +145,16 @@
 				});	
 			}
 		}
+
+		return error;
 	}
 
-	/*
-	*	function relaod view on order detail in checkout
-	* 	parameter page view, and type (desktop or mobile)
-	*/
+	/**
+	 * [function reload view page section review pesanan]
+	 * 
+	 * @param  param {element parsing from json}
+	 * @param  type {desktop/mobile}
+	 */
 	function reload_view(param, type){
 		$.ajax({
 			url: param.action,
@@ -150,10 +166,12 @@
 		});
 	}
 
-	/*
-	*	function get voucher from ajax
-	*	@param data object input code
-	*/
+	/**
+	 * [function get ajax voucher]
+	 * 
+	 * @param  e {element input kode voucher}
+	 * @return gv {return dari json}
+	 */
 	function get_voucher (e) {
 		value = e.val();
 		action = e.attr('data-action');
@@ -174,10 +192,12 @@
 		return gv;
 	}
 
-	/*
-	*	function show notif modal 
-	*	@param data parsing and object input
-	*/
+	/**
+	 * [function show voucher modal]
+	 * 
+	 * @param  e {data dari json}
+	 * @param  p {elemet input dari kode voucher}
+	 */
 	function show_voucher (e, p) {
 		if (e.type=='success')
 		{
@@ -229,10 +249,11 @@
 		$('.voucher_code').val(val);
 	}
 
-	/*
-	*	function parsing address from ajax to form input
-	*	@param data parsing
-	*/
+	/**
+	 * [function parsing address to input form]
+	 * 
+	 * @param  e {hasil data respon dari json}
+	 */
 	function parsing_address (e) {
 		ch_name = $('.ch_name');
 		ch_address = $('.ch_address');
@@ -250,44 +271,43 @@
 			ch_zipcode.val('');
 			ch_phone.val('');
 		}
-		count_sub_total();
 	}
 
-	function count_sub_total() {
-		var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-		var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
-		var yp = ($("#point").text().replace(/\./g, '')).substring(4);
-		st = 0;
-		uqnum = parseInt($('.uniquenumber').attr('data-unique'));
-		to = parseInt(to);
-		sc = parseInt(sc);
-		yp = parseInt(yp);
+	// function count_sub_total() {
+	// 	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
+	// 	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
+	// 	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+	// 	st = 0;
+	// 	uqnum = parseInt($('.uniquenumber').attr('data-unique'));
+	// 	to = parseInt(to);
+	// 	sc = parseInt(sc);
+	// 	yp = parseInt(yp);
 
-		if(isNaN(sc)) {
-			sc = 0;
-		}
-		st = ((to + sc - yp)-uqnum);
-		if (st && st < 0) {
-			st = 'IDR ' + 0;
-		} else {	
-			st = 'IDR ' + st;
-		}
-		// console.log(st);
-		$(".subtotal").text(addCommas(st));
+	// 	if(isNaN(sc)) {
+	// 		sc = 0;
+	// 	}
+	// 	st = ((to + sc - yp)-uqnum);
+	// 	if (st && st < 0) {
+	// 		st = 'IDR ' + 0;
+	// 	} else {	
+	// 		st = 'IDR ' + st;
+	// 	}
+	// 	// console.log(st);
+	// 	$(".subtotal").text(addCommas(st));
 
-		function addCommas(nStr)
-		{
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + '.' + '$2');
-			}
-			return x1 + x2;
-		};
-	}
+	// 	function addCommas(nStr)
+	// 	{
+	// 		nStr += '';
+	// 		x = nStr.split('.');
+	// 		x1 = x[0];
+	// 		x2 = x.length > 1 ? '.' + x[1] : '';
+	// 		var rgx = /(\d+)(\d{3})/;
+	// 		while (rgx.test(x1)) {
+	// 			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+	// 		}
+	// 		return x1 + x2;
+	// 	};
+	// }
 
 	/*
 	* jquery validate form
@@ -296,10 +316,9 @@
 	$('label.required').append('&nbsp;<strong>*</strong>&nbsp;');
 	$.validator.addMethod("page_required", function(value, element) {
 		var $element = $(element)
-
-			function match(index) {
-				return current == index && $(element).parents("#sc" + (index + 1)).length;
-			}
+		function match(index) {
+			return current == index && $(element).parents("#sc" + (index + 1)).length;
+		}
 		if (match(0) || match(1) || match(2)) {
 			return !this.optional(element);
 		}
@@ -315,41 +334,72 @@
 		}
 	});
 
+	/**
+	 * [event button step click]
+	 * 
+	 * @var target section yang akan dituju
+	 * @var value section saat ini
+	 * @var param nomor section yang akan dituju
+	 * @var to_ajax ajax yg akan dipanggil
+	 * @var type tipe dari button prev/next
+	 * @var section nama section untuk lempar ke url
+	 */
 	$('.btn_step').click(function() {
 		target = $(this).attr('data-target');
 		param = $(this).attr('data-param');
 		value = $(this).attr('data-value');
 		type = $(this).attr('data-type');
 		to_ajax = $(this).attr('data-event');
+		section = $(this).attr('data-url');
 
 		if (type=='next') {
+			// jika form semua valid terisi
 			if (v.form()) {
 				current = param;
-				show_section(target, value);
-				check_ajax_choice(to_ajax, $(this));
+				get_check = check_ajax_choice(to_ajax, $(this));
+				if (get_check!=true) {
+					show_section(target, value);
+					window.history.pushState("", "", section);
+				}
 			}
 		} 
 		else {
 			current = param;
 			show_section(target, value);
+			window.history.pushState("", "", section);
 		}
 	});
 
+	/**
+	 * [function check ajax yang akan dipanggil]
+	 * 
+	 * @param  ajax {check nama ajax yang akan dipanggil}
+	 * @param  e {element button}
+	 * @return {return false/true }
+	 */
 	function check_ajax_choice(ajax, e) {
+		param_check = false;
 		if (ajax=='address') {
-			check_address(e);
+			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
 			if (e.val()!=="") {
 				check_voucher();
 			}
 		}
+		return param_check;
 	}
 
+	/**
+	 * [function show/hide section yang aktif]
+	 * 
+	 * @param  next {section yang akan dituju}
+	 * @param  now {section saat ini}
+	 */
 	function show_section(next, now) {
 		$(now).addClass('hide');
 		$(next).removeClass('hide');
 
-		$('.step-checkout').find('li[data-section="' +next+ '"]').addClass('active');
-		$('.step-checkout').find('li[data-section="' +now+ '"]').removeClass('active');
+		$('.step-checkout').find('div[data-section="' +next+ '"]').addClass('active');
+		$('.step-checkout').find('div[data-section="' +now+ '"]').removeClass('active');
 	}

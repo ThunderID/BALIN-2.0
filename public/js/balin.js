@@ -4002,10 +4002,9 @@ EVENT & FUNCTION OTHER
 
 })(window.Zepto || window.jQuery, window, document);
 
-	/*
-	*	function pilih address
-	*	
-	*/
+	/**
+	 * [function pilih address]
+	 */
 	$('.choice_address').on('change', function() {
 		var val = $(this).val();
 		action = $(this).find(':selected').attr('data-action');
@@ -4034,45 +4033,50 @@ EVENT & FUNCTION OTHER
 		reload_view(voucher, 'mobile');
 	}
 
-	/*
-	*	function check address
-	*	
-	*/
-	// $('.check_address').click( function() {
-	// 	ch_address_id	= $('.choice_address').val();
-	// 	action 			= $(this).attr('data-action');
-		
-	// 	get_shipping_cost(ch_address_id, action, 1);
-		
-	// });
+	/**
+	 * [function check address to parsin function get shipping cost]
+	 * 
+	 * @param  e {element button step}
+	 * @return check {false/true jika ada error}
+	 */
 	function check_address(e) {
 		ch_address_id	= $(e).val();
 		action 			= $(e).attr('data-action');
 		
-		get_shipping_cost(ch_address_id, action, 1);
+		check 			= get_shipping_cost(ch_address_id, action, 1);
+		return check;
 	}
 
-	/*
-	*	function get shipping cost
-	*	@param id, action
-	*/
+	/**
+	 * [function get shipping cost]
+	 * 
+	 * @param 	id 		{jika id address tidak ada}
+	 * @param 	action 	{url yang akan dituju}
+	 * @param 	flag 	{jika address sudah ada 0 merupakan tidak ada perubahan data, 1 ada perubahan data}
+	 * @return 	error 	{false/true}
+	 */
 	function get_shipping_cost(id, action, flag) {
 		ch_name 		= $('.ch_name').val();
 		ch_phone		= $('.ch_phone').val();
 		ch_address 		= $('.ch_address').val();
 		ch_zipcode		= $('.ch_zipcode').val();
 		modal_alert		= $('#alert_window');
+		error 			= false;
 		
 		cv = parseInt($('.shipping_cost').attr('data-v'));
 
+		// call ajax add address new
 		if (id == 0) {
 			$.ajax({
 				url: action,
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				data: {name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode},
 				success: function(data) {
 					if (typeof(data.type) != "undefined" && data.type !== null) {
+						error = true;
+
 						modal_alert.find('.content').html(data.msg);
 						$('#alert_window').modal('show');
 
@@ -4088,16 +4092,20 @@ EVENT & FUNCTION OTHER
 				}
 			});
 		}
-		// call ajax but set address_id
+		// address sudah ada
 		else {
+			// address sudah ada tapi ubah data address
 			if (flag == 1){
 				$.ajax({
 					url: action,
 					type: 'post',
 					dataType: 'json',
+					async: false,
 					data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
+							error = true;
+
 							modal_alert.find('.content').html(data.msg);
 							$('#alert_window').modal('show');
 
@@ -4113,14 +4121,18 @@ EVENT & FUNCTION OTHER
 					}
 				});	
 			}
+			// address sudah ada tapi ambil data dari select address
 			else {
 				$.ajax({
 					url: action,
 					type: 'post',
 					dataType: 'json',
+					async: false,
 					data: {address_id: id},
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
+							error = true;
+
 							modal_alert.find('.content').html(data.msg);
 							$('#alert_window').modal('show');
 
@@ -4137,12 +4149,16 @@ EVENT & FUNCTION OTHER
 				});	
 			}
 		}
+
+		return error;
 	}
 
-	/*
-	*	function relaod view on order detail in checkout
-	* 	parameter page view, and type (desktop or mobile)
-	*/
+	/**
+	 * [function reload view page section review pesanan]
+	 * 
+	 * @param  param {element parsing from json}
+	 * @param  type {desktop/mobile}
+	 */
 	function reload_view(param, type){
 		$.ajax({
 			url: param.action,
@@ -4154,10 +4170,12 @@ EVENT & FUNCTION OTHER
 		});
 	}
 
-	/*
-	*	function get voucher from ajax
-	*	@param data object input code
-	*/
+	/**
+	 * [function get ajax voucher]
+	 * 
+	 * @param  e {element input kode voucher}
+	 * @return gv {return dari json}
+	 */
 	function get_voucher (e) {
 		value = e.val();
 		action = e.attr('data-action');
@@ -4178,10 +4196,12 @@ EVENT & FUNCTION OTHER
 		return gv;
 	}
 
-	/*
-	*	function show notif modal 
-	*	@param data parsing and object input
-	*/
+	/**
+	 * [function show voucher modal]
+	 * 
+	 * @param  e {data dari json}
+	 * @param  p {elemet input dari kode voucher}
+	 */
 	function show_voucher (e, p) {
 		if (e.type=='success')
 		{
@@ -4233,10 +4253,11 @@ EVENT & FUNCTION OTHER
 		$('.voucher_code').val(val);
 	}
 
-	/*
-	*	function parsing address from ajax to form input
-	*	@param data parsing
-	*/
+	/**
+	 * [function parsing address to input form]
+	 * 
+	 * @param  e {hasil data respon dari json}
+	 */
 	function parsing_address (e) {
 		ch_name = $('.ch_name');
 		ch_address = $('.ch_address');
@@ -4254,44 +4275,43 @@ EVENT & FUNCTION OTHER
 			ch_zipcode.val('');
 			ch_phone.val('');
 		}
-		count_sub_total();
 	}
 
-	function count_sub_total() {
-		var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-		var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
-		var yp = ($("#point").text().replace(/\./g, '')).substring(4);
-		st = 0;
-		uqnum = parseInt($('.uniquenumber').attr('data-unique'));
-		to = parseInt(to);
-		sc = parseInt(sc);
-		yp = parseInt(yp);
+	// function count_sub_total() {
+	// 	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
+	// 	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
+	// 	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
+	// 	st = 0;
+	// 	uqnum = parseInt($('.uniquenumber').attr('data-unique'));
+	// 	to = parseInt(to);
+	// 	sc = parseInt(sc);
+	// 	yp = parseInt(yp);
 
-		if(isNaN(sc)) {
-			sc = 0;
-		}
-		st = ((to + sc - yp)-uqnum);
-		if (st && st < 0) {
-			st = 'IDR ' + 0;
-		} else {	
-			st = 'IDR ' + st;
-		}
-		// console.log(st);
-		$(".subtotal").text(addCommas(st));
+	// 	if(isNaN(sc)) {
+	// 		sc = 0;
+	// 	}
+	// 	st = ((to + sc - yp)-uqnum);
+	// 	if (st && st < 0) {
+	// 		st = 'IDR ' + 0;
+	// 	} else {	
+	// 		st = 'IDR ' + st;
+	// 	}
+	// 	// console.log(st);
+	// 	$(".subtotal").text(addCommas(st));
 
-		function addCommas(nStr)
-		{
-			nStr += '';
-			x = nStr.split('.');
-			x1 = x[0];
-			x2 = x.length > 1 ? '.' + x[1] : '';
-			var rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				x1 = x1.replace(rgx, '$1' + '.' + '$2');
-			}
-			return x1 + x2;
-		};
-	}
+	// 	function addCommas(nStr)
+	// 	{
+	// 		nStr += '';
+	// 		x = nStr.split('.');
+	// 		x1 = x[0];
+	// 		x2 = x.length > 1 ? '.' + x[1] : '';
+	// 		var rgx = /(\d+)(\d{3})/;
+	// 		while (rgx.test(x1)) {
+	// 			x1 = x1.replace(rgx, '$1' + '.' + '$2');
+	// 		}
+	// 		return x1 + x2;
+	// 	};
+	// }
 
 	/*
 	* jquery validate form
@@ -4300,10 +4320,9 @@ EVENT & FUNCTION OTHER
 	$('label.required').append('&nbsp;<strong>*</strong>&nbsp;');
 	$.validator.addMethod("page_required", function(value, element) {
 		var $element = $(element)
-
-			function match(index) {
-				return current == index && $(element).parents("#sc" + (index + 1)).length;
-			}
+		function match(index) {
+			return current == index && $(element).parents("#sc" + (index + 1)).length;
+		}
 		if (match(0) || match(1) || match(2)) {
 			return !this.optional(element);
 		}
@@ -4319,43 +4338,74 @@ EVENT & FUNCTION OTHER
 		}
 	});
 
+	/**
+	 * [event button step click]
+	 * 
+	 * @var target section yang akan dituju
+	 * @var value section saat ini
+	 * @var param nomor section yang akan dituju
+	 * @var to_ajax ajax yg akan dipanggil
+	 * @var type tipe dari button prev/next
+	 * @var section nama section untuk lempar ke url
+	 */
 	$('.btn_step').click(function() {
 		target = $(this).attr('data-target');
 		param = $(this).attr('data-param');
 		value = $(this).attr('data-value');
 		type = $(this).attr('data-type');
 		to_ajax = $(this).attr('data-event');
+		section = $(this).attr('data-url');
 
 		if (type=='next') {
+			// jika form semua valid terisi
 			if (v.form()) {
 				current = param;
-				show_section(target, value);
-				check_ajax_choice(to_ajax, $(this));
+				get_check = check_ajax_choice(to_ajax, $(this));
+				if (get_check!=true) {
+					show_section(target, value);
+					window.history.pushState("", "", section);
+				}
 			}
 		} 
 		else {
 			current = param;
 			show_section(target, value);
+			window.history.pushState("", "", section);
 		}
 	});
 
+	/**
+	 * [function check ajax yang akan dipanggil]
+	 * 
+	 * @param  ajax {check nama ajax yang akan dipanggil}
+	 * @param  e {element button}
+	 * @return {return false/true }
+	 */
 	function check_ajax_choice(ajax, e) {
+		param_check = false;
 		if (ajax=='address') {
-			check_address(e);
+			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
 			if (e.val()!=="") {
 				check_voucher();
 			}
 		}
+		return param_check;
 	}
 
+	/**
+	 * [function show/hide section yang aktif]
+	 * 
+	 * @param  next {section yang akan dituju}
+	 * @param  now {section saat ini}
+	 */
 	function show_section(next, now) {
 		$(now).addClass('hide');
 		$(next).removeClass('hide');
 
-		$('.step-checkout').find('li[data-section="' +next+ '"]').addClass('active');
-		$('.step-checkout').find('li[data-section="' +now+ '"]').removeClass('active');
+		$('.step-checkout').find('div[data-section="' +next+ '"]').addClass('active');
+		$('.step-checkout').find('div[data-section="' +now+ '"]').removeClass('active');
 	}
 /*!
  * @name        EasyZoom
@@ -4422,35 +4472,35 @@ EVENT & FUNCTION OTHER
 			// $('.navbar_shortcut').fadeOut();
 		}
 	}
-	$(document).ready(checkOffset);
-	$(document).scroll(checkOffset);
+	// $(document).ready(checkOffset);
+	// $(document).scroll(checkOffset);
 /* END CHECK OFFSET FOR DIVIDER FOOTER & NAVBAR SHORTCUT */
 
 /* SECTION OWL CAROUSEL SLIDER PRODCT */
 $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    responsiveClass:true,
-    navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>' ],
-    responsive:{
-        320:{
-            items:1,
-            stagePadding: 0,
-            margin: 0,
-            nav:false
-        },
-        768:{
-            items:1,
-            stagePadding: 0,
-            margin: 0,
-            nav:true
-        },
-        1000:{
-            items:4,
-            nav:true,
-            loop:false
-        }
-    }
+	loop:true,
+	margin:10,
+	responsiveClass:true,
+	navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>' ],
+	responsive:{
+		320:{
+			items:1,
+			stagePadding: 0,
+			margin: 0,
+			nav:true
+		},
+		768:{
+			items:1,
+			stagePadding: 0,
+			margin: 0,
+			nav:true
+		},
+		1000:{
+			items:4,
+			nav:true,
+			loop:false
+		}
+	}
 });
 /* END SECTION OWL CAROUSEL SLIDER PRODCT */
 
@@ -4472,3 +4522,26 @@ $('.item-carousel').on('click', 'a', function(e) {
 	}, 800);
 });
 /* END SECTION EASYZOOM SLIDER PRODUCT */
+
+// disable mousewheel on a input number field when in focus
+// (to prevent Cromium browsers change the value when scrolling)
+$('form').on('focus', 'input[type=number]', function (e) {
+ 	$(this).on('mousewheel.disableScroll', function (e) {
+		e.preventDefault()
+	});
+});
+$('form').on('blur', 'input[type=number]', function (e) {
+  	$(this).off('mousewheel.disableScroll')
+});
+
+// Minified version of isMobile included in the HTML since it's small
+!function(a){var b=/iPhone/i,c=/iPod/i,d=/iPad/i,e=/(?=.*\bAndroid\b)(?=.*\bMobile\b)/i,f=/Android/i,g=/IEMobile/i,h=/(?=.*\bWindows\b)(?=.*\bARM\b)/i,i=/BlackBerry/i,j=/BB10/i,k=/Opera Mini/i,l=/(?=.*\bFirefox\b)(?=.*\bMobile\b)/i,m=new RegExp("(?:Nexus 7|BNTV250|Kindle Fire|Silk|GT-P1000)","i"),n=function(a,b){return a.test(b)},o=function(a){var o=a||navigator.userAgent,p=o.split("[FBAN");return"undefined"!=typeof p[1]&&(o=p[0]),this.apple={phone:n(b,o),ipod:n(c,o),tablet:!n(b,o)&&n(d,o),device:n(b,o)||n(c,o)||n(d,o)},this.android={phone:n(e,o),tablet:!n(e,o)&&n(f,o),device:n(e,o)||n(f,o)},this.windows={phone:n(g,o),tablet:n(h,o),device:n(g,o)||n(h,o)},this.other={blackberry:n(i,o),blackberry10:n(j,o),opera:n(k,o),firefox:n(l,o),device:n(i,o)||n(j,o)||n(k,o)||n(l,o)},this.seven_inch=n(m,o),this.any=this.apple.device||this.android.device||this.windows.device||this.other.device||this.seven_inch,this.phone=this.apple.phone||this.android.phone||this.windows.phone,this.tablet=this.apple.tablet||this.android.tablet||this.windows.tablet,"undefined"==typeof window?this:void 0},p=function(){var a=new o;return a.Class=o,a};"undefined"!=typeof module&&module.exports&&"undefined"==typeof window?module.exports=o:"undefined"!=typeof module&&module.exports&&"undefined"!=typeof window?module.exports=p():"function"==typeof define&&define.amd?define("isMobile",[],a.isMobile=p()):a.isMobile=p()}(this);
+
+// function for mobile input focus navbar bottom hide
+if (isMobile.any) {
+	$(':input').focusin(function() {
+		$('.navbar_shortcut').hide();
+	}).blur(function (){
+		$('.navbar_shortcut').show();
+	});
+}

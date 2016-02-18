@@ -1,5 +1,5 @@
-<div class="row panel_form_voucher">
-	<div class="col-xs-8 col-xs-offset-2 col-sm-8 col-xs-offset-2 col-md-8 col-xs-offset-2 bg-white border-1 border-solid border-grey-light">
+<div class="row ml-0 mr-0 panel_form_voucher">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="content_checkout">
 			@if (!isset($data['order']['data']['voucher']))
 				<div class="row pt-md pb-sm">
@@ -35,15 +35,15 @@
 			@endif
 		</div>
 		<div class="row pt-md pb-md">
-			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<div class="col-xs-4 col-sm-4 col-md-6 col-lg-6">
 				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step" 
 				data-target="#sc1"  
 				data-value="#sc2"
 				data-param="0"
 				data-type="prev"
-				data-url="{{ route('my.balin.checkout.get', ['section' => 'shipped']) }}">Kembali</a>
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc1']) }}">Kembali</a>
 			</div>
-			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
 				data-action="{ route('my.balin.checkout.voucher') }}" 
 				data-target="#sc3"  
@@ -51,7 +51,7 @@
 				data-param="2"
 				data-type="next"
 				data-event="voucher"
-				data-url="{{ route('my.balin.checkout.get', ['section' => 'review']) }}">Gunakan & Lanjutkan</a>
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Gunakan & Lanjutkan</a>
 			</div>
 		</div>
 	</div>

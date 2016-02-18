@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-xs-8 col-xs-offset-2 col-sm-8 col-xs-offset-2 col-md-8 col-xs-offset-2 bg-white border-1 border-solid border-grey-light">
+<div class="row ml-0 mr-0">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="content_checkout">
 			<div class="row pt-md pb-sm">
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
@@ -71,24 +71,6 @@
 					</div>
 				</div>
 			</div> 
-			<div class="row pt-xs pb-sm">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h3 class="text-normal">Tambahkan Pesan Khusus</h3>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="form-group">
-						<label class="text-regular" for="">Pesan Anda</label>
-						{!! Form::textarea('note', null, [
-							'class'			=> 'form-control text-regular',
-							'rows'			=> '5',
-							'style'			=> 'resize:none;',
-							'placeholder'	=> 'Tulis pesan anda'
-						] ) !!}
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="row pt-md pb-md">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -99,7 +81,7 @@
 				data-param="1"
 				data-type="next"
 				data-event="address"
-				data-url="{{ route('my.balin.checkout.get', ['section' => 'voucher']) }}">Simpan & Lanjutkan</a>
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc2']) }}">Simpan & Lanjutkan</a>
 			</div>
 		</div>
 	</div>

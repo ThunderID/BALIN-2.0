@@ -6080,13 +6080,36 @@ label.warning {
         border-bottom-color: #333;
         border-right-color: #333; }
 
-.step-checkout li {
-  width: 200px;
+.step-checkout div {
   border: 1px solid #ccc;
-  color: #ccc; }
-  .step-checkout li.active {
+  color: #ccc;
+  font-size: 12px;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 0;
+  padding-right: 0;
+  text-transform: uppercase; }
+  .step-checkout div.active {
     border: 1px solid #000;
-    color: #000; }
+    color: #000;
+    font-size: 13px;
+    font-weight: 800; }
+  .step-checkout div span {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle; }
+  @media screen and (max-width: 767px) {
+    .step-checkout div {
+      font-size: 11px;
+      height: 60px;
+      line-height: 60px; }
+      .step-checkout div.active {
+        font-size: 12px;
+        font-weight: 800; }
+      .step-checkout div span {
+        display: inline-block;
+        line-height: normal;
+        vertical-align: middle; } }
 
 /* 
  *  Owl Carousel - Animate Plugin
@@ -6403,3 +6426,6 @@ body {
 
 .cursor-pointer {
   cursor: pointer; }
+
+.gift-value.hide {
+  transition: 0.4s ease; }

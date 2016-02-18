@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Me;
 
 use App\API\Connectors\APIUser;
+use App\API\Connectors\APIProductExtension;
 use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
@@ -62,6 +63,10 @@ class CheckoutController extends BaseController
 													'user_id' 	=> Session::get('whoami')['id'],
 												]);
 
+		//1c. get list product extension
+		$APIProductExtension 					= new APIProductExtension;
+		$product_extension						= $APIProductExtension->getIndex();
+// dd($product_extension);
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
 														'Checkout' => route('my.balin.checkout.get')
@@ -71,10 +76,11 @@ class CheckoutController extends BaseController
 		
 		//3. Generate view
 		$this->page_attributes->data			= 	[
-														'carts'			=> $carts,
-														'order'			=> $order,
-														'my_point'		=> $my_point['data']['total_point'],
-														'my_address'	=> $my_address['data']['data'],
+														'carts'				=> $carts,
+														'order'				=> $order,
+														'my_point'			=> $my_point['data']['total_point'],
+														'my_address'		=> $my_address['data']['data'],
+														'product_extension'	=> $product_extension,
 													];
 
 

@@ -1,11 +1,39 @@
 .step-checkout {
-	li{
-		width: 200px;
+	div{
+		// width: 200px;
 		border: 1px solid $grey;
 		color: $grey;
+		font-size: 12px;
+		height: 60px;
+		line-height: 60px;
+		padding-left: 0;
+		padding-right: 0;
+		text-transform: uppercase;
 		&.active{
 			border: 1px solid $black;
 			color: $black;
+			font-size: 13px;
+			font-weight: 800;
+		}
+		span{
+			display: inline-block;
+			line-height: normal;
+			vertical-align: middle;
+		}
+		@media screen and (max-width: 767px) {
+			font-size: 11px;
+			height: 60px;
+			line-height: 60px;
+			// width: 24% !important;
+			&.active{
+				font-size: 12px;
+				font-weight: 800;
+			}
+			span {
+				display: inline-block;
+				line-height: normal;
+				vertical-align: middle;
+			}
 		}
 	}
 }

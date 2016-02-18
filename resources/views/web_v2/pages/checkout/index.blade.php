@@ -33,12 +33,31 @@
 	</div> --}}
 
 
-	<div class="row mb-md">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+	<div class="row mb-md ml-0 mr-0">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center">
+			<div class="step-checkout text-light row">
+				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc1">
+					<span>Pengiriman</span>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc2">
+					<span>Kode Voucher</span>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc3">
+					<span>Aksesoris Tambahan</span>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc4">
+					<span>Check & Review Pesanan</span>
+				</div>
+			</div>
 			<ul class="list-inline step-checkout text-light">
-				<li class="text-md pt-md pb-md active" data-section="#sc1">Pengiriman</li>
-				<li class="text-md pt-md pb-md ml-lg mr-lg" data-section="#sc2">Kode Voucher</li>
-				<li class="text-md pt-md pb-md" data-section="#sc3">Check & Review Pesanan</li>
+				<li data-section="#sc1">
+				</li>
+				<li data-section="#sc2">
+				</li>
+				<li data-section="#sc3">
+				</li>
+				<li data-section="#sc4">
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -48,10 +67,10 @@
 		{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
 		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 
-		<div class="row">
+		<div class="row pb-md">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<ul id="" class="list-unstyled">
-					<li id="sc1">
+					<li id="sc1" class="hide">
 						<a href="#"></a>
 						<div>
 							<fieldset>
@@ -68,6 +87,14 @@
 						</div>
 					</li>
 					<li id="sc3" class="hide">
+						<a href="#"></a>
+						<div>
+							<fieldset>
+								@include('web_v2.components.checkout.accessories')
+							</fieldset>
+						</div>
+					</li>
+					<li id="sc4" class="hide">
 						<a href="#"></a>
 						<div>
 							<fieldset>
@@ -94,25 +121,25 @@
 		</div> --}}
 
 		<!-- SECTION CHECKBOX TERM & CONDITION FOR MOBILE & TABLET -->
-		<div class="col-xs-12 hidden-lg hidden-md pt-sm">
+		{{-- <div class="col-xs-12 hidden-lg hidden-md pt-sm">
 			<div class="checkbox i-checks">
 				<label class="text-regular"> 
 					<input type="checkbox" value="1" name="term" class="" required>
 					Saya menyetujui <a href="#" class="link-black unstyle vertical-baseline" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
 				</label>
 			</div>
-		</div>
+		</div> --}}
 		<!-- END SECTION CHECKBOX TERM & CONDITION FOR MOBILE & TABLET  -->
 
 		<!-- SECTION BUTTON CHECKOUT FOR MOBILE & TABLET -->
-		<div class="clearfix">&nbsp;</div>
+		{{-- <div class="clearfix">&nbsp;</div>
 		<div class="row p-b-md p-t-xs hidden-md hidden-lg">
 			<div class="col-md-12">
 				<div class="form-group text-right">
 					<button type="submit" class="btn btn-black-hover-white-border-black btn-block text-lg" tabindex="7">Checkout</button>
 				</div>        
 			</div>        
-		</div>  			
+		</div>  --}} 			
 		<!-- END SECTION BUTTON CHECKOUT FOR MOBILE & TABLET -->
 	{!! Form::close() !!}
 
@@ -170,31 +197,31 @@
 		$(".modal-backdrop").addClass("modal-backdrop-fullscreen");
 	});
 
-	{{-- $('.btn_next').click(function(){
-		next = $(this).attr('data-next');
-		now = $(this).attr('data-now');
-		url = $(this).attr('data-url');
-
-		$(next).removeClass('hide');
-		$(now).addClass('hide');
-
-		$('.checkout-step').find('li[data-section="' +next+ '"]').addClass('active');
-		$('.checkout-step').find('li[data-section="' +now+ '"]').removeClass('active');
-
-		window.history.pushState("", "", url);
-	}); --}}
-
 	@if (Input::get('section'))
 		$( document ).ready(function() {
 		    $('#{!! Input::get('section') !!}').removeClass('hide');
-		    $('.checkout-step').find('li[data-section="#{!! Input::get('section') !!}"]').addClass('active');
+		    $('.step-checkout').find('div[data-section="#{!! Input::get('section') !!}"]').addClass('active');
 		});
 	@else
 		$( document ).ready(function() {
-		    $('#shipped').removeClass('hide');
-		    $('.checkout-step').find('li[data-section="#shipped"]').addClass('active');
+		    $('#sc1').removeClass('hide');
+		    $('.step-checkout').find('div[data-section="#sc1"]').addClass('active');
 		});
 	@endif
+
+	$('.btn_accessories').click(function(){
+		sub = $(this).attr('data-sub');
+		sub_check = $(this).attr('data-check');
+
+		if (sub_check==1) {
+			$('.'+sub).addClass('hide');
+			$(this).attr('data-check', 0);
+		}
+		else {
+			$('.'+sub).removeClass('hide');
+			$(this).attr('data-check', 1);
+		}
+	});
 @stop
 
 @section('js_plugin')

@@ -40,3 +40,10 @@ body {
 .cursor-pointer{
 	cursor:pointer;
 }
+
+.gift-value.hide{
+	-webkit-transition: 0.4s ease;
+	-moz-transition: 0.4s ease;
+	-o-transition: 0.4s ease;
+	transition: 0.4s ease;
+}

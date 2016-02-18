@@ -1,7 +1,7 @@
-<div class="row panel_form_voucher">
-	<div class="col-xs-8 col-xs-offset-2 col-sm-8 col-xs-offset-2 col-md-8 col-xs-offset-2 bg-white border-1 border-solid border-grey-light">
+<div class="row ml-0 mr-0 panel_form_voucher">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="content_checkout">
-			<div class="row ml-0 mr-0 pt-xs mt-md ">
+			<div class="row ml-0 mr-0 pt-xs mt-md hidden-xs">
 				<div class="col-md-2 col-sm-2 border-bottom-1 border-grey-light text-grey-dark">
 					<p class="mb-5">Produk</p>
 				</div>
@@ -62,40 +62,40 @@
 			<!-- END SECTION PRODUCT IN CART -->
 
 			<!-- SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR DESKTOP -->
-			<div class="row ml-0 mr-0 hidden-sm hidden-xs" id='section_checkout_order_desktop'>
+			<div class="row ml-0 mr-0" id='section_checkout_order_desktop'>
 				@if ($data['carts'])
 					<div class="col-lg-12 col-md-12 checkout-bottom panel-subtotal" id="panel-subtotal-normal">
 						<div class="row mt-sm">
-							<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left text-left border-bottom">
 								<span class="text-regular">Subtotal</span>
 							</div>
-							<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
 								<span class="text-regular text-right" id="total">@money_indo($total)</span>
 							</div>
 						</div>
-						<div class="row m-l-none m-r-none">
-							<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
+						<div class="row">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 								<span class="text-regular">Point Anda</span>
 							</div>
-							<div class="col-lg-5 col-md-5 col-sm-5 text-right">
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right">
 								<span class="text-regular text-right" id="point">@money_indo($data['my_point'])</span>
 							</div>	
 						</div>
-						<div class="row m-l-none m-r-none">
-							<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
+						<div class="row">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 								<span class="text-regular">Biaya Pengiriman</span>
 							</div>
-							<div class="col-lg-5 col-md-5 col-sm-5 text-right">
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right">
 								<span class="text-regular text-right shipping_cost" data-s="0" data-v="0">@money_indo($data['order']['data']['shipping_cost'])</span>
 							</div>	
 						</div>
-						<div class="row m-l-none m-r-none">
-							<div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
+						<div class="row">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left border-bottom">
 								<span class="text-regular">
 									Potongan Voucher
 								</span>
 							</div>
-							<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right border-bottom">
 								<span class="text-regular text-right {{ ($data['order']['data']['voucher_discount']==0) ? 'text-black' : 'text-red' }} voucher_discount" data-unique="{{ $data['order']['data']['voucher_discount'] }}">
 									@if ($data['order']['data']['voucher_discount']==0)
 										@money_indo($data['order']['data']['voucher_discount'])
@@ -105,11 +105,11 @@
 								</span>
 							</div>
 						</div>
-						<div class="row m-l-none m-r-none">
-							<div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 text-left">
+						<div class="row">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
 								<h4 class="text-md">Total Pembayaran</h4>
 							</div>
-							<div class="col-lg-5 col-md-5 col-sm-5">
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5">
 								<h4 class="text-md text-right text-bold mb-sm sub_total">
 									<?php 
 										$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'];
@@ -126,13 +126,27 @@
 				@endif
 			</div>
 			<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN  FOR DESKTOP -->
+
+			<!-- SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR TABLET & MOBILE -->
+			
+			<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR TABLET & MOBILE -->
 		</div>
 		<div class="row pt-md pb-md">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_next" data-action="{ route('my.balin.checkout.voucher') }}" data-next="#voucher" data-now="#review" data-url="{{ route('my.balin.checkout.get', ['section' => 'voucher']) }}">Kembali</a>
+				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_next"
+				data-action="{ route('my.balin.checkout.voucher') }}" 
+				data-target="#sc3" 
+				data-value="#sc4"
+				data-param="0"
+				data-type="prev"
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_next" data-action="{ route('my.balin.checkout.voucher') }}" data-next="" data-now="#review" data-url="{{ route('my.balin.checkout.get', ['section' => 'shipped']) }}">Checkout</a>
+				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_next" 
+				data-action="{ route('my.balin.checkout.voucher') }}" 
+				data-target="" 
+				data-value="#review" 
+				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Checkout</a>
 			</div>
 		</div>
 	</div>

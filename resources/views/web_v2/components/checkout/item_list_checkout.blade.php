@@ -56,89 +56,74 @@
 
 <!-- SECTION ITEM LIST PRODUCT CHECKOUT FOR MOBILE & TABLET -->
 <div class="hidden-sm hidden-md hidden-lg">
-	<div class="row mb-sm">
-		<div class="col-md-12 col-sm-12 col-xs-10 col-xs-offset-1">
+	<div class="row ml-0 mr-0 mb-sm">
+		<div class="col-xs-12">
 			<div class="row">
-				<div class="col-sm-2 col-xs-8 col-xs-offset-2">
+				<div class="col-xs-8 col-xs-offset-2">
 					 <a href="#">
 						<img class="img-responsive m-t-sm" src="{{ $item_list_image }}" >
 					 </a>
 				</div>
-				<div class="col-sm-10 col-xs-12">
+				<div class="col-xs-12">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<h4 class="m-b-xs" style="font-size:20px; font-weight:300">{{ $item_list_name }}</h4>
-							<p class="m-t-sm m-b-sm">Size </p>
+							<h4 class="text-lg text-bold">{{ $item_list_name }}</h4>
+							<p class="text-regular text-bold">Size </p>
 						</div>
 					</div>
 					@foreach($item_list_size as $key => $value)
-						<div class="row">
-							<div class="col-sm-9 col-xs-3">
-								<p class="m-t-xxs m-b-xxs">
+						<div class="row text-regular">
+							<div class="col-xs-3">
+								<span class="m-t-xxs m-b-xxs">
 									@if (strpos($value['size'], '.')==true)
 										<?php $frac = explode('.', $value['size']); ?>
 										{{ $frac[0].' &frac12;'}}
 									@else
 										{{ $value['size'] }}
 									@endif
-								</p>
+								</span>
 							</div>
-							<div class="col-xs-8 text-right">
-								<label class="m-b-sm label-item m-r-sm">
+							<div class="col-xs-9 text-right">
+								<span class="m-b-sm label-item m-r-sm">
 									{{ $value['quantity'] }}
-								</label>
+								</span>
 							</div>
 						</div>
 					@endforeach
-					<div class="row chart-item-mobile">
+					<div class="row text-regular">
 						<div class="col-xs-3">
-							<h4>Harga</h4>
+							<span class="text-regular">Harga</span>
+							<span class="pull-right">:</span>
 						</div>
-						<div class="col-xs-1 text-right">
-							<h4>:</h4>
-						</div>
-						<div class="col-xs-7 text-right">
-							<label class="m-b-sm label-item m-r-sm">
+						<div class="col-xs-9 text-right">
+							<span class="label-item">
 								@money_indo($item_list_normal_price) 
-							</label>
+							</span>
 						</div>
 					</div>
-					<div class="row chart-item-mobile">
+					<div class="row text-regular pb-5 border-bottom-1 border-grey">
 						<div class="col-xs-3">
-							<h4>Diskon</h4>
+							<span class="text-regular">Diskon</span>
+							<span class="pull-right">:</span>
 						</div>
-						<div class="col-xs-1 text-right">
-							<h4>:</h4>
-						</div>
-						<div class="col-xs-7 text-right">
-							<label class="m-b-sm label-item m-r-sm">
+						<div class="col-xs-9 text-right">
+							<span class="m-b-sm label-item m-r-sm">
 								@money_indo($item_list_discount_price) 
-							</label>
+							</span>
 						</div>
 					</div>
-					<div class="row chart-item-mobile">
-						<div class="col-xs-12">
-							<div class="col-xs-12 m-b-xs" style="border-bottom: 1px solid #ccc;">
-							</div>
-						</div>
-					</div>
-					<div class="row chart-item-mobile">
+					<div class="row text-regular mt-5">
 						<div class="col-xs-3 hidden-xs">
-							<h4>Total</h4>
+							<span>Total</span>
+							<span class="pull-right">:</span>
 						</div>
-						<div class="col-xs-1 hidden-xs text-right">
-							<h4>:</h4>
-						</div>
-						<div class="hidden-lg hidden-md hidden-sm col-xs-3">
+						<div class="col-xs-3 hidden-sm hidden-md hidden-lg">
 							&nbsp;
 						</div>
-						<div class="hidden-lg hidden-md hidden-sm col-xs-1">
-							&nbsp;
-						</div>						
-						<div class="col-xs-7 text-right">
-							<label class="label-item m-r-sm">
+						<div class="col-xs-9 text-right">
+							<span class="label-item m-r-sm">
 								@money_indo($item_list_total_price)
-							</label>
+							</span>
 						</div>
 					</div>
 				</div>
