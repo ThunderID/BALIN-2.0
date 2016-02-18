@@ -249,7 +249,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 					<p class="mb-0">Pemberi Referal Anda
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'EMPTY')
 							<small>
 								<a class="hover-grey-dark text-regular" href="#" 
 									data-toggle="modal" 
@@ -264,7 +264,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<!-- SECTION PEMBERI REFERRAL DESKTOP -->
 					<p class="text-right hidden-xs hidden-sm">
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'EMPTY')
 							<strong>Tidak ada</strong>
 						@else
 							<strong>{{ $data['me']['data']['reference_name'] }}</strong>
@@ -273,7 +273,7 @@
 					<!-- END SECTION PEMBERI REFERRAL DESKTOP -->
 					<!-- SECTION PEMBERI REFERRAL MOBILE, TABLET -->
 					<p class="mtm-5 hidden-md hidden-lg">
-						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'BALIN')
+						@if (isset($data['me']['data']['reference_name']) && $data['me']['data']['reference_name'] == 'EMPTY')
 							<strong>Tidak ada</strong>
 						@else
 							<strong>{{ $data['me']['data']['reference_name'] }}</strong>

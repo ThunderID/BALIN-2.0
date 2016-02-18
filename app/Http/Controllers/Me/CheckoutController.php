@@ -158,6 +158,7 @@ class CheckoutController extends BaseController
 	 * function to get voucher discount
 	 * 
 	 * 1. Get cart detail
+	 * 2. check my referral
 	 * 2. Store voucher
 	 * 3. Return result
 	 * @return json response
@@ -190,9 +191,13 @@ class CheckoutController extends BaseController
 		{
 			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat potongan : gratis biaya pengiriman.', 'discount' => $result['data']['voucher_discount'], 'action' => route('my.balin.checkout.get.order', $result['data']['id']) ], 200);
 		}
-		else
+		elseif($result['data']['voucher'])
 		{
 			return Response::json(['type' => 'success', 'msg' => 'Selamat! Anda mendapat bonus balin point sebesar '.$result['data']['voucher']['value'].' (Balin Point akan ditambahkan jika pesanan sudah dibayar)', 'discount' => false, 'action' => route('my.balin.checkout.get.order', $result['data']['id'])], 200);
+		}
+		else
+		{
+			return Response::json(['type' => 'success', 'msg' => 'Selamat! Voucher Anda konversikan menjadi point untuk pembayaran.', 'discount' => false, 'action' => route('my.balin.checkout.get.order', $result['data']['id'])], 200);
 		}
 	}
 
