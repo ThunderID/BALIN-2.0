@@ -7,7 +7,7 @@ class APISendMail extends APIData
 	{
 		parent::__construct();
 
-		$this->api->timeout 				= 10;
+		$this->api->timeout 				= 30;
 	}
 
 	public function welcomemail($user, $store)
