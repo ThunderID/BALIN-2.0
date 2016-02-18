@@ -8,7 +8,7 @@
 		@if (!is_null($data['product_extension']['data']['data']))
 			@forelse ($data['product_extension']['data']['data'] as $k => $v)
 				<div class="row ml-0 mr-0 pt-sm pb-sm border-bottom-1 border-grey-light text-regular line-height-30">
-					{!! Form::hidden('flag[]', false, ['class' => 'extension_flag']) !!}
+					{!! Form::hidden('flag[]', 0, ['class' => 'extension_flag']) !!}
 					{!! Form::hidden('product_extension_id[]', $v['id'], ['class' => 'extension_id']) !!}
 					{!! Form::hidden('price[]', $v['price'], ['class' => 'extension_price']) !!}
 
@@ -30,7 +30,7 @@
 							<div class="form-group">
 								<label class="text-regular" for="">Pesan Anda</label>
 								{!! Form::textarea('value[]', null, [
-									'class'			=> 'form-control text-regular',
+									'class'			=> 'form-control text-regular extension_value',
 									'rows'			=> '5',
 									'style'			=> 'resize:none;',
 									'placeholder'	=> 'Tulis pesan anda'
@@ -71,7 +71,7 @@
 				data-value="#sc3"
 				data-param="3"
 				data-type="next"
-				data-event="voucher"
+				data-event="gift"
 				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc4']) }}">Tambahkan & Lanjutkan</a>
 			</div>
 		</div>

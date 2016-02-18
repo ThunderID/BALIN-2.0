@@ -200,20 +200,21 @@
 	@endif
 
 	$('.btn_accessories').click(function(){
-		sub = $(this).attr('data-sub');
+		sub = $(this).parent().parent().find('.gift-value');
 		sub_check = $(this).attr('data-check');
-		{{-- flag = $(this).parent().parent().find(); --}}
+		flag = $(this).parent().parent().find('.extension_flag');
 
 		if (sub_check==1) {
-			$('.'+sub).addClass('hide');
+			$(sub).addClass('hide');
 			$(this).attr('data-check', 0);
 			$(this).text('Pilih');
+			flag.val('0');
 		}
 		else {
-			$('.'+sub).removeClass('hide');
+			$(sub).removeClass('hide');
 			$(this).attr('data-check', 1);
 			$(this).text('Batal');
-			$(this)
+			flag.val('1');
 		}
 	});
 @stop

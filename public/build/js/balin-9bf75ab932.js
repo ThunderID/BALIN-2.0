@@ -4205,50 +4205,55 @@ EVENT & FUNCTION OTHER
 	 * @param  p {elemet input dari kode voucher}
 	 */
 	function show_voucher (e, p) {
-		error = false;
-		if (e.type=='success')
-		{
-			panel_voucher = $('.panel_form_voucher');
-			modal_notif = $('.modal-notif');
-			modal_notif.find('.title').children().html('');
-			modal_notif.find('.content').html(e.msg);
+			if (e.type=='success')
+			{
+				error = false;
+				panel_voucher = $('.panel_form_voucher');
+				modal_notif = $('.modal-notif');
+				modal_notif.find('.title').children().html('');
+				modal_notif.find('.content').html(e.msg);
 
-			set_voucher_id(p);
+				set_voucher_id(p);
 
-			if (e.discount==true) {
-				$('.shipping_cost').text('IDR 0');
-				$('.shipping_cost').attr('data-s', 0);
-				$('.shipping_cost').attr('data-v', 1);
+				if (e.discount==true) {
+					$('.shipping_cost').text('IDR 0');
+					$('.shipping_cost').attr('data-s', 0);
+					$('.shipping_cost').attr('data-v', 1);
+				}
+
+				setTimeout( function() {
+					$('.loading_voucher').addClass('hide');
+					panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
+				}, 2000);
+
+				$('#notif_window').modal('show');
+			}
+			else if (e.type=='error')
+			{
+				error = true;
+				setTimeout( function() {
+					$('.loading_voucher').addClass('hide');
+				}, 1000);
+				
+				msg = '';
+				$.each(e.msg, function (index, value) {
+					msg += '<p class="mb-5"> - '+ value +'</p>';
+				});
+
+				modal_notif = $('#alert_window');
+				modal_notif.find('.content').html(msg);
+
+				p.addClass('error');
+
+				modal_notif.modal('show');
+
+				setTimeout( function() {
+					modal_notif.modal('hide');
+				}, 1500);
 			}
 
-			setTimeout( function() {
-				$('.loading_voucher').addClass('hide');
-				panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
-			}, 2000);
-
-			$('#notif_window').modal('show');
+			return error;
 		}
-		else if (e.type=='error')
-		{
-			error = true;
-			setTimeout( function() {
-				$('.loading_voucher').addClass('hide');
-			}, 1000);
-			
-			modal_notif = $('#alert_window');
-			modal_notif.find('.content').html(e.msg);
-
-			p.addClass('error');
-
-			$('#notif_window').modal('show');
-		}
-
-		setTimeout( function() {
-			$('#notif_window').modal('hide');
-		}, 1500);
-
-		return error;
-	}
 
 	/*
 	*	function set voucher id
@@ -4284,7 +4289,33 @@ EVENT & FUNCTION OTHER
 	}
 
 	function add_gift() {
+		extension_id = [];
+		extension_price = [];
+		extension_value = [];
+		extension_flag = [];
+
+		$('.extension_id').each( function() {
+			extension_id.push($(this).val());
+		});
+
+		$('.extension_price').each( function() {
+			extension_price.push($(this).val());
+		});
+
+		$('.extension_value').each( function() {
+			extension_value.push($(this).val());
+		});
+
+		$('.extension_flag').each(function() {
+			extension_flag.push($(this).val());
+		});
+
 		
+
+		console.log(extension_id);
+		console.log(extension_price);
+		console.log(extension_value);
+		console.log(extension_flag);
 	}
 
 	// function count_sub_total() {
@@ -4394,8 +4425,10 @@ EVENT & FUNCTION OTHER
 			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
-			if (typeof(e.val()) != "undefined" && e.val() !== null) {
-				param_check = check_voucher();
+			input_voucher = $('.voucher_desktop').val();
+			if (typeof(input_voucher) != "undefined" && input_voucher !== null) {
+				// param_check = check_voucher();
+				
 			}
 		}
 		else if (ajax=='gift') {
