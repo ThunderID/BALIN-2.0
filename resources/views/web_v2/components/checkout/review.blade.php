@@ -133,7 +133,7 @@
 		</div>
 		<div class="row pt-md pb-md">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_next"
+				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step"
 				data-action="{ route('my.balin.checkout.voucher') }}" 
 				data-target="#sc3" 
 				data-value="#sc4"
@@ -142,11 +142,12 @@
 				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_next" 
-				data-action="{ route('my.balin.checkout.voucher') }}" 
-				data-target="" 
-				data-value="#review" 
-				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Checkout</a>
+				{!! Form::submit('Checkout', [
+					'class' 		=> 'btn btn-black-hover-white-border-black btn_step',
+					'data-target'	=> null,
+					'data-value'	=> '#review',
+					'data-type'		=> 'next'
+				]) !!}
 			</div>
 		</div>
 	</div>

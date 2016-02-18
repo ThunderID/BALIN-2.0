@@ -4025,12 +4025,14 @@ EVENT & FUNCTION OTHER
 	// 	reload_view(voucher, 'desktop');
 	// 	reload_view(voucher, 'mobile');
 	// });
-	function check_voucher(e) {
+	function check_voucher() {
 		inp = $('input.voucher_desktop');
 		voucher = get_voucher(inp);
-		show_voucher(voucher, inp);
+		check_voucher = show_voucher(voucher, inp);
 		reload_view(voucher, 'desktop');
 		reload_view(voucher, 'mobile');
+
+		return check_voucher;
 	}
 
 	/**
@@ -4203,6 +4205,7 @@ EVENT & FUNCTION OTHER
 	 * @param  p {elemet input dari kode voucher}
 	 */
 	function show_voucher (e, p) {
+		error = false;
 		if (e.type=='success')
 		{
 			panel_voucher = $('.panel_form_voucher');
@@ -4227,6 +4230,7 @@ EVENT & FUNCTION OTHER
 		}
 		else if (e.type=='error')
 		{
+			error = true;
 			setTimeout( function() {
 				$('.loading_voucher').addClass('hide');
 			}, 1000);
@@ -4242,6 +4246,8 @@ EVENT & FUNCTION OTHER
 		setTimeout( function() {
 			$('#notif_window').modal('hide');
 		}, 1500);
+
+		return error;
 	}
 
 	/*
@@ -4275,6 +4281,10 @@ EVENT & FUNCTION OTHER
 			ch_zipcode.val('');
 			ch_phone.val('');
 		}
+	}
+
+	function add_gift() {
+		
 	}
 
 	// function count_sub_total() {
@@ -4332,10 +4342,7 @@ EVENT & FUNCTION OTHER
 	var v = $("#checkout-form").validate({
 		errorClass: "warning",
 		onkeyup: false,
-		onfocusout: false,
-		submitHandler: function() {
-			alert("Submitted, thanks!");
-		}
+		onfocusout: false
 	});
 
 	/**
@@ -4387,9 +4394,15 @@ EVENT & FUNCTION OTHER
 			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
-			if (e.val()!=="") {
-				check_voucher();
+			if (typeof(e.val()) != "undefined" && e.val() !== null) {
+				param_check = check_voucher();
 			}
+		}
+		else if (ajax=='gift') {
+			add_gift();
+		}
+		else if (ajax=='submit') {
+
 		}
 		return param_check;
 	}

@@ -2,45 +2,57 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="row pt-md pb-sm">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<h3 class="mt-0 text-normal">Aksesoris Tambahan</h3>
+				<h3 class="mt-0 text-normal">Bingkisan Tambahan</h3>
 			</div>
 		</div>
-		@forelse ($data['product_extension']['data']['data'] as $k => $v)
-			<div class="row ml-0 mr-0 pt-sm pb-sm border-bottom-1 border-grey-light text-regular line-height-30">
-				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-					<img src="{{ $v['thumbnail'] }}" class="img-responsive">
-				</div>
-				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-					<p class="mb-0">{{ $v['name'] }}</p>
-					<p class="text-grey-dark">{{ $v['description'] }}</p>
-				</div>
-				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-					@money_indo( $v['price'] )
-				</div>
-				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-					<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm text-regular btn_accessories" data-sub="gift_message" data-check="0">Pilih</a>
-				</div>
-				@if ($v['name']=='Kartu Ucapan')
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-md gift-value gift_message hide">
-						<div class="form-group">
-							<label class="text-regular" for="">Pesan Anda</label>
-							{!! Form::textarea('value', null, [
-								'class'			=> 'form-control text-regular',
-								'rows'			=> '5',
-								'style'			=> 'resize:none;',
-								'placeholder'	=> 'Tulis pesan anda'
-							] ) !!}
-						</div>
+		@if (!is_null($data['product_extension']['data']['data']))
+			@forelse ($data['product_extension']['data']['data'] as $k => $v)
+				<div class="row ml-0 mr-0 pt-sm pb-sm border-bottom-1 border-grey-light text-regular line-height-30">
+					{!! Form::hidden('flag[]', false, ['class' => 'extension_flag']) !!}
+					{!! Form::hidden('product_extension_id[]', $v['id'], ['class' => 'extension_id']) !!}
+					{!! Form::hidden('price[]', $v['price'], ['class' => 'extension_price']) !!}
+
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<img src="{{ $v['thumbnail'] }}" class="img-responsive">
 					</div>
-				@endif
-			</div>
-		@empty
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-md text-light">Maaf aksesoris tambahan saat ini belum tersedia</p>
+					<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+						<p class="mb-0">{{ $v['name'] }}</p>
+						<p class="text-grey-dark">{{ $v['description'] }}</p>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+						@money_indo( $v['price'] )
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm text-regular btn_accessories" data-check="0">Pilih</a>
+					</div>
+					@if ($v['name']=='Kartu Ucapan')
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-md gift-value gift_value hide">
+							<div class="form-group">
+								<label class="text-regular" for="">Pesan Anda</label>
+								{!! Form::textarea('value[]', null, [
+									'class'			=> 'form-control text-regular',
+									'rows'			=> '5',
+									'style'			=> 'resize:none;',
+									'placeholder'	=> 'Tulis pesan anda'
+								] ) !!}
+							</div>
+						</div>
+					@else
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-md gift-value gift_message hide">
+							<div class="form-group">
+								{!! Form::text('value[]', null, ['class' => 'extension_value']) !!}
+							</div>
+						</div>
+					@endif
 				</div>
-			</div>
-		@endforelse
+			@empty
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<p class="text-md text-light">Maaf bingkisan tambahan saat ini belum tersedia</p>
+					</div>
+				</div>
+			@endforelse
+		@endif
 		<div class="clearfix">&nbsp;</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="row pt-md pb-md">
@@ -54,7 +66,7 @@
 			</div>
 			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
-				data-action="{ route('my.balin.checkout.voucher') }}" 
+				data-action="{ route('my.balin.checkout.extension') }}" 
 				data-target="#sc4"  
 				data-value="#sc3"
 				data-param="3"

@@ -15,7 +15,8 @@
 							{!! Form::input('text', 'voucher', null, [
 								'class' 		=> 'form-control transaction-input-voucher-code text-regular voucher_desktop',
 								'placeholder' 	=> 'Voucher code',
-								'style'			=> 'width:100%'
+								'style'			=> 'width:100%',
+								'data-action'	=> route('my.balin.checkout.voucher')
 							]) !!}
 						</div>
 					</div>
@@ -45,7 +46,7 @@
 			</div>
 			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
-				data-action="{ route('my.balin.checkout.voucher') }}" 
+				data-action="{{ route('my.balin.checkout.voucher') }}" 
 				data-target="#sc3"  
 				data-value="#sc2"
 				data-param="2"

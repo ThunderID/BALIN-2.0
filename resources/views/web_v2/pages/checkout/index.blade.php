@@ -43,22 +43,12 @@
 					<span>Kode Voucher</span>
 				</div>
 				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc3">
-					<span>Aksesoris Tambahan</span>
+					<span>Bingkisan Tambahan</span>
 				</div>
 				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc4">
 					<span>Check & Review Pesanan</span>
 				</div>
 			</div>
-			<ul class="list-inline step-checkout text-light">
-				<li data-section="#sc1">
-				</li>
-				<li data-section="#sc2">
-				</li>
-				<li data-section="#sc3">
-				</li>
-				<li data-section="#sc4">
-				</li>
-			</ul>
 		</div>
 	</div>
 
@@ -212,14 +202,18 @@
 	$('.btn_accessories').click(function(){
 		sub = $(this).attr('data-sub');
 		sub_check = $(this).attr('data-check');
+		{{-- flag = $(this).parent().parent().find(); --}}
 
 		if (sub_check==1) {
 			$('.'+sub).addClass('hide');
 			$(this).attr('data-check', 0);
+			$(this).text('Pilih');
 		}
 		else {
 			$('.'+sub).removeClass('hide');
 			$(this).attr('data-check', 1);
+			$(this).text('Batal');
+			$(this)
 		}
 	});
 @stop
