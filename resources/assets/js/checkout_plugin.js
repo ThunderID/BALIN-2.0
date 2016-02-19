@@ -75,7 +75,7 @@
 					if (typeof(data.type) != "undefined" && data.type !== null) {
 						error = true;
 
-						modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+						modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 						$('#alert_window').modal('show');
 
 						setTimeout( function() {
@@ -104,11 +104,11 @@
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							error = true;
 
-							modal_alert.find('.content').html(data.msg);
-							$('#alert_window').modal('show');
+							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+							modal_alert.modal('show');
 
 							setTimeout( function() {
-								$('#alert_window').modal('hide');
+								modal_alert.modal('hide');
 							}, 1500);
 						}
 						else {
@@ -131,11 +131,11 @@
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							error = true;
 
-							modal_alert.find('.content').html(data.msg);
-							$('#alert_window').modal('show');
+							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+							modal_alert.modal('show');
 
 							setTimeout( function() {
-								$('#alert_window').modal('hide');
+								modal_alert.modal('hide');
 							}, 1500);
 						}
 						else {
@@ -201,7 +201,7 @@
 	 */
 	function show_voucher (e, p) {
 		msg = '';
-		modal_notif = $('#alert_window');
+		modal_alert = $('#alert_window');
 
 		if (e.type=='success') {
 			error = false;
@@ -220,15 +220,15 @@
 			});
 		}
 
-		modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-		modal_notif.modal('show');
+		modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+		modal_alert.modal('show');
 
 		setTimeout( function() {
 			$('.loading_voucher').addClass('hide');
 		}, 2000);
 
 		setTimeout( function() {
-			modal_notif.modal('hide');
+			modal_alert.modal('hide');
 		}, 2000);
 
 		return error;
@@ -302,21 +302,21 @@
 						msg += '<p class="mb-5"> - '+ value +'</p>';
 					});
 
-					modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-					$('#alert_window').modal('show');
+					modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+					modal_alert.modal('show');
 
 					setTimeout( function() {
-						$('#alert_window').modal('hide');
+						modal_alert.modal('hide');
 					}, 1500);
 				}
 				else {
 					error = false;
 
-					modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-					$('#alert_window').modal('show');
+					modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+					modal_alert.modal('show');
 
 					setTimeout( function() {
-						$('#alert_window').modal('hide');
+						modal_alert.modal('hide');
 					}, 1500);
 
 					reload_view(data, 'desktop');
