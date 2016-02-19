@@ -2,7 +2,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="row pt-md pb-sm">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<h3 class="mt-0 text-normal">Bingkisan Tambahan</h3>
+				<h3 class="mt-0 text-normal">Bingkisan</h3>
 			</div>
 		</div>
 		@if (!is_null($data['product_extension']['data']['data']))
@@ -24,7 +24,7 @@
 						@money_indo( $v['price'] )
 					</div>
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm text-regular btn_accessories" data-check="0">Pilih</a>
+						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm text-regular btn_accessories" data-check="0" data-sub="gift-value">Pilih</a>
 					</div>
 					@if ($v['is_customize'])
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-md gift-value gift_value hide">

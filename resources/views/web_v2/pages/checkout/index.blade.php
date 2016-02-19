@@ -11,10 +11,10 @@
 					<span>Kode Voucher</span>
 				</div>
 				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc3">
-					<span>Bingkisan Tambahan</span>
+					<span>Bingkisan</span>
 				</div>
 				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc4">
-					<span>Check & Review Pesanan</span>
+					<span>Summary</span>
 				</div>
 			</div>
 		</div>

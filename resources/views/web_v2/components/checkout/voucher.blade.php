@@ -1,6 +1,6 @@
 <div class="row ml-0 mr-0">
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light ">
-		<div class="content_checkout">
+		<div id="content_voucher">
 			@if (!isset($data['order']['data']['voucher']))
 				<div class="row pt-md pb-sm panel_form_voucher">
 					<div class="col-md-12 mb-sm">
