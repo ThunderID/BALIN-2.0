@@ -49,7 +49,7 @@
 					<div class="col-md-2">
 						<p>
 							@if (!$is_expired)
-								@money_indo(  ($v['prev_amount'] + $v['amount']) )
+								@money_indo(  ($v['prev_amount']) )
 							@else
 								<i>Expired</i>
 							@endif
@@ -65,7 +65,7 @@
 						</p>
 					</div>
 				</div>
-				<?php $prev_amount 	+= $v['amount']; ?>
+				<?php $prev_amount 	= $prev_amount + $v['amount']; ?>
 			@empty
 				<div class="row ml-0 mr-0 pl-sm pr-sm">
 					<div class="col-md-12 col-lg-12">
@@ -126,6 +126,7 @@
 						<p class="text-xs">expired on</br> <span class="text-sm">@date_indo( $v['expired_at'] )</span></p>
 					</div>
 				</div>
+				<?php $prev_amount 	= $prev_amount + $v['amount']; ?>
 			@empty
 				<div class="row">
 					<div class="col-xs-12">
