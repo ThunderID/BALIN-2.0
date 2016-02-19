@@ -78,7 +78,7 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!isset($this->page_attributes->type_form)){$this->page_attributes->type_form = null;}
 
-  		if (!Session::has('carts') || is_null(Session::get('carts'))) 
+  		if (!Session::has('carts') || is_null(Session::get('carts')) || empty(Session::get('carts'))) 
   		{
   			if (!Session::has('whoami'))
   			{

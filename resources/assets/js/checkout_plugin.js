@@ -2,35 +2,21 @@
 	 * [function pilih address]
 	 */
 	$('.choice_address').on('change', function() {
-		var val = $(this).val();
-		action = $(this).find(':selected').attr('data-action');
+		val = $(this).val();
 		if (val == 0) {
 			parsing_address();
 		}
 		else {
-			get_shipping_cost(val, action, 0);
+			parse_address = new Object();
+			parse_address.address = $(this).find(':selected').attr('data-address');
+			parse_address.phone = $(this).find(':selected').attr('data-phone');
+			parse_address.receiver_name = $(this).find(':selected').attr('data-receivername');
+			parse_address.zipcode = $(this).find(':selected').attr('data-zipcode');
+
+			parsing_address(parse_address);
+			$('label.warning').remove();
 		}
 	});
-
-	/*
-	* 	function get voucher form input
-	*/
-	// $('button.voucher_desktop').click( function() {
-	// 	inp = $('input.voucher_desktop');
-	// 	voucher = get_voucher(inp);
-	// 	show_voucher(voucher, inp);
-	// 	reload_view(voucher, 'desktop');
-	// 	reload_view(voucher, 'mobile');
-	// });
-	// function check_voucher() {
-	// 	inp = $('input.voucher_desktop');
-	// 	voucher = get_voucher(inp);
-	// 	check_voucher = show_voucher(voucher, inp);
-	// 	reload_view(voucher, 'desktop');
-	// 	reload_view(voucher, 'mobile');
-
-	// 	return check_voucher;
-	// }
 
 	/**
 	 * [function check address to parsin function get shipping cost]
@@ -61,11 +47,11 @@
 		ch_zipcode		= $('.ch_zipcode').val();
 		modal_alert		= $('#alert_window');
 		error 			= false;
-		
-		cv = parseInt($('.shipping_cost').attr('data-v'));
+		msg 			= '';
 
 		// call ajax add address new
 		if (id == 0) {
+			console.log('no id');
 			$.ajax({
 				url: action,
 				type: 'post',
@@ -98,87 +84,61 @@
 		// address sudah ada
 		else {
 			// address sudah ada tapi ubah data address
-			if (flag == 1){
-				$.ajax({
-					url: action,
-					type: 'post',
-					dataType: 'json',
-					async: false,
-					data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
-					success: function(data) {
-						if (typeof(data.type) != "undefined" && data.type !== null) {
-							error = true;
+			$.ajax({
+				url: action,
+				type: 'post',
+				dataType: 'json',
+				async: false,
+				data: {address_id: id, name: ch_name, phone: ch_phone, address: ch_address, zipcode: ch_zipcode, flagcheck: flag},
+				success: function(data) {
+					if (typeof(data.type) != "undefined" && data.type !== null) {
+						error = true;
 
-							$.each(data.msg, function (index, value) {
-								msg += '<p class="mb-5"> - '+ value +'</p>';
-							});
+						$.each(data.msg, function (index, value) {
+							msg += '<p class="mb-5"> - '+ value +'</p>';
+						});
 
-							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-							modal_alert.modal('show');
+						modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+						modal_alert.modal('show');
 
-							setTimeout( function() {
-								modal_alert.modal('hide');
-							}, 1500);
-						}
-						else {
-							reload_view(data, 'desktop');
-							reload_view(data, 'mobile');
-							parsing_address(data.address);
-						}
+						setTimeout( function() {
+							modal_alert.modal('hide');
+						}, 1500);
 					}
-				});	
-			}
-			// address sudah ada tapi ambil data dari select address
-			else {
-				$.ajax({
-					url: action,
-					type: 'post',
-					dataType: 'json',
-					async: false,
-					data: {address_id: id},
-					success: function(data) {
-						if (typeof(data.type) != "undefined" && data.type !== null) {
-							error = true;
-
-							$.each(data.msg, function (index, value) {
-								msg += '<p class="mb-5"> - '+ value +'</p>';
-							});
-
-							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-							modal_alert.modal('show');
-
-							setTimeout( function() {
-								modal_alert.modal('hide');
-							}, 1500);
-						}
-						else {
-							reload_view(data, 'desktop');
-							reload_view(data, 'mobile');
-							parsing_address(data.address);
-						}
+					else {
+						reload_view(data, 'desktop');
+						reload_view(data, 'mobile');
+						parsing_address(data.address);
 					}
-				});	
-			}
+				}
+			});	
 		}
 
 		return error;
 	}
 
 	/**
-	 * [function reload view page section review pesanan]
+	 * [function parsing address to input form]
 	 * 
-	 * @param  param {element parsing from json}
-	 * @param  type {desktop/mobile}
+	 * @param  e {hasil data respon dari json}
 	 */
-	function reload_view(param, type){
-		$.ajax({
-			url: param.action,
-			data: {model : type },
-			success: function(result) {
-				tmp_div = $('#section_checkout_order_'+ type);
-				tmp_div.html(result);
-			}
-		});
+	function parsing_address (e) {
+		ch_name = $('.ch_name');
+		ch_address = $('.ch_address');
+		ch_zipcode = $('.ch_zipcode');
+		ch_phone = $('.ch_phone');
+
+		if (typeof e !== 'undefined' && e != null) {
+			ch_name.val(e.receiver_name);
+			ch_address.val(e.address);
+			ch_zipcode.val(e.zipcode);
+			ch_phone.val(e.phone);
+		} else {
+			ch_name.val('');
+			ch_address.val('');
+			ch_zipcode.val('');
+			ch_phone.val('');
+		}
 	}
 
 	/**
@@ -246,39 +206,6 @@
 		return error;
 	}
 
-	/*
-	*	function set voucher id
-	*	@param input code object 
-	*/
-	function set_voucher_id (e) {
-		val = e.val();
-		$('.voucher_code').val(val);
-	}
-
-	/**
-	 * [function parsing address to input form]
-	 * 
-	 * @param  e {hasil data respon dari json}
-	 */
-	function parsing_address (e) {
-		ch_name = $('.ch_name');
-		ch_address = $('.ch_address');
-		ch_zipcode = $('.ch_zipcode');
-		ch_phone = $('.ch_phone');
-
-		if (typeof e !== 'undefined' && e != null) {
-			ch_name.val(e.receiver_name);
-			ch_address.val(e.address);
-			ch_zipcode.val(e.zipcode);
-			ch_phone.val(e.phone);
-		} else {
-			ch_name.val('');
-			ch_address.val('');
-			ch_zipcode.val('');
-			ch_phone.val('');
-		}
-	}
-
 	function add_gift(e) {
 		error = true;
 		extension_id = [];
@@ -314,32 +241,42 @@
 					$.each(data.msg, function (index, value) {
 						msg += '<p class="mb-5"> - '+ value +'</p>';
 					});
-
-					modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-					modal_alert.modal('show');
-
-					setTimeout( function() {
-						modal_alert.modal('hide');
-					}, 1500);
 				}
 				else {
 					error = false;
 					msg = data.msg;
 
-					modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
-					modal_alert.modal('show');
-
-					setTimeout( function() {
-						modal_alert.modal('hide');
-					}, 1500);
-
 					reload_view(data, 'desktop');
 					reload_view(data, 'mobile');
 				}
+
+				modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+				modal_alert.modal('show');
+
+				setTimeout( function() {
+					modal_alert.modal('hide');
+				}, 1500);
 			}
 		});
 
 		return error;
+	}
+
+	/**
+	 * [function reload view page section review pesanan]
+	 * 
+	 * @param  param {element parsing from json}
+	 * @param  type {desktop/mobile}
+	 */
+	function reload_view(param, type){
+		$.ajax({
+			url: param.action,
+			data: {model : type },
+			success: function(result) {
+				tmp_div = $('#section_checkout_order_'+ type);
+				tmp_div.html(result);
+			}
+		});
 	}
 
 	/*
@@ -429,7 +366,7 @@
 			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
-			input_voucher = $('form#checkout-form').find('.voucher_desktop');
+			input_voucher = $('#content_voucher').find('.voucher_desktop');
 			if (typeof(input_voucher.val()) != "undefined" && input_voucher.val() != '') {
 				get_voucher(input_voucher).done(function(data) {
 					param_check = show_voucher(data, input_voucher);

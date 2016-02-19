@@ -394,6 +394,19 @@ p{								line-height: 2em;}
 		transition: 0.4s ease;
 	}
 }
+.btn-white-border-black-hover-black{
+	border: $space-1 solid $black;
+	background-color: $white;
+	color: $black;
+	&:hover {
+		background-color: $black;
+		color: $white !important;
+		-webkit-transition: 0.4s ease;
+		-moz-transition: 0.4s ease;
+		-o-transition: 0.4s ease;
+		transition: 0.4s ease;
+	}
+}
 .btn-search {
 	background-color: transparent;
 	color: $black;

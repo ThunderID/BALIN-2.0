@@ -66,7 +66,6 @@ class CheckoutController extends BaseController
 		//1c. get list product extension
 		$APIProductExtension 					= new APIProductExtension;
 		$product_extension						= $APIProductExtension->getIndex();
-		// $product_extension						= null;
 
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
@@ -152,7 +151,7 @@ class CheckoutController extends BaseController
 		//5. Redirect url
 		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
 
-		return $this->generateRedirectRoute('my.balin.profile');
+		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
 	}
 
 	/**
@@ -345,5 +344,34 @@ class CheckoutController extends BaseController
 		$model 			= (Input::get('model') != 'mobile') ? 'desktop' : 'mobile';
 
 		return View('web_v2.components.checkout.part_total_order_'. $model)->with('data', $data);
+	}
+
+	public function checkdoout($id = null)
+	{
+		//1. Ambil data order detail dari API
+		$APIUser 							= new APIUser;
+
+		$me_order_detail					= $APIUser->getMeOrderDetail([
+													'user_id' 	=> Session::get('whoami')['id'],
+													'order_id'	=> $id
+												]);
+		
+		if ($me_order_detail['status']!='success')
+		{
+			\App::abort(404);
+		}
+
+		//2. parsing data dari API
+		$data 								= 	[
+													'order' 	=> $me_order_detail['data'],
+												];
+
+  		$balin 								= $this->balin;
+
+		//3. Generate view
+		$page 								= view('web_v2.components.checkout.info_checkout', compact('balin'))
+												->with('data', $data);
+
+		return $page;
 	}
 }

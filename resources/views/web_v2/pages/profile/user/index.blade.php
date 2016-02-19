@@ -534,6 +534,35 @@
 @stop
 
 @section('js')
+	@if (Input::has('order_id'))
+		var event = new Event('build');
+		actions_checkdoout 	= "{{ route('my.balin.checkout.checkdoout', Input::get('order_id')) }}";
+
+		// Listen for the event.
+		document.addEventListener('build', function (e) 
+		{
+			action = actions_checkdoout;
+			title = "Checkout View";
+			view_mode = '';
+			parsing = '';
+
+			$('.modal-user-information').find('.modal-body').html('loading...');
+			$('.modal-user-information').find('.modal-title').html(title);
+			$('.modal-user-information').find('.modal-dialog').addClass(view_mode);
+			$('.modal-user-information').find('.modal-body').load(action, function() {});
+
+			$('.modal-user-information').modal('show');
+		}, false);
+
+		// Dispatch the event.
+		document.dispatchEvent(event);
+
+		$('.modal-user-information').on('hidden.bs.modal', function () {
+			window.history.pushState('obj', 'newtitle', '/me');
+			return false;
+		});
+	@endif
+
 	$('.modal-user-information').on('show.bs.modal', function(e) {
 		action 		= $(e.relatedTarget).attr('data-action');
 		title 		= $(e.relatedTarget).attr('data-modal-title');

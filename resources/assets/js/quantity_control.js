@@ -812,11 +812,11 @@ EVENT & FUNCTION OTHER
 			dataType:"json",
 			data: {slug: pslug, product_name: pname, qty: pqty, varianids: pvarians},
 			beforeSend: function() {
-				$('.addto_cart').text('ADDING...');
+				$('.addto_cart').text('Ditambahkan...');
 			},
 			success: function(result) {
 				count_cart 	= Object.keys(result.carts).length; 
-				$('.addto_cart').text('ADD TO CART');
+				$('.addto_cart').text('Tambahkan ke Cart');
 				$('.ico_cart').find('span').text(count_cart);
 				$('.ico_cart').attr('href', route);
 

@@ -16,6 +16,9 @@ ul.dropdown-user{
 .dropdown-cart {
 	// margin-right: 80px;
 	float: right !important;
+	> ul {
+		width: 280px;
+	}
 }
 
 .navbar-bottom {

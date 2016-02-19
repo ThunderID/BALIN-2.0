@@ -16,7 +16,12 @@
 						<select class="form-control text-regular choice_address" name="address_id" id="address_id">
 							<option value="0" {{ isset($data['order']['data']['shipment']['address_id']) ? '' : 'selected' }}>Tambah Alamat Baru</option>
 							@foreach($data['my_address'] as $key => $value)
-								<option value="{{$value['id']}}" data-action="{{ route('my.balin.checkout.shippingcost') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }}>{{$value['address']}}</option>
+								<option value="{{$value['id']}}" 
+									data-action="{{ route('my.balin.checkout.shippingcost') }}" {{ ($value['id'] == $data['order']['data']['shipment']['address_id']) ? 'selected' : '' }} 
+									data-receivername="{{ Session::get('whoami')['name'] }}"
+									data-phone="{{ $value['phone'] }}"
+									data-address="{{ $value['address'] }}"
+									data-zipcode="{{ $value['zipcode'] }}">{{$value['address']}}</option>
 							@endforeach
 						</select>
 					</div>

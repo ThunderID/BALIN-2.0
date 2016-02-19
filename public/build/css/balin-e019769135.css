@@ -5616,6 +5616,15 @@ p {
     color: #fff !important;
     transition: 0.4s ease; }
 
+.btn-white-border-black-hover-black {
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000; }
+  .btn-white-border-black-hover-black:hover {
+    background-color: #000;
+    color: #fff !important;
+    transition: 0.4s ease; }
+
 .btn-search {
   background-color: transparent;
   color: #000;
@@ -5733,6 +5742,8 @@ ul.dropdown-user {
 
 .dropdown-cart {
   float: right !important; }
+  .dropdown-cart > ul {
+    width: 280px; }
 
 .navbar-bottom {
   margin: 0 auto;

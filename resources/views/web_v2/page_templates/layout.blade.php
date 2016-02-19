@@ -111,7 +111,7 @@
 
 				setTimeout( function() {
 					$('#alert_window').modal('hide');
-				}, 1500);
+				}, 2500);
 			@endif
 			// 	ev_click = 0;
 

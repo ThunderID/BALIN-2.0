@@ -174,13 +174,13 @@
 		if (sub_check==1) {
 			$(sub).addClass('hide');
 			$(this).attr('data-check', 0);
-			$(this).text('Pilih');
+			$(this).text('Pilih').addClass('btn-black-hover-white-border-black').removeClass('btn-white-border-black-hover-black');
 			flag.val('0');
 		}
 		else {
 			$(sub).removeClass('hide');
 			$(this).attr('data-check', 1);
-			$(this).text('Batal');
+			$(this).text('Batal').addClass('btn-white-border-black-hover-black').removeClass('btn-black-hover-white-border-black');
 			flag.val('1');
 		}
 	});

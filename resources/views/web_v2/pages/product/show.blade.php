@@ -1,13 +1,3 @@
-<?php 
-	// dd($data['product']['data']); 
-	// $data['product']['data']['data'][0]['images'] = [	'0' => ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
-	// 													'1'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
-	// 													'2'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
-	// 													'3'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg'],
-	// 													'4'	=> ['thumbnail' => 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg']
-	// 												];
-	// dd(Session::get('carts'));
-?>
 @extends('web_v2.page_templates.layout')
 
 @section('content')
@@ -19,7 +9,6 @@
 					<img class="img img-responsive border-1 border-solid border-grey-light mb-md text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
 				</a>
 			</div>
-			{{-- <img src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" class="img-responsive border-1 border-solid border-grey-light mb-md text-center"> --}}
 			<div class="row">
 				<div class="col-md-12 col-lg-12 hidden-xs hidden-sm">
 					<div class="owl-carousel gallery-product">
@@ -146,7 +135,7 @@
 				<!-- SECTION BUTTON ADD TO CART -->
 				<div class="row mt-sm mb-md">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black addto_cart" data-route="{{ route('balin.cart.index') }}">ADD TO CART</a>
+						<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black addto_cart" data-route="{{ route('balin.cart.index') }}">Tambahkan ke Cart</a>
 					</div>
 				</div>
 				<!-- END SECTION BUTTON ADD TO CART -->
