@@ -4,9 +4,9 @@
 	<div class="row">
 		<!-- SECTION IMAGE SLIDER PRODUCT -->
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
-			<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails hidden-xs hidden-sm" style="width:100%;">
+			<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails border-1 border-solid border-grey-light hidden-xs hidden-sm" style="width:100%;">
 				<a class="img-large" href="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" >
-					<img class="img img-responsive border-1 border-solid border-grey-light mb-md text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
+					<img class="img img-responsive mb-md text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
 				</a>
 			</div>
 			<div class="row">
