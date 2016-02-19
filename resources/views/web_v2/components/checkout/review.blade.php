@@ -145,29 +145,38 @@
 				@endif
 			</div>
 			<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN  FOR DESKTOP -->
-
-			<!-- SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR TABLET & MOBILE -->
-			
-			<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN FOR TABLET & MOBILE -->
 		</div>
-		<div class="row pt-md pb-md">
-			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-				<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step"
-				data-action="{ route('my.balin.checkout.voucher') }}" 
-				data-target="#sc3" 
-				data-value="#sc4"
-				data-param="0"
-				data-type="prev"
-				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
+		{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST','class' => 'no_enter', 'id' => 'checkout-form']) !!}
+			<div class="row pt-md pb-md">
+				<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+					<div class="checkbox i-checks required">
+						<label class="text-regular"> 
+							<input type="checkbox" value="1" name="term" class="" required title="Syarat & Ketentuan harus dicentang">
+							Saya menyetujui <a href="#" class="link-black unstyle vertical-baseline" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
+						</label>
+						<div class="mt-5 text-error"></div>
+					</div>
+				</div>
 			</div>
-			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-				{!! Form::submit('Checkout', [
-					'class' 		=> 'btn btn-black-hover-white-border-black btn_step',
-					'data-target'	=> null,
-					'data-value'	=> '#review',
-					'data-type'		=> 'next'
-				]) !!}
+			<div class="row pt-md pb-md">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step"
+					data-action="{ route('my.balin.checkout.voucher') }}" 
+					data-target="#sc3" 
+					data-value="#sc4"
+					data-param="0"
+					data-type="prev"
+					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+				
+					<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step"
+					data-action="{{ route('my.balin.checkout.post') }}" 
+					data-param="submit"
+					data-type="next"
+					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc4']) }}">Checkout</a>
+				</div>
 			</div>
-		</div>
+		{!! Form::close() !!}
 	</div>
 </div>

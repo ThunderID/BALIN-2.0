@@ -1,6 +1,6 @@
 <div class="row ml-0 mr-0">
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
-		<div class="content_checkout">
+		<form id="content_address">
 			<div class="row pt-md pb-sm">
 				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
 					<span class="m-t-none m-b-md">Kirim Kepada</span>
@@ -71,7 +71,7 @@
 					</div>
 				</div>
 			</div> 
-		</div>
+		</form>
 		<div class="row pt-md pb-md">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 

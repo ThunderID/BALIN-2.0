@@ -4009,6 +4009,7 @@ EVENT & FUNCTION OTHER
 		var val = $(this).val();
 		action = $(this).find(':selected').attr('data-action');
 		if (val == 0) {
+			parsing_address();
 		}
 		else {
 			get_shipping_cost(val, action, 0);
@@ -4079,6 +4080,10 @@ EVENT & FUNCTION OTHER
 					if (typeof(data.type) != "undefined" && data.type !== null) {
 						error = true;
 
+						$.each(data.msg, function (index, value) {
+							msg += '<p class="mb-5"> - '+ value +'</p>';
+						});
+
 						modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 						$('#alert_window').modal('show');
 
@@ -4108,6 +4113,10 @@ EVENT & FUNCTION OTHER
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							error = true;
 
+							$.each(data.msg, function (index, value) {
+								msg += '<p class="mb-5"> - '+ value +'</p>';
+							});
+
 							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 							modal_alert.modal('show');
 
@@ -4134,6 +4143,10 @@ EVENT & FUNCTION OTHER
 					success: function(data) {
 						if (typeof(data.type) != "undefined" && data.type !== null) {
 							error = true;
+
+							$.each(data.msg, function (index, value) {
+								msg += '<p class="mb-5"> - '+ value +'</p>';
+							});
 
 							modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 							modal_alert.modal('show');
@@ -4217,7 +4230,6 @@ EVENT & FUNCTION OTHER
 			reload_view(e, 'mobile');
 		}
 		else if (e.type=='error') {
-			console.log(e);
 			error = true;
 			$.each(e.msg, function (index, value) {
 				msg += '<p class="mb-5"> - '+ value +'</p>';
@@ -4272,6 +4284,7 @@ EVENT & FUNCTION OTHER
 	}
 
 	function add_gift(e) {
+		error = true;
 		extension_id = [];
 		extension_price = [];
 		extension_value = [];
@@ -4302,7 +4315,7 @@ EVENT & FUNCTION OTHER
 				if (typeof(data.type) == 'eror') {
 					error = true;
 					msg = '';
-					$.each(e.msg, function (index, value) {
+					$.each(data.msg, function (index, value) {
 						msg += '<p class="mb-5"> - '+ value +'</p>';
 					});
 
@@ -4315,6 +4328,7 @@ EVENT & FUNCTION OTHER
 				}
 				else {
 					error = false;
+					msg = data.msg;
 
 					modal_alert.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 					modal_alert.modal('show');
@@ -4332,42 +4346,6 @@ EVENT & FUNCTION OTHER
 		return error;
 	}
 
-	// function count_sub_total() {
-	// 	var to = $.trim($("#total").text().replace(/\./g, '')).substring(4);
-	// 	var sc = ($(".shippingcost").first().text().replace(/\./g, '')).substring(4);
-	// 	var yp = ($("#point").text().replace(/\./g, '')).substring(4);
-	// 	st = 0;
-	// 	uqnum = parseInt($('.uniquenumber').attr('data-unique'));
-	// 	to = parseInt(to);
-	// 	sc = parseInt(sc);
-	// 	yp = parseInt(yp);
-
-	// 	if(isNaN(sc)) {
-	// 		sc = 0;
-	// 	}
-	// 	st = ((to + sc - yp)-uqnum);
-	// 	if (st && st < 0) {
-	// 		st = 'IDR ' + 0;
-	// 	} else {	
-	// 		st = 'IDR ' + st;
-	// 	}
-	// 	// console.log(st);
-	// 	$(".subtotal").text(addCommas(st));
-
-	// 	function addCommas(nStr)
-	// 	{
-	// 		nStr += '';
-	// 		x = nStr.split('.');
-	// 		x1 = x[0];
-	// 		x2 = x.length > 1 ? '.' + x[1] : '';
-	// 		var rgx = /(\d+)(\d{3})/;
-	// 		while (rgx.test(x1)) {
-	// 			x1 = x1.replace(rgx, '$1' + '.' + '$2');
-	// 		}
-	// 		return x1 + x2;
-	// 	};
-	// }
-
 	/*
 	* jquery validate form
 	*/
@@ -4384,10 +4362,19 @@ EVENT & FUNCTION OTHER
 		return "dependency-mismatch";
 	}, $.validator.messages.required)
 
-	var v = $("#checkout-form").validate({
+	var v = $("#content_address").validate({
 		errorClass: "warning",
 		onkeyup: false,
 		onfocusout: false
+	});
+
+	var checkout_form = $("#checkout-form").validate({
+		errorClass: "warning",
+		onkeyup: false,
+		onfocusout: false,
+		errorPlacement: function(error, element) {
+			$('.text-error').html(error).addClass('text-regular');
+		}
 	});
 
 	/**
@@ -4410,12 +4397,19 @@ EVENT & FUNCTION OTHER
 
 		if (type=='next') {
 			// jika form semua valid terisi
-			if (v.form()) {
-				current = param;
-				get_check = check_ajax_choice(to_ajax, $(this));
-				if (get_check!=true) {
-					show_section(target, value);
-					window.history.pushState("", "", section);
+			if (param!='submit') {
+				if (v.form()) {
+					current = param;
+					get_check = check_ajax_choice(to_ajax, $(this));
+					if (get_check!=true) {
+						show_section(target, value);
+						window.history.pushState("", "", section);
+					}
+				}
+			}
+			else {
+				if (checkout_form.form()) {
+					$('#checkout-form').submit();
 				}
 			}
 		} 

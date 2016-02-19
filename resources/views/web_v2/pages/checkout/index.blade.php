@@ -21,7 +21,7 @@
 	</div>
 
 	<!-- SECTION FORM CHECKOUT -->
-	{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST','class' => 'no_enter', 'id' => 'checkout-form']) !!}
+	
 		{!! Form::hidden('voucher_id', (isset($data['voucher_id']) ? $data['voucher_id'] : ''), ['class' => 'voucher_code']) !!}
 		{!! Form::hidden('order_id', $data['order']['data']['id']) !!}
 
@@ -99,7 +99,6 @@
 			</div>        
 		</div>  --}} 			
 		<!-- END SECTION BUTTON CHECKOUT FOR MOBILE & TABLET -->
-	{!! Form::close() !!}
 
 
 	<!-- Term and Condition -->
