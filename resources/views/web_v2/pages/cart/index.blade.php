@@ -50,7 +50,7 @@
 						"item_list_qty"					=> $qty,
 						"item_list_normal_price"		=> $item['price'],
 						"item_list_size"				=> $item['varians'],
-						"item_list_discount_price"		=> $item['discount'],
+						"item_list_discount_price"		=> $item['discount']!=0 ? $item['price']-$item['discount'] : $item['discount'],
 						"item_list_total_price"			=> $item['discount']!=0 ? (($item['price']-$item['discount'])*$qty) : ($item['price']*$qty),
 						"item_varians"					=> $item['varians'],
 						"item_list_slug"				=> $item['slug'],

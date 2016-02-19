@@ -21,7 +21,7 @@
 					<div class="col-sm-1 col-md-1 qty-{{ strtolower($value['size']) }}" 
 					data-get-flag="qty-{{ strtolower($value['size']) }}">
 						<div class="row">
-							<div class="col-md-12 ">
+							<div class="col-md-12 pl-5">
 								<p class="m-b-none" style="line-height:20px">
 									@if (strpos($value['size'], '.')==true)
 										<?php $frac = explode('.', $value['size']); ?>
