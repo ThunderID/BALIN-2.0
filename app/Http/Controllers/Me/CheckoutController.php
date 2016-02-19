@@ -309,7 +309,7 @@ class CheckoutController extends BaseController
 		$me_order_in_cart['data']['transactionextensions']	= $extensions;
 
 		$result					= $APIUser->postMeOrder($me_order_in_cart['data']);
-		dd($result);
+
 		//3. Return result
 		if ($result['status'] != 'success')
 		{
