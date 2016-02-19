@@ -1,18 +1,18 @@
-<div class="row ml-0 mr-0 panel_form_voucher">
-	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
+<div class="row ml-0 mr-0">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light ">
 		<div class="content_checkout">
 			@if (!isset($data['order']['data']['voucher']))
-				<div class="row pt-md pb-sm">
+				<div class="row pt-md pb-sm panel_form_voucher">
 					<div class="col-md-12 mb-sm">
 						<span class="text-lg voucher-title">Punya Kode Voucher ?</span>
 					</div>	
 					<div class="col-md-12 mb-xs">
 						<span class="text-regular">Jika anda punya kode voucher, masukkan kode voucher anda dapatkan hadiahnya.</span>
 						<div class="mt-xs" style="position:relative">
-							<div class="text-center hide loading loading_voucher">
+							<div class="text-center hide loading loading_voucher" style="z-index:99;">
 								{!! HTML::image('images/loading.gif', null, []) !!}
 							</div>
-							{!! Form::input('text', 'voucher', null, [
+							{!! Form::text('voucher', null, [
 								'class' 		=> 'form-control transaction-input-voucher-code text-regular voucher_desktop',
 								'placeholder' 	=> 'Voucher code',
 								'style'			=> 'width:100%',

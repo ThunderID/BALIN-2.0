@@ -38,11 +38,7 @@
 							</div>
 						</div>
 					@else
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-md gift-value gift_message hide">
-							<div class="form-group">
-								{!! Form::text('value[]', null, ['class' => 'extension_value']) !!}
-							</div>
-						</div>
+						{!! Form::hidden('value[]', 1, ['class' => 'form-control text-regular extension_value']) !!}
 					@endif
 				</div>
 			@empty

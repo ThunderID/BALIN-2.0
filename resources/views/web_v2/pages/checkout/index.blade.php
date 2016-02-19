@@ -1,38 +1,6 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
-	{{-- <div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-			<div id="checkout-step">
-			    <h2>Pengiriman</h2>
-			    <section>
-			        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
-			            sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
-			            Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
-			    </section>
-
-			    <h2>Kode Voucher</h2>
-			    <section>
-			        <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-			            In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-			            dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-			            In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-			            Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-			            Donec non pulvinar urna. Aliquam id velit lacus.</p>
-			    </section>
-
-			    <h2>Check & Review Pesanan</h2>
-			    <section>
-			        <p>Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo condimentum dapibus. Fusce eros justo, 
-			            pellentesque non euismod ac, rutrum sed quam. Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat. 
-			            Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui commodo lectus sollicitudin in auctor mauris 
-			            venenatis.</p>
-			    </section>
-			</div>
-		</div>
-	</div> --}}
-
-
 	<div class="row mb-md ml-0 mr-0">
 		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center">
 			<div class="step-checkout text-light row">

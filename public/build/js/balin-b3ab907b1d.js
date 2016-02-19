@@ -4025,15 +4025,15 @@ EVENT & FUNCTION OTHER
 	// 	reload_view(voucher, 'desktop');
 	// 	reload_view(voucher, 'mobile');
 	// });
-	function check_voucher() {
-		inp = $('input.voucher_desktop');
-		voucher = get_voucher(inp);
-		check_voucher = show_voucher(voucher, inp);
-		reload_view(voucher, 'desktop');
-		reload_view(voucher, 'mobile');
+	// function check_voucher() {
+	// 	inp = $('input.voucher_desktop');
+	// 	voucher = get_voucher(inp);
+	// 	check_voucher = show_voucher(voucher, inp);
+	// 	reload_view(voucher, 'desktop');
+	// 	reload_view(voucher, 'mobile');
 
-		return check_voucher;
-	}
+	// 	return check_voucher;
+	// }
 
 	/**
 	 * [function check address to parsin function get shipping cost]
@@ -4079,7 +4079,7 @@ EVENT & FUNCTION OTHER
 					if (typeof(data.type) != "undefined" && data.type !== null) {
 						error = true;
 
-						modal_alert.find('.content').html(data.msg);
+						modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 						$('#alert_window').modal('show');
 
 						setTimeout( function() {
@@ -4179,23 +4179,22 @@ EVENT & FUNCTION OTHER
 	 * @return gv {return dari json}
 	 */
 	function get_voucher (e) {
-		value = e.val();
+		voucher_value = e.val();
 		action = e.attr('data-action');
-		gv = '';
-		$.ajax({
+
+		return $.ajax({
 			url: action,
 			type: 'post',
-			dataType: 'json', 
+			dataType: 'json',
 			async: false,
-			data: {voucher: value},
+			data: {voucher: voucher_value},
 			beforeSend: function() {
 				$('.loading_voucher').removeClass('hide');
 			},
 			success: function(data) {
-				gv = data;
+				
 			}
 		});
-		return gv;
 	}
 
 	/**
@@ -4205,55 +4204,39 @@ EVENT & FUNCTION OTHER
 	 * @param  p {elemet input dari kode voucher}
 	 */
 	function show_voucher (e, p) {
-			if (e.type=='success')
-			{
-				error = false;
-				panel_voucher = $('.panel_form_voucher');
-				modal_notif = $('.modal-notif');
-				modal_notif.find('.title').children().html('');
-				modal_notif.find('.content').html(e.msg);
+		msg = '';
+		modal_notif = $('#alert_window');
 
-				set_voucher_id(p);
+		if (e.type=='success') {
+			error = false;
+			panel_voucher = $('.panel_form_voucher');
+			msg = e.msg;
+			panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+msg+'</p>');
 
-				if (e.discount==true) {
-					$('.shipping_cost').text('IDR 0');
-					$('.shipping_cost').attr('data-s', 0);
-					$('.shipping_cost').attr('data-v', 1);
-				}
-
-				setTimeout( function() {
-					$('.loading_voucher').addClass('hide');
-					panel_voucher.html('<p class="pl-sm pr-sm mb-0">'+e.msg+'</p>');
-				}, 2000);
-
-				$('#notif_window').modal('show');
-			}
-			else if (e.type=='error')
-			{
-				error = true;
-				setTimeout( function() {
-					$('.loading_voucher').addClass('hide');
-				}, 1000);
-				
-				msg = '';
-				$.each(e.msg, function (index, value) {
-					msg += '<p class="mb-5"> - '+ value +'</p>';
-				});
-
-				modal_notif = $('#alert_window');
-				modal_notif.find('.content').html(msg);
-
-				p.addClass('error');
-
-				modal_notif.modal('show');
-
-				setTimeout( function() {
-					modal_notif.modal('hide');
-				}, 1500);
-			}
-
-			return error;
+			reload_view(e, 'desktop');
+			reload_view(e, 'mobile');
 		}
+		else if (e.type=='error') {
+			console.log(e);
+			error = true;
+			$.each(e.msg, function (index, value) {
+				msg += '<p class="mb-5"> - '+ value +'</p>';
+			});
+		}
+
+		modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
+		modal_notif.modal('show');
+
+		setTimeout( function() {
+			$('.loading_voucher').addClass('hide');
+		}, 2000);
+
+		setTimeout( function() {
+			modal_notif.modal('hide');
+		}, 2000);
+
+		return error;
+	}
 
 	/*
 	*	function set voucher id
@@ -4308,15 +4291,14 @@ EVENT & FUNCTION OTHER
 		$('.extension_flag').each(function() {
 			extension_flag.push($(this).val());
 		});
-		console.log(extension_price);
+
 		$.ajax({
 			url: action,
 			type: 'post',
 			dataType: 'json',
 			async: false,
-			data: {product_extension_id: extension_id, value: extension_value, price: extension_value, flag: extension_flag},
+			data: {product_extension_id: extension_id, value: extension_value, price: extension_price, flag: extension_flag},
 			success: function(data) {
-				console.log(data);
 				if (typeof(data.type) == 'eror') {
 					error = true;
 					msg = '';
@@ -4324,7 +4306,7 @@ EVENT & FUNCTION OTHER
 						msg += '<p class="mb-5"> - '+ value +'</p>';
 					});
 
-					modal_alert.find('.content').html(msg);
+					modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 					$('#alert_window').modal('show');
 
 					setTimeout( function() {
@@ -4334,7 +4316,7 @@ EVENT & FUNCTION OTHER
 				else {
 					error = false;
 
-					modal_alert.find('.content').html(data.msg);
+					modal_notif.find('.content').html('<p class="border-bottom-1 border-grey-light">Info</p>'+msg);
 					$('#alert_window').modal('show');
 
 					setTimeout( function() {
@@ -4457,9 +4439,14 @@ EVENT & FUNCTION OTHER
 			param_check = check_address(e);
 		}
 		else if (ajax=='voucher') {
-			input_voucher = $('.voucher_desktop').val();
-			if (typeof(input_voucher) != "undefined" && input_voucher !== null) {
-				// param_check = check_voucher();
+			input_voucher = $('form#checkout-form').find('.voucher_desktop');
+			if (typeof(input_voucher.val()) != "undefined" && input_voucher.val() != '') {
+				get_voucher(input_voucher).done(function(data) {
+					param_check = show_voucher(data, input_voucher);
+					
+				}).fail(function() {
+					console.log('gagal');
+				});
 			}
 		}
 		else if (ajax=='gift') {

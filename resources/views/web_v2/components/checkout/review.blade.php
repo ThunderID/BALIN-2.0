@@ -107,18 +107,22 @@
 						</div>
 						@if (isset($data['order']['data']['extend_cost']))
 							<div class="row">
-								<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
+								<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 text-left">
 									<span class="text-regular">Bingkisan Tambahan</span>
-									@if (isset($data['order']['transactionextensions']))
-										@foreach($data['order']['transactionextensions'] as $key => $value)
-											<p class="mb-0">{{$value['productextension']['name']}}</p>
-										@endforeach
-									@endif
 								</div>
-								<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right ">
-									<span class="text-regular text-right potongan_voucher">@money_indo($data['order']['data']['extend_cost'])</span>
-								</div>	
 							</div>
+							@if (isset($data['order']['data']['transactionextensions']))
+								@foreach($data['order']['data']['transactionextensions'] as $key => $value)
+									<div class="row">
+										<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left mtm-5">
+											<span class="ml-5 text-grey-dark text-regular">- {{ $value['productextension']['name'] }}</span>
+										</div>
+										<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right mtm-5">
+											<span class="text-regular text-right potongan_voucher">@money_indo( $value['productextension']['price'] )</span>
+										</div>	
+									</div>
+								@endforeach
+							@endif
 						@endif
 						<div class="row">
 							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
@@ -127,7 +131,7 @@
 							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5">
 								<h4 class="text-md text-right text-bold mb-sm sub_total">
 									<?php 
-										$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] - $data['order']['data']['unique_number'] + $data['order']['data']['shipping_cost'] + (isset($data['order']['data']['extend_cost']) ? $data['order']['data']['extend_cost'] : 0);
+										$total_pembayaran = $total - $data['my_point'] - $data['order']['data']['voucher_discount'] + $data['order']['data']['shipping_cost'] + (isset($data['order']['data']['extend_cost']) ? $data['order']['data']['extend_cost'] : 0);
 									?>
 									@if ($total_pembayaran && $total_pembayaran < 0)
 										@money_indo(0)
