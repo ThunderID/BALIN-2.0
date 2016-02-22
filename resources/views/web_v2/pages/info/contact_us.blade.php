@@ -3,7 +3,7 @@
 @section('content')
 	<!-- CONTENT -->
 	<div class="row hidden-xs hidden-sm">
-				<div class="row">
+		<div class="row">
 			<div class="container">
 				<div class="col-md-6 col-sm-6 col-xs-12  panel">
 					<div class="row">
@@ -95,15 +95,15 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 						@if(isset($balin['info']['instagram_url']) && !empty($balin['info']['instagram_url']['value']))
-							<a href="{{ $balin['info']['instagram_url']['value'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-instagram fa-2x"></i></a>
+							<a href="{{$balin['info']['instagram_url']['value']}}" target="blank" class="btn btn-socmed mr-xs info"><i class="fa fa-instagram"></i></a>
 						@endif
 
 						@if(isset($balin['info']['twitter_url']) && !empty($balin['info']['twitter_url']['value']))
-							<a href="{{ $balin['info']['twitter_url']['value'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-twitter fa-2x"></i></a>
+							<a href="{{$balin['info']['twitter_url']['value']}}" target="blank" class="btn btn-socmed mr-xs info"><i class="fa fa-twitter"></i></a>
 						@endif
 
 						@if(isset($balin['info']['facebook_url']) && !empty($balin['info']['facebook_url']['value']))
-							<a href="{{ $balin['info']['facebook_url']['value'] }}" target="blank" class="btn btn-hollow hollow-social hollow-black hollow-black-border btn-hollow-xs"><i class="fa fa-facebook fa-2x"></i></a>
+							<a href="{{$balin['info']['facebook_url']['value']}}" target="blank" class="btn btn-socmed mr-xs info"><i class="fa fa-facebook"></i></a>
 						@endif
 						</div>
 					</div>

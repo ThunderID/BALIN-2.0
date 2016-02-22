@@ -442,13 +442,37 @@ p{								line-height: 2em;}
 	font-size: 24px;
 	text-align: center;
 	&:hover {
-		 background-color: $white;
-		 border: 3px solid $white;
-		 color: $black;
+		background-color: $white;
+		border: 3px solid $white;
+		color: $black;
 		-webkit-transition: 0.4s ease;
 		-moz-transition: 0.4s ease;
 		-o-transition: 0.4s ease;
 		transition: 0.4s ease;
+	}
+	@media screen and (max-width: 480px) {
+		height: 35px;
+		width: 35px;
+		font-size: 12px;
+		padding: 7px 7px;
+	}
+	@media (min-width: 481px) and (max-width: 767px) {
+		height: 40px;
+		width: 40px;
+		font-size: 16px;
+		padding: 7px 10px;	
+	}
+	&.info {
+		color: $black;
+		&:hover {
+			background-color: $black;
+			border: 3px solid $black;
+			color: $white;
+			-webkit-transition: 0.4s ease;
+			-moz-transition: 0.4s ease;
+			-o-transition: 0.4s ease;
+			transition: 0.4s ease;
+		}
 	}
 }
 // -----------------
