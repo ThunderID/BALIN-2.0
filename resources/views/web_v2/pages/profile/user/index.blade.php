@@ -413,7 +413,6 @@
 			@empty
 				<p class="text-center mt-xs">tidak ada order</p>
 			@endforelse
-			@include('web_v2.components.ajax_page')
 		</div>
 	</div>
 	<!-- END SECTION INFORMATION TRACKING ORDER -->
