@@ -1,7 +1,7 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
-	<div class="row">
+	<div class="row ml-0 mr-0 pl-xl pr-xl">
 		<div class="col-md-8 col-sm-8 col-xs-12">
 			<table>
 				<tbody>

@@ -150,8 +150,8 @@
 			<div class="row pt-md pb-md">
 				<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
 					<div class="checkbox i-checks required">
+						<input type="checkbox" value="1" name="term" class="" required title="Syarat & Ketentuan harus dicentang">
 						<label class="text-regular line-height-25"> 
-							<input type="checkbox" value="1" name="term" class="" required title="Syarat & Ketentuan harus dicentang">
 							Saya menyetujui <a href="#" class="link-black unstyle vertical-baseline" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
 						</label>
 						<div class="mt-5 text-error"></div>
