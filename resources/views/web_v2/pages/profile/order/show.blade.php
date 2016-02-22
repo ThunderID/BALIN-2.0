@@ -1,7 +1,7 @@
 <?php 
 	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
-	<div class="row ml-0 mr-0 pl-xl pr-xl">
+	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<div class="col-md-8 col-sm-8 col-xs-12">
 			<table>
 				<tbody>
@@ -42,7 +42,7 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
-	<div class="row">
+	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<!-- normal tablet -->
 		<div class="col-md-12 col-sm-12 hidden-xs chart-div">
 			<div class="col-md-12">
@@ -127,7 +127,7 @@
 
 		<!-- mobile -->
 	</div>
-	<div class="row">
+	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<div class="col-md-12 col-sm-12 hidden-xs">
 			<table class="table table-bordered table-hover table-striped">
 				<tbody>
@@ -178,7 +178,7 @@
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<div class="clearfix">&nbsp;</div>
-	<div class="row">
+	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<div class="col-md-4">
 			<table class="table table-bordered table-hover table-striped">
 				<thead>

@@ -348,18 +348,18 @@
 					</div>
 					<div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait')
-							<p class="text-right">
-								<span class="text-right mb-0">
+							<p class="text-right mb-0">
+								<span class="text-right">
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
 								</span>
-								<span class="text-right mb-0">
+								<span class="text-right">
 									<a class="text-regular text-right hover-black text-grey" href="{{route('my.balin.order.destroy', $v['id'])}}" >
 										[ Batalkan ]
 									</a>
 								</span>
 							</p>
 						@else
-							&nbsp;
+							<p class="mb-0">&nbsp;</p>
 						@endif
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 {{ ($v['status'] != 'canceled') ? 'border-right-divider-to-bottom' : '' }}">
