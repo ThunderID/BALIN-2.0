@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Input, Config, Session;
+use App\API\Connectors\APISendMail;
 
 /**
  * Used for page info of balin
@@ -83,5 +84,35 @@ class InfoController extends BaseController
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'contact_us';
 
 		return $this->generateView();
+	}
+
+	/**
+	 * store contact us
+	 *
+	 * @return view
+	 */
+	public function emailus()
+	{
+		//1. Get input detail
+		$customer 							= Input::only('message', 'name', 'email');
+		
+		//2. Post contact mail
+		$infos 								= [];
+		foreach ($this->balin['info'] as $key => $value) 
+		{
+			$infos[$value['type']]			= $value['value'];
+		}
+
+		$mail 								= new APISendMail;
+		$result								= $mail->contact($customer, $infos);
+		
+		if ($result['status'] != 'success')
+		{
+			$this->errors					= $result['message'];
+		}
+
+		$this->page_attributes->success 		= "Pesan Anda sudah disampaikan pada customer service kami.";
+
+		return $this->generateRedirectRoute('balin.contact.us');
 	}
 }
