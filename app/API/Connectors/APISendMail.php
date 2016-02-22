@@ -54,4 +54,13 @@ class APISendMail extends APIData
 
 		return $this->post();
 	}	
+
+	public function contact($customer, $store)
+	{
+		$this->api_url 						= '/mail/contact';
+
+		$this->api_data 					= array_merge($this->api_data, ["customer" => $customer, "store" => $store]);
+
+		return $this->post();
+	}	
 }
