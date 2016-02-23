@@ -240,6 +240,8 @@ class ProductController extends BaseController
 															'take'		=> 4,
 														]);	
 
+			$carts 									= Session::get('carts');
+
 			//breadcrumb
 			$breadcrumb								= 	[	
 															'Produk' 							=> route('balin.product.index'),
@@ -250,6 +252,7 @@ class ProductController extends BaseController
 			$this->page_attributes->data			= 	[
 															'product' 	=> $product,
 															'related'	=> $related,
+															'carts'		=> $carts,
 														];
 
 			$this->page_attributes->breadcrumb		= array_merge($this->page_attributes->breadcrumb, $breadcrumb);

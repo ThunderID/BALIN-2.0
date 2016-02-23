@@ -23,8 +23,8 @@
 					'label_name'			=> $item['name'],
 					'label_qty'				=> $item['varians'],
 					'label_price'			=> $item['price'],
-					'label_discount'		=> ($item['discount']!=0) ? ($item['price']-$item['discount']) : 0,
-					'label_total'			=> $qty*($item['discount']!=0 ? $item['promo_price'] : $item['price'])
+					'label_discount'		=> ($item['discount']!=0) ? $item['discount'] : 0,
+					'label_total'			=> ($item['discount']!=0 ? ($item['price']-$item['discount']) : $item['price'])*$qty
 				])
 			</li>
 			<!-- END SECTION CART DROPDOWN ITEM -->

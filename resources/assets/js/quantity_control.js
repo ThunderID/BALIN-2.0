@@ -127,8 +127,8 @@ EVENT BTN_NUMBER CLICK FOR DESKTOP
 
 	$('.input_number').change(function(){
 		check_flag = $(this).attr('data-input-flag');
-		if (check_flag==1)
-		{
+		// if (check_flag==1)
+		// {
 			minValue 			= parseInt($(this).attr('min'));
 			maxValue 			= parseInt($(this).attr('max'));
 			valueCurrent 		= parseInt($(this).val());
@@ -190,11 +190,11 @@ EVENT BTN_NUMBER CLICK FOR DESKTOP
 					btn_plus.removeAttr('disabled');
 					// qty_change_input_product($(this));
 				}
-				// flg = 0;
-				// show_tooltip($(this), flg);
+				flg = 0;
+				show_tooltip($(this), flg);
 			} else {
-				// flg = 2;
-				// show_tooltip($(this), flg);
+				flg = 2;
+				show_tooltip($(this), flg);
 
 				if (page === 'cart') {
 					disable_btn(btn_plus, $(this), vid, cid);
@@ -206,7 +206,7 @@ EVENT BTN_NUMBER CLICK FOR DESKTOP
 			if (page == 'cart') {
 				send_ajax_update(parseInt($(this).val()), action_update);
 			}
-		}
+		// }
 	});
 
 	$(".input_number").keydown(function (e) {
@@ -762,18 +762,18 @@ EVENT & FUNCTION OTHER
 	function show_tooltip(input, flg)
 	{
 		if (flg == 1) {
-			$(input).tooltip({delay: { "show": 1000, "hide": 1000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
-			$('.tooltip').css('z-index', '99');
-			$('.tooltip').css('top', -65 + 'px');
-			$('.tooltip-arrow').css('top', 59 + 'px');
+			$(input).tooltip({delay: { "show": 1800, "hide": 8000 }, title: 'Maaf untuk ukuran ini sisa ' +input.attr('max')+' item'}).tooltip('show');
+			position_input = $(input).position();
+			$('.tooltip').css('top', -5 + 'px').css('z-index', '99').css('width', 90 + 'px').css('margin-left', position_input.left-130 + 'px');
+			$('.tooltip-arrow').css('top', 25 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');
-			}, 2000);
+			}, 3000);
 		}
 		else if (flg == 2) {
-			$(input).tooltip({delay: { "show": 1800, "hide": 800 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
-			$('.tooltip').css('top', -5 + 'px');
-			$('.tooltip').css('z-index', '99');
+			$(input).tooltip({delay: { "show": 1000, "hide": 1500 }, title: 'Maaf stock barang size ini habis'}).tooltip('show');
+			position_input = $(input).position();
+			$('.tooltip').css('top', -5 + 'px').css('z-index', '99').css('width', 90 + 'px').css('margin-left', position_input.left-130 + 'px');
 			$('.tooltip-arrow').css('top', 25 + 'px');
 			setTimeout( function() {
 				$(input).tooltip('hide');
@@ -826,7 +826,11 @@ EVENT & FUNCTION OTHER
 					success: function(msg) {
 						$('.cart_dropdown').html(msg);
 						$('#notif_window').modal('show');
-						return_value_to_null('.input_number');
+
+						setTimeout( function() {
+							$('#notif_window').modal('hide');
+						}, 1500);
+						// return_value_to_null('.input_number');
 					}
 				});
 

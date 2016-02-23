@@ -231,7 +231,9 @@
 // the nav the full height of the horizontal nav (above 768px).
 
 .navbar-nav {
+	// display: inline-block;
 	margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
+	vertical-align: top;
 	// margin-left: 25% !important;
 
 	> li > a {

@@ -90,29 +90,33 @@
 									</p>
 								</div>
 								<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 text-right size-product">
-									<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm mrm-5 btn_number minus"
+									<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm mrm-3 btn_number minus"
 										data-field="qty-{{ strtolower($v['size']) }}[1]"
 										data-page="product" 
 										data-type="minus" disabled
 										>&ndash;</a>
 									<input type="hidden" name="varianids[{{ $v['id'] }}]" class="form-control pvarians" value="{{ $v['id'] }}">
-									<input type="number" name="qty[{{ $v['id'] }}]" class="text-center text-regular size-input pqty input_number" value="0" 
+									<input type="number" name="qty[{{ $v['id'] }}]" class="text-center text-regular size-input pqty input_number" 
+										value=
+										"@if(isset($data['carts'][$data['product']['data']['data'][0]['id']]) && $data['carts'][$data['product']['data']['data'][0]['id']]['slug'] == $data['product']['data']['data'][0]['slug'])@if(isset($data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]) && ($data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]['varian_id']  == $v['id'])){{$data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]['quantity']}}@else{{'0'}}@endif{{''}}@else{{'0'}}@endif" 
 										min="0" 
 										max="{{ (20>=$v['current_stock']) ? $v['current_stock'] : 20 }}"
 										data-id="{{ $v['id'] }}"
 										data-name="qty-{{ strtolower($v['size']) }}[1]"
 										data-stock="{{ $v['current_stock'] }}"
 										data-price="{{ (isset($data['product']['data']['data'][0]['promo_price'])&&($data['product']['data']['data'][0]['promo_price']!=0)) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'] }}"
-										data-total="0"
+										data-total="@if(isset($data['carts'][$data['product']['data']['data'][0]['id']]) && $data['carts'][$data['product']['data']['data'][0]['id']]['slug'] == $data['product']['data']['data'][0]['slug'])@if(isset($data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]) && ($data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]['varian_id']  == $v['id'])){{($data['carts'][$data['product']['data']['data'][0]['id']]['price']-$data['carts'][$data['product']['data']['data'][0]['id']]['discount'])*$data['carts'][$data['product']['data']['data'][0]['id']]['varians'][$v['id']]['quantity']}}@else{{'0'}}@endif{{''}}@else{{'0'}}@endif"
 										data-oldValue="" 
 										data-toggle="tooltip" 
-										data-placement="right"
+										data-placement="left"
 										data-page="product"
+										{{ ($v['current_stock']==0) ? 'disabled' : ''}}
 										>
 									<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn-sm mlm-5 btn_number plus"
 										data-field="qty-{{ strtolower($v['size']) }}[1]"
 										data-page="product"
 										data-type="plus"
+										{{ ($v['current_stock']==0) ? 'disabled' : ''}}
 										>&#43;</a>
 								</div>
 							</div>
@@ -127,7 +131,30 @@
 						<h4>TOTAL</h4>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-						<h4 class="price_all_product">@money_indo( isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'])</h4>
+						<h4 class="price_all_product">
+							<?php 
+								$price 	= $data['product']['data']['data'][0]['price']; 
+								$total = 0;
+							?>
+
+							@if (!empty($data['carts']))
+								@foreach ($data['carts'] as $k => $item)
+									@if ($k==$data['product']['data']['data'][0]['id'])
+										<?php
+											$qty 			= 0;
+											foreach ($item['varians'] as $key => $value) 
+											{
+												$qty 		= $qty + $value['quantity'];
+											}
+											$total += (($price-$item['discount'])*$qty); 
+										?>
+									@endif
+								@endforeach
+								@money_indo($total)
+							@else
+								@money_indo( isset($data['product']['data']['data'][0]['promo_price']) ? $data['product']['data']['data'][0]['promo_price'] : $data['product']['data']['data'][0]['price'])
+							@endif
+						</h4>
 					</div>
 				</div>
 				<!-- END SECTION TOTAL PRICE -->

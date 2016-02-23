@@ -18,8 +18,23 @@
 			</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse text-center" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown dropdown-cart  hidden-xs hidden-sm text-light">
+					<a href="javascript:void(0);" class="dropdown-toggle text-white pt-xs mt-5 ico_cart">
+						<i class="fa fa-shopping-cart fa-lg vertical-baseline"></i>
+						<span class="text-regular"><strong>{{ count(Session::get('carts')) }}</strong></span>
+					</a>
+					@include('web_v2.components.cart.cart_dropdown', ['carts' => Session::get('carts')]) 
+				</li>
+				<li class="info-point pull-right mt-sm ml-md mr-md hidden-xs hidden-sm">
+					<span class="p-xs pl-md pr-md text-white border-left-1 border-top-1 border-bottom-1 border-grey text-regular text-uppercase">Jumlah Point</span>
+					<span class="p-xs pl-md pr-md mlm-5 text-white border-1 border-solid border-grey bg-grey-light text-black text-regular">
+						@money_indo(Session::has('whoami') ? Session::get('whoami')['total_point'] : '0')
+					</span>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right mr-md" >
 				<li>
 					<a href="{{ route('balin.home.index') }}">Home</a>
 				</li>
@@ -66,19 +81,6 @@
 						<a href="{{ route('balin.get.logout') }}">Log out</a>
 					</li>
 				@endif
-				<li class="dropdown dropdown-cart  hidden-xs hidden-sm text-light">
-					<a href="javascript:void(0);" class="dropdown-toggle text-white pt-xs mt-5 ico_cart">
-						<i class="fa fa-shopping-cart fa-lg vertical-baseline"></i>
-						<span class="text-regular"><strong>{{ count(Session::get('carts')) }}</strong></span>
-					</a>
-					@include('web_v2.components.cart.cart_dropdown', ['carts' => Session::get('carts')]) 
-				</li>
-				<li class="info-point pull-right mt-sm ml-md mr-md hidden-xs hidden-sm">
-					<span class="p-xs pl-md pr-md text-white border-left-1 border-top-1 border-bottom-1 border-grey text-regular text-uppercase">Jumlah Point</span>
-					<span class="p-xs pl-md pr-md mlm-5 text-white border-1 border-solid border-grey bg-grey-light text-black text-regular">
-						@money_indo(Session::has('whoami') ? Session::get('whoami')['total_point'] : '0')
-					</span>
-				</li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
