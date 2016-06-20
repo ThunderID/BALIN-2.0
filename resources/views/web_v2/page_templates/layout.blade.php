@@ -92,11 +92,9 @@
 		@include('web_v2.components.navbar_shortcut')
 		<!-- END SECTION BOTTOM BAR FOR MOBILE HOME, PRODUCT & PROFILE -->
 		<div class="divider_footer"></div>
-		@if (Route::currentRouteName()!='balin.home.index')
-			<!-- SECTION FOOTER  -->
-			@include('web_v2.components.footer')
-			<!-- END SECTION FOOTER -->
-		@endif
+		<!-- SECTION FOOTER  -->
+		@include('web_v2.components.footer')
+		<!-- END SECTION FOOTER -->
 			
 		<!-- CSS -->
 		{!! HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') !!}

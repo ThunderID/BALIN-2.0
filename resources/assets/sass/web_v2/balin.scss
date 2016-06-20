@@ -23,6 +23,7 @@ $color3: #f8afad;
 @import "loading";
 @import "easyzoom";
 @import "footer";
+@import "spacing";
 
 html, body {
 	height: 90%;
@@ -47,4 +48,52 @@ body {
 	-moz-transition: 0.4s ease;
 	-o-transition: 0.4s ease;
 	transition: 0.4s ease;
+}
+
+.info-point .title {
+	color : #eee;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	cursor: default;
+	padding: 7px;
+}
+
+.info-point .value {
+	color : #222222;
+	background-color: #eee;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	cursor: default;	
+	padding: 7px;
+}
+
+.home{
+	padding-top: 50px !important;
+}
+
+.background-white{
+	background-color: white;
+}
+
+.home-tab{
+	color: #777 !important;
+	font-size: 16px;
+}
+
+.home-tab:focus{
+	text-decoration: none;
+}
+
+.home-tab-active{
+	color: black !important;
+	border-bottom: black 1px solid !important;
+	pointer-events: none;
+    cursor: default;
+}
+
+
+.btn-banner{
+	min-width: 70px;
 }

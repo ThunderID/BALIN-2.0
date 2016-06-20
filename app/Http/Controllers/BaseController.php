@@ -77,6 +77,8 @@ abstract class BaseController extends Controller
   		if (!isset($this->page_attributes->data)){ $this->page_attributes->data = null; }
   		if (!isset($this->page_attributes->paginator)){$this->page_attributes->paginator = null;}
   		if (!isset($this->page_attributes->type_form)){$this->page_attributes->type_form = null;}
+  		if (!isset($this->page_attributes->metas)){$this->page_attributes->metas = null;}
+  		if (!isset($this->page_attributes->controller_name)){$this->page_attributes->controller_name = null;}
 
   		if (!Session::has('carts') || is_null(Session::get('carts')) || empty(Session::get('carts'))) 
   		{
@@ -131,6 +133,8 @@ abstract class BaseController extends Controller
 									->with('data', $this->page_attributes->data)
 									->with('balin', $balin)
 									->with('recommend', $recommend)
+									->with('metas', $this->page_attributes->metas)
+									->with('controller_name', $this->page_attributes->controller_name)
 									->with('type', $this->page_attributes->type_form)
 									;
 

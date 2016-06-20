@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\API\Connectors\APIProduct;
 use Session, Config;
 
 class HomeController extends BaseController 
@@ -25,6 +26,19 @@ class HomeController extends BaseController
 	 */
 	public function index()
 	{
+		//get data
+		$APIProduct 							= new APIProduct;
+
+		$product 								= $APIProduct->getIndex([
+														'take'		=> 4,
+														'skip'		=> 0,
+													]);		
+		
+		$datas['batik_wanita']					= $product;
+		$datas['batik_pria']					= $product;
+		$datas['all']							= $product;
+
+
 		$this->page_attributes->metas 			= 	[
 														'og:type' 			=> 'website', 
 														'og:title' 			=> 'BALIN.ID', 
@@ -35,9 +49,9 @@ class HomeController extends BaseController
 														'fb:app_id' 		=> Config::get('fb_app.id'),
 													];
 
+		$this->page_attributes->controller_name		= $this->controller_name;
 		$this->page_attributes->subtitle 			= 'Fashionable and Modern Batik';
-		$this->page_attributes->data				= 	[
-														];
+		$this->page_attributes->data				= $datas;
 
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
 

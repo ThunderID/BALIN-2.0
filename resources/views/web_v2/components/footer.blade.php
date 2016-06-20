@@ -1,5 +1,5 @@
 <footer class="container-fluid footer">
-	<div class="row">
+	<div class="row p-l-none p-r-none">
 		<div class="col-md-12 hidden-xs">
 			<div class="container">
 				<div class="row p-t-xs p-b-md">
@@ -27,7 +27,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12 text-center">
-						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="#" class="text-white">Copyright 2015 CV. Balin Indonesia</a></p>
+						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="#" class="text-white">Copyright 2016 CV. Balin Indonesia</a></p>
 					</div>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 				</div>		
 				<div class="row">
 					<div class="col-xs-12 text-center">
-						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="#" class="text-white">Copyright 2015 CV. Balin Indonesia</a></p>
+						<p class="footer-title-logo m-t-sm m-b-xxs"><a href="#" class="text-white">Copyright 2016 CV. Balin Indonesia</a></p>
 					</div>
 				</div>	
 				<div class="row">

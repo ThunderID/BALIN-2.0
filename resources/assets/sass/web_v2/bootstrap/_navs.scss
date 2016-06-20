@@ -20,10 +20,18 @@
       position: relative;
       display: block;
       padding: $nav-link-padding;
+      color: #bbb !important;
+      font-weight: 400 !important;
+
       &:hover,
       &:focus {
+        color: #fff !important;
         text-decoration: none;
         background-color: $nav-link-hover-bg;
+      }
+      &.active{
+        color: #FFF !important;
+        font-weight: 600 !important;
       }
     }
 

@@ -193,6 +193,7 @@ class ProductController extends BaseController
 		//6. Generate view
 		$this->page_attributes->search 				= $searchresult;
 		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
+		$this->page_attributes->controller_name 	= $this->controller_name;
 		$this->page_attributes->data				= 	[
 															'product' 	=> $product,
 															'tag'		=> $tag,
@@ -249,6 +250,7 @@ class ProductController extends BaseController
 														];
 			//generate View
 			$this->page_attributes->subtitle 		= $product['data']['data'][0]['name'];
+			$this->page_attributes->controller_name = $this->controller_name;
 			$this->page_attributes->data			= 	[
 															'product' 	=> $product,
 															'related'	=> $related,

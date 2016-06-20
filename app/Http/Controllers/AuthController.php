@@ -263,6 +263,7 @@ class AuthController extends BaseController
 		$breadcrumb										= ['Sign In' => route('balin.get.login')];
 
 		$this->page_attributes->subtitle 			= 'Sign In';
+		$this->page_attributes->controller_name		= $this->controller_name;
 		$this->page_attributes->breadcrumb			= $breadcrumb;
 		$this->page_attributes->source 				= 'web_v2.pages.login.index';
 

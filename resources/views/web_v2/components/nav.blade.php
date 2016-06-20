@@ -28,32 +28,32 @@
 					@include('web_v2.components.cart.cart_dropdown', ['carts' => Session::get('carts')]) 
 				</li>
 				<li class="info-point pull-right mt-sm ml-md mr-md hidden-xs hidden-sm">
-					<span class="p-xs pl-md pr-md text-white border-left-1 border-top-1 border-bottom-1 border-grey text-regular text-uppercase">Jumlah Point</span>
-					<span class="p-xs pl-md pr-md mlm-5 text-white border-1 border-solid border-grey bg-grey-light text-black text-regular">
+					<span class="title pl-md pr-md text-regular text-uppercase">Jumlah Point</span>
+					<span class="value pl-md pr-md mlm-5 text-regular">
 						@money_indo(Session::has('whoami') ? Session::get('whoami')['total_point'] : '0')
 					</span>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right mr-md" >
 				<li>
-					<a href="{{ route('balin.home.index') }}">Home</a>
+					<a href="{{ route('balin.home.index') }}" class="{{$controller_name == 'home'? 'active':''}}">Home</a>
 				</li>
 				<li>
-					<a href="{{ route('balin.product.index') }}">Produk</a>
+					<a href="{{ route('balin.product.index') }}" class="{{$controller_name == 'product'? 'active':''}}">Produk</a>
 				</li>
 				{{-- <li>
 					<a href="" data-scroll>Why Join</a>
 				</li> --}}
 				@if (Session::has('whoami'))
-					<li >
+					<li>
 						<a href="{{ route('my.balin.redeem.index') }}">Referal &amp; Point
-							<span class="badge badge-hollow bg-red text-white"><i class="fa fa-exclamation"></i></span>
+							<span class="badge badge-hollow text-white"><i class="fa fa-exclamation"></i></span>
 						</a>
 					</li>
 				@endif
 				@if (!Session::has('whoami'))
-					<li >
-						<a href="{{ route('balin.get.login') }}">Sign In</a>
+					<li>
+						<a href="{{ route('balin.get.login') }}" class="{{$controller_name == 'Login'? 'active':''}}">Sign In</a>
 					</li>
 				@endif
 				<!-- <li > -->
