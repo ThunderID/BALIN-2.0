@@ -6,6 +6,14 @@ use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
 
+use App\Http\Controllers\Me\Veritrans\Veritrans_Config;
+use App\Http\Controllers\Me\Veritrans\Veritrans_Transaction;
+use App\Http\Controllers\Me\Veritrans\Veritrans_ApiRequestor;
+use App\Http\Controllers\Me\Veritrans\Veritrans_Notification;
+use App\Http\Controllers\Me\Veritrans\Veritrans_VtDirect;
+use App\Http\Controllers\Me\Veritrans\Veritrans_VtWeb;
+use App\Http\Controllers\Me\Veritrans\Veritrans_Sanitizer;
+
 use Input, Response, Redirect, Session, Request, BalinMail;
 
 /**
@@ -151,6 +159,34 @@ class CheckoutController extends BaseController
 		//5. Redirect url
 		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
 
+		if(Session::has('veritrans_payment'))
+		{
+			// Set our server key
+			Veritrans_Config::$serverKey 			= env('VERITRANS_KEY', 'VT_KEY');
+
+			// Uncomment for production environment
+			Veritrans_Config::$isProduction 		= env('VERITRANS_PRODUCTION', false);
+
+			// Comment to disable sanitization
+			Veritrans_Config::$isSanitized 			= true;
+
+			// Comment to disable 3D-Secure
+			Veritrans_Config::$is3ds 				= true;
+
+			// Fill transaction data
+			$transaction 							= 	[
+			    											'transaction_details' 	=> [
+													        	'order_id' 			=> $order['data']['id'],
+													        	'gross_amount' 		=> $order['data']['bills'], // no decimal allowed for creditcard
+			    											]
+		    											];
+
+			$vtweb_url = Veritrans_Vtweb::getRedirectionUrl($transaction);
+
+			// Redirect
+			dd(header('Location: ' . $vtweb_url));
+		}
+
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
 	}
 
@@ -273,7 +309,6 @@ class CheckoutController extends BaseController
 		return Response::json(['action' => route('my.balin.checkout.get.order', $result['data']['id']), 'address' => $address], 200);
 	}
 
-
 	/**
 	 * function to store extension
 	 * 
@@ -373,5 +408,30 @@ class CheckoutController extends BaseController
 												->with('data', $data);
 
 		return $page;
+	}
+
+
+	/**
+	 * function to inform success payment
+	 * 
+	 * @return redirect url
+	 */
+	public function vtfinish()
+	{
+		$this->page_attributes->success = "Pembayaran Anda sudah tersimpan, BALIN akan memproses penerimaan pembayaran Anda dalam waktu kurang dari 24 jam.";
+
+		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
+	}
+
+	/**
+	 * function to inform failed payment
+	 * 
+	 * @return redirect url
+	 */
+	public function vtunfinish()
+	{
+		$this->errors 					= ["Pembayaran Anda sudah gagal tersimpan, Silahkan mencoba lagi atau membayar dengan opsi pembayaran lainnya."];
+
+		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
 	}
 }
