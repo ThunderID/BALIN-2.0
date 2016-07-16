@@ -176,12 +176,14 @@ class CheckoutController extends BaseController
 			// Fill transaction data
 			$transaction 							= 	[
 			    											'transaction_details' 	=> [
-													        	'order_id' 			=> $order['data']['id'],
+													        	'order_id' 			=> $order['data']['ref_number'],
 													        	'gross_amount' 		=> $order['data']['bills'], // no decimal allowed for creditcard
 			    											]
 		    											];
 
-			$vtweb_url = Veritrans_Vtweb::getRedirectionUrl($transaction);
+			$vtweb_url 								= Veritrans_Vtweb::getRedirectionUrl($transaction);
+			
+			Session::forget('veritrans_payment');
 
 			// Redirect
 			dd(header('Location: ' . $vtweb_url));
@@ -418,6 +420,31 @@ class CheckoutController extends BaseController
 	 */
 	public function vtfinish()
 	{
+		//1. Ambil data order detail dari API
+		$APIUser 							= new APIUser;
+
+		$me_order_detail					= $APIUser->getMeOrderRef([
+													'user_id' 		=> Session::get('whoami')['id'],
+													'ref_number'	=> Input::get('order_id')
+												]);
+
+		if($me_order_detail['status']!='success')
+		{
+			\App::abort(404);
+		}
+
+		//2a.change status
+		$me_order_detail['data']['status']	= 'payment_process';
+
+		//3. Store checkout
+		$order 								= $APIUser->postMeOrder($me_order_detail['data']);
+
+		//4. Check order, send mail
+		if ($order['status'] != 'success')
+		{
+			$this->errors 						= $order['message'];
+		}
+
 		$this->page_attributes->success = "Pembayaran Anda sudah tersimpan, BALIN akan memproses penerimaan pembayaran Anda dalam waktu kurang dari 24 jam.";
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
@@ -430,6 +457,18 @@ class CheckoutController extends BaseController
 	 */
 	public function vtunfinish()
 	{
+		//1. Ambil data order detail dari API
+		$APIUser 							= new APIUser;
+
+		$order								= $APIUser->getMeOrderRef([
+													'user_id' 		=> Session::get('whoami')['id'],
+													'ref_number'	=> Input::get('order_id')
+												]);
+		if($order['status']!='success')
+		{
+			\App::abort(404);
+		}
+
 		$this->errors 					= ["Pembayaran Anda sudah gagal tersimpan, Silahkan mencoba lagi atau membayar dengan opsi pembayaran lainnya."];
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);

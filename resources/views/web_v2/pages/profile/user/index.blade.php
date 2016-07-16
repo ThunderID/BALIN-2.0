@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'payment_process' => 'Menunggu Pembayaran', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -347,7 +347,7 @@
 						</span>
 					</div>
 					<div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
-						@if ($v['status'] == 'wait')
+						@if ($v['status'] == 'wait' || $v['status'] == 'payment_process')
 							<p class="text-right mb-0">
 								<span class="text-right">
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
@@ -390,7 +390,7 @@
 							</p>
 						@endif
 
-						@if ($v['status']=='wait')
+						@if ($v['status'] == 'wait' || $v['status'] == 'payment_process')
 							<?php $due_date = Carbon::parse($v['transact_at'])->addDay(); ?>
 							<span class="text-regular">Info :</span>
 							<p>

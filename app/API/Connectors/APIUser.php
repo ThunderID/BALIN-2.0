@@ -135,6 +135,18 @@ class APIUser extends APIData
 		return $this->get();
 	}
 
+	/* get detail order user id */
+	public function getMeOrderRef($parameter = null) 
+	{
+		if (!is_null($parameter))
+		{
+			$this->api_url 					= '/me/' . $parameter['user_id'] .'/order/number/' . $parameter['ref_number'];
+			$this->api_data 				= array_merge($this->api_data, $parameter);
+		}
+
+		return $this->get();
+	}
+
 	/* get recommended product in not cart & user login */
 	public function getMeRecommended ($parameter = null)
 	{
