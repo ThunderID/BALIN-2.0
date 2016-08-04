@@ -106,7 +106,6 @@ class CartController extends BaseController
 		}
 
 		Session::put('carts', $carts);
-
 		$breadcrumb									= 	[
 															'Cart' => route('balin.cart.index')
 														];
@@ -372,6 +371,8 @@ class CartController extends BaseController
 				}
 			}
 			$order['transactiondetails'] 		= $order_detail;
+			$order['status'] 					= 'cart';
+			$order['user_id'] 					= Session::get('whoami')['id'];
 
 			//3c. Store cart
 			$result 							= $APIUser->postMeOrder($order);
