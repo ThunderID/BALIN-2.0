@@ -216,6 +216,7 @@ class AuthController extends BaseController
 					}
 				}
 				$temp_carts['transactiondetails']	= $temp_varian;
+				$temp_carts['status']				= 'cart';
 
 
 				$API_order 							= new APIUser;
@@ -280,7 +281,7 @@ class AuthController extends BaseController
 		//check user data login
 		$api_url 							= '/oauth/access_token';
 		$api_data 							= 	[
-													'username' 		=> Input::get('email'),
+													'email' 		=> Input::get('email'),
 													'password' 		=> Input::get('password'),
 													'grant_type'	=> 'password',
 													'client_id'		=> env('CLIENT_ID'),
@@ -385,6 +386,7 @@ class AuthController extends BaseController
 					}
 				}
 				$temp_carts['transactiondetails']	= $temp_varian;
+				$temp_carts['status']				= 'cart';
 
 				$API_order 							= new APIUser;
 				$result 							= $API_order->postMeOrder($temp_carts);

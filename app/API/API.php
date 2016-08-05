@@ -6,16 +6,17 @@ use GuzzleHttp\Psr7\Request;
 
 class API
 {
-	// protected $domain			= '192.168.1.17';
-	// protected $domain			= 'localhost';
-	protected $domain			= 'http://shop-api';
-	// protected $port				= '8800';
-	protected $port				= '';
+	protected $domain;
+	protected $port;
+
 	public $timeout				= 2;
 	public $basic_url;
 
 	public function __construct()
 	{
+		$this->domain 			= env('RESOURCE_DOMAIN', 'localhost');
+		$this->port 			= env('RESOURCE_PORT', '');
+		
 		$this->basic_url 		= $this->domain;
 
 		if(!is_null($this->port))
