@@ -355,6 +355,13 @@ class CheckoutController extends BaseController
 		return Response::json(['type' => 'success', 'msg' => 'Bingkisan sudah tersimpan (akan dikenakan biaya sesuai yang tertera).', 'action' => route('my.balin.checkout.get.order', $result['data']['id'])], 200);
 	}
 
+	public function choice_payment()
+	{
+		$payment_method 		= Input::only('choice_payment');
+
+		return Response::json(['type' => 'success', 'msg' => $payment_method], 200);
+	}
+
 	/**
 	 * function to get view desktop for order detail in checkout
 	 * 1. Get cart detail

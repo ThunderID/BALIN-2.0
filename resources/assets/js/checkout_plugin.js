@@ -262,6 +262,32 @@
 		return error;
 	}
 
+	function parsing_choice_payment(data, param) {
+		msg = false;
+		choicepayment = param;
+		action = data.attr('data-action');
+
+		$.ajax({
+			url: action,
+			type: 'post',
+			dataType: 'json',
+			async: false,
+			data: {choice_payment: choicepayment},
+			success: function(data) {
+				console.log(data);
+				if (typeof(data.type) == 'eror') {
+					msg = false;
+				}
+				else {
+					msg = true;
+				}
+			}
+		});
+
+		return msg;
+	}
+
+
 	/**
 	 * [function reload view page section review pesanan]
 	 * 
@@ -378,6 +404,26 @@
 		}
 		else if (ajax=='gift') {
 			param_check = add_gift(e);
+		}
+		else if (ajax=='choice_payment') {
+			input_choice_payment = $('input[type=radio][name=choice_payment]:checked').val();
+			action = e.attr('data-action');
+
+			$.ajax({
+				url: action,
+				type: 'post',
+				dataType: 'json',
+				data: {choice_payment: input_choice_payment},
+				success: function(data) {
+					console.log(data);
+					if (typeof(data.type) == 'eror') {
+						msg = false;
+					}
+					else {
+						msg = true;
+					}
+				}
+			});
 		}
 		else if (ajax=='submit') {
 
