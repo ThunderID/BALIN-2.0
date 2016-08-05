@@ -1,6 +1,7 @@
 .step-checkout {
 	div{
-		// width: 200px;
+		width: 20%;
+		float: left;
 		border: 1px solid $grey;
 		color: $grey;
 		font-size: 12px;
@@ -24,7 +25,7 @@
 			font-size: 11px;
 			height: 60px;
 			line-height: 60px;
-			// width: 24% !important;
+			width: 100%;
 			&.active{
 				font-size: 12px;
 				font-weight: 800;

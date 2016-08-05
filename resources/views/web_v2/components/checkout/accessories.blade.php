@@ -49,6 +49,12 @@
 					</div>
 				</div>
 			@endforelse
+		@else
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<p class="text-md text-light">Maaf bingkisan tambahan saat ini belum tersedia</p>
+				</div>
+			</div>
 		@endif
 		<div class="clearfix">&nbsp;</div>
 		<div class="clearfix">&nbsp;</div>

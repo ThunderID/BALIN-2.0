@@ -2,18 +2,21 @@
 
 @section('content')
 	<div class="row mb-md ml-0 mr-0">
-		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center">
-			<div class="step-checkout text-light row">
-				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc1">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center pl-0 pr-0">
+			<div class="step-checkout text-light">
+				<div class="" data-section="#sc1">
 					<span>Pengiriman</span>
 				</div>
-				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc2">
+				<div class="" data-section="#sc2">
 					<span>Kode Voucher</span>
 				</div>
-				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc3">
+				<div class="" data-section="#sc3">
 					<span>Bingkisan</span>
 				</div>
-				<div class="col-xs-3 col-sm-3 col-md-3" data-section="#sc4">
+				<div class="" data-section="#sc4">
+					<span>Pilih Pembayaran</span>
+				</div>
+				<div class="" data-section="#sc5">
 					<span>Summary</span>
 				</div>
 			</div>
@@ -53,6 +56,14 @@
 						</div>
 					</li>
 					<li id="sc4" class="hide">
+						<a href="#"></a>
+						<div>
+							<fieldset>
+								@include('web_v2.components.checkout.choice_payment')
+							</fieldset>
+						</div>
+					</li>
+					<li id="sc5" class="hide">
 						<a href="#"></a>
 						<div>
 							<fieldset>
@@ -188,6 +199,24 @@
 			flag.val('1');
 		}
 	});
+
+	<!-- Modal payment -->
+	$('.modal-payment').on('show.bs.modal', function(e) {
+		action 		= $(e.relatedTarget).attr('data-action');
+		title 		= $(e.relatedTarget).attr('data-modal-title');
+		view_mode 	= $(e.relatedTarget).attr('data-view');
+		parsing 	= $(e.relatedTarget).attr('data-action-parsing');
+		from 		= $(e.relatedTarget).attr('data-from');
+
+		$(this).find('.modal-body').html('<p class="ml-md mr-md pl-xs pr-xs">loading...</p>');
+		$(this).find('.modal-title').html(title);
+		$(this).find('.modal-dialog').addClass(view_mode);
+		$(this).find('.modal-body').load(action, function() {
+			if (parsing !== null && parsing !== undefined) {
+				change_action($(this), parsing);
+			}
+		});
+	});	
 @stop
 
 @section('js_plugin')

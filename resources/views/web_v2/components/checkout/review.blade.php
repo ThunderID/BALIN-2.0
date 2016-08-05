@@ -141,6 +141,21 @@
 								</h4>
 							</div>	
 						</div>
+						<hr/>
+						<div class="row m-t-sm payment">
+							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
+								<h4 class="text-md">Pembayaran melalu veritrans</h4>
+							</div>
+							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right">
+								<a href="javascript:void(0);" class="btn btn-xs btn-black-hover-white-border-black mt-5" 
+									data-action="#"
+									data-toggle="modal" 
+									data-target=".modal-payment" 
+									data-modal-title="Pembayaran" 
+									data-view="modal-lg">request</a>
+							</div>
+						</div>
+						<hr/>
 					</div>
 				@endif
 			</div>
@@ -162,11 +177,11 @@
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 					<a href="javascript:void(0);" class="btn btn-transaparent-border-black-hover-black btn_step"
 					data-action="{ route('my.balin.checkout.voucher') }}" 
-					data-target="#sc3" 
-					data-value="#sc4"
+					data-target="#sc4" 
+					data-value="#sc5"
 					data-param="0"
 					data-type="prev"
-					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
+					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc4']) }}">Kembali</a>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
 				
@@ -180,3 +195,22 @@
 		{!! Form::close() !!}
 	</div>
 </div>
+
+<!-- SECTION MODAL PAYMENT -->
+<div id="" class="modal modal-payment modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="row ml-sm mr-sm">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+						<h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body mt-75 mobile-m-t-10 ml-xl mr-xl" style="text-align:left">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END SECTION MODAL PAYMENT -->

@@ -207,7 +207,7 @@
 	}
 
 	function add_gift(e) {
-		error = true;
+		error = false;
 		extension_id = [];
 		extension_price = [];
 		extension_value = [];
