@@ -72,8 +72,8 @@ class CheckoutController extends BaseController
 												]);
 
 		//1c. get list product extension
-		// $APIProductExtension 					= new APIProductExtension;
-		// $product_extension						= $APIProductExtension->getIndex();
+		$APIProductExtension 					= new APIProductExtension;
+		$product_extension						= $APIProductExtension->getIndex();
 		$product_extension						= null;
 
 		//2. Generate breadcrumb
