@@ -10,13 +10,13 @@
 				<div class="col-md-12">
 					<div class="radio">
 						<label>
-							{!! Form::radio('choice_payment', 1, true, ['disabled' => Session::has('paid_veritrans') ? true : '']) !!}
+							{!! Form::radio('choice_payment', 1, true, []) !!}
 							Bayar menggunakan veritrans
 						</label>
 					</div>
 					<div class="radio">
 						<label>
-							{!! Form::radio('choice_payment', 0, null, ['disabled' => Session::has('paid_veritrans') ? true : '']) !!}
+							{!! Form::radio('choice_payment', 0, null, []) !!}
 							Transfer ke rekening kami
 						</label>
 					</div>
