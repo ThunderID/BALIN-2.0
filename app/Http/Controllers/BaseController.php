@@ -34,8 +34,8 @@ abstract class BaseController extends Controller
 		// Get success API token
 		if ($result['status'] == "success")
 		{
-			Session::set('API_token_public', $result['data']['token']['access_token']);
-			Session::set('API_token', $result['data']['token']['access_token']);
+			Session::set('API_token_public', $result['data']['token']['token']);
+			Session::set('API_token', $result['data']['token']['token']);
 		}
 		else
 		{

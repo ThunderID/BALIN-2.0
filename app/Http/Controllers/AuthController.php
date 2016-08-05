@@ -132,7 +132,7 @@ class AuthController extends BaseController
 		{
 			//check registered user
 
-			Session::put('API_token_private', $result['data']['token']['access_token']);
+			Session::put('API_token_private', $result['data']['token']['token']);
 			Session::put('whoami', $result['data']['me']);
 			Session::set('API_token', Session::get('API_token_private'));	
 
@@ -293,11 +293,11 @@ class AuthController extends BaseController
 		if ($result['status'] == "success")
 		{
 			$API_me 						= new APIUser;
-			Session::put('API_token_private', $result['data']['token']['access_token']);
+			Session::put('API_token_private', $result['data']['token']['token']);
 
 			$whoami 						= $API_me->getMeDetail([
 																'user_id' 	=> $result['data']['me']['id'],
-																'access_token' 	=> Session::get('API_token_private'),
+																'token' 	=> Session::get('API_token_private'),
 															]);
 			Session::put('whoami', $whoami['data']);
 
