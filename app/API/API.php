@@ -6,9 +6,11 @@ use GuzzleHttp\Psr7\Request;
 
 class API
 {
-	// protected $domain			= '192.168.1.118';
-	protected $domain			= 'localhost';
-	protected $port				= '8800';
+	// protected $domain			= '192.168.1.17';
+	// protected $domain			= 'localhost';
+	protected $domain			= 'http://shop-api';
+	// protected $port				= '8800';
+	protected $port				= '';
 	public $timeout				= 2;
 	public $basic_url;
 
@@ -34,6 +36,7 @@ class API
 
 		$request 				= new Request('GET',  $this->basic_url . $url);
 		$response 				= $client->send($request, ['timeout' => $this->timeout]);
+		
 		$body 					= $response->getBody();
 
 		return (string) $body;

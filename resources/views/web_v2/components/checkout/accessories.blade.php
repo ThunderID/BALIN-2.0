@@ -49,6 +49,12 @@
 					</div>
 				</div>
 			@endforelse
+		@else
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<p class="text-md text-light">Maaf bingkisan tambahan saat ini belum tersedia</p>
+				</div>
+			</div>
 		@endif
 		<div class="clearfix">&nbsp;</div>
 		<div class="clearfix">&nbsp;</div>
@@ -63,7 +69,7 @@
 			</div>
 			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
-				data-action="{{ route('my.balin.checkout.extension') }}" 
+				data-action="{{ route('my.balin.checkout.voucher') }}" 
 				data-target="#sc4"  
 				data-value="#sc3"
 				data-param="3"
