@@ -216,6 +216,7 @@ class AuthController extends BaseController
 					}
 				}
 				$temp_carts['transactiondetails']	= $temp_varian;
+				$temp_carts['status']				= 'cart';
 
 
 				$API_order 							= new APIUser;
@@ -385,6 +386,7 @@ class AuthController extends BaseController
 					}
 				}
 				$temp_carts['transactiondetails']	= $temp_varian;
+				$temp_carts['status']				= 'cart';
 
 				$API_order 							= new APIUser;
 				$result 							= $API_order->postMeOrder($temp_carts);

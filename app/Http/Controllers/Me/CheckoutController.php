@@ -441,7 +441,7 @@ class CheckoutController extends BaseController
 		}
 
 		//2a.change status
-		$me_order_detail['data']['status']	= 'payment_process';
+		$me_order_detail['data']['status']	= 'veirtrans_processing_payment';
 
 		//3. Store checkout
 		$order 								= $APIUser->postMeOrder($me_order_detail['data']);
