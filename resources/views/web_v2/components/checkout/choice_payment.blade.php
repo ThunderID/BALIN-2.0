@@ -32,15 +32,7 @@
 				data-type="prev"
 				data-url="{{ route('my.balin.checkout.get', ['section' => 'sc3']) }}">Kembali</a>
 			</div>
-			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right {{ (Session::has('paid_veritrans') ? 'hide' : '') }}">
-				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_payment" 
-				data-action="#"
-				data-toggle="modal" 
-				data-target=".modal-payment" 
-				data-modal-title="Pembayaran" 
-				data-view="modal-lg">Lanjutkan</a>
-			</div>
-			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right {{ (Session::has('paid_veritrans') ? '' : 'hide') }}">
+			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step btn_next" 
 				data-action="{{ route('my.balin.checkout.shippingcost') }}"
 				data-target="#sc5"  

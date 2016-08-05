@@ -280,7 +280,7 @@ class AuthController extends BaseController
 		//check user data login
 		$api_url 							= '/oauth/access_token';
 		$api_data 							= 	[
-													'username' 		=> Input::get('email'),
+													'email' 		=> Input::get('email'),
 													'password' 		=> Input::get('password'),
 													'grant_type'	=> 'password',
 													'client_id'		=> env('CLIENT_ID'),
