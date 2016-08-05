@@ -116,7 +116,6 @@ class CheckoutController extends BaseController
 
 		$me_order_in_cart 						= $APIUser->getMeOrderInCart(['user_id' 	=> Session::get('whoami')['id']]);
 
-
 		//2. Parsing variable
 		if($me_order_in_cart['status']!='success')
 		{

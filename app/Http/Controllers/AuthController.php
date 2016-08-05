@@ -292,14 +292,20 @@ class AuthController extends BaseController
 
 		if ($result['status'] == "success")
 		{
+			$API_me 						= new APIUser;
 			Session::put('API_token_private', $result['data']['token']['access_token']);
-			Session::put('whoami', $result['data']['me']);
+
+			$whoami 						= $API_me->getMeDetail([
+																'user_id' 	=> $result['data']['me']['id'],
+																'access_token' 	=> Session::get('API_token_private'),
+															]);
+			Session::put('whoami', $whoami['data']);
+
 			Session::put('API_token', Session::get('API_token_private'));	
 
 			//check user before login carts
 			if (!Session::has('carts'))
 			{
-				$API_me 								= new APIUser;
 				$me_order_in_cart 						= $API_me->getMeOrderInCart([
 																'user_id' 	=> Session::get('whoami')['id'],
 															]);
