@@ -137,24 +137,6 @@ class CheckoutController extends BaseController
 		{
 			$this->errors 						= $order['message'];
 		}
-		else
-		{
-			$infos 								= [];
-			foreach ($this->balin['info'] as $key => $value) 
-			{
-				$infos[$value['type']]			= $value['value'];
-			}
-
-			$mail 								= new APISendMail;
-			$result								= $mail->invoice($order['data'], $infos);
-			
-			if ($result['status'] != 'success')
-			{
-				$this->errors					= $result['message'];
-			}
-
-			Session::forget('carts');
-		}
 
 		//5. Redirect url
 		$this->page_attributes->success 			= "Pesanan Anda sudah tersimpan.";
@@ -357,7 +339,16 @@ class CheckoutController extends BaseController
 
 	public function choice_payment()
 	{
-		$payment_method 		= Input::only('choice_payment');
+		$payment_method 		= Input::get('choice_payment');
+
+		if($payment_method=='veritrans')
+		{
+			Session::put('veritrans_payment', true);
+		}
+		else
+		{
+			Session::forget('veritrans_payment');
+		}
 
 		return Response::json(['type' => 'success', 'msg' => $payment_method], 200);
 	}
