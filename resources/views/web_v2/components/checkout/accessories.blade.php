@@ -69,7 +69,7 @@
 			</div>
 			<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 text-right">
 				<a href="javascript:void(0);" class="btn btn-black-hover-white-border-black btn_step" 
-				data-action="{{ route('my.balin.checkout.voucher') }}" 
+				data-action="{{ route('my.balin.checkout.extension') }}" 
 				data-target="#sc4"  
 				data-value="#sc3"
 				data-param="3"

@@ -2,21 +2,21 @@
 
 @section('content')
 	<div class="row mb-md ml-0 mr-0">
-		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center">
-			<div class="step-checkout text-light row">
-				<div class="col-xs-2 col-sm-2 col-md-2" data-section="#sc1">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 text-center pl-0 pr-0">
+			<div class="step-checkout text-light">
+				<div class="" data-section="#sc1">
 					<span>Pengiriman</span>
 				</div>
-				<div class="col-xs-2 col-sm-2 col-md-2" data-section="#sc2">
+				<div class="" data-section="#sc2">
 					<span>Kode Voucher</span>
 				</div>
-				<div class="col-xs-2 col-sm-2 col-md-2" data-section="#sc3">
+				<div class="" data-section="#sc3">
 					<span>Bingkisan</span>
 				</div>
-				<div class="col-xs-2 col-sm-2 col-md-2" data-section="#sc4">
+				<div class="" data-section="#sc4">
 					<span>Pilih Pembayaran</span>
 				</div>
-				<div class="col-xs-2 col-sm-2 col-md-2" data-section="#sc5">
+				<div class="" data-section="#sc5">
 					<span>Summary</span>
 				</div>
 			</div>
@@ -197,17 +197,6 @@
 			$(this).attr('data-check', 1);
 			$(this).text('Batal').addClass('btn-white-border-black-hover-black').removeClass('btn-black-hover-white-border-black');
 			flag.val('1');
-		}
-	});
-
-	$('input[type=radio][name=choice_payment]').change(function(){
-		if (this.value == 1) {
-			$('.btn_payment').parent().removeClass('hide');
-			$('.btn_next').parent().addClass('hide');
-		}
-		else if (this.value == 0) {
-			$('.btn_next').parent().removeClass('hide');
-			$('.btn_payment').parent().addClass('hide');
 		}
 	});
 
