@@ -189,7 +189,7 @@
 					data-action="{{ route('my.balin.checkout.post') }}" 
 					data-param="submit"
 					data-type="next"
-					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc5']) }}">Checkout</a>
+					data-url="{{ route('my.balin.checkout.get', ['section' => 'sc4']) }}">Checkout</a>
 				</div>
 			</div>
 		{!! Form::close() !!}
