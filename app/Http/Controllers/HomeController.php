@@ -28,16 +28,37 @@ class HomeController extends BaseController
 	{
 		//get data
 		$APIProduct 							= new APIProduct;
+		$datas['batik_wanita'] 					= $APIProduct->getIndex([
+														'search' 	=> 	[
+																			'recommended' => (Session::has('whoami') ? Session::get('whoami')['id'] : 0),
+																			'tags' => ['wanita'],
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														'take'		=> 4,
+														'skip'		=> '',
+													]);
 
-		$product 								= $APIProduct->getIndex([
+		$datas['batik_pria'] 					= $APIProduct->getIndex([
+														'search' 	=> 	[
+																			'recommended' => (Session::has('whoami') ? Session::get('whoami')['id'] : 0),
+																			'tags' => ['pria'],
+																		],
+														'sort' 		=> 	[
+																			'name'	=> 'asc',
+																		],
+														'take'		=> 4,
+														'skip'		=> '',
+													]);
+
+		$datas['all'] 							= $APIProduct->getIndex([
+														'search' 	=> 	[
+																			'recommended' => (Session::has('whoami') ? Session::get('whoami')['id'] : 0),
+																		],
 														'take'		=> 4,
 														'skip'		=> 0,
 													]);		
-		
-		$datas['batik_wanita']					= $product;
-		$datas['batik_pria']					= $product;
-		$datas['all']							= $product;
-
 
 		$this->page_attributes->metas 			= 	[
 														'og:type' 			=> 'website', 
@@ -52,6 +73,7 @@ class HomeController extends BaseController
 		$this->page_attributes->controller_name		= $this->controller_name;
 		$this->page_attributes->subtitle 			= 'Fashionable and Modern Batik';
 		$this->page_attributes->data				= $datas;
+		$this->page_attributes->data['banners']		= $this->balin['banners'];
 
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
 

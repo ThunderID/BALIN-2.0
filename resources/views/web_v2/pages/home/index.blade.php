@@ -9,12 +9,13 @@
 			{{-- Woman --}}
 			<div class="col-md-6 col-sm-6 pr-md">
 				<div class="row">
-					<div class="col-md-12 pt-sm pl-lg" style="height: 400px; background-size:cover; background-image: url('{!! asset('/images/asset-woman.jpg') !!}');">
+					<div class="col-md-12 pt-sm pl-lg" style="height: 400px; background-size:cover; background-image: url('{!! $data['banners']['left_banner']['image_lg'] !!}');">
 						<div class="col-md-4 col-sm-6">
 							<h2 class="heading text-left pt-sm pb-sm">
 								Wanita
 							</h2>
-							<a href="#" class="btn btn-black-hover-white-border-black">Lihat Koleksi</a>
+							<?php $image_left = json_decode($data['banners']['left_banner']['value'], true);?>
+							<a href="{{$image_left['button']['banner_button_url']}}" class="btn btn-black-hover-white-border-black">Lihat Koleksi</a>
 						</div>
 						<div class="col-md-8 col-sm-6">
 						</div>
@@ -25,12 +26,13 @@
 			{{-- Man --}}
 			<div class="col-md-6 col-sm-6 pl-md">
 				<div class="row">
-					<div class="col-md-12 pt-sm pr-lg" style="height: 400px; background-size:cover; background-image: url('{{ asset('images/asset-man.jpg') }}');">
+					<div class="col-md-12 pt-sm pl-lg" style="height: 400px; background-size:cover; background-image: url('{!! $data['banners']['right_banner']['image_lg'] !!}');">
 						<div class="col-md-8 col-sm-6">
 						</div>
 						<div class="col-md-4 col-sm-6">
 							<h2 class="heading text-right pt-sm pb-sm">Pria</h2>
-							<a href="#" class="btn btn-black-hover-white-border-black pull-right">Lihat Koleksi</a>
+							<?php $image_right = json_decode($data['banners']['left_banner']['value'], true);?>
+							<a href="{{$image_right['button']['banner_button_url']}}" class="btn btn-black-hover-white-border-black">Lihat Koleksi</a>
 						</div>
 					</div>
 				</div>
@@ -38,12 +40,12 @@
 
 			{{-- Shoes --}}
 			<div class="col-md-12 col-sm-12 pt-md">
-				<div class="row" style="height: 225px; background-size:cover; background-image: url('{{ asset('images/asset-new.png') }}');">
+				<div class="row" style="height: 225px; background-size:cover; background-image: url('{{ $data['banners']['full_banner']['image_lg'] }}');">
 					<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 pt-xl text-center slide-bottom"  data-plugin-options='{"reverse":false}'>
-						<h4 class="heading">Memperkenalkan Produk Terbaru Kami</h4>
-						<h2 class="heading m-t-none pb-md">Balin Shoes</h2>
-						<a href="#" class="btn btn-banner btn-black-hover-white-border-black">Wanita</a>
-						<a href="#" class="btn btn-banner btn-black-hover-white-border-black">Pria</a>
+						<h4 class="heading">Hadir Dengan Produk Terbaik Kami</h4>
+						<h2 class="heading m-t-none pb-md">Balin Batik</h2>
+						<a href="{{$image_left['button']['banner_button_url']}}" class="btn btn-banner btn-black-hover-white-border-black">Wanita</a>
+						<a href="{{$image_right['button']['banner_button_url']}}" class="btn btn-banner btn-black-hover-white-border-black">Pria</a>
 					</div>
 				</div>
 			</div>
