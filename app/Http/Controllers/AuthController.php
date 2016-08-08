@@ -72,24 +72,6 @@ class AuthController extends BaseController
 		{
 			$this->errors 				= $user['message'];
 		}
-		else
-		{
-			$infos 								= [];
-			foreach ($this->balin['info'] as $key => $value) 
-			{
-				$infos[$value['type']]			= $value['value'];
-			}
-
-			$infos['action']					= route(env('ROUTE_BALIN_CLAIM_VOUCHER'), $user['data']['activation_link']);
-			
-			$mail 								= new APISendMail;
-			$result								= $mail->welcomemail($user['data'], $infos);
-			
-			if ($result['status'] != 'success')
-			{
-				$this->errors					= $result['message'];
-			}
-		}
 
 		$this->page_attributes->success 			= "Terima kasih sudah mendaftar, Balin telah mengirimkan hadiah selamat datang untuk Anda melalui email Anda.";
 

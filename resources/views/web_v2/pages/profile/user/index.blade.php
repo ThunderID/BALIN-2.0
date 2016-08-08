@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'veirtrans_processing_payment' => 'Menunggu Pembayaran', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'veritrans_processing_payment' => 'Menunggu Pembayaran via Veritrans', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 @extends('web_v2.page_templates.layout')
 
@@ -391,7 +391,7 @@
 							</p>
 						@endif
 
-						@if ($v['status'] == 'wait' || $v['status'] == 'veirtrans_processing_payment')
+						@if ($v['status'] == 'wait' || $v['status'] == 'veritrans_processing_payment')
 							<?php $due_date = Carbon::parse($v['transact_at'])->addDay(); ?>
 							<span class="text-regular">Info :</span>
 							<p>

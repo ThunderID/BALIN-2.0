@@ -196,8 +196,8 @@ class CheckoutController extends BaseController
 		}
 
 		//2. Store voucher
-		$voucher 									= Input::get('voucher');
-		$me_order_in_cart['data']['voucher_code']	= $voucher;
+		$voucher 										= Input::get('voucher');
+		$me_order_in_cart['data']['voucher']['code']	= $voucher;
 
 		$result 									= $APIUser->postMeOrder($me_order_in_cart['data']);
 
@@ -316,11 +316,14 @@ class CheckoutController extends BaseController
 		//2. Store extension
 		$extension 				= Input::only('product_extension_id', 'value', 'price', 'flag');
 		$extensions 			= [];
-		foreach ($extension['product_extension_id'] as $key => $value) 
+		if(!empty($extension['product_extension_id']))
 		{
-			if($value!='' && $extension['flag'][$key]==true)
+			foreach ($extension['product_extension_id'] as $key => $value) 
 			{
-				$extensions[]	= ['id' => '', 'transaction_id' => $me_order_in_cart['data']['id'], 'product_extension_id' => $value, 'price' => $extension['price'][$key], 'value' => $extension['value'][$key]];
+				if($value!='' && $extension['flag'][$key]==true)
+				{
+					$extensions[]	= ['id' => '', 'transaction_id' => $me_order_in_cart['data']['id'], 'product_extension_id' => $value, 'price' => $extension['price'][$key], 'value' => $extension['value'][$key]];
+				}
 			}
 		}
 
