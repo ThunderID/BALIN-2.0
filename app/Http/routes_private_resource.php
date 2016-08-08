@@ -31,8 +31,10 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE'), 'prefix'
 	Route::any('checkout/choice/payment',							['uses' => 'CheckoutController@choice_payment', 'as' => 'my.balin.checkout.choicepayment']);
 	
 	/* Get order in view total cart */
-	Route::any('checkout/order/{id}',								['uses' => 'CheckoutController@get_view',	'as' => 'my.balin.checkout.get.order']);
+	Route::any('checkout/order/{id}',								['uses' => 'CheckoutController@get_view',		'as' => 'my.balin.checkout.get.order']);
 
+	Route::get('veritrans/paying/{id}',								['uses' => 'CheckoutController@vtprocessing', 	'as' => 'my.balin.payment.processing']);
+	
 	Route::get('veritrans/payment/finish',							['uses' => 'CheckoutController@vtfinish', 	'as' => 'my.balin.payment.finish']);
 	Route::get('veritrans/payment/unfinish',						['uses' => 'CheckoutController@vtunfinish', 'as' => 'my.balin.payment.unfinish']);
 
