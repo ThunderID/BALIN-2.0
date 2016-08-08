@@ -73,7 +73,18 @@ class HomeController extends BaseController
 		$this->page_attributes->controller_name		= $this->controller_name;
 		$this->page_attributes->subtitle 			= 'Fashionable and Modern Batik';
 		$this->page_attributes->data				= $datas;
-		$this->page_attributes->data['banners']		= $this->balin['banners'];
+		if(isset($this->balin['banners']))
+		{
+			$this->page_attributes->data['banners']	= $this->balin['banners'];
+		}
+		else
+		{
+			$this->page_attributes->data['banners']	= 	[
+															'left_banner' => ['image_lg' => '', 'value' => json_encode(['button' => ['banner_button_url' => '']])],
+															'right_banner' => ['image_lg' => '', 'value' => json_encode(['button' => ['banner_button_url' => '']])],
+															'full_banner' => ['image_lg' => '', 'value' => json_encode(['button' => ['banner_button_url' => '']])],
+														];
+		}
 
 		$this->page_attributes->source 				=  $this->page_attributes->source . 'index';
 
