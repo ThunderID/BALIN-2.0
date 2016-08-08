@@ -1,5 +1,5 @@
 <?php 
-	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'veirtrans_processing_payment' => 'Menunggu Pembayaran', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
+	$status 	= ['abandoned' => 'Terabaikan', 'cart' => 'Keranjang', 'wait' => 'Checkout', 'veritrans_processing_payment' => 'Menunggu Pembayaran via Veritrans', 'paid' => 'Pembayaran Diterima', 'packed' => 'Menunggu Pengiriman', 'shipping' => 'Dalam Pengiriman', 'delivered' => 'Pesanan Complete', 'canceled' => 'Pesanan Dibatalkan'];
 ?>
 	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<div class="col-md-8 col-sm-8 col-xs-12">
@@ -272,7 +272,7 @@
 				<tbody>
 					@if (isset($data['order']['orderlogs']))
 						@forelse ($data['order']['orderlogs'] as $k => $v)
-							@if (in_array($v['status'], ['wait', 'veirtrans_processing_payment', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
+							@if (in_array($v['status'], ['wait', 'veritrans_processing_payment', 'paid', 'packed', 'shipping', 'delivered', 'canceled']))
 								<tr>
 									<td> 
 										<strong> {{ $status[$v['status']] }} </strong>
