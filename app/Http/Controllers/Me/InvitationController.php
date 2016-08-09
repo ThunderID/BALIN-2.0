@@ -85,14 +85,7 @@ class InvitationController extends BaseController
 															'user_id' 	=> Session::get('whoami')['id'],
 														]);
 
-		$email 										= explode(',', Input::get('emails'));
-
-		$emails 									= [];
-
-		foreach ($email as $key => $value) 
-		{
-			$emails[]								= ['email' => $value];
-		}
+		$emails 									= explode(',', Input::get('emails'));
 
 		/* array parameter to API */
 		$data										= 	[
