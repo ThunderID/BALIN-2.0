@@ -74,7 +74,11 @@ class CheckoutController extends BaseController
 		//1c. get list product extension
 		$APIProductExtension 					= new APIProductExtension;
 		$product_extension						= $APIProductExtension->getIndex();
-		$product_extension						= null;
+
+		if($product_extension['status']!='success')
+		{
+			$product_extension					= null;
+		}
 
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
@@ -170,6 +174,8 @@ class CheckoutController extends BaseController
 			// Redirect
 			dd(header('Location: ' . $vtweb_url));
 		}
+
+		Session::forget('carts');
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
 	}
@@ -498,6 +504,8 @@ class CheckoutController extends BaseController
 			$this->errors 						= $order['message'];
 		}
 
+		Session::forget('carts');
+
 		$this->page_attributes->success = "Pembayaran Anda sudah tersimpan, BALIN akan memproses penerimaan pembayaran Anda dalam waktu kurang dari 24 jam.";
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
@@ -521,6 +529,8 @@ class CheckoutController extends BaseController
 		{
 			\App::abort(404);
 		}
+
+		Session::forget('carts');
 
 		$this->errors 					= ["Pembayaran Anda sudah gagal tersimpan, Silahkan mencoba lagi atau membayar dengan opsi pembayaran lainnya."];
 
