@@ -29,8 +29,8 @@
 					<div class="col-md-12 pt-sm pl-lg" style="height: 400px; background-size:cover; background-image: url('{!! $data['banners']['right_banner']['image_lg'] !!}');">
 						<div class="col-md-8 col-sm-6">
 						</div>
-						<div class="col-md-4 col-sm-6">
-							<h2 class="heading text-right pt-sm pb-sm">Pria</h2>
+						<div class="col-md-4 col-sm-6 text-right">
+							<h2 class="heading pt-sm pb-sm">Pria</h2>
 							<?php $image_right = json_decode($data['banners']['left_banner']['value'], true);?>
 							<a href="{{$image_right['button']['banner_button_url']}}" class="btn btn-black-hover-white-border-black">Lihat Koleksi</a>
 						</div>
