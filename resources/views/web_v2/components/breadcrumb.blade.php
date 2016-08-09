@@ -3,11 +3,13 @@
 	<div class="row mt-md">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
 			<ol class="breadcrumb" style="background:none">
-				<li>
-					<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
-				</li>
 				@foreach($breadcrumb as $b_title => $b_url)
-					@if($b_url == end($breadcrumb))
+					@if ($b_url == head($breadcrumb))
+						<li>
+							<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
+						</li>
+					@endif
+					@if ($b_url == end($breadcrumb))
 						<li class="active">
 							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title }}</strong></a>
 						</li>
@@ -28,11 +30,13 @@
 	<div class="row mt-sm">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-0 pr-0">
 			<ol class="breadcrumb bg-none mt-xs mb-xs">
-				<li>
-					<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
-				</li>
 				<?php $ctr = 0;?>
 				@foreach($breadcrumb as $b_title => $b_url)
+					@if ($b_url == head($breadcrumb))
+						<li>
+							<a class="hover-black" href="{{route('balin.home.index')}}">Home</a>
+						</li>
+					@endif
 					@if($b_url == end($breadcrumb))
 						@if($ctr > 0)
 							</br>

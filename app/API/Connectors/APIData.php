@@ -93,14 +93,12 @@ abstract class APIData
 		{
 		    if(empty($result['status']))
 		    {
-				print_r("RESPONSE ERROR : NO STATUS FROM SERVER!");
-				dd($result);
+		    	Redirect::route('page.error', ['header' => '500', 'msg' => 'No status from server']);
 		    }
 		} 
 		catch (Exception $e) 
 		{
-			print_r("ERROR : UNKNOWN RESPONSE FROM SERVER!");
-			dd($result);
+			Redirect::route('page.error', ['header' => '500', 'msg' => 'Unknown response from server']);
 		}
 
 		// data

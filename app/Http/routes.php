@@ -27,3 +27,8 @@ include('routes_public_resource.php');
 include('routes_private_resource.php');
 
 include('routes-campaign.php');
+
+/**
+ * Server Error redirect route
+ */
+Route::get('error/{header?}/{msg?}',			['uses' => 'ErrorController@er404', 'as' => 'page.error']);
