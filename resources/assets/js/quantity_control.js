@@ -21,9 +21,9 @@
 
 			input_number_mobile = list_cart_mobile.find('.input_number-mobile[data-name="'+fieldName+'"]');
 
-			flg = 2;
-			show_tooltip($(this), flg);
-			show_tooltip(input_number_mobile, flg);
+			// flg = 2;
+			// show_tooltip($(this), flg);
+			// show_tooltip(input_number_mobile, flg);
 		});
 	});
 
@@ -190,11 +190,11 @@ EVENT BTN_NUMBER CLICK FOR DESKTOP
 					btn_plus.removeAttr('disabled');
 					// qty_change_input_product($(this));
 				}
-				flg = 0;
-				show_tooltip($(this), flg);
+				// flg = 0;
+				// show_tooltip($(this), flg);
 			} else {
-				flg = 2;
-				show_tooltip($(this), flg);
+				// flg = 2;
+				// show_tooltip($(this), flg);
 
 				if (page === 'cart') {
 					disable_btn(btn_plus, $(this), vid, cid);
@@ -307,8 +307,8 @@ EVENT BTN_NUMBER CLICK FOR MOBILE & TABLET
 
 	$('.input_number_mobile').change( function() {
 		check_flag = $(this).attr('data-input-flag');
-		if (check_flag==1)
-		{
+		// if (check_flag==1)
+		// {
 			minValue 			=  parseInt($(this).attr('min'));
 			maxValue 			=  parseInt($(this).attr('max'));
 			valueCurrent 		= parseInt($(this).val());
@@ -354,7 +354,7 @@ EVENT BTN_NUMBER CLICK FOR MOBILE & TABLET
 			}
 
 			send_ajax_update(parseInt($(this).val()), action_update);
-		}
+		// }
 	});
 	
 	$(".input_number_mobile").keydown(function (e) {
@@ -521,13 +521,13 @@ FUNCTION IN PAGE CART
 			list_cart.find(".btn_number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
 			list_cart_mobile.find(".btn_number_mobile[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
-			list_cart.find(".btn_number[data-type='minus'][data-field='"+name+"']").attr('disabled', true);
+			list_cart.find(".btn_number[data-type=minus][data-field="+name+"]").attr('disabled', true);
 			$(t).val(minValue);
 		}
 		if(valueCurrent < maxValue) {
 			flg = 0;
 			show_tooltip(t, flg);
-
+			
 			list_cart_mobile.find(".btn_number_mobile[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 			list_cart.find(".btn_number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled');
 		} else {
@@ -849,14 +849,14 @@ EVENT & FUNCTION OTHER
 				count_cart 	= Object.keys(result.carts).length; 
 				$('.ico_cart').find('span').html(count_cart);
 
-				$.each(result.carts, function(k, v) {
-					$.each(v.varians, function(k2, v2) {
-						if (v2.message!=='') {
-							flg = 1;
-							show_tooltip($('.input_number').find('[data-id="'+v2.varian_id+'"]'), flg);
-						}
-					});
-				});
+				// $.each(result.carts, function(k, v) {
+				// 	$.each(v.varians, function(k2, v2) {
+				// 		if (v2.message!=='') {
+				// 			flg = 1;
+				// 			show_tooltip($('.input_number').find('[data-id="'+v2.varian_id+'"]'), flg);
+				// 		}
+				// 	});
+				// });
 				
 				$.ajax({
 					url: data_action2,

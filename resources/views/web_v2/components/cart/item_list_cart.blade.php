@@ -17,7 +17,7 @@
 			</div>
 
 			@foreach($item_list_size as $key => $value)
-				<div class="row  p-xs list_vid" data-vid="" data-cid="">
+				<div class="row  p-xs list_vid" data-vid="{{$value['varian_id']}}" data-cid="{{$item_list_id}}">
 					<div class="col-sm-1 col-md-1 qty-{{ strtolower($value['size']) }}" 
 					data-get-flag="qty-{{ strtolower($value['size']) }}">
 						<div class="row">
@@ -51,8 +51,8 @@
 									data-vid="{{ $value['varian_id'] }}" 
 									data-cid="{{ $item_list_id }}"
 									data-type="minus" 
-									data-field="qty-{{ strtolower($value['size']) }}" 
-									data-get-flag="qty-{{ strtolower($value['size']) }}" 
+									data-field="qty-{{$value['size']}}" 
+									data-get-flag="qty-{{$value['size']}}" 
 									data-price="{{ $item_list_normal_price }}" 
 									data-action-update="{{ route('balin.cart.update', ['slug' => $item_list_slug, 'varian_id' => $value['varian_id']]) }}"
 									data-page="cart">
@@ -66,10 +66,10 @@
 										value="{{ $value['quantity'] }}" 
 										min="0" max="@if(50<=$value['current_stock']){{ '50' }}@else{{ $value['current_stock'] }}@endif" 
 										data-stock="{{ $value['current_stock'] }}" 
-										data-action-update="{{ route('balin.cart.update') }}" 
-										data-name="qty-{{ strtolower($value['size']) }}"
+										data-action-update="{{ route('balin.cart.update', ['slug' => $item_list_slug, 'varian_id' => $value['varian_id']]) }}" 
+										data-name="qty-{{$value['size']}}"
 										data-cid="{{ $item_list_id }}"
-										data-id="" 
+										data-id="{{ $value['varian_id'] }}" 
 										data-oldValue="" 
 										data-input-flag="0"
 										data-price="{{ $item_list_normal_price }}"
@@ -83,10 +83,10 @@
 									<button type="button" class="btn btn-control btn-sm plus btn_number" 
 									data-type="plus" 
 									@if($item_list_qty >= $value['current_stock'])disabled="disabled"@endif
-									data-vid="" 
-									data-cid=""
-									data-field="qty-{{ strtolower($value['size']) }}"
-									data-get-flag="qty-{{ strtolower($value['size']) }}" 
+									data-vid="{{ $value['varian_id'] }}" 
+									data-cid="{{ $item_list_id }}"
+									data-field="qty-{{$value['size']}}"
+									data-get-flag="qty-{{$value['size']}}" 
 									data-price="{{ $item_list_normal_price }}" 
 									data-action-update="{{ route('balin.cart.update', ['slug' => $item_list_slug, 'varian_id' => $value['varian_id']]) }}"
 									data-page="cart">
@@ -160,8 +160,8 @@
 									<button type="button" class="btn btn-control minus pull-right btn_number_mobile" 
 										@if($item_list_qty <= 0)disabled="disabled"@endif 
 										data-type="minus" 
-										data-field="qty-{{ strtolower($value['size']) }}" 
-										data-get-flag="qty-{{ strtolower($value['size']) }}" 
+										data-field="qty-{{$value['size']}}" 
+										data-get-flag="qty-{{$value['size']}}" 
 										data-price="{{ $item_list_normal_price }}" 
 										data-vid="{{ $value['varian_id'] }}" 
 										data-cid="{{ $item_list_id }}"
@@ -193,8 +193,8 @@
 									data-type="plus" 
 									data-vid="{{ $value['varian_id'] }}" 
 									data-cid="{{ $item_list_id }}"
-									data-field="qty-{{ strtolower($value['size']) }}"
-									data-get-flag="qty-{{ strtolower($value['size']) }}"
+									data-field="qty-{{$value['size']}}"
+									data-get-flag="qty-{{$value['size']}}"
 									data-price="{{ $item_list_normal_price }}" 
 									data-action-update="{{ route('balin.cart.update', ['slug' => $item_list_slug, 'varian_id' => $value['varian_id']]) }}"
 									data-page="cart"

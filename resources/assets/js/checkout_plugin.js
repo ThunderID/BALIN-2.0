@@ -51,7 +51,6 @@
 
 		// call ajax add address new
 		if (id == 0) {
-			console.log('no id');
 			$.ajax({
 				url: action,
 				type: 'post',
@@ -274,7 +273,6 @@
 			async: false,
 			data: {choice_payment: choicepayment},
 			success: function(data) {
-				console.log(data);
 				if (typeof(data.type) == 'eror') {
 					msg = false;
 				}
@@ -396,7 +394,6 @@
 			if (typeof(input_voucher.val()) != "undefined" && input_voucher.val() != '') {
 				get_voucher(input_voucher).done(function(data) {
 					param_check = show_voucher(data, input_voucher);
-					
 				}).fail(function() {
 					console.log('gagal');
 				});
@@ -415,7 +412,6 @@
 				dataType: 'json',
 				data: {choice_payment: input_choice_payment},
 				success: function(data) {
-					console.log(data);
 					if (typeof(data.type) == 'eror') {
 						msg = false;
 					}
