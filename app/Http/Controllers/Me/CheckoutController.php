@@ -74,7 +74,11 @@ class CheckoutController extends BaseController
 		//1c. get list product extension
 		$APIProductExtension 					= new APIProductExtension;
 		$product_extension						= $APIProductExtension->getIndex();
-		$product_extension						= null;
+
+		if($product_extension['status']!='success')
+		{
+			$product_extension					= null;
+		}
 
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
@@ -170,6 +174,8 @@ class CheckoutController extends BaseController
 			// Redirect
 			dd(header('Location: ' . $vtweb_url));
 		}
+
+		Session::forget('carts');
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
 	}
@@ -413,6 +419,58 @@ class CheckoutController extends BaseController
 		return $page;
 	}
 
+	/**
+	 * function to post summary of balin checkout
+	 * 
+	 * 1. Get Session Cart & transaction
+	 * 2. Parsing variable
+	 * 3. Store checkout
+	 * 4. Check result, send mail
+	 * 5. Redirect url
+	 * @return redirect url
+	 */
+	public function vtprocessing($order_id = null)
+	{
+		//1. Ambil data order detail dari API
+		$APIUser 							= new APIUser;
+
+		$me_order_detail					= $APIUser->getMeOrderDetail([
+													'user_id' 	=> Session::get('whoami')['id'],
+													'order_id'	=> $order_id
+												]);
+		
+		if ($me_order_detail['status']!='success')
+		{
+			\App::abort(404);
+		}
+		
+		// Set our server key
+		Veritrans_Config::$serverKey 			= env('VERITRANS_KEY', 'VT_KEY');
+
+		// Uncomment for production environment
+		Veritrans_Config::$isProduction 		= env('VERITRANS_PRODUCTION', false);
+
+		// Comment to disable sanitization
+		Veritrans_Config::$isSanitized 			= true;
+
+		// Comment to disable 3D-Secure
+		Veritrans_Config::$is3ds 				= true;
+
+		// Fill transaction data
+		$transaction 							= 	[
+		    											'transaction_details' 	=> [
+												        	'order_id' 			=> $me_order_detail['data']['ref_number'],
+												        	'gross_amount' 		=> $me_order_detail['data']['bills'], // no decimal allowed for creditcard
+		    											]
+	    											];
+
+		$vtweb_url 								= Veritrans_Vtweb::getRedirectionUrl($transaction);
+		
+		Session::forget('veritrans_payment');
+
+		// Redirect
+		dd(header('Location: ' . $vtweb_url));
+	}
 
 	/**
 	 * function to inform success payment
@@ -446,6 +504,8 @@ class CheckoutController extends BaseController
 			$this->errors 						= $order['message'];
 		}
 
+		Session::forget('carts');
+
 		$this->page_attributes->success = "Pembayaran Anda sudah tersimpan, BALIN akan memproses penerimaan pembayaran Anda dalam waktu kurang dari 24 jam.";
 
 		return $this->generateRedirectRoute('my.balin.profile', ['order_id' => $order['data']['id']]);
@@ -469,6 +529,8 @@ class CheckoutController extends BaseController
 		{
 			\App::abort(404);
 		}
+
+		Session::forget('carts');
 
 		$this->errors 					= ["Pembayaran Anda sudah gagal tersimpan, Silahkan mencoba lagi atau membayar dengan opsi pembayaran lainnya."];
 

@@ -61,14 +61,6 @@ class PasswordController extends BaseController
 			}
 
 			$infos['action']					= route(env('ROUTE_BALIN_RESET_PASSWORD'), $whoami['data']['reset_password_link']);
-			
-			$mail 								= new APISendMail;
-			$result								= $mail->resetpassword($whoami['data'], $infos);
-			
-			if ($result['status'] != 'success')
-			{
-				$this->errors					= $result['message'];
-			}
 
 			//generate view
 			$this->page_attributes->data 				= 	[

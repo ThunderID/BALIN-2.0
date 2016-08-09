@@ -349,9 +349,11 @@
 					<div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
 						@if ($v['status'] == 'wait' || $v['status'] == 'veirtrans_processing_payment')
 							<ul class="list-inline mb-0 text-right">
+							@if ($v['status'] == 'wait')
 								<li>
-									<a href="#" class="hover-black text-grey text-regular">[ Bayar Menggunakan Veritrans ]</a>
+									<a href="{{ route('my.balin.payment.processing', $v['id']) }}" class="hover-black text-grey text-regular">[ Bayar Menggunakan Veritrans ]</a>
 								</li>
+							@endif
 								<li>
 									<a href="{{ route('my.balin.order.resend.invoice', $v['id']) }}" class="hover-black text-grey text-regular">[ Resend Invoice ]</a>
 								</li>
