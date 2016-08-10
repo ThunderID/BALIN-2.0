@@ -58,13 +58,13 @@
 
 				<div class="row pt-xs">
 					<div class="col-md-12 col-sm-12 text-center">
-						<h2 class="slide-left" data-plugin-options='{"reverse":false}'>Penawaran Kami</h2>
+						<h2 class="slide-left mb-md" data-plugin-options='{"reverse":false}'>Penawaran Kami</h2>
 
 						<div class="slide-right" data-plugin-options='{"reverse":false}'>
 							<a href="#batik_woman" class="home-tab t-sm" aria-controls="batik_woman" role="tab" data-toggle="tab" data-tab-id="batik_woman">Batik Wanita</a>
-							&nbsp;|&nbsp;
+							<span class="ml-md mr-md">|</span>
 							<a href="#all" class="home-tab t-sm home-tab-active" aria-controls="all" role="tab" data-toggle="tab" data-tab-id="all">Semua Produk</a>
-							&nbsp;|&nbsp;
+							<span class="ml-md mr-md">|</span>
 							<a href="#batik_man" class="home-tab t-sm" aria-controls="batik_man" role="tab" data-toggle="tab" data-tab-id="batik_man">Batik Pria</a>
 						</div>
 					</div>
@@ -159,6 +159,23 @@
 			</div>
 		</section>
 	</div>
+	<section class="container mt-md mb-lg">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row pt-xs mb-md">
+					<div class="col-md-12 col-sm-12 text-center">
+						<h2 class="slide-left mb-md" data-plugin-options='{"reverse":false}'>Pembayaran</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-md">
+				<div class="col-md-12 text-center">
+				  	{!! HTML::image('images/banktransfer2.png','', ['class' => 'img-responsive mr-sm', 'style' => 'width: 160px']) !!}
+				  	{!! HTML::image('images/veritrans2.png','', ['class' => 'img-responsive ml-sm', 'style' => 'width: 160px']) !!}
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
 
 {{-- Mobile --}}
@@ -248,7 +265,6 @@
 							<div class="row slide-bottom" data-plugin-options='{"offset":20 ,"distance":20, "reverse":false}'>
 								<div class="col-xs-12">
 									<div class="col-xs-12 p-t-xl m-b-sm text-center" style="height: 110px; background-color:#FFF;">
-										<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
 										<a href="#" class="mt-lg btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
 									</div>
 								</div>					
