@@ -131,10 +131,10 @@ class OrderController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->invoice($order['data'], $infos);
 			
-			if ($result['status'] != 'success')
-			{
-				$this->errors					= $result['message'];
-			}
+			// if ($result['status'] != 'success')
+			// {
+			// 	$this->errors					= $result['message'];
+			// }
 		}
 
 		$this->page_attributes->success 		= "Resend invoice terkirim.";
