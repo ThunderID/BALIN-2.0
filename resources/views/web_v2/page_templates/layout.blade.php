@@ -57,7 +57,7 @@
 		<!-- END SECTION WRAPPER -->
 
 		<!-- SECTION MODAL USER INFORMATION -->
-		<div class="modal modal-referral-code modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+		<!-- <div class="modal modal-referral-code modal-fullscreen fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header bg-black text-white">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- END SECTION MODAL USER INFORMATION -->
 
 		@include('web_v2.components.alert')
