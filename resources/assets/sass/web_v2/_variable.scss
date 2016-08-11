@@ -39,7 +39,7 @@ $space-xl:				30px;
 $space-xxl:				35px;
 $space-xxxl:			40px;
 
-$bg-balin: 				"../../../images/balin-bg.jpg";
+$bg-balin: 				"http://drive.thunder.id/file/public/4/10/2016/08/11/15/balin-bg.jpg";
 
 // --------------------
 // 1. FONT
@@ -484,14 +484,14 @@ p{								line-height: 2em;}
 // 5. BACKGROUND
 // -----------------
 .bg-login-page{
-	background: url($bg-balin) no-repeat 100% 50%;
+	background: url($bg-balin) no-repeat 50% 25%;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	-webkit-background-size: cover;
 	background-size: cover;
 }
 .bg-campaign-page{
-	background: url($bg-balin) no-repeat 100% 50%;
+	background: url($bg-balin) no-repeat 50% 25%;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	-webkit-background-size: cover;

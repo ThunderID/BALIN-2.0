@@ -26,7 +26,7 @@
 		@if (isMobile())
 			{!! Form::input('date', 'date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required', 'tabindex' => 5]) !!}
 		@else
-			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
+			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required', 'tabindex' => 5]) !!}
 		@endif		
 	</div>
 	<div class="form-group">
@@ -39,14 +39,16 @@
 			{!! Form::text('voucher', null, ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Promo Referral', 'required', 'tabindex' => 7]) !!}
 		</div>
 	@endif
-	<div class="checkbox i-checks">
-		<input type="checkbox" value="1" name="term" class="" required tabindex="8">
-		<label class=""> 
-			Saya menyetujui <a href="javascript:void(0);" class="link-black unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.
-		</label>
-	</div>
+		
+	<label class="control control--checkbox"> 
+		Saya menyetujui <a href="javascript:void(0);" class="link-black unstyle" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> untuk melakukan pendaftaran.
+	    <input type="checkbox" value="1" name="term" required tabindex="8" />
+	    <div class="control__indicator"></div>
+	</label>
 	<div class="form-group text-right">
-		<a href="#" class="hover-grey btn-cancel" tabindex="10">Cancel</a>&nbsp;&nbsp;&nbsp;
+		@if (!isset($type) || ($type == 'login'))
+			<a href="#" class="hover-grey btn-cancel" tabindex="10">Cancel</a>&nbsp;&nbsp;&nbsp;
+		@endif
 		<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="9">Sign Up</button>
 	</div>
 {!! Form::close() !!}

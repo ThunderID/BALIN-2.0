@@ -1,36 +1,48 @@
 @extends('web_v2.page_templates.layout')
 
 @section('content')
+	<?php 
+	// dd($data); 
+
+	?>
 	<div class="row">
 		<!-- SECTION IMAGE SLIDER PRODUCT -->
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
 			<div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails border-1 border-solid border-grey-light hidden-xs hidden-sm" style="width:100%;">
 				<a class="img-large" href="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" >
-					<img class="img img-responsive mb-md text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
+					<img class="img img-responsive text-center canvas-image"  src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" style="width:100%">
 				</a>
 			</div>
 			<div class="row">
 				<div class="col-md-12 col-lg-12 hidden-xs hidden-sm">
-					<div class="owl-carousel gallery-product">
-						@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
-							<div class="item-carousel">
-								<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
-									<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
-								</a>
-							</div>
-						@endforeach
-					</div>
+					@if (count($data['product']['data']['data'][0]['images']) != 0)
+						<div class="owl-carousel gallery-product">
+							@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
+								<div class="item-carousel">
+									<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
+										<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
+									</a>
+								</div>
+							@endforeach
+						</div>
+					@else
+						<img class="img img-responsive canvasSource" src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" alt="{{ $data['product']['data']['data'][0]['name'] }}" style="width:50px">
+					@endif
 				</div>
 				<div class="col-xs-12 col-sm-12 pl-0 pr-0 hidden-md hidden-lg">
-					<div class="owl-carousel gallery-product">
-						@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
-							<div class="item-carousel">
-								<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
-									<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
-								</a>
-							</div>
-						@endforeach
-					</div>
+					@if (count($data['product']['data']['data'][0]['images']) != 0)
+						<div class="owl-carousel gallery-product">
+							@foreach ($data['product']['data']['data'][0]['images'] as $i => $img)
+								<div class="item-carousel">
+									<a href="{{ $img['thumbnail'] }}" data-standard="{{ $img['thumbnail'] }}">
+										<img class="img img-responsive canvasSource" id="canvasSource{{ $i }}" src="{{ $img['thumbnail'] }}" alt="">
+									</a>
+								</div>
+							@endforeach
+						</div>
+					@else
+						<img class="img img-responsive canvasSource" src="{{ isset($data['product']['data']['data'][0]['thumbnail']) ? $data['product']['data']['data'][0]['thumbnail'] : 'http://drive.thunder.id/file/public/4/1/2015/12/06/05/avani-short-front.jpg' }}" alt="">
+					@endif
 				</div>
 			</div>
 		</div>
