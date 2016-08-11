@@ -106,6 +106,7 @@ class CartController extends BaseController
 		}
 
 		Session::put('carts', $carts);
+
 		$breadcrumb									= 	[
 															'Cart' => route('balin.cart.index')
 														];
@@ -208,7 +209,14 @@ class CartController extends BaseController
 		//3. call add to cart function
 		$cart								= $this->addToCart($carts, $product['data']['data'][0], $qtys, $varianids);
 
-		$carts 								= Session::put('carts', $cart['data']);
+		Session::put('carts', $cart['data']);
+
+		$carts 								= $cart['data'];
+
+		if (count($carts) == 0)
+		{
+			Session::flash('carts', 'remove carts');
+		}
 
 		//4. return response
 		if($cart['status']=='success')
@@ -251,7 +259,7 @@ class CartController extends BaseController
 			{
 				$validqty 					= $qtys[$value];
 			}
-			elseif(isset($temp_carts[$product['id']]['varians'][$value]))
+			elseif(isset($temp_carts[$product['id']]['varians'][$value]) && $qtys[$value]!=0)
 			{
 				$validqty 					= $temp_carts[$product['id']]['varians'][$value]['quantity']; 
 			}
@@ -307,7 +315,14 @@ class CartController extends BaseController
 			}
 		}
 
-		if (count($temp_carts[$product['id']]['varians'])==0)
+
+		// Check if temp carts is 0 to flash session carts
+		if (count($temp_carts)==0)
+		{
+			Session::flash('carts', 'remove carts');
+		}
+		// check if product varians is 0 to unset product id in carts
+		elseif (count($temp_carts[$product['id']]['varians'])==0)
 		{
 			unset($temp_carts[$product['id']]);
 		}

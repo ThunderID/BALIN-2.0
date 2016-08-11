@@ -23,7 +23,7 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<a href="javascript:void(0);" class="btn-signup btn btn-black-hover-white-border-black btn-block" tabindex="5">
 				<div class="row">
-					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-l-none">
+					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 						<i class="fa fa-envelope-o"></i>
 					</div>
 					<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 p-l-none p-r-none text-left">
@@ -38,7 +38,7 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<a href="{{route('balin.get.sso')}}" class="btn btn-black-hover-white-border-black btn-block" title="facebook" tabindex="6">
 				<div class="row">
-					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-l-none">
+					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 						<i class="fa fa-facebook"></i>
 					</div>
 					<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 p-l-none p-r-none text-left">
