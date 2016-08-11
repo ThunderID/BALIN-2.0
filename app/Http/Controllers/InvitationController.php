@@ -111,7 +111,7 @@ class InvitationController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->welcomemail($user['data'], $infos);
 			
-			if ($result['status'] != 'success')
+			if (isset($result['message']))
 			{
 				$this->errors					= $result['message'];
 				$type 							= 'signup';

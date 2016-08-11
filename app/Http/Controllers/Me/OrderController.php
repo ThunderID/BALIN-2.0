@@ -94,7 +94,7 @@ class OrderController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->cancelorder($order['data'], $infos);
 			
-			if ($result['status'] != 'success')
+			if (isset($result['message']))
 			{
 				$this->errors					= $result['message'];
 			}
@@ -131,7 +131,7 @@ class OrderController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->invoice($order['data'], $infos);
 			
-			// if ($result['status'] != 'success')
+			// if (isset($result['message']))
 			// {
 			// 	$this->errors					= $result['message'];
 			// }

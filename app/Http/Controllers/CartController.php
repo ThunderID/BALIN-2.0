@@ -378,7 +378,7 @@ class CartController extends BaseController
 			$result 							= $APIUser->postMeOrder($order);
 
 			//3d. check result
-			if ($result['status'] != 'success')
+			if (isset($result['message']))
 			{
 				$errors->add('Cart', $result['message']);
 			}

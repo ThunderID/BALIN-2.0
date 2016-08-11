@@ -95,7 +95,7 @@ class InvitationController extends BaseController
 
 		$result										= $APIUser->postMeInvitation($data);
 
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			$this->errors							= $result['message'];
 		}
@@ -112,7 +112,7 @@ class InvitationController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->invitation($whoami['data'], $emails, $infos);
 			
-			if ($result['status'] != 'success')
+			if (isset($result['message']))
 			{
 				$this->errors					= $result['message'];
 			}
