@@ -8,18 +8,16 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="radio">
-						<label>
-							{!! Form::radio('choice_payment', 'veritrans', true, []) !!}
-							Bayar menggunakan veritrans
-						</label>
-					</div>
-					<div class="radio">
-						<label>
-							{!! Form::radio('choice_payment', 'transfer', null, []) !!}
-							Transfer ke rekening kami
-						</label>
-					</div>
+					<label class="control control--radio line-height-30">
+						Bayar menggunakan veritrans
+						<input type="radio" value="veritrans" name="choice_payment" required tabindex="8" />
+						<div class="control__indicator"></div>
+					</label>
+					<label class="control control--radio line-height-30"> 
+						Transfer bank ke rekening kami
+						<input type="radio" value="transfer" name="choice_payment" required tabindex="8" />
+						<div class="control__indicator"></div>
+					</label>
 				</div>
 			</div>
 		</form>

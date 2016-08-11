@@ -141,36 +141,21 @@
 								</h4>
 							</div>	
 						</div>
-						<hr/>
-						<div class="row m-t-sm payment">
-							<div class="col-xs-6 col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2 text-left">
-								<h4 class="text-md">Pembayaran melalu veritrans</h4>
-							</div>
-							<div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 text-right">
-								<a href="javascript:void(0);" class="btn btn-xs btn-black-hover-white-border-black mt-5" 
-									data-action="#"
-									data-toggle="modal" 
-									data-target=".modal-payment" 
-									data-modal-title="Pembayaran" 
-									data-view="modal-lg">request</a>
-							</div>
-						</div>
-						<hr/>
 					</div>
 				@endif
 			</div>
+			<hr/>
 			<!-- END SECTION INFO TOTAL PRODUCT & TOTAL PEMBAYARAN  FOR DESKTOP -->
 		</div>
 		{!! Form::open(['url' => route('my.balin.checkout.post'), 'method' => 'POST','class' => 'no_enter', 'id' => 'checkout-form']) !!}
-			<div class="row pt-md pb-md">
+			<div class="row pt pb-md">
 				<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
-					<div class="checkbox i-checks required">
-						<input type="checkbox" value="1" name="term" class="" required title="Syarat & Ketentuan harus dicentang">
-						<label class="text-regular line-height-25"> 
-							Saya menyetujui <a href="#" class="link-black unstyle vertical-baseline" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
-						</label>
+					<label class="control control--checkbox line-height-25"> 
+						Saya menyetujui <a href="javascript:void(0);" class="link-black unstyle vertical-baseline" data-toggle="modal" data-target="#tnc"><strong>Syarat & Ketentuan</strong></a> pembelian barang di Balin.
+					    <input type="checkbox" value="1" name="term" required tabindex="8" title='Syarat & Ketentuan harus dicentang' />
+					    <div class="control__indicator"></div>
 						<div class="mt-5 text-error"></div>
-					</div>
+					</label>
 				</div>
 			</div>
 			<div class="row pt-md pb-md">
