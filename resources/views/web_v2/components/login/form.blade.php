@@ -8,7 +8,7 @@
 	    {!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password', 'required' => 'required', 'tabindex' => 2]) !!}
 	</div>
 	<div class="form-group">
-		<a href="javascript:void(0);" class="btn-forgot t-xs hover-black ml-5 text-grey" tabindex="3">Lupa Password?</a>
+		<a href="javascript:void(0);" class="btn-forgot t-xs hover-black ml-5 text-black" tabindex="3">Lupa Password?</a>
 	    <button type="submit" class="pull-right btn btn-black-hover-white-border-black" tabindex="4">Sign In</button>
 	</div>
 	<div class="clearfix">&nbsp;</div>
