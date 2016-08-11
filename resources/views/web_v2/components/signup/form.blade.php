@@ -46,7 +46,9 @@
 		</label>
 	</div>
 	<div class="form-group text-right">
-		<a href="#" class="hover-grey btn-cancel" tabindex="10">Cancel</a>&nbsp;&nbsp;&nbsp;
+		@if (!isset($type) || ($type == 'login'))
+			<a href="#" class="hover-grey btn-cancel" tabindex="10">Cancel</a>&nbsp;&nbsp;&nbsp;
+		@endif
 		<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="9">Sign Up</button>
 	</div>
 {!! Form::close() !!}
