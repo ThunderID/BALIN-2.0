@@ -28,7 +28,6 @@
 	</div>
 	<div class="row ml-0 mr-0 pl-sm pr-sm">
 		<div class="col-md-12 col-lg-12 pl-sm pr-sm">
-			<?php $prev_amount = 0; ?>
 			@forelse ($data['point']['data'] as $k => $v)
 				<?php
 					$datetrans				= Carbon::now();
@@ -49,7 +48,7 @@
 					<div class="col-md-2">
 						<p>
 							@if (!$is_expired)
-								@money_indo(  ($v['prev_amount']) )
+								@money_indo(  ($v['prev_amount'] + $v['amount']) )
 							@else
 								<i>Expired</i>
 							@endif
@@ -65,7 +64,6 @@
 						</p>
 					</div>
 				</div>
-				<?php $prev_amount 	= $prev_amount + $v['amount']; ?>
 			@empty
 				<div class="row ml-0 mr-0 pl-sm pr-sm">
 					<div class="col-md-12 col-lg-12">
