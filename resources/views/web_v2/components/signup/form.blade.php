@@ -26,7 +26,7 @@
 		@if (isMobile())
 			{!! Form::input('date', 'date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required', 'tabindex' => 5]) !!}
 		@else
-			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required']) !!}
+			{!! Form::text('date_of_birth', null, ['class' => 'form-control hollow date_format', 'placeholder' => 'Masukkan Tanggal Lahir (dd-mm-yyyy)', 'required', 'tabindex' => 5]) !!}
 		@endif		
 	</div>
 	<div class="form-group">

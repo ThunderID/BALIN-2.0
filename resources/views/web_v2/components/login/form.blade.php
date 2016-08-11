@@ -7,12 +7,9 @@
 	    <label for="pwd" style="font-weight:400">Password</label>
 	    {!! Form::password('password', ['class' => 'form-control hollow', 'placeholder' => 'Masukkan Password', 'required' => 'required', 'tabindex' => 2]) !!}
 	</div>
-	{{-- <div class="checkbox">
-	    <label><input type="checkbox"> Remember me</label>
-	</div> --}}
 	<div class="form-group">
-		<a href="javascript:void(0);" class="btn-forgot t-xs hover-black ml-5 text-grey" tab-index="4">Lupa Password?</a>
-	    <button type="submit" class="pull-right btn btn-black-hover-white-border-black" tab-index="3">Sign In</button>
+		<a href="javascript:void(0);" class="btn-forgot t-xs hover-black ml-5 text-grey" tabindex="3">Lupa Password?</a>
+	    <button type="submit" class="pull-right btn btn-black-hover-white-border-black" tabindex="4">Sign In</button>
 	</div>
 	<div class="clearfix">&nbsp;</div>
 	<h3 style="margin-top:3px;">Join Us</h3>
