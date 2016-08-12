@@ -5,7 +5,7 @@ use App\API\Connectors\APISendMail;
 
 use App\Http\Controllers\BaseController;
 
-use Input, Redirect, Session;
+use Input, Redirect, Session, Validator;
 
 use Illuminate\Support\MessageBag;
 
@@ -85,7 +85,27 @@ class InvitationController extends BaseController
 															'user_id' 	=> Session::get('whoami')['id'],
 														]);
 
+		$invitations 								= [];
 		$emails 									= explode(',', Input::get('emails'));
+
+		$rules 										= ['email' => 'required|email|max:255'];
+
+		foreach ($emails as $key => $value) 
+		{
+			$invitation['email']					= trim($value);
+
+			$validator 								= Validator::make($invitation, $rules);
+			
+			if(!$validator->passes())
+			{
+				$this->errors						= ['Email "'.$invitation['email'].'" tidak sah'];
+
+				return $this->generateRedirectRoute('my.balin.redeem.index');	
+			}
+
+			$invitations[]							= $invitation['email'];
+
+		}
 
 		/* array parameter to API */
 		$data										= 	[
