@@ -377,9 +377,10 @@ class AuthController extends BaseController
 					$result 							= $API_order->postMeOrder($temp_carts);
 
 				// result
-				if (isset($result['message']))
-				{
-					$error 							= $result['message'];
+					if (isset($result['message']))
+					{
+						$error 							= $result['message'];
+					}
 				}
 			}
 
