@@ -248,6 +248,7 @@ class AuthController extends BaseController
 		$this->page_attributes->subtitle 			= 'Sign In';
 		$this->page_attributes->controller_name		= $this->controller_name;
 		$this->page_attributes->breadcrumb			= $breadcrumb;
+		$this->page_attributes->type_form			= 'login';
 		$this->page_attributes->source 				= 'web_v2.pages.login.index';
 
 		return $this->generateView();
@@ -327,56 +328,59 @@ class AuthController extends BaseController
 			//check user no before login carts
 			else
 			{
-				/* SET API TOKEN USE TOKEN PRIVATE */
-				$temp_carts 			= 	[
-											'id'					=> '',
-											'user_id'				=> Session::get('whoami')['id'],
-											'transact_at'			=> date('Y-m-d H:i:s'),
-											'transactiondetails'	=> [],
-											'transactionlogs'		=> 	[
-																			'id'		=> '',
-																			'status'	=> 'cart',
-																			'change_at'	=> '',
-																			'notes'		=> ''
-																		],
-											'payment'				=> [],
-											'shipment'				=> []
-										];
-
-				$session_cart 			= Session::get('carts');
-				$temp_varian 			= [];
-
-				foreach($session_cart as $k => $v)
+				if (count(Session::get('carts')) != 0 )
 				{
-					foreach($v['varians'] as $k2 => $v2)
+					/* SET API TOKEN USE TOKEN PRIVATE */
+					$temp_carts 			= 	[
+												'id'					=> '',
+												'user_id'				=> Session::get('whoami')['id'],
+												'transact_at'			=> date('Y-m-d H:i:s'),
+												'transactiondetails'	=> [],
+												'transactionlogs'		=> 	[
+																				'id'		=> '',
+																				'status'	=> 'cart',
+																				'change_at'	=> '',
+																				'notes'		=> ''
+																			],
+												'payment'				=> [],
+												'shipment'				=> []
+											];
+
+					$session_cart 			= Session::get('carts');
+					$temp_varian 			= [];
+
+					foreach($session_cart as $k => $v)
 					{
-						$temp_varian[] 		= 	[
-													'id' 				=> '',
-													'transaction_id'	=> '',
-													'quantity' 			=> $v2['quantity'],
-													'price'				=> $v['price'],
-													'discount'			=> $v['discount'],
-													'varian_id'			=> $v2['varian_id'],
-													'varians'			=> [
-														'id'				=> $v2['varian_id'],
-														'product_id'		=> $k,
-														'sku'				=> $v2['sku'],
-														'size'				=> $v2['size'],
-													]
-												];
-						
+						foreach($v['varians'] as $k2 => $v2)
+						{
+							$temp_varian[] 		= 	[
+														'id' 				=> '',
+														'transaction_id'	=> '',
+														'quantity' 			=> $v2['quantity'],
+														'price'				=> $v['price'],
+														'discount'			=> $v['discount'],
+														'varian_id'			=> $v2['varian_id'],
+														'varians'			=> [
+															'id'				=> $v2['varian_id'],
+															'product_id'		=> $k,
+															'sku'				=> $v2['sku'],
+															'size'				=> $v2['size'],
+														]
+													];
+							
+						}
 					}
-				}
-				$temp_carts['transactiondetails']	= $temp_varian;
-				$temp_carts['status']				= 'cart';
+					$temp_carts['transactiondetails']	= $temp_varian;
+					$temp_carts['status']				= 'cart';
 
-				$API_order 							= new APIUser;
-				$result 							= $API_order->postMeOrder($temp_carts);
+					$API_order 							= new APIUser;
+					$result 							= $API_order->postMeOrder($temp_carts);
 
-				// result
-				if ($result['status'] != 'success')
-				{
-					$error 							= $result['message'];
+					// result
+					if ($result['status'] != 'success')
+					{
+						$error 							= $result['message'];
+					}
 				}
 			}
 
