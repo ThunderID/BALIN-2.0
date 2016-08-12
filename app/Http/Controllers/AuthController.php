@@ -205,7 +205,7 @@ class AuthController extends BaseController
 				$result 							= $API_order->postMeOrder($temp_carts);
 
 				// result
-				if ($result['status'] != 'success')
+				if (isset($result['message']))
 				{
 					$this->error 					= $result['message'];
 					return Redirect::route('balin.login.index', ['type' => 'login'])
@@ -376,11 +376,10 @@ class AuthController extends BaseController
 					$API_order 							= new APIUser;
 					$result 							= $API_order->postMeOrder($temp_carts);
 
-					// result
-					if ($result['status'] != 'success')
-					{
-						$error 							= $result['message'];
-					}
+				// result
+				if (isset($result['message']))
+				{
+					$error 							= $result['message'];
 				}
 			}
 
@@ -429,7 +428,7 @@ class AuthController extends BaseController
 																'link'	=> $activation_link,
 															]);
 
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			return Redirect::route('balin.home.index');
 		}

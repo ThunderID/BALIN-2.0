@@ -89,7 +89,7 @@ class PasswordController extends BaseController
 		$result 										= $API_me->getReset([
 																'link'	=> $link,
 															]);
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
 		}
@@ -148,7 +148,7 @@ class PasswordController extends BaseController
 																'password' => $password,
 															]);
 
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			return Redirect::route('balin.home.index')->withErrors($result['message'])->with('msg-type', 'danger');
 		}

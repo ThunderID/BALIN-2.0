@@ -84,7 +84,7 @@ class RedeemController extends BaseController
 		$APIUser 									= new APIUser;
 		$result										= $APIUser->postMeRedeemCode($data);
 
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			$this->errors							= $result['message'];
 		}

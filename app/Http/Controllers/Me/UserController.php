@@ -162,7 +162,7 @@ class UserController extends BaseController
 		$result								= $APIUser->postDataUpdate($data);	
 
 		//3. Check result
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			$this->errors 					= $result['message'];
 		}
@@ -264,7 +264,7 @@ class UserController extends BaseController
 			$mail 								= new APISendMail;
 			$result								= $mail->welcomemail($whoami['data'], $infos);
 			
-			if ($result['status'] != 'success')
+			if (isset($result['message']))
 			{
 				$this->errors					= $result['message'];
 			}

@@ -208,7 +208,7 @@ class CheckoutController extends BaseController
 		$result 									= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		//3. Return result
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
@@ -279,7 +279,7 @@ class CheckoutController extends BaseController
 		$result 																= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		//3. Return result
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			unset($me_order_in_cart['data']['shipment']['address']);
 			$me_order_in_cart['data']['shipment']['address_id']					= "";
@@ -338,7 +338,7 @@ class CheckoutController extends BaseController
 		$result					= $APIUser->postMeOrder($me_order_in_cart['data']);
 
 		//3. Return result
-		if ($result['status'] != 'success')
+		if (isset($result['message']))
 		{
 			return Response::json(['type' => 'error', 'msg' => $result['message']], 200);
 		}
