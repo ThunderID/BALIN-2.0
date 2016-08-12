@@ -1,5 +1,5 @@
 <?php 
-namespace App\API\connectors;
+namespace App\API\Connectors;
 
 class APICategory extends APIData {
 	function __construct() 

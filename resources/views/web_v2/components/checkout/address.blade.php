@@ -2,13 +2,24 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<form id="content_address">
 			<div class="row pt-md pb-sm">
-				<div class="hidden-lg hidden-md hidden-sm col-xs-12">
+				<div class="hidden-lg hidden-md hidden-sm col-xs-6">
 					<span class="m-t-none m-b-md">Kirim Kepada</span>
-				</div>						
-				<div class="col-md-12 hidden-xs">
+				</div>	
+				<div class="hidden-lg hidden-md hidden-sm col-xs-6 text-right">
+					@foreach($data['courier'] as $key => $value)
+						{!!HTML::image($value['thumbnail'], $value['name'], ['style' => 'max-width:50px;'])!!}
+					@endforeach
+				</div>	
+				<div class="col-md-6 hidden-xs">
 					<h3 class="mt-0 text-normal">Kirim Kepada</h3>
 				</div>
+				<div class="col-md-6 hidden-xs text-right">
+					@foreach($data['courier'] as $key => $value)
+						{!!HTML::image($value['thumbnail'], $value['name'], ['style' => 'max-width:80px;'])!!}
+					@endforeach
+				</div>	
 			</div>
+
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
