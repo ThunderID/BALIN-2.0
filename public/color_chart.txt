@@ -1,0 +1,9 @@
+biru,#3399cc
+merah,#9C2A00
+coklat,#A46B36
+krem,#F6EDF0
+hijau,#3C948B
+peach,#FFDAB9
+orange,#FFA500
+beige,#F5F5DC
+putih,#FFFFFF
