@@ -93,6 +93,7 @@ class ProductController extends BaseController
 
 		//1f. Get filter remove
 		$searchresult 							= [];
+		$index 									= '';
 		foreach (Input::all() as $key => $value) 
 		{
 			if(in_array($key, ['tag', 'label', 'category', 'q']))
@@ -101,6 +102,7 @@ class ProductController extends BaseController
 				unset($query_string['page']);
 				unset($query_string[$key]);
 				$searchresult[$value]			= route('balin.product.index', $query_string);
+				$index 							= $index.' '.$value;
 			}
 		}
 
@@ -185,14 +187,20 @@ class ProductController extends BaseController
 		$this->paginate(route('balin.product.index'), $product['data']['count'], $page);
 
 		//5. Generate breadcrumb
-		$breadcrumb									= 	[
-															'Produk' => route('balin.product.index')
-														];
+		$breadcrumb										= 	[
+																'Produk' => route('balin.product.index')
+															];
+
+		if(Input::has('page') && Input::get('page') > 1)
+		{
+			$breadcrumb['Halaman '.Input::get('page')]	= route('balin.product.index', ['page' => Input::get('page')]);
+		}
+
 		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 
 		//6. Generate view
 		$this->page_attributes->search 				= $searchresult;
-		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
+		$this->page_attributes->subtitle 			= 'Produk Batik Modern '.$index.' '.(Input::has('page') ? 'Halaman '.Input::get('page') : '');
 		$this->page_attributes->controller_name 	= $this->controller_name;
 		$this->page_attributes->data				= 	[
 															'product' 	=> $product,
