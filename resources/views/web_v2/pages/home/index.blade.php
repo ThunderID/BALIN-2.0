@@ -42,10 +42,10 @@
 			<div class="col-md-12 col-sm-12 pt-md">
 				<div class="row" style="height: 225px; background-size:cover; background-image: url('{{ $data['banners']['full_banner']['image_lg'] }}');">
 					<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 pt-xl text-center slide-bottom"  data-plugin-options='{"reverse":false}'>
-						<h4 class="heading">Hadir Dengan Produk Terbaik Kami</h4>
+						<h4 class="heading">Hadir Dengan Koleksi Terbaru Kami</h4>
 						<h2 class="heading m-t-none pb-md">Balin Batik</h2>
-						<a href="{{(isset($image_left['button']['banner_button_url']) ? ($image_left['button']['banner_button_url']) : route('balin.product.index', ['tag' => 'wanita']) )}}" class="btn btn-banner btn-black-hover-white-border-black">Wanita</a>
-						<a href="{{(isset($image_right['button']['banner_button_url']) ? ($image_right['button']['banner_button_url']) : route('balin.product.index', ['tag' => 'pria']) )}}" class="btn btn-banner btn-black-hover-white-border-black">Pria</a>
+						<?php $image_full = json_decode($data['banners']['full_banner']['value'], true);?>
+						<a href="{{(isset($image_full['button']['banner_button_url']) ? ($image_full['button']['banner_button_url']) : route('balin.product.index', ['tag' => 'new-release']) )}}" class="btn btn-banner btn-black-hover-white-border-black">NEW RELEASE</a>
 					</div>
 				</div>
 			</div>
