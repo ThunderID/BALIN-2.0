@@ -6,8 +6,8 @@ Route::group([env('ROUTE_BALIN_ATTRIBUTE') => env('ROUTE_BALIN_VALUE')], functio
 	Route::post('signup',												['uses' => 'AuthController@postSignUp', 	'as' => 'balin.post.signup']);
 
 	/* Sign up using invitation */
-	Route::get('invite/by/{code}',										['uses' => 'InvitationController@get', 		'as' => 'balin.invitation.get']);
-	Route::post('invite/by/{code}',										['uses' => 'InvitationController@post', 	'as' => 'balin.invitation.post']);
+	Route::get('invite/by/{code}/at/{link}',							['uses' => 'InvitationController@get', 		'as' => 'balin.invitation.get']);
+	Route::post('invite/by/{code}/at/{link}',							['uses' => 'InvitationController@post', 	'as' => 'balin.invitation.post']);
 
 	/* Login using SSO */
 	Route::get('sso',													['uses' => 'AuthController@getSso', 		'as' => 'balin.get.sso']);

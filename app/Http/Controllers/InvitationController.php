@@ -31,7 +31,7 @@ class InvitationController extends BaseController
 	 *
 	 * @param object view
 	 */
-	public function get($code = "")
+	public function get($code = "", $link = "")
 	{
 		if (Session::has('whoami'))
 		{
@@ -44,7 +44,7 @@ class InvitationController extends BaseController
 		$this->page_attributes->breadcrumb			= $breadcrumb;
 		$this->page_attributes->source 				= 'web_v2.pages.login.index';
 		$this->page_attributes->type_form			= 'signup';
-		$this->page_attributes->data 				= ['code' => $code];
+		$this->page_attributes->data 				= ['code' => $code, 'link' => $link];
 
 		return $this->generateView();
 	}
@@ -54,7 +54,7 @@ class InvitationController extends BaseController
 	 *
 	 * @param object view
 	 */
-	public function post($code = "")
+	public function post($code = "", $link = "")
 	{
 		if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
 		{
@@ -74,6 +74,7 @@ class InvitationController extends BaseController
 												'gender'		=> Input::get('gender'),
 												'role'			=> 'customer',
 												'reference_code'=> $code,
+												'invitation_link'=> $link,
 											];
 		
 		if (Input::has('password'))
