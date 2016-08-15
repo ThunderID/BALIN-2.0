@@ -1,11 +1,11 @@
 <?php 
 namespace App\API\Connectors;
 
-class APIProductExtension extends APIData {
+class APICourier extends APIData {
 	
 	public function getIndex($filter = null)
 	{
-		$this->api_url 						= '/balin/public/extensions';
+		$this->api_url 						= '/balin/public/couriers';
 
 		if (!is_null($filter))
 		{

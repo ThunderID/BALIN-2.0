@@ -2,7 +2,8 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 bg-white border-1 border-solid border-grey-light">
 		<div class="row pt-md pb-sm">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<h3 class="mt-0 text-normal">Bingkisan</h3>
+				<h3 class="mt-0 text-normal">Packaging Option</h3>
+				<h6 class="mt-0 text-normal text-red">Akan dikenakan biaya tambahan</h6>
 			</div>
 		</div>
 		@if (!is_null($data['product_extension']['data']['data']))
@@ -45,14 +46,14 @@
 			@empty
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<p class="text-md text-light">Maaf bingkisan tambahan saat ini belum tersedia</p>
+						<p class="text-md text-light">Maaf, Packaging Option saat ini belum tersedia</p>
 					</div>
 				</div>
 			@endforelse
 		@else
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<p class="text-md text-light">Maaf bingkisan tambahan saat ini belum tersedia</p>
+					<p class="text-md text-light">Maaf, Packaging Option saat ini belum tersedia</p>
 				</div>
 			</div>
 		@endif

@@ -26,7 +26,7 @@ include('routes_public_resource.php');
 */
 include('routes_private_resource.php');
 
-include('routes-campaign.php');
+include('routes_campaign.php');
 
 /**
  * Server Error redirect route

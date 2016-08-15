@@ -16,6 +16,7 @@ abstract class BaseController extends Controller
 	protected $take 				= 10;
 	protected $token_public;
 	protected $token_private;
+	protected $color_chart;
 
 	function __construct() 
 	{
@@ -175,5 +176,20 @@ abstract class BaseController extends Controller
 
 		$this->page_attributes->paginator 			= new LengthAwarePaginator($count, $count, $this->take, $current);
 	    $this->page_attributes->paginator->setPath($route);
+	}
+
+	public function getcolorchart()
+	{
+		$color_chart 			= file_get_contents('color_chart.txt');
+		$lines					= explode(PHP_EOL, $color_chart);  
+
+		foreach ($lines as $key => $value) 
+		{
+			$color 				= explode(',', $value);
+
+			$this->color_chart[$color[0]] 	= str_replace('n', '\n', $color[1]);
+		}
+
+		return $this->color_chart;
 	}
 }

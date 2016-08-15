@@ -3,6 +3,7 @@
 use App\API\Connectors\APIUser;
 use App\API\Connectors\APIProductExtension;
 use App\API\Connectors\APISendMail;
+use App\API\Connectors\APICourier;
 
 use App\Http\Controllers\BaseController;
 
@@ -80,6 +81,15 @@ class CheckoutController extends BaseController
 			$product_extension					= null;
 		}
 
+		//1d. get list product extension
+		$APICourier 							= new APICourier;
+		$courier								= $APICourier->getIndex();
+
+		if($courier['status']!='success')
+		{
+			$courier							= null;
+		}
+
 		//2. Generate breadcrumb
 		$breadcrumb								= 	[
 														'Checkout' => route('my.balin.checkout.get')
@@ -94,8 +104,8 @@ class CheckoutController extends BaseController
 														'my_point'			=> $my_point['data']['total_point'],
 														'my_address'		=> $my_address['data']['data'],
 														'product_extension'	=> $product_extension,
+														'courier'			=> $courier['data']['data'],
 													];
-
 
 		$this->page_attributes->subtitle 		= 'Checkout';
 		$this->page_attributes->source 			=  $this->page_attributes->source . 'index';

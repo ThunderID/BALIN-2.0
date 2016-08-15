@@ -2,12 +2,13 @@
 <div class="row ml-0 mr-0">
 	<div class="col-sm-12 pl-md pr-md">
 		<h4>Dapatkan poin, saat anda membagikan referal code anda.</h4>
+		<h6 class="text-red">Gunakan comma untuk mengirim ke banyak email</h6>
 
 		{!! Form::open(['url' => route('my.balin.invitation.store'), 'method' => 'POST']) !!}
 			{!! Form::hidden('to', Route::currentRouteName(), ['class' => 'from_route']) !!}
 			<div class="row mb-sm">
 				<div class="col-md-12 mb-md">
-					<!-- <select name="emails" class="select_tag_email" tabindex="1" style="width:100%" multiple="true" required> -->
+					{!!Form::textarea('emails', '', ['placeholder' => 'Ketik email disini (gunakan comma untuk mengirim ke banyak email)', 'style' => 'width:100%', 'rows' => 3])!!}
 				</div>
 			</div>
 			<div class="row">

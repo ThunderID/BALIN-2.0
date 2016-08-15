@@ -11,7 +11,7 @@
 					@endif
 					@if ($b_url == end($breadcrumb))
 						<li class="active">
-							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title }}</strong></a>
+							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title}}</strong></a>
 						</li>
 					@else
 						<li>
@@ -42,7 +42,7 @@
 							</br>
 						@endif
 						<li class="active">
-							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title }}</strong></a>
+							<a class="hover-gray" href="{{ $b_url }}"><strong>{{$b_title}}</strong></a>
 						</li>
 					@else
 						<?php $ctr++ ?>

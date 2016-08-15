@@ -11,7 +11,7 @@
 					<span>Kode Voucher</span>
 				</div>
 				<div class="" data-section="#sc3">
-					<span>Bingkisan</span>
+					<span>Packaging Option</span>
 				</div>
 				<div class="" data-section="#sc4">
 					<span>Pilih Pembayaran</span>
