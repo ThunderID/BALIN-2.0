@@ -8,10 +8,10 @@
 					<div class="hover"></div>
 				</a>
 				<div class="text-center box-item pl-5 pr-5 mt-xs">
-					<a href="{{ route('balin.product.show', $value['slug']) }}" class="hover-grey-dark {{ isset($text) ? $text : 'text-light text-lg' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</a>
-					<p class="mb-0">@money_indo(($value['promo_price']!=0 ? $value['promo_price'] : $value['price']))</p>
+					<a href="{{ route('balin.product.show', $value['slug']) }}" class="hover-grey-dark text-bold {{ isset($text) ? $text : 'text-lg' }}">{{ (!empty($value['name']) ? $value['name'] : '') }}</a>
+					<p class="mb-0 text-grey-dark">@money_indo(($value['promo_price']!=0 ? $value['promo_price'] : $value['price']))</p>
 					@if ($value['promo_price'] != 0)
-						<p class="mtm-sm mb-0">
+						<p class="mtm-sm mb-0 text-grey-dark">
 							<span class="text-regular text-strikethrough mtm-md">@money_indo( $value['price'] )</span>
 						</p>
 					@endif

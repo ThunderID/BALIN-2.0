@@ -58,7 +58,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group text-right">
-						<a href="#" class="btn btn-black-hover-white-border-black" data-dismiss="modal">Batal</a>
+						<a href="#" class="btn btn-black-hover-white-border-black" data-dismiss="modal" tabindex="8">Batal</a>
 						<button type="submit" class="btn btn-black-hover-white-border-black" tabindex="7">Simpan</button>
 					</div>        
 				</div>        

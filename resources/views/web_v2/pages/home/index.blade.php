@@ -4,8 +4,7 @@
 {{-- Desktop and Tablet Section --}}
 <div class="hidden-xs">
 	<section class="container home">
-		<div class="row pt-xl pb-xl">
-
+		<div class="row mt-xl mb-xl pt-xl pb-xl">
 			{{-- Woman --}}
 			<div class="col-md-6 col-sm-6 pr-md">
 				<div class="row">
@@ -49,113 +48,101 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
 	<div class="background-white mt-md">
 		<section class="container">
-			<div class="row">
+			<div class="row mt-xl pt-5">
+				<div class="col-md-12 col-sm-12 text-center">
+					<h2 class="slide-left mb-md" data-plugin-options='{"reverse":false}'>Populer</h2>
 
-				<div class="row pt-xs">
-					<div class="col-md-12 col-sm-12 text-center">
-						<h2 class="slide-left mb-md" data-plugin-options='{"reverse":false}'>Penawaran Kami</h2>
-
-						<div class="slide-right" data-plugin-options='{"reverse":false}'>
-							<a href="#batik_woman" class="home-tab t-sm" aria-controls="batik_woman" role="tab" data-toggle="tab" data-tab-id="batik_woman">Batik Wanita</a>
-							<span class="ml-md mr-md">|</span>
-							<a href="#all" class="home-tab t-sm home-tab-active" aria-controls="all" role="tab" data-toggle="tab" data-tab-id="all">Semua Produk</a>
-							<span class="ml-md mr-md">|</span>
-							<a href="#batik_man" class="home-tab t-sm" aria-controls="batik_man" role="tab" data-toggle="tab" data-tab-id="batik_man">Batik Pria</a>
-						</div>
+					<div class="slide-right" data-plugin-options='{"reverse":false}'>
+						<a href="#batik_woman" class="home-tab t-sm" aria-controls="batik_woman" role="tab" data-toggle="tab" data-tab-id="batik_woman">Batik Wanita</a>
+						<span class="ml-md mr-md">|</span>
+						<a href="#all" class="home-tab t-sm home-tab-active" aria-controls="all" role="tab" data-toggle="tab" data-tab-id="all">Semua Produk</a>
+						<span class="ml-md mr-md">|</span>
+						<a href="#batik_man" class="home-tab t-sm" aria-controls="batik_man" role="tab" data-toggle="tab" data-tab-id="batik_man">Batik Pria</a>
 					</div>
-				</div>	
-
-				<div class="tab-content mt-lg mb-xl">
-					<div role="tabpanel" class="tab-pane in" id="batik_woman">
-						<div class="row">
-							@foreach($data['batik_wanita']['data']['data'] as $key => $dt)
-								@if($key == (count($data['batik_wanita']['data']['data']) - 1))
-									<div class="hidden-sm col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@else
-									<div class="col-sm-4 col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@endif
-							@endforeach
-						</div>
-						<div class="row slide-bottom" data-plugin-options='{"offset":50 ,"distance":10}'>
-							<div class="col-md-12 col-sm-12">
-								<div class="col-md-12 col-sm-12 col-xs-12 pt-md mb-sm text-center" style="height: 150px; background-color:#FFF;">
-									<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
-									<a href="{{route('balin.product.index')}}" class="mt-lg btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
+				</div>
+			</div>	
+			<div class="tab-content mt-lg mb-xl">
+				<div role="tabpanel" class="tab-pane in" id="batik_woman">
+					<div class="row">
+						@foreach($data['batik_wanita']['data']['data'] as $key => $dt)
+							@if($key == (count($data['batik_wanita']['data']['data']) - 1))
+								<div class="hidden-sm col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
 								</div>
-							</div>					
-						</div>				
+							@else
+								<div class="col-sm-4 col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
+								</div>
+							@endif
+						@endforeach
 					</div>
+					<div class="row slide-bottom mb-xl pb-5" data-plugin-options='{"offset":50 ,"distance":10}'>
+						<div class="col-md-12 col-sm-12 col-xs-12 mt-md mb-xl text-center bg-white">
+							<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
+							<a href="{{route('balin.product.index')}}" class="btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
+						</div>
+					</div>				
+				</div>
 
-					<div role="tabpanel" class="tab-pane in active" id="all">
-						<div class="row">
-							@foreach($data['all']['data']['data'] as $key => $dt)
-								@if($key == (count($data['all']['data']['data']) - 1))
-									<div class="hidden-sm col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@else
-									<div class="col-sm-4 col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@endif
-							@endforeach
-						</div>
-						<div class="row slide-bottom" data-plugin-options='{"offset":50 ,"distance":10}'>
-							<div class="col-md-12 col-sm-12">
-								<div class="col-md-12 col-sm-12 col-xs-12 pt-md mb-sm text-center" style="height: 150px; background-color:#FFF;">
-									<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
-									<a href="{{route('balin.product.index')}}" class="mt-lg btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
+				<div role="tabpanel" class="tab-pane in active" id="all">
+					<div class="row">
+						@foreach($data['all']['data']['data'] as $key => $dt)
+							@if($key == (count($data['all']['data']['data']) - 1))
+								<div class="hidden-sm col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
 								</div>
-							</div>					
-						</div>
+							@else
+								<div class="col-sm-4 col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
+								</div>
+							@endif
+						@endforeach
 					</div>
-
-					<div role="tabpanel" class="tab-pane in" id="batik_man">
-						<div class="row">
-							@foreach($data['batik_pria']['data']['data'] as $key => $dt)
-								@if($key == (count($data['batik_pria']['data']['data']) - 1))
-									<div class="hidden-sm col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@else
-									<div class="col-sm-4 col-md-3 card-animate">
-										@include('web_v2.components.product.home_card', [
-											'value' => $dt
-										])
-									</div>
-								@endif
-							@endforeach
+					<div class="row slide-bottom mb-xl pb-5" data-plugin-options='{"offset":50 ,"distance":10}'>
+						<div class="col-md-12 col-sm-12 col-xs-12 text-center mt-md mb-xl bg-white">
+							<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
+							<a href="{{route('balin.product.index')}}" class="btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
 						</div>
-						<div class="row slide-bottom" data-plugin-options='{"offset":50 ,"distance":10}'>
-							<div class="col-md-12 col-sm-12">
-								<div class="col-md-12 col-sm-12 col-xs-12 pt-md mb-sm text-center" style="height: 150px; background-color:#FFF;">
-									<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
-									<a href="{{route('balin.product.index')}}" class="mt-lg btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
-								</div>
-							</div>					
-						</div>				
 					</div>
 				</div>
 
+				<div role="tabpanel" class="tab-pane in" id="batik_man">
+					<div class="row">
+						@foreach($data['batik_pria']['data']['data'] as $key => $dt)
+							@if($key == (count($data['batik_pria']['data']['data']) - 1))
+								<div class="hidden-sm col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
+								</div>
+							@else
+								<div class="col-sm-4 col-md-3 card-animate">
+									@include('web_v2.components.product.home_card', [
+										'value' => $dt
+									])
+								</div>
+							@endif
+						@endforeach
+					</div>
+					<div class="row slide-bottom mb-xl pb-5" data-plugin-options='{"offset":50 ,"distance":10}'>
+						<div class="col-md-12 col-sm-12 col-xs-12 text-center mt-md bg-white">
+							<!-- <h2 class="heading m-t-none">Suka Produk Kami? </h2> -->
+							<a href="{{route('balin.product.index')}}" class="btn btn-lg btn-white-border-black-hover-black">Lihat Semua Koleksi</a>
+						</div>					
+					</div>				
+				</div>
 			</div>
 		</section>
 	</div>
@@ -170,8 +157,8 @@
 			</div>
 			<div class="row mb-md">
 				<div class="col-md-12 text-center">
-				  	{!! HTML::image('images/banktransfer2.png','', ['class' => 'img-responsive mr-sm', 'style' => 'width: 160px']) !!}
-				  	{!! HTML::image('images/veritrans2.png','', ['class' => 'img-responsive ml-sm', 'style' => 'width: 160px']) !!}
+				  	{!! HTML::image('images/banktransfer2.png','', ['class' => 'img-responsive mr-sm slide-left', 'style' => 'width: 160px', 'data-plugin-options' => '{"reverse":false}']) !!}
+				  	{!! HTML::image('images/veritrans2.png','', ['class' => 'img-responsive ml-sm slide-left', 'style' => 'width: 160px', 'data-plugin-options' => '{"reverse":false}']) !!}
 				</div>
 			</div>
 		</div>
@@ -229,10 +216,8 @@
 	</section>
 	<div class="background-white pt-md">
 		<section class="container">
-
 			<div class="row pt-xl pb-sm">
 				<div class="col-md-12 col-sm-12 text-center">
-
 					<div class="slide-top pt-md" data-plugin-options='{"distance":20, "reverse": false}'>
 						<a href="#m_all" class="home-tab t-sm home-tab-active" aria-controls="all" role="tab" data-toggle="tab" data-tab-id="all">SEMUA PRODUK</a>
 					</div>
@@ -242,14 +227,11 @@
 					<div class="slide-top pt-md" data-plugin-options='{"distance":20, "reverse": false}'>
 						<a href="#m_batik_man" class="home-tab t-sm" aria-controls="batik_man" role="tab" data-toggle="tab" data-tab-id="batik_man">BATIK PRIA</a>
 					</div>
-
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-
 					<div class="tab-content mt-lg mb-xl">
-
 						<div role="tabpanel" class="tab-pane in" id="m_batik_woman">
 							<div class="row">
 								@foreach($data['batik_wanita']['data']['data'] as $key => $dt)
@@ -270,7 +252,6 @@
 								</div>					
 							</div>				
 						</div>
-
 						<div role="tabpanel" class="tab-pane in active" id="m_all">
 							<div class="row">
 								@foreach($data['all']['data']['data'] as $key => $dt)
@@ -292,7 +273,6 @@
 								</div>					
 							</div>
 						</div>
-
 						<div role="tabpanel" class="tab-pane in" id="m_batik_man">
 							<div class="row">
 								@foreach($data['batik_pria']['data']['data'] as $key => $dt)

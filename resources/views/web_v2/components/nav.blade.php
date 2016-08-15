@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top m-b-none" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top pt-5 pb-5 m-b-none" role="navigation">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -14,7 +14,7 @@
 				</span>
 			</a>
 			<a class="navbar-brand" href="{{ route('balin.home.index') }}">
-				{!! HTML::image('images/logo-transparent-small.png', null, ['class' => 'img-responsive']) !!}
+				{!! HTML::image('images/logo-b.png', null, ['class' => 'img-responsive']) !!}
 			</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->

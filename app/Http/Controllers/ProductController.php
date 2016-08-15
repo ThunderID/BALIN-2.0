@@ -4,7 +4,7 @@ use App\API\Connectors\APIProduct;
 use App\API\Connectors\APITag;
 use App\API\Connectors\APICategory;
 
-use Response, Input, Collection, Session, BalinMail;
+use Response, Input, Collection, Session, BalinMail, Route;
 
 /**
  * Used for Product Controller
@@ -185,14 +185,25 @@ class ProductController extends BaseController
 		$this->paginate(route('balin.product.index'), $product['data']['count'], $page);
 
 		//5. Generate breadcrumb
-		$breadcrumb									= 	[
-															'Produk' => route('balin.product.index')
-														];
+		if (is_null(Input::get('page')))
+		{
+			$breadcrumb									= 	[
+																'Produk' => route('balin.product.index')
+															];
+		}
+		else
+		{
+			$breadcrumb									= 	[
+																'Produk' => route('balin.product.index'),
+																'Page ' . Input::get('page') => route('balin.product.index', ['page' => Input::get('page')])
+															];
+		}
+
 		$this->page_attributes->breadcrumb			= array_merge($this->page_attributes->breadcrumb, $breadcrumb);
 
 		//6. Generate view
 		$this->page_attributes->search 				= $searchresult;
-		$this->page_attributes->subtitle 			= 'Produk Batik Modern';
+		$this->page_attributes->subtitle 			= 'Page ' . (is_null(Input::get('page')) ? '' : Input::get('page')) . ' - Produk Batik Modern';
 		$this->page_attributes->controller_name 	= $this->controller_name;
 		$this->page_attributes->data				= 	[
 															'product' 	=> $product,

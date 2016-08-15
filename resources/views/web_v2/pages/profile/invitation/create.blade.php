@@ -7,8 +7,7 @@
 			{!! Form::hidden('to', Route::currentRouteName(), ['class' => 'from_route']) !!}
 			<div class="row mb-sm">
 				<div class="col-md-12 mb-md">
-					<select name="emails" class="select_tag_email" tabindex="1" style="width:100%" multiple="true">
-					</select>
+					<!-- <select name="emails" class="select_tag_email" tabindex="1" style="width:100%" multiple="true" required> -->
 				</div>
 			</div>
 			<div class="row">
